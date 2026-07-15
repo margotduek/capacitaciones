@@ -1,0 +1,27 @@
+Cliente,Factura,Fecha Emision,Fecha Vencimiento,Monto,Estatus
+Abarrotes La Esquina,F-2600,2026-03-13,2026-03-28,15200,Pagado
+Abarrotes La Esquina,F-2601,2026-05-02,2026-06-01,73500,Pagado
+Grupo Salinas SA,F-2602,2026-04-14,2026-04-20,128000,Pendiente
+Restaurante Don Pepe,F-2603,2026-04-02,2026-05-02,15200,Pendiente
+Autopartes Norte,F-2604,2026-05-19,2026-06-03,33400,Pendiente
+Distribuidora Andrade,F-2605,2026-03-02,2026-04-01,42000,Pendiente
+Constructora Vega,F-2606,2026-03-18,2026-04-02,33400,Pendiente
+Restaurante Don Pepe,F-2607,2026-05-06,2026-05-21,33400,Pendiente
+Abarrotes La Esquina,F-2608,2026-03-18,2026-04-02,33400,Pagado
+Clinica Santa Fe,F-2609,2026-03-16,2026-04-05,73500,Pendiente
+Papeleria Central,F-2610,2026-05-15,2026-06-29,5600,Pendiente
+Comercial El Roble,F-2611,2026-05-25,2026-06-24,15200,Pendiente
+Restaurante Don Pepe,F-2612,2026-04-11,2026-05-11,5600,Pagado
+Grupo Salinas SA,F-2613,2026-05-14,2026-06-13,128000,Pendiente
+Papeleria Central,F-2614,2026-04-02,2026-05-10,56000,Pendiente
+Abarrotes La Esquina,F-2615,2026-05-12,2026-06-11,9800,Pendiente
+Grupo Salinas SA,F-2616,2026-03-09,2026-04-08,15200,Pagado
+Boutique Aurora,F-2617,2026-05-10,2026-06-09,9800,Pendiente
+Boutique Aurora,F-2618,2026-04-22,2026-06-06,8500,Pendiente
+Abarrotes La Esquina,F-2619,2026-03-20,2026-04-04,9800,Pagado
+Ferreteria Lopez,F-2620,2026-04-05,2026-05-05,21000,
+Papeleria Central,F-2621,2026-03-06,2026-04-05,21000,Pendiente
+Comercial El Roble,F-2622,2026-04-28,2026-05-28,5600,Pendiente
+Abarrotes La Esquina,F-2623,2026-05-13,2026-06-12,42000,Pagado
+Comercial El Roble,F-2624,2026-03-08,2026-04-07,8500,Pendiente
+Clinica Santa Fe,F-2625,2026-03-09,2026-04-23,8500,Pendiente

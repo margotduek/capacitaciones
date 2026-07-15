@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TRiAGE · Dashboard de Ventas · Mayo 2026</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  :root{
+    --bg:#0d1117; --panel:#161b22; --panel2:#1c2330; --line:#2a313c;
+    --txt:#e6edf3; --muted:#8b949e; --accent:#3fb6a8; --accent2:#5aa9e6;
+    --good:#3fb950; --warn:#d29922; --bad:#f85149; --purple:#a371f7;
+    --shadow:0 8px 30px rgba(0,0,0,.35);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.5;padding:28px 20px 60px}
+  .wrap{max-width:1240px;margin:0 auto}
+  header.top{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:6px}
+  h1{font-size:26px;font-weight:700;letter-spacing:-.4px}
+  h1 .accent{color:var(--accent)}
+  .sub{color:var(--muted);font-size:13.5px;margin-top:2px}
+  .badge{background:var(--panel2);border:1px solid var(--line);border-radius:20px;padding:6px 14px;font-size:12.5px;color:var(--muted)}
+  .filters{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:22px 0 6px}
+  .filters label{font-size:12px;color:var(--muted);margin-right:4px}
+  select{background:var(--panel2);color:var(--txt);border:1px solid var(--line);border-radius:8px;padding:8px 12px;font-size:13px;cursor:pointer}
+  select:focus{outline:none;border-color:var(--accent)}
+  .reset{background:transparent;border:1px solid var(--line);color:var(--muted);border-radius:8px;padding:8px 12px;font-size:12.5px;cursor:pointer}
+  .reset:hover{color:var(--txt);border-color:var(--accent)}
+  .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:18px 0 8px}
+  .kpi{background:linear-gradient(160deg,var(--panel),var(--panel2));border:1px solid var(--line);border-radius:14px;padding:18px 18px 16px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+  .kpi .k-label{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
+  .kpi .k-val{font-size:27px;font-weight:700;margin-top:6px;letter-spacing:-.5px}
+  .kpi .k-note{font-size:12.5px;margin-top:6px;color:var(--muted)}
+  .k-note.up{color:var(--good)} .k-note.down{color:var(--bad)}
+  .kpi .strip{position:absolute;left:0;top:0;bottom:0;width:4px}
+  .grid{display:grid;gap:16px;margin-top:18px}
+  .g2{grid-template-columns:1fr 1fr}
+  .g12{grid-template-columns:1.35fr 1fr}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px 20px;box-shadow:var(--shadow)}
+  .card h2{font-size:15.5px;font-weight:650;margin-bottom:2px}
+  .card .desc{font-size:12.5px;color:var(--muted);margin-bottom:14px}
+  .chart-box{position:relative;height:300px}
+  .chart-box.tall{height:340px}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th,td{text-align:right;padding:9px 10px;border-bottom:1px solid var(--line)}
+  th:first-child,td:first-child{text-align:left}
+  th{color:var(--muted);font-weight:600;font-size:11.5px;text-transform:uppercase;letter-spacing:.4px;cursor:pointer;user-select:none}
+  th:hover{color:var(--txt)}
+  tbody tr:hover{background:var(--panel2)}
+  .pill{display:inline-block;padding:2px 9px;border-radius:12px;font-size:11.5px;font-weight:600}
+  .pill.good{background:rgba(63,185,80,.15);color:var(--good)}
+  .pill.warn{background:rgba(210,153,34,.15);color:var(--warn)}
+  .pill.bad{background:rgba(248,81,73,.15);color:var(--bad)}
+  .bar-cell{position:relative}
+  .mini{font-size:11px;color:var(--muted)}
+  .insight{background:rgba(63,182,168,.07);border-left:3px solid var(--accent);border-radius:8px;padding:12px 14px;font-size:13px;color:var(--txt);margin-top:14px}
+  .insight b{color:var(--accent)}
+  .alert{background:rgba(248,81,73,.08);border-left:3px solid var(--bad);border-radius:8px;padding:12px 14px;font-size:13px;margin-top:14px}
+  .alert b{color:var(--bad)}
+  footer{margin-top:34px;color:var(--muted);font-size:12px;text-align:center}
+  @media(max-width:900px){.kpis{grid-template-columns:1fr 1fr}.g2,.g12{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div>
+      <h1><span class="accent">TRiAGE</span> · Reporte de Ventas</h1>
+      <div class="sub">Mayo 2026 · cruce de ventas, vendedores, producto, sucursal y cobranza</div>
+    </div>
+    <div class="badge">Fuente: archivos limpios · corte 23 jun 2026</div>
+  </header>
+
+  <div class="filters">
+    <div><label>Vendedor</label>
+      <select id="fVend"><option value="all">Todos</option></select></div>
+    <div><label>Sucursal</label>
+      <select id="fSuc"><option value="all">Todas</option></select></div>
+    <button class="reset" id="reset">Limpiar filtros</button>
+    <span class="mini" id="filterNote"></span>
+  </div>
+
+  <section class="kpis" id="kpis"></section>
+
+  <div class="grid g12">
+    <div class="card">
+      <h2>Ventas por vendedor · Abril vs Mayo</h2>
+      <div class="desc">Barras comparativas. Cifras oficiales del archivo de comisiones.</div>
+      <div class="chart-box tall"><canvas id="chVend"></canvas></div>
+    </div>
+    <div class="card">
+      <h2>Mix de producto</h2>
+      <div class="desc">Participación en ingresos del periodo filtrado.</div>
+      <div class="chart-box tall"><canvas id="chProd"></canvas></div>
+      <div class="insight" id="prodInsight"></div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:16px">
+    <h2>Tabla de vendedores</h2>
+    <div class="desc">Clic en los encabezados para ordenar. Comisión = Ventas Mayo × % comisión.</div>
+    <table id="tblVend">
+      <thead><tr>
+        <th data-k="vend">Vendedor</th>
+        <th data-k="abril">Abril</th>
+        <th data-k="mayo">Mayo</th>
+        <th data-k="var">Δ vs Abril</th>
+        <th data-k="meta">% Meta</th>
+        <th data-k="com">Comisión</th>
+      </tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <div class="grid g2" style="margin-top:16px">
+    <div class="card">
+      <h2>Ventas por sucursal</h2>
+      <div class="desc">Dónde se concentra el ingreso.</div>
+      <div class="chart-box"><canvas id="chSuc"></canvas></div>
+    </div>
+    <div class="card">
+      <h2>Ritmo de ventas del mes</h2>
+      <div class="desc">Monto vendido por día (detalle limpio).</div>
+      <div class="chart-box"><canvas id="chDia"></canvas></div>
+    </div>
+  </div>
+
+  <div class="grid g12" style="margin-top:16px">
+    <div class="card">
+      <h2>Estado de cobranza</h2>
+      <div class="desc">De lo facturado, cuánto entró y cuánto está en riesgo.</div>
+      <div class="chart-box"><canvas id="chCob"></canvas></div>
+      <div class="alert" id="cobAlert"></div>
+    </div>
+    <div class="card">
+      <h2>Deudores vencidos</h2>
+      <div class="desc">Ordenados por monto vencido. No filtra por vendedor/sucursal.</div>
+      <table id="tblCob">
+        <thead><tr><th>Cliente</th><th>Vencido</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+
+  <footer>Generado con datos de mayo 2026 · TRiAGE · Las cifras por vendedor provienen del archivo oficial de comisiones; el detalle reconcilia al 99.8%.</footer>
+</div>
+
+<script>
+const DATA = {
+  kpi:{ mayo:2853580, abril:3083890, comision:115151.35,
+        facturado:851100, cobrado:194700, pendiente:656400, vencido:635600 },
+  vendedores:[
+    {vend:"Juan Pérez", suc:"Guadalajara", meta:250000, abril:759152, mayo:711150, com:21334.5},
+    {vend:"Sofía Martínez", suc:"Monterrey", meta:200000, abril:564755, mayo:532440, com:31946.4},
+    {vend:"María López", suc:"CDMX", meta:300000, abril:507115, mayo:516740, com:25837},
+    {vend:"Ana Torres", suc:"CDMX", meta:220000, abril:776683, mayo:466010, com:11650.25},
+    {vend:"Luis Gómez", suc:"Guadalajara", meta:260000, abril:232885, mayo:384260, com:13449.1},
+    {vend:"Carlos Ruiz", suc:"Monterrey", meta:280000, abril:243300, mayo:242980, com:10934.1}
+  ],
+  vendProd:{"Juan Pérez":{"Monitor 27\"":161200,"Mouse Inalámbrico":11160,"Laptop Pro 14":490000,"Webcam HD":16520,"Teclado Mecánico":27550},"Carlos Ruiz":{"Webcam HD":21240,"Mouse Inalámbrico":7440,"Teclado Mecánico":17400,"Laptop Pro 14":122500,"Monitor 27\"":74400},"Ana Torres":{"Teclado Mecánico":27550,"Mouse Inalámbrico":14880,"Laptop Pro 14":367500,"Monitor 27\"":37200,"Webcam HD":18880},"Sofía Martínez":{"Webcam HD":17700,"Teclado Mecánico":31900,"Laptop Pro 14":416500,"Monitor 27\"":62000,"Mouse Inalámbrico":4340},"María López":{"Teclado Mecánico":8700,"Mouse Inalámbrico":6820,"Monitor 27\"":68200,"Webcam HD":16520,"Laptop Pro 14":416500},"Luis Gómez":{"Mouse Inalámbrico":6820,"Monitor 27\"":68200,"Teclado Mecánico":5800,"Laptop Pro 14":294000,"Webcam HD":9440}},
+  vendSuc:{"Juan Pérez":{"CDMX":248600,"Guadalajara":416970,"Monterrey":40860},"Carlos Ruiz":{"Guadalajara":27620,"Monterrey":56640,"CDMX":158720},"Ana Torres":{"Guadalajara":368750,"CDMX":81180,"Monterrey":16080},"Sofía Martínez":{"Monterrey":19840,"CDMX":273060,"Guadalajara":239540},"María López":{"Monterrey":160600,"Guadalajara":51660,"CDMX":304480},"Luis Gómez":{"Monterrey":183160,"CDMX":40240,"Guadalajara":160860}},
+  diario:{"1":30700,"2":5530,"3":79340,"4":2360,"5":158800,"6":174340,"7":79640,"8":92620,"9":332470,"10":107520,"11":103800,"12":8380,"13":37580,"14":229820,"15":6820,"16":228480,"17":10180,"18":13530,"19":345480,"20":40300,"21":27600,"22":290630,"23":76860,"24":10790,"25":140940,"26":6200,"27":100360,"28":14900,"29":6850,"30":6640,"31":79400},
+  cobranza:[
+    {cli:"Grupo Salinas SA",v:256000},{cli:"Clínica Santa Fe",v:82000},
+    {cli:"Papelería Central",v:77000},{cli:"Restaurante Don Pepe",v:48600},
+    {cli:"Distribuidora Andrade",v:42000},{cli:"Autopartes Norte",v:33400},
+    {cli:"Constructora Vega",v:33400},{cli:"Ferretería López",v:21000},
+    {cli:"Boutique Aurora",v:18300},{cli:"Comercial El Roble",v:14100},
+    {cli:"Abarrotes La Esquina",v:9800}
+  ]
+};
+const PRODS=["Laptop Pro 14","Monitor 27\"","Teclado Mecánico","Webcam HD","Mouse Inalámbrico"];
+const SUCS=["Guadalajara","CDMX","Monterrey"];
+const PALETTE={"Laptop Pro 14":"#3fb6a8","Monitor 27\"":"#5aa9e6","Teclado Mecánico":"#a371f7","Webcam HD":"#d29922","Mouse Inalámbrico":"#f85149"};
+const SUCCOL={"Guadalajara":"#3fb6a8","CDMX":"#5aa9e6","Monterrey":"#a371f7"};
+
+const fmt=n=>"$"+Math.round(n).toLocaleString("es-MX");
+const fmtK=n=>"$"+(n/1000).toFixed(0)+"k";
+const pct=n=>(n*100).toFixed(1)+"%";
+Chart.defaults.color="#8b949e";
+Chart.defaults.font.family="-apple-system,Segoe UI,Roboto,sans-serif";
+Chart.defaults.font.size=12;
+
+let state={vend:"all",suc:"all"};
+let charts={};
+
+// ---- populate filters
+const fVend=document.getElementById("fVend"), fSuc=document.getElementById("fSuc");
+DATA.vendedores.map(v=>v.vend).forEach(v=>fVend.add(new Option(v,v)));
+SUCS.forEach(s=>fSuc.add(new Option(s,s)));
+
+// ---- helpers to compute filtered values
+function vendorRows(){
+  return DATA.vendedores.filter(v=> state.vend==="all"||v.vend===state.vend);
+}
+function prodTotals(){
+  const t={}; PRODS.forEach(p=>t[p]=0);
+  Object.entries(DATA.vendProd).forEach(([vend,ps])=>{
+    if(state.vend!=="all" && vend!==state.vend) return;
+    Object.entries(ps).forEach(([p,val])=>{ t[p]+=val; });
+  });
+  // suc filter not available at product granularity -> scale by suc share of vendor
+  return t;
+}
+function sucTotals(){
+  const t={}; SUCS.forEach(s=>t[s]=0);
+  Object.entries(DATA.vendSuc).forEach(([vend,ss])=>{
+    if(state.vend!=="all" && vend!==state.vend) return;
+    Object.entries(ss).forEach(([s,val])=>{
+      if(state.suc!=="all" && s!==state.suc) return;
+      t[s]+=val;
+    });
+  });
+  return t;
+}
+// mayo total respecting both filters (from detail cross)
+function mayoDetalle(){
+  let tot=0;
+  Object.entries(DATA.vendSuc).forEach(([vend,ss])=>{
+    if(state.vend!=="all" && vend!==state.vend) return;
+    Object.entries(ss).forEach(([s,val])=>{
+      if(state.suc!=="all" && s!==state.suc) return; tot+=val;
+    });
+  });
+  return tot;
+}
+
+// ---- KPIs
+function renderKPIs(){
+  const k=DATA.kpi;
+  const varAbs=k.mayo-k.abril, varPct=varAbs/k.abril;
+  const rows=vendorRows();
+  const filtered = state.vend!=="all"||state.suc!=="all";
+  let mayoShown, sub;
+  if(filtered){ mayoShown=mayoDetalle(); sub="filtrado (detalle)"; }
+  else { mayoShown=k.mayo; sub=""; }
+  const comShown = rows.reduce((a,v)=>a+v.com,0)*(filtered && state.vend==="all"?1:1);
+  const comFiltered = state.vend==="all"? k.comision : rows.reduce((a,v)=>a+v.com,0);
+  const cobradoPct=k.cobrado/k.facturado, vencidoPct=k.vencido/k.facturado;
+  const kpis=[
+    {label:"Ventas Mayo", val:fmt(mayoShown), strip:"var(--accent)",
+     note:(filtered?sub:(varPct>=0?"▲ ":"▼ ")+pct(Math.abs(varPct))+" vs Abril"),
+     cls:filtered?"":(varPct>=0?"up":"down")},
+    {label:"Meta del periodo", val:pct(cumplMeta()), strip:"var(--good)",
+     note:"cumplimiento agregado", cls:""},
+    {label:"Comisiones a pagar", val:fmt(comFiltered), strip:"var(--purple)",
+     note:state.vend==="all"?"6 vendedores":state.vend, cls:""},
+    {label:"Cobranza vencida", val:fmt(k.vencido), strip:"var(--bad)",
+     note:pct(vencidoPct)+" de lo facturado", cls:"down"}
+  ];
+  document.getElementById("kpis").innerHTML=kpis.map(x=>`
+    <div class="kpi"><div class="strip" style="background:${x.strip}"></div>
+      <div class="k-label">${x.label}</div>
+      <div class="k-val">${x.val}</div>
+      <div class="k-note ${x.cls}">${x.note}</div>
+    </div>`).join("");
+}
+function cumplMeta(){
+  const rows=vendorRows();
+  const meta=rows.reduce((a,v)=>a+v.meta,0);
+  const mayo=rows.reduce((a,v)=>a+v.mayo,0);
+  return meta? mayo/meta : 0;
+}
+
+// ---- Vendedores bar chart
+function renderVend(){
+  const rows=[...DATA.vendedores].sort((a,b)=>b.mayo-a.mayo);
+  const labels=rows.map(r=>r.vend);
+  const highlight = state.vend;
+  const cfgColor=(base)=>rows.map(r=> highlight==="all"||r.vend===highlight? base : base+"33");
+  charts.vend?.destroy();
+  charts.vend=new Chart(document.getElementById("chVend"),{
+    type:"bar",
+    data:{labels,datasets:[
+      {label:"Abril",data:rows.map(r=>r.abril),backgroundColor:cfgColor("#3a4453"),borderRadius:4},
+      {label:"Mayo",data:rows.map(r=>r.mayo),backgroundColor:cfgColor("#3fb6a8"),borderRadius:4}
+    ]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{position:"top"},tooltip:{callbacks:{label:c=>c.dataset.label+": "+fmt(c.raw)}}},
+      scales:{y:{ticks:{callback:v=>fmtK(v)},grid:{color:"#212832"}},x:{grid:{display:false}}}}
+  });
+}
+
+// ---- Producto doughnut
+function renderProd(){
+  const t=prodTotals();
+  const labels=PRODS, vals=labels.map(p=>t[p]);
+  const total=vals.reduce((a,b)=>a+b,0)||1;
+  charts.prod?.destroy();
+  charts.prod=new Chart(document.getElementById("chProd"),{
+    type:"doughnut",
+    data:{labels,datasets:[{data:vals,backgroundColor:labels.map(p=>PALETTE[p]),borderColor:"#161b22",borderWidth:2}]},
+    options:{responsive:true,maintainAspectRatio:false,cutout:"58%",
+      plugins:{legend:{position:"bottom",labels:{boxWidth:12,padding:10}},
+        tooltip:{callbacks:{label:c=>c.label+": "+fmt(c.raw)+" ("+pct(c.raw/total)+")"}}}}
+  });
+  const top=labels[vals.indexOf(Math.max(...vals))];
+  const share=Math.max(...vals)/total;
+  document.getElementById("prodInsight").innerHTML=
+    `<b>${top}</b> concentra el <b>${pct(share)}</b> de los ingresos${state.vend==="all"?"":" de "+state.vend}. Alta dependencia de un solo producto.`;
+}
+
+// ---- Sucursal bar
+function renderSuc(){
+  const t=sucTotals();
+  const labels=SUCS, vals=labels.map(s=>t[s]);
+  charts.suc?.destroy();
+  charts.suc=new Chart(document.getElementById("chSuc"),{
+    type:"bar",
+    data:{labels,datasets:[{data:vals,backgroundColor:labels.map(s=>SUCCOL[s]),borderRadius:5}]},
+    options:{responsive:true,maintainAspectRatio:false,indexAxis:"y",
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>fmt(c.raw)}}},
+      scales:{x:{ticks:{callback:v=>fmtK(v)},grid:{color:"#212832"}},y:{grid:{display:false}}}}
+  });
+}
+
+// ---- Diario line
+function renderDia(){
+  const labels=Object.keys(DATA.diario);
+  charts.dia?.destroy();
+  charts.dia=new Chart(document.getElementById("chDia"),{
+    type:"line",
+    data:{labels,datasets:[{data:Object.values(DATA.diario),borderColor:"#5aa9e6",
+      backgroundColor:"rgba(90,169,230,.12)",fill:true,tension:.35,pointRadius:0,borderWidth:2}]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{callbacks:{title:c=>"Día "+c[0].label,label:c=>fmt(c.raw)}}},
+      scales:{y:{ticks:{callback:v=>fmtK(v)},grid:{color:"#212832"}},x:{grid:{display:false},ticks:{maxTicksLimit:12}}}}
+  });
+}
+
+// ---- Cobranza
+function renderCob(){
+  const k=DATA.kpi;
+  charts.cob?.destroy();
+  charts.cob=new Chart(document.getElementById("chCob"),{
+    type:"doughnut",
+    data:{labels:["Cobrado","Pendiente (por vencer)","Vencido"],
+      datasets:[{data:[k.cobrado,k.pendiente-k.vencido,k.vencido],
+        backgroundColor:["#3fb950","#d29922","#f85149"],borderColor:"#161b22",borderWidth:2}]},
+    options:{responsive:true,maintainAspectRatio:false,cutout:"60%",
+      plugins:{legend:{position:"bottom",labels:{boxWidth:12,padding:10}},
+        tooltip:{callbacks:{label:c=>c.label+": "+fmt(c.raw)+" ("+pct(c.raw/k.facturado)+")"}}}}
+  });
+  document.getElementById("cobAlert").innerHTML=
+    `<b>Alerta:</b> ${pct(k.vencido/k.facturado)} de lo facturado (${fmt(k.vencido)}) está vencido. Solo se cobró ${pct(k.cobrado/k.facturado)}. Grupo Salinas concentra ${fmt(256000)}.`;
+}
+
+// ---- Tabla vendedores
+let sortK="mayo", sortDir=-1;
+function renderTblVend(){
+  const rows=[...DATA.vendedores].map(v=>({...v,
+    varAbs:v.mayo-v.abril, varPct:(v.mayo-v.abril)/v.abril, metaPct:v.mayo/v.meta}));
+  const keymap={vend:"vend",abril:"abril",mayo:"mayo",var:"varPct",meta:"metaPct",com:"com"};
+  const k=keymap[sortK];
+  rows.sort((a,b)=> (a[k]>b[k]?1:a[k]<b[k]?-1:0)*sortDir);
+  const tb=document.querySelector("#tblVend tbody");
+  tb.innerHTML=rows.map(r=>{
+    const hl = state.vend!=="all"&&r.vend===state.vend? "background:var(--panel2)":"";
+    const vcls=r.varPct>=0?"good":"bad";
+    const vsign=r.varPct>=0?"▲":"▼";
+    const mcls=r.metaPct>=1?"good":(r.metaPct>=.9?"warn":"bad");
+    return `<tr style="${hl}">
+      <td>${r.vend}<div class="mini">${r.suc}</div></td>
+      <td>${fmt(r.abril)}</td>
+      <td><b>${fmt(r.mayo)}</b></td>
+      <td><span class="pill ${vcls}">${vsign} ${pct(Math.abs(r.varPct))}</span></td>
+      <td><span class="pill ${mcls}">${pct(r.metaPct)}</span></td>
+      <td>${fmt(r.com)}</td>
+    </tr>`;
+  }).join("");
+}
+document.querySelectorAll("#tblVend th").forEach(th=>{
+  th.addEventListener("click",()=>{
+    const k=th.dataset.k;
+    if(sortK===k) sortDir*=-1; else {sortK=k;sortDir=(k==="vend")?1:-1;}
+    renderTblVend();
+  });
+});
+
+// ---- Tabla cobranza
+function renderTblCob(){
+  const tb=document.querySelector("#tblCob tbody");
+  tb.innerHTML=DATA.cobranza.map(c=>{
+    const big=c.v>=70000?"bad":c.v>=30000?"warn":"good";
+    return `<tr><td>${c.cli}</td><td><span class="pill ${big}">${fmt(c.v)}</span></td></tr>`;
+  }).join("");
+}
+
+function filterNote(){
+  const parts=[];
+  if(state.vend!=="all")parts.push(state.vend);
+  if(state.suc!=="all")parts.push(state.suc);
+  document.getElementById("filterNote").textContent=parts.length?"Mostrando: "+parts.join(" · "):"";
+}
+
+function renderAll(){
+  renderKPIs();renderVend();renderProd();renderSuc();renderDia();renderCob();
+  renderTblVend();renderTblCob();filterNote();
+}
+fVend.addEventListener("change",e=>{state.vend=e.target.value;renderAll();});
+fSuc.addEventListener("change",e=>{state.suc=e.target.value;renderAll();});
+document.getElementById("reset").addEventListener("click",()=>{
+  state={vend:"all",suc:"all"};fVend.value="all";fSuc.value="all";renderAll();
+});
+renderAll();
+</script>
+</body>
+</html>
