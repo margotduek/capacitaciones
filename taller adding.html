@@ -135,6 +135,9 @@
   .yn ul{margin:0;padding-left:18px}.yn li{margin:6px 0;font-size:14.5px}
   .quote{background:var(--surface);border-left:4px solid var(--accent);border-radius:12px;padding:16px 20px;font-size:16px;font-style:italic;box-shadow:var(--shadow-sm);margin:6px 0}
   .quote span{display:block;font-style:normal;font-weight:700;color:var(--accent);font-size:13px;margin-top:8px}
+  .vars{margin:-2px 0 14px;padding:11px 15px;background:var(--bg-soft);border-radius:10px;font-size:13px}
+  .vars div{margin:3px 0}
+  .vars code{color:var(--accent);font-weight:700;font-family:"SF Mono",Menlo,Consolas,monospace}
   @media(max-width:640px){.hero h1{font-size:34px}.mit b{font-size:42px}.yesno{grid-template-columns:1fr}}
 </style>
 </head>
@@ -371,9 +374,15 @@
 
     <div class="sub">
       <div class="sh"><span class="sn">5.2</span><h4>Análisis de competencia de tu negocio</h4></div>
-      <p class="obj"><b>Objetivo:</b> investigar a tu competencia en Google y en sus propios sitios, y encontrar tu diferenciador.</p>
-      <div class="prompt">Entra al sitio de mi competidor [URL] y analízalo: su propuesta de valor, sus precios, su posicionamiento y qué dicen sus clientes. Dime en qué me puedo diferenciar yo con mi negocio de [describe tu negocio].<button class="copy">Copiar</button></div>
-      <div class="prompt">Busca en Google a mis competidores de [industria] en [ciudad o región] y hazme un cuadro comparativo: nombre, qué ofrecen, rango de precios, y su gancho principal. Termina con tres huecos de mercado que yo podría atacar.<button class="copy">Copiar</button></div>
+      <p class="obj"><b>Objetivo:</b> que Claude investigue en internet los precios y el posicionamiento de tu competencia, para decidir cuánto cobrar y en qué diferenciarte.</p>
+      <div class="prompt">Busca en internet al menos 10 [negocios como el mío] y dime cuánto cobran por [mi servicio]. Hazme un comparativo de precios y dime en qué rango debería poner el mío para ser competitivo sin regalarme.
+
+[negocios como el mío] = agencias que hacen páginas web
+[mi servicio] = páginas web<button class="copy">Copiar</button></div>
+      <div class="prompt">Busca en Google a mis competidores de [industria] en [ciudad o región] y hazme un cuadro comparativo: nombre, qué ofrecen, rango de precios, y su gancho principal. Termina con tres huecos de mercado que yo podría atacar.
+
+[industria] = páginas web
+[ciudad o región] = Latinoamérica<button class="copy">Copiar</button></div>
     </div>
   </div>
 </section>
