@@ -235,7 +235,7 @@
       <a class="agenda-item" href="#m3"><div class="ico">📁</div><div class="t">Claude 101<small>carpetas y tu computadora</small></div></a>
       <a class="agenda-item" href="#m4"><div class="ico">📊</div><div class="t">Conciliación de tus Exceles<small>preguntar, organizar, dashboard, presentación</small></div></a>
       <a class="agenda-item" href="#m5"><div class="ico">📄</div><div class="t">Filtrado de CVs<small>reclutamiento sin sesgos</small></div></a>
-      <a class="agenda-item" href="#m6"><div class="ico">⚙️</div><div class="t">Uso dentro de Claude<small>correos y Shopify</small></div></a>
+      <a class="agenda-item" href="#m6"><div class="ico">⚙️</div><div class="t">Uso dentro de Claude<small>correos y tu tienda Odoo</small></div></a>
       <a class="agenda-item" href="#m7"><div class="ico">⏰</div><div class="t">Niñera y tareas programadas</div></a>
       <a class="agenda-item" href="#m8"><div class="ico">🗺️</div><div class="t">Cierre · Mapa de oportunidades</div></a>
     </div>
@@ -321,7 +321,7 @@ If no date is known, use [unknown] instead.
       <p class="obj"><b>Objetivo:</b> saber dónde encontrarlos y activarlos.</p>
       <ol class="steps">
         <li>Entra a <b>Configuración → Conectores</b>, directo desde tu perfil.</li>
-        <li>Activa los que te sirven: <b>Gmail, Drive, Calendar, Shopify</b>.</li>
+        <li>Activa los que te sirven: <b>Gmail, Drive, Calendar</b>.</li>
       </ol>
     </div>
 
@@ -434,7 +434,7 @@ Tono: casual, cercano y motivacional, con orgullo por los ingredientes mexicanos
 <section class="module" id="m6">
   <div class="wrap">
     <div class="head"><div class="mico">⚙️</div><div><div class="badge">MÓDULO 06</div><h3>Uso dentro de Claude <span style="display:inline-block;margin-left:6px;padding:2px 8px;border-radius:999px;background:#f59e0b;color:#111;font-size:11px;font-weight:800;vertical-align:middle">⭐ PLAN DE PAGA</span></h3></div></div>
-    <p class="lead">Lo que vive dentro de Claude conectado a tus herramientas del día a día. Los conectores (Gmail, Shopify) son plan de paga.</p>
+    <p class="lead">Lo que vive dentro de Claude conectado a tus herramientas del día a día. Los conectores (Gmail, Calendar) son plan de paga.</p>
     <div class="note" style="border-left:4px solid #16a34a"><b>🆓 Alternativa gratis:</b> para el triaje, <b>copia y pega el texto de un correo</b> (o varios) en el chat y pídele que lo clasifique y te redacte la respuesta. Mismo resultado, sin conectar nada.</div>
 
     <div class="sub">
@@ -444,16 +444,12 @@ Tono: casual, cercano y motivacional, con orgullo por los ingredientes mexicanos
     </div>
 
     <div class="sub">
-      <div class="sh"><span class="sn">6.2</span><h4>Conexión con Shopify</h4></div>
-      <p class="obj"><b>Objetivo:</b> operar Shopify desde Claude sin entrar a la plataforma.</p>
-      <ol class="steps">
-        <li>Entra a <b>tu perfil → Configuración → Conectores</b>.</li>
-        <li>Activa <b>Shopify</b> y conéctalo a tu tienda.</li>
-      </ol>
-      <div class="pl">Prompts</div>
-      <div class="prompt">Créame un código de descuento del 20% para el Buen Fin.<button class="copy">Copiar</button></div>
-      <div class="prompt">Dime cuántas ventas tuvimos con el código [CÓDIGO] y el total facturado con él.<button class="copy">Copiar</button></div>
-      <div class="prompt">Dame tres datos de mi tienda: el producto más vendido del año, el más vendido de este mes, y el menos vendido de todos los tiempos.<button class="copy">Copiar</button></div>
+      <div class="sh"><span class="sn">6.2</span><h4>Tu tienda en Odoo</h4></div>
+      <p class="obj"><b>Objetivo:</b> sacarle provecho a los datos de tu tienda sin depender de un conector.</p>
+      <div class="note" style="border-left:4px solid #16a34a"><b>🆓 Cómo lo hacemos en Susalia:</b> tu tienda vive en <b>Odoo</b>, que todavía no tiene conector nativo en Claude. Pero Odoo <b>exporta a Excel/CSV</b> cualquier reporte (ventas, productos, pedidos). Exporta lo que quieras analizar y trabájalo como en el <b>Módulo 4</b>: lo subes al chat y le preguntas o le pides el dashboard. Mismo poder, gratis.</div>
+      <div class="pl">Prompts (con tu export de Odoo subido al chat)</div>
+      <div class="prompt">Con este export de ventas de Odoo, dime tres cosas: el producto más vendido del año, el más vendido de este mes, y el menos vendido de todos los tiempos.<button class="copy">Copiar</button></div>
+      <div class="prompt">Con este export, dime cuántas ventas tuvimos con el código de descuento [CÓDIGO] y el total facturado con él.<button class="copy">Copiar</button></div>
     </div>
   </div>
 </section>
