@@ -160,7 +160,7 @@
     <a href="#m1">Conocer Claude</a>
     <a href="#m2">Claude 101</a>
     <a href="#m3">Tu Excel</a>
-    <a href="#m4">Shopify</a>
+    <a href="#m4">E-commerce</a>
     <a href="#s2">Sesión 2</a>
     <a href="#m5">Claude en Chrome</a>
     <a href="#m6">Correos</a>
@@ -330,7 +330,7 @@
       <p class="obj"><b>¿Qué es un conector?</b> Es un puente para que Claude se meta a tus otras apps (tu correo, tu Drive, tu tienda) y trabaje ahí por ti. <b>Objetivo:</b> saber dónde viven y cómo se activan, para cuando tengas plan de paga.</p>
       <ol class="steps">
         <li>Entra a <b>Configuración → Conectores</b>, directo desde tu perfil.</li>
-        <li>Activa los que te sirven: <b>Gmail, Drive, Calendar, Shopify</b>.</li>
+        <li>Activa los que te sirven: <b>Gmail, Drive, Calendar</b>, y el de tu tienda si vendes en línea.</li>
       </ol>
     </div>
 
@@ -432,17 +432,58 @@ Cierra con un resumen de cuánto dinero está en juego en cada hallazgo.<button 
 <!-- MODULO 4 -->
 <section class="module" id="m4">
   <div class="wrap">
-    <div class="head"><div class="mico">🛒</div><div><div class="badge">MÓDULO 04</div><h3>Conexión con Shopify <span style="display:inline-block;margin-left:6px;padding:2px 8px;border-radius:999px;background:#f59e0b;color:#111;font-size:11px;font-weight:800;vertical-align:middle">⭐ PLAN DE PAGA</span></h3></div></div>
-    <p class="lead">Si tu tienda es Shopify, opérala desde Claude sin entrar a la plataforma: crear descuentos, ver qué se vende más, etc. Usa conector, así que es plan de paga — se los muestro en vivo para cuando den el salto.</p>
+    <div class="head"><div class="mico">🛒</div><div><div class="badge">MÓDULO 04</div><h3>E-commerce <span style="display:inline-block;margin-left:6px;padding:2px 8px;border-radius:999px;background:#f59e0b;color:#111;font-size:11px;font-weight:800;vertical-align:middle">⭐ PLAN DE PAGA</span></h3></div></div>
+    <p class="lead">Opera tu tienda hablándole a Claude, sin entrar a la plataforma: crear descuentos, ver qué se vende más, revisar pedidos. Aquí van las dos plataformas más usadas. Todo esto va por conector, así que es plan de paga — se los muestro en vivo para cuando den el salto.</p>
     <div class="sub">
-      <div class="sh"><span class="sn">4.1</span><h4>Conéctalo y opéralo</h4></div>
+      <div class="sh"><span class="sn">4.1</span><h4>Shopify</h4></div>
       <ol class="steps">
         <li>Entra a <b>tu perfil → Configuración → Conectores</b>.</li>
-        <li>Activa <b>Shopify</b> y conéctalo a tu tienda.</li>
+        <li>Busca <b>Shopify</b> en la lista, actívalo y conéctalo a tu tienda.</li>
       </ol>
       <div class="pl">Prompts</div>
       <div class="prompt">Créame un código de descuento del 20% para el Buen Fin.<button class="copy">Copiar</button></div>
       <div class="prompt">Dame tres datos de mi tienda: el producto más vendido del año, el más vendido de este mes, y el menos vendido de todos los tiempos.<button class="copy">Copiar</button></div>
+    </div>
+
+    <div class="sub">
+      <div class="sh"><span class="sn">4.2</span><h4>Tiendanube</h4></div>
+      <p class="obj">Tiendanube ya tiene su propia conexión con Claude. Hay <b>dos caminos</b>: si ya te aparece en la lista de conectores, es de un clic. Si todavía no, la agregas tú a mano con una liga. Las dos llegan al mismo lugar.</p>
+
+      <div class="note"><b>Dos cosas antes de empezar, para que no te estrelles:</b> esto funciona <b>solo en la aplicación de escritorio de Claude</b> (Mac o Windows), no desde el navegador. Y los conectores personalizados piden <b>plan Pro o Max</b>. Si estás en gratis, míralo conmigo hoy y lo aplicas cuando des el salto.</div>
+
+      <div class="pl">Camino A · si ya te aparece en la lista</div>
+      <ol class="steps">
+        <li>Abre la <b>app de escritorio</b> de Claude.</li>
+        <li>Ve a <b>Configuración → Conectores</b> y busca <b>Tiendanube</b>.</li>
+        <li>Dale <b>Conectar</b>. Se te abre el navegador para autorizar.</li>
+      </ol>
+
+      <div class="pl">Camino B · agrégalo tú con la liga</div>
+      <ol class="steps">
+        <li>En la app de escritorio, ve a <b>Configuración → Conectores</b>.</li>
+        <li>Dale <b>Añadir conector personalizado</b>.</li>
+        <li>Pega esta liga en el campo de la URL:</li>
+      </ol>
+      <div class="prompt">https://admin-mcp.tiendanube.com<button class="copy">Copiar</button></div>
+      <ol class="steps" start="4">
+        <li>Ponle un nombre (por ejemplo <b>Mi tienda</b>) y dale <b>Agregar</b>.</li>
+      </ol>
+
+      <div class="pl">Iniciar sesión</div>
+      <ol class="steps">
+        <li>Claude te va a pedir que entres a tu cuenta. Mete el <b>correo o el dominio de tu tienda</b>.</li>
+        <li>Revisa los permisos que te muestra y <b>autoriza</b>.</li>
+        <li>Listo. Regresas a Claude y ya lo tienes conectado.</li>
+      </ol>
+
+      <div class="note" style="border-left:4px solid var(--accent)"><b>Aquí no le des a todo que sí.</b> Al conectarse te va a mostrar dos grupos de permisos: los de <b>leer</b> (consultar productos, pedidos, clientes) y los de <b>escribir o borrar</b>. Los de leer déjalos en automático, no hacen daño. Los de <b>escribir y borrar déjalos en "Solicitar aprobación"</b> — así Claude te pregunta antes de tocar algo. Es tu tienda de verdad, con tus pedidos de verdad.</div>
+
+      <div class="pl">Prompts</div>
+      <div class="prompt">Dime cuántos pedidos tengo sin surtir, desde cuándo están esperando y de qué productos son.<button class="copy">Copiar</button></div>
+      <div class="prompt">Dame el producto más vendido del mes y el que lleva más tiempo sin venderse ni una pieza.<button class="copy">Copiar</button></div>
+      <div class="prompt">Créame un cupón de 15% de descuento que sirva solo esta semana. Antes de crearlo, muéstrame cómo va a quedar y espera mi confirmación.<button class="copy">Copiar</button></div>
+
+      <div class="note"><b>Detalles que sirve saber:</b> solo puedes tener <b>una tienda conectada por sesión</b>. El acceso se renueva solo mientras lo usas, y en el momento en que desconectas el conector se corta. Tiendanube no guarda tus conversaciones ni las usa para entrenar modelos.</div>
     </div>
   </div>
 </section>
@@ -583,7 +624,7 @@ Cierra con tres cosas que yo debería robarle, y tres huecos que podría atacar.
     <span class="mine-tag">★ Solo para Margot</span>
     <div class="head"><div class="mico">🎬</div><div><div class="badge">GUION DE FACILITACIÓN</div><h3>Mis notas</h3></div></div>
     <p class="lead">Tu guion para no improvisar. No es para proyectar.</p>
-    <div class="note" style="border-left:4px solid var(--accent)"><b>Contexto de este grupo (Adding):</b> grupo mixto. Las dos empresas que dominan la sala son una <b>plataforma de nómina y beneficios financieros</b> y un <b>e-commerce de muebles</b> (tienda en Tiendanube), pero hay más gente y no todos son de ahí. <b>Por eso la guía no menciona ninguna industria por nombre:</b> los ejemplos están escritos para que les caigan a esas dos sin que se note que se hicieron para ellas. Nunca digas "esto es para los de nómina" — di "si tu información vive en varios archivos" y deja que ellos se reconozcan solos. Elio avisa que son <b>muy preguntones</b>: pon la pauta desde el minuto uno con la sección "Cómo vamos a trabajar", proyéctala antes del Módulo 0. Ancla la sesión en los 🆓, sobre todo el Módulo 3, que es el momento wow que sí pueden replicar. <b>Ojo Módulo 4:</b> es Shopify y ninguno de los dos lo usa — o lo saltas, o lo presentas como "así se ve un conector" y lo cierras rápido.</div>
+    <div class="note" style="border-left:4px solid var(--accent)"><b>Contexto de este grupo (Adding):</b> grupo mixto. Las dos empresas que dominan la sala son una <b>plataforma de nómina y beneficios financieros</b> y un <b>e-commerce de muebles</b> (tienda en Tiendanube), pero hay más gente y no todos son de ahí. <b>Por eso la guía no menciona ninguna industria por nombre:</b> los ejemplos están escritos para que les caigan a esas dos sin que se note que se hicieron para ellas. Nunca digas "esto es para los de nómina" — di "si tu información vive en varios archivos" y deja que ellos se reconozcan solos. Elio avisa que son <b>muy preguntones</b>: pon la pauta desde el minuto uno con la sección "Cómo vamos a trabajar", proyéctala antes del Módulo 0. Ancla la sesión en los 🆓, sobre todo el Módulo 3, que es el momento wow que sí pueden replicar. <b>Módulo 4:</b> ya trae Shopify y Tiendanube. Varios del grupo están en Tiendanube, así que ese es el que vale la pena demostrar en vivo — pero ojo, solo corre en la <b>app de escritorio</b> y pide plan Pro o Max. Tenlo abierto y conectado <b>antes</b> de empezar la sesión; si lo conectas en vivo y algo falla, se te va el tiempo. Lo de los permisos de escritura en "solicitar aprobación" es buen momento para reforzar el mensaje de seguridad del Módulo 2.</div>
 
     <div class="sub">
       <div class="sh"><span class="sn">A</span><h4>Apertura de cada sesión (5 min)</h4></div>
