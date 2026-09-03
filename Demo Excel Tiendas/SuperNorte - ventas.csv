@@ -1,0 +1,46 @@
+Mes,Codigo,Producto,Piezas vendidas,Piezas que quedaron,Importe
+1,P-09,Papel higienico 4 rollos,57,39,2394.0
+1,P-05,Suavizante de telas 1L,61,59,2745.0
+1,P-08,Servilletas 100 piezas,18,30,432.0
+1,P-16,Esponjas para trastes 4 piezas,76,20,1368.0
+1,P-12,Pasta de dientes 100ml,41,7,1353.0
+1,P-04,Detergente en polvo 2kg,98,22,8036.0
+1,P-18,Aromatizante en aerosol 300ml,29,7,1189.0
+1,P-06,Limpiador multiusos 900ml,27,9,783.0
+1,P-03,Acondicionador 500ml,58,14,3422.0
+1,P-20,Fibra multiusos 3 piezas,103,17,2266.0
+1,P-11,Jabon en barra 3 piezas,21,3,567.0
+1,P-02,Shampoo anticaspa 500ml,22,14,1408.0
+1,P-15,Crema corporal 400ml,15,21,1080.0
+1,P-13,Cepillo dental 2 piezas,23,25,713.0
+1,P-10,Toallas de cocina 2 rollos,19,5,684.0
+1,P-19,Guantes de limpieza 1 par,0,60,0.0
+2,P-04,Detergente en polvo 2kg,91,5,7462.0
+2,P-16,Esponjas para trastes 4 piezas,63,9,1134.0
+2,P-20,Fibra multiusos 3 piezas,10,14,220.0
+2,P-02,Shampoo anticaspa 500ml,84,36,5376.0
+2,P-15,Crema corporal 400ml,94,26,6768.0
+2,P-01,Jabon liquido para manos 1L,24,12,912.0
+2,P-06,Limpiador multiusos 900ml,18,6,522.0
+2,P-19,Guantes de limpieza 1 par,0,36,0.0
+2,P-13,Cepillo dental 2 piezas,102,18,3162.0
+2,P-05,Suavizante de telas 1L,10,14,450.0
+2,P-18,Aromatizante en aerosol 300ml,29,43,1189.0
+2,P-10,Toallas de cocina 2 rollos,18,18,648.0
+3,P-02,Shampoo anticaspa 500ml,33,3,2112.0
+3,P-06,Limpiador multiusos 900ml,90,6,2610.0
+3,P-08,Servilletas 100 piezas,70,50,1680.0
+3,P-07,Cloro 950ml,55,17,1045.0
+3,P-09,Papel higienico 4 rollos,84,36,3528.0
+3,P-03,Acondicionador 500ml,27,9,1593.0
+3,P-17,Bolsas para basura 30 piezas,30,6,1050.0
+3,P-05,Suavizante de telas 1L,64,32,2880.0
+3,P-10,Toallas de cocina 2 rollos,74,22,2664.0
+3,P-20,Fibra multiusos 3 piezas,21,15,462.0
+3,P-18,Aromatizante en aerosol 300ml,19,5,779.0
+3,P-15,Crema corporal 400ml,88,32,6336.0
+3,P-11,Jabon en barra 3 piezas,31,5,837.0
+3,P-01,Jabon liquido para manos 1L,55,17,2090.0
+3,P-14,Desodorante en barra 50g,53,7,2544.0
+3,P-13,Cepillo dental 2 piezas,19,29,589.0
+3,P-19,Guantes de limpieza 1 par,0,48,0.0
