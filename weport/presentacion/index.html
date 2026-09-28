@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La realidad de la IA · WePort</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#ffffff; --ink:#0B2D5B; --muted:#5d6f88; --soft:#34507a; --line:#dde4ee; --card:#f4f6f9;
+    --green:#44A948; --blue:#2866AB; --red:#D93A2B;
+    --font:"Libre Franklin",system-ui,-apple-system,"SF Pro Display","SF Pro Text",BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{height:100%;background:#fff;overflow:hidden;font-family:var(--font);color:var(--ink);
+    -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  #stage{position:fixed;inset:0;background:var(--bg)}
+  .slide{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    opacity:0;visibility:hidden;transition:opacity .7s ease, visibility .7s;padding:0 7vw}
+  .slide.active{opacity:1;visibility:visible}
+
+  .frag{opacity:0;transform:translateY(22px);transition:opacity .6s ease,transform .6s cubic-bezier(.2,.8,.2,1)}
+  .frag.show{opacity:1;transform:none}
+  .kick,.hl{color:var(--blue)}
+  .red{color:var(--red)}
+  .mark{background:linear-gradient(transparent 52%, rgba(68,169,72,.45) 52%, rgba(68,169,72,.45) 92%, transparent 92%);padding:0 .06em}
+
+  .statement{text-align:center;max-width:86vw}
+  .statement h1{font-size:clamp(36px,5.6vw,92px);font-weight:800;line-height:1.04;letter-spacing:-.03em}
+  .statement h1.xl{font-size:clamp(48px,8vw,140px)}
+  .statement .sub{margin-top:2.4vh;font-size:clamp(19px,2.15vw,32px);font-weight:600;color:var(--muted)}
+  .divider{color:var(--green);font-size:clamp(18px,1.8vw,26px);letter-spacing:.5em;margin-bottom:3vh;opacity:.9}
+  .eyebrow{font-size:clamp(13px,1.2vw,18px);letter-spacing:.24em;text-transform:uppercase;color:var(--green);font-weight:700;margin-bottom:2vh}
+  .title{font-size:clamp(30px,4vw,64px);font-weight:800;letter-spacing:-.02em;line-height:1.05;text-align:center}
+  .src{position:absolute;left:7vw;bottom:7vh;font-size:clamp(11px,.95vw,14px);color:#8a97aa;max-width:60vw;line-height:1.35}
+
+  /* portada */
+  .cover h1{font-size:clamp(54px,9vw,156px);font-weight:900;letter-spacing:-.04em;line-height:.95}
+  .cover .sub{margin-top:3vh;font-size:clamp(18px,2vw,30px);color:var(--soft);font-weight:600;max-width:60vw;margin-left:auto;margin-right:auto}
+  .cover .who{margin-top:6vh;font-size:clamp(14px,1.3vw,20px);color:var(--muted);letter-spacing:.14em;text-transform:uppercase;font-weight:700}
+  .cover .who b{color:var(--ink)}
+
+  /* portada estilo weport.global */
+  .cover2{display:flex;align-items:center;justify-content:space-between;gap:4vw;width:min(88vw,1500px)}
+  .c-left{flex:1.25;display:flex;flex-direction:column;align-items:flex-start}
+  .c-logo{margin-bottom:5vh}
+  .c-logo .duo img{height:clamp(38px,6vh,66px)}
+  .c-logo .duo img[alt="TRiAGE"]{height:clamp(26px,4.2vh,46px)}
+  .c-logo .duo span{font-size:clamp(24px,2.6vw,40px)}
+  .c-logo.end{margin:6vh 0 0}
+  .c-tag{background:#0B5A8F;color:#fff;font-weight:800;letter-spacing:.06em;text-transform:uppercase;font-size:clamp(12px,1.25vw,19px);padding:.7em 1em;margin-bottom:3vh}
+  .cover2 h1{font-size:clamp(50px,7.6vw,132px);font-weight:900;letter-spacing:-.03em;line-height:.98;color:var(--ink)}
+  .c-sub{margin-top:3vh;font-size:clamp(18px,2vw,30px);font-weight:600;color:var(--soft);max-width:44vw;line-height:1.3}
+  .c-who{margin-top:4vh;font-size:clamp(13px,1.2vw,18px);letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--muted)}
+  .c-who b{color:var(--ink)}
+  .c-right{flex:1;display:flex;justify-content:center}
+  .c-right video{width:min(38vw,560px);aspect-ratio:1;object-fit:cover;mix-blend-mode:multiply}
+  .defi{margin-top:4vh}
+  .defi .dn{font-size:clamp(22px,2.6vw,40px);font-weight:900;color:var(--green);letter-spacing:.02em}
+  .defi .dt{margin-top:1.4vh;font-size:clamp(22px,2.6vw,42px);font-weight:700;line-height:1.2;max-width:70vw;margin-left:auto;margin-right:auto}
+  .defi .dx{margin-top:2vh;font-size:clamp(15px,1.5vw,23px);color:var(--muted);font-weight:600}
+  /* bio */
+  .bio{display:flex;flex-direction:column;align-items:flex-start;max-width:74vw}
+  .bio .name{font-size:clamp(44px,6.6vw,110px);font-weight:900;letter-spacing:-.03em;line-height:1}
+  .bio .role{margin-top:1.6vh;font-size:clamp(18px,2vw,30px);color:var(--green);font-weight:700}
+  .bio ul{list-style:none;margin-top:4vh;display:flex;flex-direction:column;gap:1.6vh}
+  .bio li{font-size:clamp(18px,2vw,30px);font-weight:600;color:var(--soft)}
+  .bio li b{color:var(--ink)}
+
+  /* revoluciones */
+  .revs{display:flex;gap:2.4vw;margin-top:6vh;width:100%;justify-content:center}
+  .rev{flex:1;max-width:25vw;border:1px solid var(--line);background:var(--card);border-radius:24px;padding:4vh 2vw;text-align:center}
+  .rev .ico{font-size:clamp(40px,5vw,80px);line-height:1}
+  .rev .nm{margin-top:2vh;font-size:clamp(20px,2.2vw,34px);font-weight:800}
+  .rev .yr{margin-top:1vh;font-size:clamp(16px,1.6vw,24px);color:var(--muted);font-weight:700;font-variant-numeric:tabular-nums}
+  .rev.now{border-color:rgba(68,169,72,.6);box-shadow:0 0 60px rgba(68,169,72,.18)}
+  .rev.now .yr{color:var(--green)}
+
+  /* barras de adopción */
+  .bars{width:min(78vw,1180px);margin-top:5vh;display:flex;flex-direction:column;gap:2.4vh}
+  .bar{display:grid;grid-template-columns:18vw 1fr;align-items:center;gap:1.6vw}
+  .bar .lbl{font-size:clamp(17px,1.9vw,28px);font-weight:700;text-align:right}
+  .bar .track{height:5.4vh;position:relative}
+  .bar .fill{position:absolute;left:0;top:0;bottom:0;border-radius:10px;background:#dbe3ee;width:0;
+    transition:width 1.4s cubic-bezier(.2,.8,.2,1);display:flex;align-items:center;justify-content:flex-end;padding-right:1vw}
+  .bar .fill span{font-size:clamp(16px,1.8vw,28px);font-weight:900;white-space:nowrap;font-variant-numeric:tabular-nums}
+  .bar.ai .fill{background:var(--green);color:#fff}
+  .bar.ai .fill span{position:absolute;left:calc(100% + 1vw);color:var(--green)}
+  .frag.show .fill{width:var(--w)}
+
+  /* fábrica */
+  .factory{display:flex;align-items:center;gap:2vw;margin-top:6vh}
+  .fstep{display:flex;flex-direction:column;align-items:center;gap:2vh;width:20vw}
+  .fbox{width:min(22vh,200px);height:min(22vh,200px);border-radius:28px;background:var(--card);border:1px solid var(--line);
+    display:flex;align-items:center;justify-content:center}
+  .fbox svg{width:62%;height:62%}
+  .fstep .fl{font-size:clamp(20px,2.2vw,34px);font-weight:800;text-align:center;line-height:1.1}
+  .fstep .fd{font-size:clamp(14px,1.35vw,20px);color:var(--muted);font-weight:600;text-align:center}
+  .farrow{font-size:clamp(30px,3.6vw,60px);color:var(--green);font-weight:300}
+  .factory{margin-top:4vh}
+  .order{display:flex;align-items:center;gap:2vw;margin-top:4vh}
+  .ochip{border:1px solid var(--line);background:var(--card);border-radius:18px;padding:1.8vh 2vw;font-size:clamp(17px,1.9vw,29px);font-weight:700;color:var(--soft)}
+  .ochip .ol{display:block;font-size:.62em;letter-spacing:.18em;text-transform:uppercase;color:var(--green);font-weight:800;margin-bottom:.4vh}
+  .ochip.win{border-color:rgba(68,169,72,.55);color:var(--ink)}
+
+  /* el cielo es */
+  .cielo{display:flex;align-items:center;gap:5vw;width:100%;justify-content:center}
+  .cielo img{width:min(40vw,640px);border-radius:22px;filter:grayscale(1) contrast(1.05);box-shadow:0 24px 60px rgba(11,45,91,.22)}
+  .cielo .ct{max-width:40vw}
+  .cielo .q{font-size:clamp(40px,5.6vw,96px);font-weight:900;letter-spacing:-.03em;line-height:1}
+  .blank{display:inline-block;min-width:3.4em;border-bottom:.08em solid var(--ink);text-align:center;color:transparent;transition:color .5s}
+  .blank.fill{color:var(--green);border-color:var(--green)}
+  .cielo .lesson{margin-top:5vh;font-size:clamp(20px,2.3vw,36px);font-weight:700;line-height:1.2;color:var(--soft)}
+
+  /* chat de la tarifa inventada */
+  .chatwrap{width:min(72vw,1040px);display:flex;flex-direction:column;gap:2.6vh;margin-top:4vh;position:relative}
+  .msg{max-width:78%;padding:2.2vh 2vw;border-radius:22px;font-size:clamp(17px,1.9vw,29px);font-weight:600;line-height:1.3}
+  .msg.user{align-self:flex-end;background:var(--ink);color:#fff;border-bottom-right-radius:6px}
+  .msg.ai{align-self:flex-start;background:var(--card);border:1px solid var(--line);border-bottom-left-radius:6px}
+  .msg.ai .who{font-size:.62em;color:var(--muted);font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:.6vh}
+  .msg.ai b{color:var(--ink)}
+  .stamp{position:absolute;right:4%;top:46%;transform:rotate(-12deg) scale(1.6);opacity:0;
+    border:.14em solid var(--red);color:var(--red);font-weight:900;font-size:clamp(30px,4.4vw,72px);
+    padding:.1em .4em;border-radius:12px;letter-spacing:.06em;transition:transform .35s cubic-bezier(.2,1.4,.3,1),opacity .2s}
+  .stamp.show{opacity:1;transform:rotate(-12deg) scale(1)}
+  .tarifa-foot{margin-top:4vh;font-size:clamp(20px,2.3vw,36px);font-weight:700;text-align:center;max-width:70vw}
+
+  /* gato */
+  .gato{display:flex;align-items:center;gap:5vw;width:100%;justify-content:center}
+  .board{display:grid;grid-template-columns:repeat(3,1fr);width:min(56vh,520px);height:min(56vh,520px);gap:10px;position:relative;cursor:pointer}
+  .cell{background:var(--card);border:1px solid var(--line);border-radius:18px;display:flex;align-items:center;justify-content:center;
+    font-size:min(12vh,110px);font-weight:300;line-height:1;transition:background .2s,border-color .2s;user-select:none}
+  .cell:hover{background:#eaf0f7;border-color:#b9c7da}
+  .cell.x{color:var(--ink)} .cell.o{color:var(--green)}
+  .cell .mk{display:inline-block;animation:pop .35s cubic-bezier(.2,1.5,.3,1)}
+  @keyframes pop{from{transform:scale(.3);opacity:0}to{transform:none;opacity:1}}
+  .cell.win{background:rgba(68,169,72,.14);border-color:var(--green)}
+  .gside{width:min(40vw,600px)}
+  .gside h2{font-size:clamp(34px,4.4vw,72px);font-weight:900;letter-spacing:-.02em}
+  .gside .turn{margin-top:1.2vh;font-size:clamp(15px,1.4vw,21px);color:var(--muted);font-weight:700;letter-spacing:.06em}
+  .say{margin-top:2vh;min-height:9vh;font-size:clamp(18px,2vw,30px);font-weight:700;line-height:1.25}
+  .say b{color:var(--green)}
+  .book{margin-top:2vh;list-style:none;counter-reset:r;display:flex;flex-direction:column;gap:.8vh}
+  .book li{counter-increment:r;font-size:clamp(14px,1.45vw,22px);font-weight:600;color:#7d8ba0;padding:.7vh 1vw;border-radius:10px;border:1px solid transparent;transition:all .3s}
+  .book li::before{content:"Regla " counter(r) " · ";color:#a3afc0;font-weight:800}
+  .book li.on{color:var(--ink);background:#ecf7ed;border-color:rgba(68,169,72,.5)}
+  .book li.on::before{color:var(--green)}
+  .cell.ghost{border-color:var(--green);animation:ghostp 1s ease-in-out infinite}
+  .cell.ghost::after{content:"○";color:var(--green);opacity:.45}
+  @keyframes ghostp{0%,100%{box-shadow:0 0 0 rgba(68,169,72,0)}50%{box-shadow:0 0 30px rgba(68,169,72,.45)}}
+  .rules{margin-top:3vh;display:flex;flex-direction:column;gap:1vh;min-height:24vh;max-height:32vh;overflow:hidden}
+  .rule{font-size:clamp(15px,1.5vw,23px);font-weight:600;color:var(--soft);font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+    background:#111318;border:1px solid var(--line);border-radius:10px;padding:.8vh 1vw;animation:pop .35s ease}
+  .rule b{color:var(--green);font-weight:700}
+  .rcount{margin-top:2vh;font-size:clamp(15px,1.5vw,22px);font-weight:700;color:var(--muted)}
+  .rcount b{color:var(--ink);font-variant-numeric:tabular-nums}
+  .gnote{margin-top:2.6vh;font-size:clamp(18px,2vw,30px);font-weight:700;line-height:1.2}
+  .greset{margin-top:2vh;display:inline-block;font-size:clamp(12px,1.1vw,16px);color:var(--muted);border:1px solid #2c313b;border-radius:999px;padding:.4em 1em;cursor:pointer;user-select:none}
+  .greset:hover{color:var(--ink);border-color:var(--muted)}
+
+  /* línea del tiempo */
+  .tl{position:relative;width:min(88vw,1400px);margin-top:9vh;height:36vh}
+  .tl .axis{position:absolute;left:0;right:0;top:50%;height:2px;background:#d5dde8}
+  .tl .axis .prog{position:absolute;left:0;top:0;bottom:0;background:var(--green);width:0;transition:width .7s ease}
+  .tev{position:absolute;top:50%;width:12vw;transform:translateX(-50%);text-align:center}
+  .tev .dot{width:16px;height:16px;border-radius:50%;background:#c3cddb;margin:-8px auto 0;border:3px solid var(--bg);transition:background .4s}
+  .tev.frag.show .dot{background:var(--ink)}
+  .tev.key.frag.show .dot{background:var(--green);box-shadow:0 0 22px rgba(68,169,72,.7)}
+  .tev .yr{font-size:clamp(22px,2.6vw,42px);font-weight:900;font-variant-numeric:tabular-nums}
+  .tev .tx{margin-top:.8vh;font-size:clamp(12px,1.2vw,18px);font-weight:600;color:var(--soft);line-height:1.25}
+  .tev.up{transform:translate(-50%,-100%);padding-bottom:3.4vh}
+  .tev.up .dot{position:absolute;bottom:-8px;left:50%;margin:0;transform:translateX(-50%)}
+  .tev.dn{padding-top:3.4vh}
+  .tev.dn .dot{position:absolute;top:-8px;left:50%;margin:0;transform:translateX(-50%)}
+  .tev.key .yr{color:var(--green)}
+  .tl-cap{margin-top:5vh;font-size:clamp(18px,2vw,30px);font-weight:700;color:var(--soft);text-align:center}
+
+  /* MIT */
+  .mit-big{font-size:clamp(90px,15vw,250px);font-weight:900;line-height:.86;letter-spacing:-.04em;color:var(--red)}
+  .funnel{display:flex;gap:5vw;margin-top:4vh;align-items:flex-end}
+  .fgroup{display:flex;flex-direction:column;align-items:center;gap:1.6vh}
+  .fcols{display:flex;gap:1.4vw;align-items:flex-end;height:40vh}
+  .fcol{width:7vw;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%}
+  .fcol .fv{font-size:clamp(20px,2.4vw,40px);font-weight:900;margin-bottom:1vh;font-variant-numeric:tabular-nums}
+  .fcol .fb{width:100%;border-radius:10px 10px 4px 4px;background:#dbe3ee;height:0;transition:height 1.2s cubic-bezier(.2,.8,.2,1)}
+  .frag.show .fcol .fb{height:var(--h)}
+  .fcol.last .fb{background:var(--green)} .fcol.last .fv{color:var(--green)}
+  .fcol .fl{margin-top:1vh;font-size:clamp(11px,1.1vw,16px);color:var(--muted);font-weight:700;text-align:center;line-height:1.2}
+  .fgroup .gl{font-size:clamp(15px,1.6vw,24px);font-weight:800;text-align:center}
+
+  /* usar vs integrar / estrategia */
+  .vs{display:grid;grid-template-columns:1fr 1fr;gap:2vw;width:min(80vw,1200px);margin-top:5vh}
+  .vcard{border:1px solid var(--line);background:var(--card);border-radius:24px;padding:4vh 2.4vw}
+  .vcard h3{font-size:clamp(24px,2.8vw,46px);font-weight:900}
+  .vcard p{margin-top:1.6vh;font-size:clamp(17px,1.8vw,28px);color:var(--soft);font-weight:600;line-height:1.3}
+  .vcard.good{border-color:rgba(68,169,72,.55)} .vcard.good h3{color:var(--green)}
+  .strat{width:min(84vw,1240px);margin-top:5vh;display:flex;flex-direction:column;gap:1.6vh}
+  .srow{display:grid;grid-template-columns:1fr 60px 1fr;align-items:center;gap:1vw}
+  .srow .bad,.srow .ok{border-radius:16px;padding:2.2vh 1.6vw;font-size:clamp(17px,1.9vw,29px);font-weight:700}
+  .srow .bad{background:#fdf0ee;border:1px solid #f1c9c3;color:#9b2c22}
+  .srow .ok{background:#eef8ef;border:1px solid rgba(68,169,72,.4);color:var(--ink)}
+  .srow .ar{text-align:center;color:var(--green);font-size:clamp(22px,2.4vw,38px)}
+  .shead{display:grid;grid-template-columns:1fr 60px 1fr;gap:1vw;font-size:clamp(13px,1.2vw,18px);letter-spacing:.2em;text-transform:uppercase;font-weight:800;color:var(--muted)}
+
+  /* casos */
+  .caso{display:flex;flex-direction:column;align-items:center;width:100%}
+  .caso .big{font-size:clamp(46px,7vw,120px);font-weight:900;letter-spacing:-.03em;line-height:1;text-align:center}
+  .caso .big s{color:var(--muted);text-decoration-color:var(--red);text-decoration-thickness:.08em}
+  .flow{display:flex;align-items:center;gap:1.2vw;margin-top:6vh;flex-wrap:nowrap}
+  .fnode{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:2.4vh 1.6vw;font-size:clamp(16px,1.7vw,26px);font-weight:700;text-align:center;min-width:13vw}
+  .fnode .n{display:block;font-size:.7em;color:var(--green);letter-spacing:.14em;margin-bottom:.6vh}
+  .flow .ar{color:var(--green);font-size:clamp(22px,2.4vw,38px)}
+
+  /* prompt */
+  .pillars{display:grid;grid-template-columns:repeat(5,1fr);gap:1.2vw;width:min(90vw,1400px);margin-top:4vh}
+  .pil{border:1px solid var(--line);background:var(--card);border-radius:20px;padding:2.6vh 1.2vw;display:flex;flex-direction:column;gap:1.2vh}
+  .pil .pn{font-size:clamp(12px,1.1vw,16px);color:var(--green);font-weight:800;letter-spacing:.18em}
+  .pil .pt{font-size:clamp(22px,2.4vw,40px);font-weight:900}
+  .pil .pq{font-size:clamp(13px,1.25vw,19px);color:var(--muted);font-weight:600;line-height:1.25}
+  .pil .pe{margin-top:auto;font-size:clamp(13px,1.3vw,20px);font-weight:600;color:var(--soft);line-height:1.3;
+    border-top:1px solid var(--line);padding-top:1.2vh;font-style:italic}
+  .pfoot{margin-top:4vh;font-size:clamp(18px,2vw,30px);font-weight:700;text-align:center}
+
+  /* escalera */
+  .stairs{position:relative;width:min(84vw,1260px);height:50vh;margin-top:5vh;border-bottom:2px solid #d5dde8}
+  .stair{position:absolute;bottom:0;width:23%;border-radius:18px 18px 0 0;background:var(--card);border:1px solid var(--line);border-bottom:none;
+    padding:2vh 1.1vw;display:flex;flex-direction:column;gap:.8vh;overflow:hidden}
+  .stair .sn{font-size:clamp(28px,3.4vw,56px);font-weight:900;color:#c3cddb;line-height:1;transition:color .4s}
+  .stair .st{font-size:clamp(22px,2.5vw,42px);font-weight:900}
+  .stair .sd{font-size:clamp(12px,1.2vw,18px);color:var(--muted);font-weight:600;line-height:1.3}
+  .stair.frag.show .sn{color:var(--green)}
+  .stair.s1{left:0;height:46%} .stair.s2{left:25.6%;height:62%} .stair.s3{left:51.2%;height:79%} .stair.s4{left:76.8%;height:96%;border-color:rgba(68,169,72,.55);box-shadow:0 0 60px rgba(68,169,72,.15)}
+
+  /* HUD */
+  #sig{position:fixed;left:5vw;right:5vw;bottom:2.6vh;z-index:52;pointer-events:none;display:flex;align-items:center;justify-content:space-between;font-size:clamp(11px,1vw,15px);color:#8a97aa;letter-spacing:.04em;font-weight:600}
+  .duo{display:flex;align-items:center;gap:.8em}
+  .duo img{display:block}
+  .duo span{color:#9aa7b8;font-weight:400;font-size:1.3em}
+  #sig .duo img{height:clamp(16px,2.2vh,26px)}
+  #sig .duo img[alt="TRiAGE"]{height:clamp(12px,1.6vh,19px)}
+  #sig b{color:var(--ink)}
+  body.nosig #sig{opacity:0}
+  #help{position:fixed;top:14px;right:16px;z-index:50;color:#c3cddb;font-size:11px;letter-spacing:.12em}
+  #slideno{position:fixed;top:14px;left:16px;z-index:50;color:#c3cddb;font-size:11px;letter-spacing:.12em;font-variant-numeric:tabular-nums}
+  #prog{position:fixed;left:0;bottom:0;height:3px;background:var(--green);z-index:60;transition:width .5s ease;opacity:.8}
+  #blackout{position:fixed;inset:0;background:#fff;z-index:100;opacity:0;visibility:hidden;transition:.25s}
+  #blackout.on{opacity:1;visibility:visible}
+</style>
+</head>
+<body>
+<div id="stage"></div>
+<div id="sig"><div class="duo"><img src="assets/logo-triage.png" alt="TRiAGE"><span>×</span><img src="assets/logo-weport.png" alt="WePort"></div><span><b>Margot Duek</b> · 30 de septiembre 2026</span></div>
+<div id="help">← → clicker · F pantalla completa · B negro</div>
+<div id="slideno"></div>
+<div id="prog"></div>
+<div id="blackout"></div>
+
+<script>
+/* ============ CONTENIDO · BLOQUE TEÓRICO WEPORT ============
+   Cada slide: steps = cuántos clics internos tiene.
+   Los .frag con data-step="n" aparecen en el clic n+1 (data-step="-1" aparece al entrar).
+============================================================ */
+const ICON = {
+  truck:`<svg viewBox="0 0 64 64" fill="none" stroke="#0B2D5B" stroke-width="2.4" stroke-linejoin="round"><path d="M6 20h30v24H6z"/><path d="M36 28h12l8 9v7H36z"/><circle cx="16" cy="47" r="5" fill="#ffffff"/><circle cx="46" cy="47" r="5" fill="#ffffff"/><path d="M10 20l5-8h8l4 6 5-5 4 7" stroke="#44A948"/></svg>`,
+  gears:`<svg viewBox="0 0 64 64" fill="none" stroke="#0B2D5B" stroke-width="2.4"><circle cx="24" cy="28" r="9"/><circle cx="24" cy="28" r="3" fill="#44A948" stroke="#44A948"/><path d="M24 14v5M24 37v5M10 28h5M33 28h5M14 18l4 4M30 34l4 4M14 38l4-4M30 22l4-4"/><circle cx="44" cy="44" r="6"/><path d="M44 35v3M44 50v3M35 44h3M50 44h3"/></svg>`,
+  model:`<svg viewBox="0 0 64 64" fill="none" stroke="#0B2D5B" stroke-width="2.4" stroke-linejoin="round"><path d="M8 52V30l12 7v-7l12 7v-7l12 7V16h10v36z"/><path d="M8 52h48"/><rect x="36" y="40" width="10" height="12" fill="#44A948" stroke="#44A948"/><path d="M47 12c2-4 7-4 8 0" stroke="#8a97aa"/></svg>`,
+};
+
+const SLIDES = [
+  // 1 · Portada
+  { steps:0, cls:'nosig', html:`
+    <div class="cover2">
+      <div class="c-left">
+        <div class="c-logo"><div class="duo"><img src="assets/logo-triage.png" alt="TRiAGE"><span>×</span><img src="assets/logo-weport.png" alt="WePort"></div></div>
+        <div class="c-tag">Capacitación de inteligencia artificial</div>
+        <h1>La realidad<br>de la <span class="kick">IA</span></h1>
+        <div class="c-sub">Qué es, cómo piensa y cómo ponerla a trabajar en lo que hoy te quita el día.</div>
+        <div class="c-who"><b>Margot Duek</b> · 30 de septiembre 2026</div>
+      </div>
+      <div class="c-right"><video src="assets/weport-banner.mp4" autoplay muted loop playsinline></video></div>
+    </div>` },
+
+  // 2 · Bio
+  { steps:0, html:`
+    <div class="bio">
+      <div class="eyebrow">Quién soy</div>
+      <div class="name">Margot Duek</div>
+      <div class="role">Fundadora y CEO · TRiAGE · Al Chile Media</div>
+      <ul>
+        <li><b>Ingeniera en Tecnologías Computacionales</b> con MBA</li>
+        <li><b>+300 empresas</b> acompañadas en México y Estados Unidos</li>
+        <li>Docente de IA en el <b>Tec de Monterrey</b> e <b>ISDI</b></li>
+        <li>Mi trabajo: que la IA dé <b class="kick">resultados reales</b>, no demos bonitas</li>
+      </ul>
+    </div>` },
+
+  // 3 · La IA viene por la parte que no te gusta
+  { steps:1, html:`
+    <div class="statement">
+      <h1 class="frag" data-step="-1">La IA no viene por tu trabajo.<br><span class="kick">Viene por la parte de tu trabajo que no te gusta.</span></h1>
+      <div class="sub frag" data-step="0">La captura doble. El correo número 200. El Excel que armas cada viernes.</div>
+    </div>` },
+
+  // 4 · Revoluciones
+  { steps:3, html:`
+    <div class="title frag" data-step="-1">La nueva revolución ya comenzó</div>
+    <div class="revs">
+      <div class="rev frag" data-step="0"><div class="ico">⚙️</div><div class="nm">Revolución Industrial</div><div class="yr">1760 · 1840</div></div>
+      <div class="rev frag" data-step="1"><div class="ico">🌐</div><div class="nm">Internet y la web</div><div class="yr">1991 · 2005</div></div>
+      <div class="rev now frag" data-step="2"><div class="ico">🤖</div><div class="nm">Inteligencia Artificial</div><div class="yr">2022 · hoy</div></div>
+    </div>` },
+
+  // 5 · Velocidad de adopción
+  { steps:4, html:`
+    <div class="title frag" data-step="-1">¿Cuánto tardó cada una en llegar<br>a <span class="kick">1 de cada 4</span> personas?</div>
+    <div class="bars">
+      <div class="bar frag" data-step="0"><div class="lbl">Electricidad ⚡</div><div class="track"><div class="fill" style="--w:100%"><span>46 años</span></div></div></div>
+      <div class="bar frag" data-step="1"><div class="lbl">Teléfono ☎️</div><div class="track"><div class="fill" style="--w:76%"><span>35 años</span></div></div></div>
+      <div class="bar frag" data-step="2"><div class="lbl">Internet 🌐</div><div class="track"><div class="fill" style="--w:15%"><span>7 años</span></div></div></div>
+      <div class="bar ai frag" data-step="3"><div class="lbl">IA generativa 🤖</div><div class="track"><div class="fill" style="--w:4%"><span>menos de 2 años</span></div></div></div>
+    </div>
+    <div class="src">Población de EE.UU. Electricidad, teléfono e internet: N. Felton, The New York Times, vía Harvard Business Review (2013). IA generativa: 39.4% de adultos de 18 a 64 años la usaba a 2 años de ChatGPT. Bick, Blandin y Deming, Federal Reserve Bank of St. Louis (2024).</div>` },
+
+  // 6 · Sección
+  { steps:1, html:`
+    <div class="statement">
+      <div class="divider">✦</div>
+      <h1 class="xl">¿Qué es la <span class="kick">IA</span>?</h1>
+      <div class="defi frag" data-step="0">
+        <div class="dn">Inteligencia Artificial</div>
+        <div class="dt">La capacidad de una computadora de hacer tareas que normalmente asociamos con seres inteligentes.</div>
+        <div class="dx">Entender lo que le escribes · reconocer una imagen · decidir · aprender de ejemplos</div>
+      </div>
+    </div>
+    <div class="src frag" data-step="0">Definición: Encyclopaedia Britannica, "Artificial intelligence".</div>` },
+
+  // 7 · Fábrica
+  { steps:5, html:`
+    <div class="title frag" data-step="-1">La IA es como una fábrica</div>
+    <div class="factory">
+      <div class="fstep frag" data-step="0"><div class="fbox">${ICON.truck}</div><div class="fl">Datos</div><div class="fd">la materia prima</div></div>
+      <div class="farrow frag" data-step="1">→</div>
+      <div class="fstep frag" data-step="1"><div class="fbox">${ICON.gears}</div><div class="fl">Algoritmos +<br>entrenamiento</div><div class="fd">la maquinaria</div></div>
+      <div class="farrow frag" data-step="2">→</div>
+      <div class="fstep frag" data-step="2"><div class="fbox">${ICON.model}</div><div class="fl">Modelo</div><div class="fd">la fábrica funcionando</div></div>
+    </div>
+    <div class="order">
+      <div class="ochip frag" data-step="3"><span class="ol">Tu prompt</span>es la orden de trabajo</div>
+      <div class="farrow frag" data-step="4">→</div>
+      <div class="ochip win frag" data-step="4"><span class="ol">La respuesta</span>es el mueble 🪑</div>
+    </div>
+    <div class="pfoot frag" data-step="4" style="margin-top:2.4vh">El mueble sale tan bien como <span class="kick">lo pediste</span>.</div>` },
+
+  // 8 · El cielo es ___
+  { steps:2, html:`
+    <div class="cielo">
+      <img src="assets/adivina.gif" onerror="this.onerror=null;this.src='assets/adivina.png'" alt="">
+      <div class="ct">
+        <div class="q">El cielo es <span class="blank" data-blank>azul</span></div>
+        <div class="lesson frag" data-step="1">Los modelos aprenden reconociendo <span class="kick">patrones</span>, no entendiendo ideas.</div>
+      </div>
+    </div>`,
+    on:(el,s)=>{ el.querySelector('[data-blank]').classList.toggle('fill', s>=0); } },
+
+  // 9 · La tarifa inventada
+  { steps:3, html:`
+    <div class="title frag" data-step="-1">Por eso a veces <span class="red">inventa</span></div>
+    <div class="chatwrap">
+      <div class="msg user frag" data-step="0">¿Cuánto cuesta un contenedor de 40' de Shanghái a Manzanillo esta semana?</div>
+      <div class="msg ai frag" data-step="1"><div class="who">IA</div>Claro. La tarifa actual es de <b>USD 2,850</b> con Maersk, tránsito de <b>28 días</b> y 14 días libres en destino. Vigente hasta el 15 de octubre.</div>
+      <div class="stamp" data-stamp>INVENTADO</div>
+    </div>
+    <div class="tarifa-foot frag" data-step="2">No te está mintiendo. <span class="kick">Está completando la frase.</span><br>Dale el tarifario y deja de adivinar.</div>`,
+    on:(el,s)=>{ el.querySelector('[data-stamp]').classList.toggle('show', s>=2); } },
+
+  // 10 · IA por reglas · juego de gato interactivo
+  { steps:1, cls:'sgato', html:`
+    <div class="gato">
+      <div class="board" data-board></div>
+      <div class="gside">
+        <div class="eyebrow">Así era antes</div>
+        <h2>IA por reglas</h2>
+        <div class="say" data-say>Pon tu <b>✕</b> donde quieras.</div>
+        <ol class="book" data-book>
+          <li>Si ○ puede ganar, gana.</li>
+          <li>Si ✕ está a una de ganar, bloquéalo.</li>
+          <li>Si el centro está libre, ve al centro.</li>
+          <li>Si hay una esquina libre, ve a la esquina.</li>
+          <li>Si no, ve a cualquier lugar libre.</li>
+        </ol>
+        <div class="gnote frag" data-step="0">Una persona escribió cada regla <span class="kick">a mano</span>.<br>Como las fórmulas de tu Excel.</div>
+        <div class="greset" data-reset>↺ reiniciar (R)</div>
+      </div>
+    </div>`,
+    enter:(el)=>gatoInit(el) },
+
+  // 11 · Línea del tiempo
+  { steps:9, html:`
+    <div class="title frag" data-step="-1">Existe hace 70 años.<br><span class="kick">Llegó a tus manos hace 4.</span></div>
+    <div class="tl" data-tl>
+      <div class="axis"><div class="prog" data-prog></div></div>
+      <div class="tev up frag" data-step="0" style="left:4%"><div class="yr">1950</div><div class="tx">Alan Turing:<br>¿pueden pensar las máquinas?</div><div class="dot"></div></div>
+      <div class="tev dn frag" data-step="1" style="left:15%"><div class="dot"></div><div class="yr">1956</div><div class="tx">Nace el término<br>"inteligencia artificial"</div></div>
+      <div class="tev up frag" data-step="2" style="left:27%"><div class="yr">1997</div><div class="tx">Deep Blue le gana<br>a Kasparov en ajedrez</div><div class="dot"></div></div>
+      <div class="tev dn frag" data-step="3" style="left:39%"><div class="dot"></div><div class="yr">2012</div><div class="tx">Las máquinas aprenden<br>a reconocer imágenes</div></div>
+      <div class="tev up key frag" data-step="4" style="left:51%"><div class="yr">2017</div><div class="tx">Google inventa el Transformer:<br>la base de todo lo de hoy</div><div class="dot"></div></div>
+      <div class="tev dn key frag" data-step="5" style="left:63%"><div class="dot"></div><div class="yr">2022</div><div class="tx">ChatGPT: la IA llega<br>a cualquier persona</div></div>
+      <div class="tev up frag" data-step="6" style="left:75%"><div class="yr">2024</div><div class="tx">Ve, escucha y habla:<br>la era multimodal</div><div class="dot"></div></div>
+      <div class="tev dn frag" data-step="7" style="left:86%"><div class="dot"></div><div class="yr">2025</div><div class="tx">Agentes: usa herramientas<br>y se conecta a tus sistemas</div></div>
+      <div class="tev up key frag" data-step="8" style="left:97%"><div class="yr">2026</div><div class="tx">Trabaja sola:<br>skills y tareas programadas</div><div class="dot"></div></div>
+    </div>`,
+    on:(el,s)=>{ const pos=[0,4,15,27,39,51,63,75,86,100]; el.querySelector('[data-prog]').style.width=(s<0?0:pos[Math.min(s+1,9)])+'%'; } },
+
+  // 12 · Ni mágica ni malvada
+  { steps:0, html:`
+    <div class="statement">
+      <h1 class="xl">Ni mágica, ni malvada.<br><span class="kick">Solo matemática.</span></h1>
+    </div>` },
+
+  // 13 · MIT
+  { steps:3, html:`
+    <div class="statement">
+      <div class="sub frag" data-step="-1" style="margin-top:0">Las empresas invirtieron entre <b style="color:var(--ink)">30 y 40 mil millones de dólares</b> en IA generativa.</div>
+      <div class="mit-big frag" data-step="0">95%</div>
+      <h1 class="frag" data-step="0" style="font-size:clamp(28px,3.6vw,58px)">no ha visto ningún retorno.</h1>
+    </div>
+    <div class="funnel frag" data-step="1">
+      <div class="fgroup">
+        <div class="fcols">
+          <div class="fcol"><div class="fv">80%</div><div class="fb" style="--h:80%"></div><div class="fl">la investigó</div></div>
+          <div class="fcol"><div class="fv">50%</div><div class="fb" style="--h:50%"></div><div class="fl">la probó</div></div>
+          <div class="fcol"><div class="fv">40%</div><div class="fb" style="--h:40%"></div><div class="fl">la usa</div></div>
+        </div>
+        <div class="gl">ChatGPT, Copilot, Claude</div>
+      </div>
+      <div class="fgroup frag" data-step="2">
+        <div class="fcols">
+          <div class="fcol"><div class="fv">60%</div><div class="fb" style="--h:60%"></div><div class="fl">la investigó</div></div>
+          <div class="fcol"><div class="fv">20%</div><div class="fb" style="--h:20%"></div><div class="fl">la probó</div></div>
+          <div class="fcol last"><div class="fv">5%</div><div class="fb" style="--h:5%"></div><div class="fl">la integró</div></div>
+        </div>
+        <div class="gl">IA metida en sus procesos</div>
+      </div>
+    </div>
+    <div class="src">Challapally, Pease, Raskar y Chari (2025). The GenAI Divide: State of AI in Business 2025. MIT Project NANDA.</div>` },
+
+  // 14 · Usar vs integrar
+  { steps:2, html:`
+    <div class="title frag" data-step="-1">¿Por qué pasa esto?<br>Porque confunden <span class="kick">usar</span> IA con <span class="kick">integrarla</span>.</div>
+    <div class="vs">
+      <div class="vcard frag" data-step="0"><h3>Usar</h3><p>Le preguntas algo a ChatGPT, copias, pegas y sigues igual que ayer.</p></div>
+      <div class="vcard good frag" data-step="1"><h3>Integrar</h3><p>Tu proceso ya depende de ella. Si mañana desaparece, algo deja de funcionar.</p></div>
+    </div>` },
+
+  // 15 · No es tecnología, es estrategia
+  { steps:3, html:`
+    <div class="title frag" data-step="-1">La IA no es tecnología. <span class="kick">Es estrategia.</span></div>
+    <div class="strat">
+      <div class="shead frag" data-step="-1"><div>❌ Así no</div><div></div><div>✔ Así sí</div></div>
+      <div class="srow frag" data-step="0"><div class="bad">Empezar por la herramienta de moda</div><div class="ar">→</div><div class="ok">Empezar por el proceso que más te duele</div></div>
+      <div class="srow frag" data-step="1"><div class="bad">Jugar con prompts sueltos</div><div class="ar">→</div><div class="ok">Quitar una captura que hoy haces dos veces</div></div>
+      <div class="srow frag" data-step="2"><div class="bad">Automatizar lo que ni tú controlas</div><div class="ar">→</div><div class="ok">Automatizar lo que ya funciona y se repite</div></div>
+    </div>` },
+
+  // 16 · Caso fábrica
+  { steps:2, html:`
+    <div class="caso">
+      <div class="eyebrow frag" data-step="-1">Caso real · Fábrica</div>
+      <div class="big frag" data-step="-1">Capturar cada prospecto:<br><s>3 horas</s> <span class="kick">15 minutos</span></div>
+      <div class="flow frag" data-step="0">
+        <div class="fnode"><span class="n">01</span>La IA recibe la información</div><div class="ar">→</div>
+        <div class="fnode"><span class="n">02</span>La IA revisa los datos</div><div class="ar">→</div>
+        <div class="fnode"><span class="n">03</span>La IA la mete al CRM</div>
+      </div>
+      <div class="tarifa-foot frag" data-step="1">Nadie volvió a capturar dos veces lo mismo.</div>
+    </div>` },
+
+  // 17 · Caso financiamiento
+  { steps:2, html:`
+    <div class="caso">
+      <div class="eyebrow frag" data-step="-1">Caso real · Empresa de financiamiento</div>
+      <div class="big frag" data-step="-1">Ciclo de venta:<br><s>30 días</s> <span class="kick">3 días</span></div>
+      <div class="flow frag" data-step="0">
+        <div class="fnode"><span class="n">01</span>La IA pide los papeles</div><div class="ar">→</div>
+        <div class="fnode"><span class="n">02</span>Los revisa y da feedback 24/7</div><div class="ar">→</div>
+        <div class="fnode"><span class="n">03</span>Hace las corridas de riesgo</div><div class="ar">→</div>
+        <div class="fnode"><span class="n">04</span>Pre aprueba o rechaza</div>
+      </div>
+      <div class="tarifa-foot frag" data-step="1">La persona ya solo revisa lo que la IA marcó.</div>
+    </div>` },
+
+  // 17b · Caso constructora
+  { steps:3, html:`
+    <div class="caso">
+      <div class="eyebrow frag" data-step="-1">Caso real · Constructora industrial</div>
+      <div class="big frag" data-step="-1" style="font-size:clamp(40px,5.6vw,96px)">Tenían el mejor sistema.<br><span class="kick">Nadie lo usaba.</span></div>
+      <div class="flow frag" data-step="0">
+        <div class="fnode"><span class="n">EL PROBLEMA</span>El sistema pedía computadora con Windows e internet</div><div class="ar">→</div>
+        <div class="fnode"><span class="n">LA REALIDAD</span>La operación vive en la obra, sin tiempo ni escritorio</div><div class="ar">→</div>
+        <div class="fnode" style="border-color:#f1c9c3"><span class="n" style="color:var(--red)">EL COSTO</span>Desviaciones del 30% de los ingresos</div>
+      </div>
+      <div class="flow frag" data-step="1">
+        <div class="fnode" style="border-color:rgba(68,169,72,.55)"><span class="n">LA SOLUCIÓN</span>Un agente en una app parecida a WhatsApp: piden, reportan y todo queda registrado solo</div>
+      </div>
+      <div class="tarifa-foot frag" data-step="2">El problema nunca fue el sistema.<br><span class="kick">La mejor tecnología es la que tu gente sí usa.</span></div>
+    </div>` },
+
+  // 18 · Pilares de un buen prompt
+  { steps:6, html:`
+    <div class="title frag" data-step="-1">Los pilares de un <span class="kick">buen prompt</span></div>
+    <div class="pillars">
+      <div class="pil frag" data-step="0"><div class="pn">01</div><div class="pt">Rol</div><div class="pq">¿Quién quieres que sea?</div><div class="pe">"Eres analista de pricing de una agencia de carga."</div></div>
+      <div class="pil frag" data-step="1"><div class="pn">02</div><div class="pt">Tarea</div><div class="pq">¿Qué tiene que hacer, exactamente?</div><div class="pe">"Compara estas 6 tarifas de Shanghái a Manzanillo."</div></div>
+      <div class="pil frag" data-step="2"><div class="pn">03</div><div class="pt">Contexto</div><div class="pq">¿Qué sabes tú que ella no?</div><div class="pe">"Cliente recurrente, le urge, margen mínimo 11%."</div></div>
+      <div class="pil frag" data-step="3"><div class="pn">04</div><div class="pt">Formato</div><div class="pq">¿Cómo lo quieres recibir?</div><div class="pe">"Tabla: naviera, tarifa, tránsito, días libres, vigencia."</div></div>
+      <div class="pil frag" data-step="4"><div class="pn">05</div><div class="pt">Límites</div><div class="pq">¿Qué no debe hacer?</div><div class="pe">"Si falta un dato, dímelo. No lo inventes."</div></div>
+    </div>
+    <div class="pfoot frag" data-step="5">Pídeselo como se lo pedirías a <span class="kick">un ejecutivo nuevo</span>.</div>` },
+
+  // 19 · La escalera
+  { steps:5, html:`
+    <div class="title frag" data-step="-1">La escalera de la IA</div>
+    <div class="stairs">
+      <div class="stair s1 frag" data-step="0"><div class="sn">1</div><div class="st">Chat</div><div class="sd">Le preguntas y te contesta.</div></div>
+      <div class="stair s2 frag" data-step="1"><div class="sn">2</div><div class="st">Skill</div><div class="sd">Se lo enseñas una vez y ya sabe cómo lo haces.</div></div>
+      <div class="stair s3 frag" data-step="2"><div class="sn">3</div><div class="st">Conector</div><div class="sd">Entra a tu correo, tu Drive y tus sistemas.</div></div>
+      <div class="stair s4 frag" data-step="3"><div class="sn">4</div><div class="st">Trabaja sola</div><div class="sd">Hace la tarea todos los días, aunque no estés.</div></div>
+    </div>
+    <div class="pfoot frag" data-step="4">Hoy vamos a <span class="kick">subirla juntos</span>.</div>` },
+
+  // 20 · Manos a la obra
+  { steps:1, cls:'nosig', html:`
+    <div class="cover2">
+      <div class="c-left">
+        <div class="c-tag">Módulo práctico</div>
+        <h1>Manos a la <span class="kick">obra</span>.</h1>
+        <div class="c-sub frag" data-step="0">Abran Claude. Lo que sigue lo hacen ustedes.</div>
+        <div class="c-logo end"><div class="duo"><img src="assets/logo-triage.png" alt="TRiAGE"><span>×</span><img src="assets/logo-weport.png" alt="WePort"></div></div>
+      </div>
+      <div class="c-right"><video src="assets/weport-banner.mp4" autoplay muted loop playsinline></video></div>
+    </div>` },
+];
+
+/* ============ JUEGO DE GATO (IA por reglas) ============ */
+const POS = ['la esquina de arriba a la izquierda','arriba al centro','la esquina de arriba a la derecha',
+             'el centro a la izquierda','el centro','el centro a la derecha',
+             'la esquina de abajo a la izquierda','abajo al centro','la esquina de abajo a la derecha'];
+const WINS=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+/* La máquina juega ○ siguiendo 5 reglas fijas, en orden. Tú juegas ✕.
+   Después de tu ✕, se ilumina la regla que aplica y el ○ parpadea donde debe ir.
+   Un clic en el tablero coloca el ○ ahí. */
+function oRule(s){
+  const lineFor=m=>{ for(const l of WINS){ const v=l.map(k=>s[k]); if(v.filter(x=>x===m).length===2 && v.includes('')) return l[v.indexOf('')]; } return -1; };
+  let c=lineFor('o'); if(c>=0) return {rule:0,cell:c};
+  c=lineFor('x'); if(c>=0) return {rule:1,cell:c};
+  if(!s[4]) return {rule:2,cell:4};
+  c=[0,2,6,8].find(k=>!s[k]); if(c!==undefined) return {rule:3,cell:c};
+  c=[1,3,5,7].find(k=>!s[k]); return {rule:4,cell:c};
+}
+function gatoInit(el){
+  if(el._gato) return; el._gato=true;
+  const board=el.querySelector('[data-board]'), say=el.querySelector('[data-say]'), book=[...el.querySelectorAll('[data-book] li')];
+  let cells=[], state, turn, over, pick;
+  const mark=(i,m)=>{ state[i]=m; cells[i].classList.remove('ghost'); cells[i].classList.add(m); cells[i].innerHTML='<span class="mk">'+(m==='x'?'✕':'○')+'</span>'; };
+  const lit=r=>book.forEach((li,k)=>li.classList.toggle('on',k===r));
+  function reset(){
+    state=Array(9).fill(''); turn='x'; over=false; pick=null; lit(-1);
+    say.innerHTML='Pon tu <b>✕</b> donde quieras.';
+    board.innerHTML='';
+    cells=[...Array(9)].map((_,i)=>{ const c=document.createElement('div'); c.className='cell';
+      c.addEventListener('click',e=>{ e.stopPropagation(); play(i); }); board.appendChild(c); return c; });
+  }
+  function end(m){
+    const w=WINS.find(l=>l.every(k=>state[k]===m));
+    if(w){ w.forEach(k=>cells[k].classList.add('win')); over=true; lit(-1);
+      say.innerHTML = m==='o' ? 'Ganó la máquina. <b>Solo siguió sus reglas.</b>' : 'Ganaste tú. <b>A las reglas les faltó un caso.</b>'; return true; }
+    if(state.every(Boolean)){ over=true; lit(-1); say.innerHTML='Empate. <b>Las reglas aguantaron.</b>'; return true; }
+    return false;
+  }
+  function play(i){
+    if(over) return;
+    if(turn==='x'){
+      if(state[i]) return;
+      mark(i,'x'); if(end('x')) return;
+      pick=oRule(state); lit(pick.rule); cells[pick.cell].classList.add('ghost');
+      say.innerHTML='✕ en '+POS[i]+'.<br><b>Regla '+(pick.rule+1)+': el ○ va en '+POS[pick.cell]+'.</b>';
+      turn='o';
+    } else {
+      mark(pick.cell,'o'); if(end('o')) return;
+      turn='x'; lit(-1); say.innerHTML='Tu turno: pon tu <b>✕</b>.';
+    }
+  }
+  el.querySelector('[data-reset]').addEventListener('click',e=>{ e.stopPropagation(); reset(); });
+  el._reset=reset; reset();
+}
+
+/* ============ MOTOR ============ */
+const stage=document.getElementById('stage');
+let si=0, fi=0, nodes=[], curSlide=-1;
+function build(){
+  SLIDES.forEach(sl=>{ const d=document.createElement('div'); d.className='slide '+(sl.cls||''); d.innerHTML=sl.html; stage.appendChild(d); nodes.push(d); });
+  const h=location.hash.match(/^#(\d+)$/); if(h) si=Math.min(Math.max(+h[1]-1,0),SLIDES.length-1);
+  render();
+}
+function frags(i){ return [...nodes[i].querySelectorAll('.frag')]; }
+function render(){
+  if(si!==curSlide){
+    if(curSlide>=0 && SLIDES[curSlide].leave) SLIDES[curSlide].leave(nodes[curSlide]);
+    curSlide=si; if(SLIDES[si].enter) SLIDES[si].enter(nodes[si]);
+  }
+  nodes.forEach((n,i)=>n.classList.toggle('active',i===si));
+  frags(si).forEach(f=>f.classList.toggle('show', (+f.dataset.step) < fi));
+  if(SLIDES[si].on) SLIDES[si].on(nodes[si], fi-1);
+  document.body.classList.toggle('nosig', /\bnosig\b/.test(SLIDES[si].cls||''));
+  document.getElementById('slideno').textContent=(si+1)+' / '+SLIDES.length;
+  document.getElementById('prog').style.width=((si+1)/SLIDES.length*100)+'%';
+  history.replaceState(null,'','#'+(si+1));
+}
+function next(){ if(fi<SLIDES[si].steps){fi++;render();} else if(si<SLIDES.length-1){si++;fi=0;render();} }
+function prev(){ if(fi>0){fi--;render();} else if(si>0){si--;fi=SLIDES[si].steps;render();} }
+document.addEventListener('keydown',e=>{
+  if(['ArrowRight','PageDown',' '].includes(e.key)){e.preventDefault();next();}
+  else if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();prev();}
+  else if(e.key==='f'||e.key==='F'){ if(!document.fullscreenElement)document.documentElement.requestFullscreen(); else document.exitFullscreen(); }
+  else if(e.key==='b'||e.key==='B'){ document.getElementById('blackout').classList.toggle('on'); }
+  else if((e.key==='r'||e.key==='R') && nodes[si]._reset){ nodes[si]._reset(); }
+});
+stage.addEventListener('click',()=>next());
+build();
+</script>
+</body>
+</html>
