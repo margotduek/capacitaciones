@@ -142,6 +142,13 @@
   .ladder span{font-size:12.5px;font-weight:700;padding:6px 12px;border-radius:999px;border:1px solid var(--line);color:var(--muted);background:var(--surface)}
   .ladder span.on{background:var(--accent);border-color:var(--accent);color:#fff}
   html[data-theme="dark"] .ladder span.on{color:#0a1d3a}
+  .reps{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:6px 0 4px}
+  .rep{display:flex;flex-direction:column;gap:4px;border:1px solid var(--line);border-radius:14px;padding:14px 16px;background:var(--surface-2);transition:.15s}
+  .rep:hover{border-color:var(--accent);transform:translateY(-1px)}
+  .rep b{font-size:15px}
+  .rep span{font-size:13.5px;color:var(--muted)}
+  .rep em{font-style:normal;font-size:12.5px;font-weight:800;color:var(--accent)}
+  @media(max-width:700px){.reps{grid-template-columns:1fr}}
   .check{list-style:none;display:grid;gap:8px;margin:8px 0}
   .check li{font-size:14.5px;padding-left:28px;position:relative}
   .check li::before{content:"✔";position:absolute;left:4px;color:var(--accent);font-weight:800}
@@ -603,6 +610,12 @@ Descripción: Arma cotizaciones de flete para clientes a partir de los tarifario
 9. Letra grande, mucho espacio, que se vea bien en computadora y en celular. Modo claro y oscuro.
 Guarda el archivo en la misma carpeta.<button class="copy">Copiar</button></div>
       <div class="prompt">Ahora genéralo también en PDF de una sola página, para mandarlo por correo al cliente.<button class="copy">Copiar</button></div>
+    </div>
+  <div class="sub">
+      <div class="sh"><span class="sn">5.6</span><h4>Así se ven · reportes hechos con Claude</h4></div>
+      <p class="obj">Objetivo: <b>que veas a dónde puedes llegar.</b> Estos reportes se hicieron con Claude a partir de archivos de ventas desordenados, igual de revueltos que los de la práctica. Ábrelos y fíjate en cómo cada gráfica dice qué hay que ver.</p>
+      <div class="reps"><a class="rep" href="https://margotduek.github.io/capacitaciones/reportes%20de%20ventas/VIDEO_Dashboard_Ventas_2026.html" target="_blank"><b>Tablero conciliado</b><span>Cinco meses de ventas de 16 archivos distintos, ya cuadrados en un solo tablero.</span><em>Abrir ↗</em></a><a class="rep" href="https://margotduek.github.io/capacitaciones/reportes%20de%20ventas/Reporte_Direccion_Ventas_Ene-May_2026.html" target="_blank"><b>Reporte para dirección</b><span>Ventas, margen, gastos y resultado por sucursal, explicado para quien decide.</span><em>Abrir ↗</em></a><a class="rep" href="https://margotduek.github.io/capacitaciones/reportes%20de%20ventas/Dashboard_Ventas_Mayo_2026_Completo.html" target="_blank"><b>Dashboard del mes</b><span>Un mes completo: vendedores, productos, sucursales y metas.</span><em>Abrir ↗</em></a><a class="rep" href="https://margotduek.github.io/capacitaciones/reportes%20de%20ventas/Dashboard_Cruce_Ventas_Mayo_2026.html" target="_blank"><b>Cruce de ventas y cobranza</b><span>Lo que se vendió contra lo que ya se cobró, y quién debe.</span><em>Abrir ↗</em></a></div>
+      <div class="reco"><b>Pídele el tuyo igual.</b> Si te gusta uno, dile a Claude: "Hazme mi reporte con este mismo estilo" y pégale la liga.</div>
     </div>
   </div>
 </section>
