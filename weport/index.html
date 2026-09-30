@@ -403,6 +403,23 @@ Cita la fecha y el asunto del correo de donde sacas cada dato. Si algo no está 
       </div>
       <div class="note"><b>Una semana de prueba.</b> Los primeros días compara lo que te dice tu skill contra tu propia revisión. Si algo quedó donde no debía, corrígelo en Personalizar → Skills. Tú sigues siendo responsable de tu bandeja: el skill es una segunda mirada.</div>
     </div>
+
+    <div class="sub">
+      <div class="sh"><span class="sn">2.5</span><h4>Seguimiento con navieras, agentes y proveedores</h4></div>
+      <p class="obj">Objetivo: <b>saber quién te debe una respuesta y no tener que acordarte tú.</b> El seguimiento de cada embarque vive en tu correo: el booking, el draft del BL, la confirmación de zarpe, la factura. Claude lo junta en un solo tablero.</p>
+      <div class="prompt long">Revisa mis correos de los últimos 15 días con navieras, agentes de origen y proveedores. Hazme un tablero con una fila por embarque u operación:
+- Referencia y cliente
+- Con quién es (naviera, agente o proveedor)
+- Qué pedí y cuándo lo pedí
+- Qué me contestaron, si me contestaron
+- Qué sigue y quién lo tiene que hacer
+- Días sin respuesta
+Pon en 🔴 lo que lleva más de 2 días sin respuesta o lo que puede afectar una fecha de zarpe o de entrega. Avísame también si en algún correo cambió la fecha de zarpe (ETD) o de llegada (ETA). Después, redacta los correos de seguimiento para los que están en rojo, en el idioma de cada hilo. No los envíes.<button class="copy">Copiar</button></div>
+      <div class="casos">
+        <div class="caso"><div class="caso-h">Lo que me falta de un embarque</div><div class="prompt">Del embarque <span class="fill">[referencia]</span>, ¿qué documentos ya me mandaron y cuáles me faltan: booking, draft del BL, BL final, factura del agente, telex release?<button class="copy">Copiar</button></div></div>
+        <div class="caso"><div class="caso-h">Cambios de fecha</div><div class="prompt">¿En qué correos de esta semana me avisaron que un buque cambió de fecha o que un contenedor se roló al siguiente buque? Dime qué embarques se ven afectados y a qué clientes hay que avisar.<button class="copy">Copiar</button></div></div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -469,6 +486,26 @@ Cita la fecha y el asunto del correo de donde sacas cada dato. Si algo no está 
       <div class="sh"><span class="sn">3.4</span><h4>El remate · las notas a medias</h4></div>
       <p class="obj">Objetivo: <b>usar a Claude como segunda revisión del trabajo de alguien más.</b> En el ZIP vienen las notas de Pau, que empezó a revisar el embarque y lo dejó a medias.</p>
       <div class="prompt">Abre las notas de Pau que están en la carpeta. De lo que anotó, dime qué es cierto, qué está mal y qué se le pasó. Sé específico: documento, campo y valor.<button class="copy">Copiar</button></div>
+    </div>
+
+    <div class="sub">
+      <div class="sh"><span class="sn">3.5</span><h4>Tu skill de cotizaciones</h4></div>
+      <p class="obj">Objetivo: <b>que una solicitud de cotización se convierta en una cotización lista para el cliente</b>, siempre con el mismo formato, el margen correcto y sin inventar tarifas. Se graba una vez y se usa todos los días.</p>
+      <div class="pl">Paso 1 · grábalo en Personalizar → Skills → Crear skill</div>
+      <div class="prompt">Nombre: mi-cotizador
+Descripción: Arma cotizaciones de flete para clientes a partir de los tarifarios. Úsalo siempre que pida cotizar, comparar tarifas o armar una propuesta de flete.<button class="copy">Copiar</button></div>
+      <div class="prompt long">Cuando te pida una cotización:
+1. Revisa que la solicitud traiga origen, destino, tipo de servicio (FCL, LCL, aéreo o terrestre), tipo y número de contenedores, mercancía, peso y volumen, fecha en que la carga está lista, incoterm y si es mercancía peligrosa. Si falta algo, dime qué falta antes de cotizar.
+2. Busca las tarifas en los tarifarios que te dé o que estén en la carpeta. Usa solo tarifas vigentes para la fecha en que sale la carga. Si una tarifa vence antes, o trae una nota de alza (GRI), avísame.
+3. Nunca inventes una tarifa. Si no la encuentras, dilo.
+4. Dame 3 opciones: la más barata, la más rápida y la más segura en espacio. De cada una: naviera, ruta, tránsito, días libres en destino, vigencia, costo y precio de venta.
+5. Precio de venta: aplica el margen que te diga. Si no te digo, usa 15%. Si alguna opción queda debajo de 11%, márcala: necesita autorización.
+6. Suma los cargos fijos que te dé (gastos locales, despacho, flete terrestre) y sepáralos del flete.
+7. Entrégame dos cosas: una tabla interna con costo, venta y margen de cada opción, y la cotización para el cliente en PDF, limpia y clara, sin costos ni márgenes, con las condiciones: vigencia, sujeta a espacio y equipo, y que no incluye impuestos.
+8. Al final, redacta el correo al cliente para mandarle la cotización. No lo envíes.<button class="copy">Copiar</button></div>
+      <div class="pl">Paso 2 · pruébalo con la carpeta de la práctica</div>
+      <div class="prompt">Cotízame esto con el tarifario de la carpeta. Imagina que hoy es 26 de agosto de 2026. Cliente <span class="fill">[nombre del cliente]</span>: 2 contenedores de 40' High Cube de Ningbo a Manzanillo, muebles, carga lista el 28 de agosto, FOB Ningbo, no es peligrosa. Margen de <span class="fill">[18]</span>%.<button class="copy">Copiar</button></div>
+      <p>Fíjate qué hace con la tarifa de Hapag-Lloyd: vence el 31 de agosto y trae un aviso de alza a partir del 1 de septiembre. <b>Es justo lo que le pasó al embarque del 3.4.</b></p>
     </div>
 
     <div class="reco"><b>Y ahora hazlo tuyo.</b> Crea una carpeta con los documentos de un embarque real que tengas abierto, dale acceso a Claude y repite el ejercicio. Es exactamente el mismo.</div>
@@ -633,6 +670,8 @@ Cuando llegues a la imagen con los dígitos, detente y avísame: esa la escribo 
       </ol>
       <div class="pl">Prompt de la tarea</div>
       <div class="prompt">Todos los días hábiles a las 8:00 am usa mi skill de correos. Revisa mis correos no leídos desde ayer a las 6 pm (los lunes, desde el viernes a las 6 pm). Entrégame mi bandeja en semáforo, con la cuenta cuadrada al final. Hasta arriba, los 3 correos que tengo que atender primero y por qué. Si tengo Granola conectado, recuérdame también a qué me comprometí ayer en mis juntas. No envíes nada.<button class="copy">Copiar</button></div>
+            <div class="pl">Segunda tarea · el seguimiento de cada mañana</div>
+      <div class="prompt">Todos los días hábiles a las 8:30 am revisa mis correos con navieras, agentes y proveedores. Dame la lista de lo que lleva más de 2 días sin respuesta y cualquier cambio de fecha de zarpe o de llegada. Deja listos los borradores de seguimiento. No envíes nada.<button class="copy">Copiar</button></div>
       <div class="note"><b>Para que corra:</b> deja la app de Claude abierta en tu computadora. Mañana a las 8, revisa en Programado que la tarea haya corrido.</div>
     </div>
   </div>
@@ -650,6 +689,8 @@ Cuando llegues a la imagen con los dígitos, detente y avísame: esa la escribo 
           <li>Tu bandeja ordenada todas las mañanas.</li>
           <li>Borradores de respuesta en tu tono, en español o inglés.</li>
           <li>Pasar un tarifario en imagen a tabla.</li>
+          <li>Armar una cotización con tres opciones y el margen correcto.</li>
+          <li>Saber qué naviera, agente o proveedor te debe respuesta.</li>
           <li>Cruzar documentos de un embarque y encontrar lo que no cuadra.</li>
           <li>Llenar una carta de instrucciones o revisar una FT.</li>
           <li>Cruzar reportes y armar un dashboard por cliente.</li>
