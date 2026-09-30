@@ -8,7 +8,7 @@
 <style>
   :root{
     --bg:#0d1117; --panel:#161b22; --panel2:#1c2330; --line:#2a313c;
-    --txt:#e6edf3; --muted:#8b949e; --accent:#3fb6a8; --accent2:#5aa9e6;
+    --txt:#e6edf3; --muted:#8b949e; --accent:#e0863d; --accent2:#5aa9e6;
     --good:#3fb950; --warn:#d29922; --bad:#f85149; --purple:#a371f7;
     --shadow:0 8px 30px rgba(0,0,0,.35);
   }
@@ -53,7 +53,7 @@
   .pill.bad{background:rgba(248,81,73,.15);color:var(--bad)}
   .bar-cell{position:relative}
   .mini{font-size:11px;color:var(--muted)}
-  .insight{background:rgba(63,182,168,.07);border-left:3px solid var(--accent);border-radius:8px;padding:12px 14px;font-size:13px;color:var(--txt);margin-top:14px}
+  .insight{background:rgba(224,134,61,.08);border-left:3px solid var(--accent);border-radius:8px;padding:12px 14px;font-size:13px;color:var(--txt);margin-top:14px}
   .insight b{color:var(--accent)}
   .alert{background:rgba(248,81,73,.08);border-left:3px solid var(--bad);border-radius:8px;padding:12px 14px;font-size:13px;margin-top:14px}
   .alert b{color:var(--bad)}
@@ -76,6 +76,12 @@
       <select id="fVend"><option value="all">Todos</option></select></div>
     <div><label>Sucursal</label>
       <select id="fSuc"><option value="all">Todas</option></select></div>
+    <div><label>Colores de gráficas</label>
+      <select id="fPal">
+        <option value="naranjas">Naranjas</option>
+        <option value="azules">Azules</option>
+        <option value="morados">Morados</option>
+      </select></div>
     <button class="reset" id="reset">Limpiar filtros</button>
     <span class="mini" id="filterNote"></span>
   </div>
@@ -171,8 +177,23 @@ const DATA = {
 };
 const PRODS=["Laptop Pro 14","Monitor 27\"","Teclado Mecánico","Webcam HD","Mouse Inalámbrico"];
 const SUCS=["Guadalajara","CDMX","Monterrey"];
-const PALETTE={"Laptop Pro 14":"#3fb6a8","Monitor 27\"":"#5aa9e6","Teclado Mecánico":"#a371f7","Webcam HD":"#d29922","Mouse Inalámbrico":"#f85149"};
-const SUCCOL={"Guadalajara":"#3fb6a8","CDMX":"#5aa9e6","Monterrey":"#a371f7"};
+const PALETTES={
+  naranjas:["#f2a65a","#e0863d","#c96e28","#a85a1e","#7d3d12"],
+  azules:  ["#7db8ec","#5aa9e6","#3a7fc4","#2c5f9e","#1e4372"],
+  morados: ["#c9a5f9","#a371f7","#8250df","#6b3bc0","#4c268f"]
+};
+// rampa activa (se actualiza con el selector)
+let ramp=PALETTES.naranjas;
+const rampFill=()=>{ // color primario translúcido para el área de la línea
+  const h=ramp[1].replace("#","");
+  const r=parseInt(h.slice(0,2),16),g=parseInt(h.slice(2,4),16),b=parseInt(h.slice(4,6),16);
+  return `rgba(${r},${g},${b},.14)`;
+};
+let PALETTE={}, SUCCOL={};
+function buildColorMaps(){
+  PALETTE={}; PRODS.forEach((p,i)=>PALETTE[p]=ramp[i%ramp.length]);
+  SUCCOL={};  SUCS.forEach((s,i)=>SUCCOL[s]=ramp[i%ramp.length]);
+}
 
 const fmt=n=>"$"+Math.round(n).toLocaleString("es-MX");
 const fmtK=n=>"$"+(n/1000).toFixed(0)+"k";
@@ -273,7 +294,7 @@ function renderVend(){
     type:"bar",
     data:{labels,datasets:[
       {label:"Abril",data:rows.map(r=>r.abril),backgroundColor:cfgColor("#3a4453"),borderRadius:4},
-      {label:"Mayo",data:rows.map(r=>r.mayo),backgroundColor:cfgColor("#3fb6a8"),borderRadius:4}
+      {label:"Mayo",data:rows.map(r=>r.mayo),backgroundColor:cfgColor(ramp[1]),borderRadius:4}
     ]},
     options:{responsive:true,maintainAspectRatio:false,
       plugins:{legend:{position:"top"},tooltip:{callbacks:{label:c=>c.dataset.label+": "+fmt(c.raw)}}},
@@ -320,8 +341,8 @@ function renderDia(){
   charts.dia?.destroy();
   charts.dia=new Chart(document.getElementById("chDia"),{
     type:"line",
-    data:{labels,datasets:[{data:Object.values(DATA.diario),borderColor:"#5aa9e6",
-      backgroundColor:"rgba(90,169,230,.12)",fill:true,tension:.35,pointRadius:0,borderWidth:2}]},
+    data:{labels,datasets:[{data:Object.values(DATA.diario),borderColor:ramp[1],
+      backgroundColor:rampFill(),fill:true,tension:.35,pointRadius:0,borderWidth:2}]},
     options:{responsive:true,maintainAspectRatio:false,
       plugins:{legend:{display:false},tooltip:{callbacks:{title:c=>"Día "+c[0].label,label:c=>fmt(c.raw)}}},
       scales:{y:{ticks:{callback:v=>fmtK(v)},grid:{color:"#212832"}},x:{grid:{display:false},ticks:{maxTicksLimit:12}}}}
@@ -397,11 +418,14 @@ function renderAll(){
   renderKPIs();renderVend();renderProd();renderSuc();renderDia();renderCob();
   renderTblVend();renderTblCob();filterNote();
 }
+const fPal=document.getElementById("fPal");
 fVend.addEventListener("change",e=>{state.vend=e.target.value;renderAll();});
 fSuc.addEventListener("change",e=>{state.suc=e.target.value;renderAll();});
+fPal.addEventListener("change",e=>{ramp=PALETTES[e.target.value];buildColorMaps();renderAll();});
 document.getElementById("reset").addEventListener("click",()=>{
   state={vend:"all",suc:"all"};fVend.value="all";fSuc.value="all";renderAll();
 });
+buildColorMaps();
 renderAll();
 </script>
 </body>

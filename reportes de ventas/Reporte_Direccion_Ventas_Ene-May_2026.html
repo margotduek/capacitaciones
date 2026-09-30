@@ -1,0 +1,1517 @@
+<!DOCTYPE html>
+<html lang="es" data-mode="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reporte de Ventas y Resultados · Enero a Mayo 2026</title>
+<style>
+:root{
+  --plane:#f9f9f7; --surface:#fcfcfb; --surface2:#f3f2ee;
+  --ink:#0b0b0b; --ink2:#52514e; --muted:#898781;
+  --grid:#e1e0d9; --axis:#c3c2b7; --ring:rgba(11,11,11,0.10);
+  --s1:#2a78d6; --s2:#eb6834; --s3:#1baf7a; --s4:#eda100; --s5:#e87ba4;
+  --acc:#2a78d6;
+  --good:#0ca30c; --warn:#fab219; --serious:#ec835a; --crit:#d03b3b;
+  --good-ink:#006300; --warn-ink:#8a5d00;
+  --shadow:0 2px 10px rgba(0,0,0,.05);
+  color-scheme: light;
+}
+html[data-mode="dark"]{
+  --plane:#0d0d0d; --surface:#1a1a19; --surface2:#232321;
+  --ink:#ffffff; --ink2:#c3c2b7; --muted:#898781;
+  --grid:#2c2c2a; --axis:#383835; --ring:rgba(255,255,255,0.10);
+  --good-ink:#0ca30c; --warn-ink:#fab219;
+  --shadow:0 2px 12px rgba(0,0,0,.35);
+  color-scheme: dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--plane); color:var(--ink);
+  font-family:system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-size:16px; line-height:1.55;
+  transition:background .25s, color .25s;
+}
+.wrap{max-width:1140px;margin:0 auto;padding:0 20px 90px}
+
+/* ============ BARRA DE CONTROL ============ */
+.bar{position:sticky;top:0;z-index:60;background:color-mix(in srgb, var(--plane) 88%, transparent);
+  backdrop-filter:blur(12px);border-bottom:1px solid var(--grid);margin-bottom:26px}
+.barin{max-width:1140px;margin:0 auto;padding:10px 20px;display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center}
+.grp{display:flex;align-items:center;gap:6px}
+.grp>.gl{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:700;margin-right:2px}
+.btn{border:1px solid var(--ring);background:var(--surface);color:var(--ink2);border-radius:9px;
+  padding:5px 11px;font:inherit;font-size:13px;font-weight:600;cursor:pointer;line-height:1.35;
+  transition:background .15s, color .15s, border-color .15s, transform .08s}
+.btn:hover{border-color:var(--acc);color:var(--ink)}
+.btn:active{transform:scale(.96)}
+.btn.on{background:var(--acc);border-color:var(--acc);color:#fff}
+.btn.ghost{background:transparent}
+.btn.ghost.on{background:var(--acc);border-color:var(--acc);color:#fff}
+.btn.sm{padding:3px 9px;font-size:12px}
+.dot{width:13px;height:13px;border-radius:50%;display:inline-block;vertical-align:-2px;margin-right:5px;
+  box-shadow:0 0 0 1px var(--ring) inset}
+.sep{width:1px;height:22px;background:var(--grid)}
+.spacer{flex:1}
+@media(max-width:900px){.barin{padding:8px 14px;gap:6px 10px}.grp>.gl{display:none}}
+@media(max-width:760px){.barin{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:thin;-webkit-overflow-scrolling:touch;
+    mask-image:linear-gradient(90deg,#000 0,#000 calc(100% - 26px),transparent 100%)}
+  .grp{flex:none}.spacer{display:none}.sep{flex:none}}
+
+/* selector de color libre */
+.pop{position:absolute;top:100%;right:14px;margin-top:6px;background:var(--surface);border:1px solid var(--ring);
+  border-radius:14px;padding:16px 18px;box-shadow:0 8px 30px rgba(0,0,0,.18);width:290px;display:none;z-index:70}
+.pop.open{display:block}
+.pop h4{margin:0 0 10px;font-size:14px}
+.pop label{font-size:12.5px;color:var(--ink2);display:block;margin:10px 0 4px;font-weight:600}
+.huebar{width:100%;height:22px;border-radius:8px;border:1px solid var(--ring);
+  background:linear-gradient(90deg,#f00,#ff0,#0f0,#0ff,#00f,#f0f,#f00)}
+input[type=range]{width:100%;accent-color:var(--acc);margin:0}
+.swatches{display:flex;gap:5px;margin:12px 0 8px}
+.swatches i{flex:1;height:26px;border-radius:6px;box-shadow:0 0 0 1px var(--ring) inset}
+.verdict{font-size:12px;line-height:1.4;padding:8px 10px;border-radius:8px;margin-top:4px}
+.v-ok{background:rgba(12,163,12,.12);color:var(--good-ink)}
+.v-no{background:rgba(208,59,59,.12);color:var(--crit)}
+
+/* ============ TIPOGRAFÍA ============ */
+header.top{padding:22px 0 22px;border-bottom:1px solid var(--grid);margin-bottom:28px}
+.eyebrow{font-size:12.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);font-weight:700;margin:0 0 6px}
+h1{font-size:31px;line-height:1.18;margin:0 0 8px;font-weight:700;letter-spacing:-0.015em}
+.sub{color:var(--ink2);margin:0;font-size:15px}
+section{margin:0 0 42px;scroll-margin-top:118px}
+h2{font-size:21px;margin:0 0 6px;font-weight:700;letter-spacing:-0.01em}
+h3{font-size:16px;margin:0 0 4px;font-weight:650}
+.lead{color:var(--ink2);margin:0 0 18px;max-width:76ch;font-size:15px}
+
+.card{background:var(--surface);border:1px solid var(--ring);border-radius:15px;padding:20px 22px 16px;
+  box-shadow:var(--shadow);position:relative;transition:background .25s,border-color .25s}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start}
+@media(max-width:880px){.grid2{grid-template-columns:1fr}}
+.cardhead{display:flex;align-items:flex-start;gap:10px;justify-content:space-between}
+.cardtools{display:flex;gap:5px;flex:none}
+
+.tldr{background:var(--surface);border:1px solid var(--ring);border-left:4px solid var(--acc);border-radius:15px;padding:20px 24px;box-shadow:var(--shadow)}
+.tldr ol{margin:12px 0 0;padding-left:22px}
+.tldr li{margin:0 0 10px}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+@media(max-width:920px){.kpis{grid-template-columns:1fr 1fr}}
+@media(max-width:540px){.kpis{grid-template-columns:1fr}}
+.kpi{background:var(--surface);border:1px solid var(--ring);border-radius:15px;padding:17px 18px 15px;box-shadow:var(--shadow)}
+.kpi .lab{font-size:13px;color:var(--ink2);font-weight:600;margin:0 0 8px;min-height:2.6em}
+.kpi .val{font-size:33px;font-weight:700;letter-spacing:-0.02em;line-height:1.05;margin:0}
+.kpi .note{font-size:12.5px;color:var(--muted);margin:8px 0 0;line-height:1.4}
+.kpi.neg .val{color:var(--crit)} .kpi.pos .val{color:var(--good-ink)}
+
+.chartbox{margin:12px 0 0}
+svg{display:block;width:100%;height:auto;overflow:visible}
+.axis-lab{font-size:12px;fill:var(--muted)}
+.val-lab{font-size:12.5px;fill:var(--ink2);font-weight:650}
+.val-lab-big{font-size:13px;fill:var(--ink);font-weight:700}
+.gridline{stroke:var(--grid);stroke-width:1}
+.baseline{stroke:var(--axis);stroke-width:1}
+.mark{transition:opacity .2s}
+.dim{opacity:.18}
+.clickable{cursor:pointer}
+
+.legend{display:flex;flex-wrap:wrap;gap:7px 16px;margin:13px 0 0;font-size:13.5px;color:var(--ink2)}
+.legend span{display:inline-flex;align-items:center;gap:7px}
+.legend .lgi{cursor:pointer;padding:2px 7px;border-radius:7px;transition:background .15s}
+.legend .lgi:hover{background:var(--surface2)}
+.legend .lgi.off{opacity:.4}
+.sw{width:12px;height:12px;border-radius:3px;flex:none}
+.caption{font-size:13.5px;color:var(--ink2);margin:11px 0 0;line-height:1.5}
+.caption b{color:var(--ink)}
+
+.explain{display:none;margin:12px 0 0;padding:13px 15px;border-radius:11px;background:var(--surface2);
+  font-size:13.5px;line-height:1.55;color:var(--ink2);border-left:3px solid var(--acc)}
+.explain.open{display:block;animation:slidein .25s ease}
+@keyframes slidein{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:none}}
+
+.tablewrap{overflow-x:auto;margin:0 -4px;padding:0 4px}
+table{width:100%;border-collapse:collapse;font-size:14px;margin:13px 0 0;min-width:520px}
+th,td{text-align:right;padding:9px 8px;border-bottom:1px solid var(--grid)}
+th:first-child,td:first-child{text-align:left}
+th{font-size:12.5px;color:var(--muted);font-weight:650;text-transform:uppercase;letter-spacing:.04em;white-space:nowrap}
+th.sortable{cursor:pointer;user-select:none} th.sortable:hover{color:var(--ink)}
+th .arr{opacity:.45;font-size:10px}
+td{font-variant-numeric:tabular-nums;color:var(--ink2)}
+td:first-child{color:var(--ink);font-weight:600;font-variant-numeric:normal}
+tbody tr{transition:background .15s} tbody tr:hover{background:var(--surface2)}
+tbody tr.rowhi{background:color-mix(in srgb, var(--acc) 12%, transparent)}
+tr.total td{font-weight:700;color:var(--ink);border-top:2px solid var(--axis);border-bottom:none}
+.pill{display:inline-block;padding:2px 9px;border-radius:20px;font-size:12px;font-weight:700;white-space:nowrap}
+.p-good{background:rgba(12,163,12,.14);color:var(--good-ink)}
+.p-warn{background:rgba(250,178,25,.2);color:var(--warn-ink)}
+.p-crit{background:rgba(208,59,59,.14);color:var(--crit)}
+
+details{margin:13px 0 0}
+summary{cursor:pointer;font-size:13.5px;color:var(--ink2);font-weight:600;padding:5px 0}
+summary:hover{color:var(--ink)}
+
+.tip{position:fixed;pointer-events:none;opacity:0;transition:opacity .12s;background:var(--ink);color:var(--plane);
+  padding:9px 12px;border-radius:9px;font-size:13px;line-height:1.45;z-index:99;max-width:270px;box-shadow:0 4px 16px rgba(0,0,0,.25)}
+.tip b{display:block;font-size:13.5px;margin-bottom:2px}
+.hit{cursor:default} .hit:focus{outline:2px solid var(--acc);outline-offset:2px}
+
+/* ============ SIMULADOR ============ */
+.sim{background:var(--surface);border:1px solid var(--ring);border-radius:15px;padding:22px 24px;box-shadow:var(--shadow)}
+.simgrid{display:grid;grid-template-columns:1.15fr .85fr;gap:26px;align-items:start}
+@media(max-width:900px){.simgrid{grid-template-columns:1fr}}
+.lever{margin:0 0 20px}
+.lever .lh{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:3px}
+.lever .lt{font-size:14.5px;font-weight:650}
+.lever .lv{font-size:15px;font-weight:700;color:var(--acc);font-variant-numeric:tabular-nums;white-space:nowrap}
+.lever .ld{font-size:12.5px;color:var(--muted);margin:4px 0 0;line-height:1.4;min-height:2.5em}
+.simout{background:var(--surface2);border-radius:13px;padding:18px 20px;position:sticky;top:70px}
+.simrow{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:7px 0;font-size:14px;color:var(--ink2)}
+.simrow b{color:var(--ink);font-variant-numeric:tabular-nums}
+.simrow.big{border-top:1px solid var(--grid);margin-top:8px;padding-top:12px;font-size:15px}
+.simrow.big .n{font-size:27px;font-weight:700;letter-spacing:-.02em}
+.pos{color:var(--good-ink)} .negv{color:var(--crit)}
+.meter{height:9px;border-radius:6px;background:var(--grid);overflow:hidden;margin:12px 0 6px;position:relative}
+.meter i{position:absolute;top:0;bottom:0;border-radius:6px;transition:left .3s,width .3s,background .3s}
+.meterlab{display:flex;justify-content:space-between;font-size:11.5px;color:var(--muted)}
+.scen{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.scen .chip{font-size:12px;padding:4px 9px;border-radius:20px;background:var(--surface);border:1px solid var(--ring);
+  cursor:pointer;font-weight:600;color:var(--ink2)}
+.scen .chip:hover{border-color:var(--acc);color:var(--ink)}
+.scen .chip b{color:var(--acc)}
+
+/* ============ PLAN ============ */
+.actions{display:grid;gap:14px}
+.action{background:var(--surface);border:1px solid var(--ring);border-radius:15px;padding:19px 22px;display:grid;
+  grid-template-columns:44px 1fr auto;gap:18px;align-items:start;box-shadow:var(--shadow);transition:transform .15s,border-color .15s}
+.action:hover{transform:translateY(-2px);border-color:var(--acc)}
+@media(max-width:720px){.action{grid-template-columns:36px 1fr;gap:14px}.action .money{grid-column:2;text-align:left!important}}
+.action .num{width:34px;height:34px;border-radius:50%;background:var(--acc);color:#fff;display:grid;place-items:center;font-weight:700;font-size:15px}
+.action h3{margin:2px 0 6px} .action p{margin:0;color:var(--ink2);font-size:14.5px;line-height:1.5}
+.action .money{text-align:right;white-space:nowrap}
+.action .money .m{font-size:20px;font-weight:700;color:var(--good-ink);line-height:1.1}
+.action .money .ml{font-size:12px;color:var(--muted);display:block;margin-top:3px}
+
+.notes{background:var(--surface);border:1px solid var(--ring);border-radius:15px;padding:20px 22px;font-size:14px;color:var(--ink2);box-shadow:var(--shadow)}
+.notes h3{color:var(--ink);margin-bottom:10px}
+.notes ul{margin:0;padding-left:20px} .notes li{margin-bottom:8px;line-height:1.5}
+footer{margin-top:34px;padding-top:18px;border-top:1px solid var(--grid);font-size:13px;color:var(--muted)}
+
+.flag{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:650;color:var(--warn-ink);
+  background:rgba(250,178,25,.16);padding:3px 9px;border-radius:20px}
+
+/* ============ MODO PRESENTACIÓN ============ */
+body.present .bar{position:fixed;left:0;right:0;top:0}
+body.present .wrap{padding-top:calc(var(--barh, 112px) + 18px)}
+body.present footer{display:none}
+body.present section{display:none}
+body.present section.slide-on{display:block;animation:fade .3s ease}
+body.present header.top{display:none}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.pnav{display:none;position:fixed;bottom:18px;left:50%;transform:translateX(-50%);z-index:80;
+  background:var(--surface);border:1px solid var(--ring);border-radius:30px;padding:7px 10px;gap:8px;
+  align-items:center;box-shadow:0 6px 24px rgba(0,0,0,.2)}
+body.present .pnav{display:flex}
+.pnav .pc{font-size:13px;color:var(--ink2);font-weight:650;min-width:52px;text-align:center;font-variant-numeric:tabular-nums}
+
+#confetti{position:fixed;inset:0;pointer-events:none;z-index:95;display:none}
+.toast{position:fixed;bottom:22px;right:22px;background:var(--ink);color:var(--plane);padding:11px 16px;
+  border-radius:11px;font-size:13.5px;font-weight:600;z-index:100;opacity:0;transform:translateY(8px);
+  transition:opacity .22s,transform .22s;pointer-events:none;box-shadow:0 6px 22px rgba(0,0,0,.28)}
+.toast.show{opacity:1;transform:none}
+body.present .toast{bottom:76px}
+
+.kbd{display:inline-block;padding:1px 6px;border-radius:5px;border:1px solid var(--ring);background:var(--surface2);
+  font-size:11.5px;font-family:ui-monospace,monospace;color:var(--ink2)}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+@media print{.bar,.pnav,.cardtools,#confetti{display:none!important}body.present section{display:block!important}}
+</style>
+</head>
+<body>
+
+<div class="tip" id="tip" role="status" aria-live="polite"></div>
+<canvas id="confetti"></canvas>
+<div class="toast" id="toast"></div>
+
+<div class="bar">
+  <div class="barin">
+    <div class="grp"><span class="gl">Vista</span>
+      <button class="btn" data-mode-btn="light" title="Modo claro">☀︎ Claro</button>
+      <button class="btn" data-mode-btn="dark" title="Modo oscuro">☾ Oscuro</button>
+      <button class="btn" data-mode-btn="auto" title="Igual que tu computadora">Auto</button>
+    </div>
+    <div class="sep"></div>
+    <div class="grp"><span class="gl">Color</span>
+      <button class="btn" data-pal="azul"><i class="dot" style="background:#2a78d6"></i>Azul</button>
+      <button class="btn" data-pal="atardecer"><i class="dot" style="background:#df5e96"></i>Atardecer</button>
+      <button class="btn" data-pal="bosque"><i class="dot" style="background:#349d62"></i>Bosque</button>
+      <button class="btn" data-pal="contraste"><i class="dot" style="background:#dd5041"></i>Contraste</button>
+      <button class="btn" id="btnCustom">🎨 El mío</button>
+    </div>
+    <div class="sep"></div>
+    <div class="grp"><span class="gl">Meses</span><span id="mchips" style="display:flex;gap:4px"></span>
+      <button class="btn sm ghost" id="mAll">Todos</button>
+    </div>
+    <div class="sep"></div>
+    <div class="grp"><span class="gl">Sucursal</span><span id="bchips" style="display:flex;gap:4px"></span></div>
+    <div class="sep"></div>
+    <div class="grp">
+      <button class="btn" id="unitBtn" title="Cambiar entre pesos y porcentaje">$ Pesos</button>
+    </div>
+    <div class="spacer"></div>
+    <div class="grp">
+      <button class="btn ghost" id="btnPresent" title="Modo presentación (tecla P)">▶ Presentar</button>
+      <button class="btn ghost" id="btnReset" title="Quitar todos los filtros (tecla R)">↺</button>
+      <button class="btn ghost" id="btnHelp" title="Atajos de teclado">?</button>
+    </div>
+  </div>
+
+  <div class="pop" id="popCustom">
+    <h4>Escoge tu color</h4>
+    <div class="huebar"></div>
+    <input type="range" id="hueSlider" min="0" max="359" value="215">
+    <label>Qué tan vivos los colores</label>
+    <input type="range" id="chromaSlider" min="10" max="22" value="15">
+    <div class="swatches" id="customSw"></div>
+    <div class="verdict" id="customVerdict"></div>
+    <div style="display:flex;gap:6px;margin-top:12px">
+      <button class="btn sm" id="applyCustom" style="flex:1">Usar este</button>
+      <button class="btn sm ghost" id="closeCustom">Cerrar</button>
+    </div>
+  </div>
+</div>
+
+<div class="pnav">
+  <button class="btn sm" id="pPrev">←</button>
+  <span class="pc" id="pCount">1 / 9</span>
+  <button class="btn sm" id="pNext">→</button>
+  <button class="btn sm ghost" id="pExit">Salir</button>
+</div>
+
+<div class="wrap">
+
+<header class="top">
+  <p class="eyebrow">Reporte para dirección</p>
+  <h1>Cómo vamos en ventas, y por qué no hay dinero en el banco</h1>
+  <p class="sub">Enero a mayo de 2026 · Sucursales CDMX, Guadalajara y Monterrey · 6 vendedores<br>
+    <span style="font-size:13.5px;color:var(--muted)">Este reporte es interactivo: puedes filtrar meses y sucursales arriba, hacer clic en cualquier vendedor o producto para seguirlo por todas las gráficas, y jugar con el simulador de la sección 8.</span></p>
+</header>
+
+<section id="sec-resumen">
+  <div class="tldr">
+    <h2>Lo importante, en 30 segundos</h2>
+    <ol id="tldrList"></ol>
+  </div>
+</section>
+
+<section id="sec-kpi">
+  <h2>Los cuatro números que importan</h2>
+  <p class="lead">Todo lo que sigue explica estos cuatro números. Cambian solos si filtras meses o sucursales arriba.</p>
+  <div class="kpis" id="kpis"></div>
+</section>
+
+<section id="sec-ventas">
+  <h2>1. Las ventas van bien. En serio.</h2>
+  <p class="lead">Esta es la buena noticia y hay que decirla primero: el equipo vende cada vez más.</p>
+  <div class="card" data-chart="ventas">
+    <div class="cardhead">
+      <div><h3>Cuánto vendimos cada mes</h3>
+        <p class="caption" style="margin-top:2px">Pasa el mouse por una barra para ver el detalle. Haz clic para dejar solo ese mes.</p></div>
+      <div class="cardtools">
+        <button class="btn sm ghost" data-explain>¿Cómo lo leo?</button>
+        <button class="btn sm ghost" data-png title="Descargar como imagen">⬇</button>
+      </div>
+    </div>
+    <div class="explain">Mientras más alta la barra, más vendimos ese mes. Ojo: esto es lo que <b>facturamos</b>, no lo que nos pagaron. Una venta puede estar aquí arriba y el dinero seguir sin llegar al banco. Eso lo vemos en la sección 6.</div>
+    <div class="chartbox" id="c-ventas"></div>
+    <p class="caption" id="cap-ventas"></p>
+    <details><summary>Ver los números en tabla</summary><div class="tablewrap" id="t-ventas"></div></details>
+  </div>
+</section>
+
+<section id="sec-cascada">
+  <h2>2. Aquí está el problema: a dónde se va cada peso</h2>
+  <p class="lead">La gráfica más importante del reporte. Entra dinero por la izquierda y cada barra hacia abajo es algo que hay que pagar. Lo que queda hasta la derecha es lo que de verdad ganamos.</p>
+  <div class="card" data-chart="cascada">
+    <div class="cardhead">
+      <div><h3 id="h-cascada">De los $13.2 millones que entraron, ¿qué quedó?</h3></div>
+      <div class="cardtools">
+        <button class="btn sm ghost" data-explain>¿Cómo lo leo?</button>
+        <button class="btn sm ghost" data-png title="Descargar como imagen">⬇</button>
+      </div>
+    </div>
+    <div class="explain">Piénsalo como una cubeta con agujeros. Entran $100 por arriba. Se van $72 en pagarle al proveedor la mercancía que revendemos, $26 en renta, sueldos y luz, y $4 en comisiones. Como salen $102 y solo entraron $100, la cubeta queda debiendo. Para que el negocio gane dinero, o entra más agua (vender más caro) o se tapan agujeros (gastar menos).</div>
+    <div class="chartbox" id="c-cascada"></div>
+    <div class="legend">
+      <span><i class="sw" style="background:var(--s1)"></i>Dinero que entra</span>
+      <span><i class="sw" style="background:var(--s2)"></i>Dinero que sale</span>
+      <span><i class="sw" id="swend" style="background:var(--crit)"></i><span id="lblend">Lo que quedó</span></span>
+    </div>
+    <p class="caption" id="cap-cascada"></p>
+    <details><summary>Ver los números en tabla</summary><div class="tablewrap" id="t-cascada"></div></details>
+  </div>
+</section>
+
+<section id="sec-resultado">
+  <h2>3. Mes con mes: solo dos meses fueron buenos</h2>
+  <p class="lead">Arriba de la línea significa que ese mes ganamos dinero. Abajo, que perdimos.</p>
+  <div class="card" data-chart="resultado">
+    <div class="cardhead">
+      <div><h3>Ganancia o pérdida real de cada mes</h3></div>
+      <div class="cardtools">
+        <button class="btn sm ghost" data-explain>¿Cómo lo leo?</button>
+        <button class="btn sm ghost" data-png title="Descargar como imagen">⬇</button>
+      </div>
+    </div>
+    <div class="explain">A cada mes le restamos lo que costó la mercancía, la renta, los sueldos y las comisiones. Lo que sobra es la barra. Verde arriba: ese mes ganamos. Roja abajo: ese mes perdimos.</div>
+    <div class="chartbox" id="c-resultado"></div>
+    <div class="legend">
+      <span><i class="sw" style="background:var(--good)"></i>Ganamos ese mes</span>
+      <span><i class="sw" style="background:var(--crit)"></i>Perdimos ese mes</span>
+    </div>
+    <p class="caption" id="cap-resultado"></p>
+    <details><summary>Ver los números en tabla</summary><div class="tablewrap" id="t-resultado"></div></details>
+  </div>
+</section>
+
+<section id="sec-producto">
+  <h2>4. Vendemos mucho de lo que menos nos deja</h2>
+  <p class="lead">Haz clic en cualquier producto para seguirlo. Casi tres cuartas partes de nuestras ventas son laptops, y la laptop es justo la que menos ganancia deja.</p>
+  <div class="grid2">
+    <div class="card" data-chart="mix">
+      <div class="cardhead"><div><h3>De cada venta, ¿qué producto es?</h3></div>
+        <div class="cardtools"><button class="btn sm ghost" data-png title="Descargar como imagen">⬇</button></div></div>
+      <div class="chartbox" id="c-pie-mix"></div>
+      <p class="caption" id="cap-mix"></p>
+    </div>
+    <div class="card" data-chart="margen">
+      <div class="cardhead"><div><h3>De cada $100 vendidos, ¿cuánto nos queda?</h3></div>
+        <div class="cardtools"><button class="btn sm ghost" data-explain>¿Cómo lo leo?</button></div></div>
+      <div class="explain">Es el precio al que vendemos menos lo que nos costó comprarlo. La laptop la compramos en $19,200 y la vendemos en $24,500: nos quedan $5,300, o sea $21 de cada $100. El mouse lo compramos en $290 y lo vendemos en $620: nos quedan $53 de cada $100.</div>
+      <div class="chartbox" id="c-margen-prod"></div>
+      <p class="caption">Los accesorios dejan el doble o el triple que la laptop, pero son menos de una décima parte de lo que vendemos.</p>
+    </div>
+  </div>
+  <div class="card" style="margin-top:18px">
+    <p class="caption" style="margin:0"><b>En cristiano:</b> es como una tienda que vende puros refrescos (baratos de ganancia) y casi nada de botanas (donde está el dinero). Vender más laptops sin subirles el precio no arregla nada, porque cada laptop extra trae muy poquita ganancia.</p>
+    <details open><summary>Ver los números en tabla</summary><div class="tablewrap" id="t-mix"></div>
+      <p class="caption" style="font-size:12.5px" id="notamix"></p></details>
+  </div>
+</section>
+
+<section id="sec-vendedores">
+  <h2>5. Quiénes son nuestros mejores y peores vendedores</h2>
+  <p class="lead">Dos lecturas distintas: cuánto vende cada quien, y cuánto nos cuesta en comisión. No es el mismo ranking. Haz clic en un nombre para seguirlo por todo el reporte.</p>
+  <div class="card" data-chart="vventas">
+    <div class="cardhead"><div><h3>Cuánto vendió cada quien</h3>
+      <p class="caption" style="margin-top:2px">Clic en una barra para resaltar a esa persona.</p></div>
+      <div class="cardtools">
+        <button class="btn sm ghost" id="btnRace">▶ Ver la carrera mes a mes</button>
+        <button class="btn sm ghost" data-png title="Descargar como imagen">⬇</button>
+      </div></div>
+    <div class="chartbox" id="c-vend-ventas"></div>
+    <p class="caption" id="cap-vend"></p>
+  </div>
+  <div class="card" style="margin-top:18px" data-chart="vcom">
+    <div class="cardhead"><div><h3>Cuánto se lleva cada vendedor de la ganancia que genera</h3>
+      <p class="caption" style="margin-top:2px">Esto es lo importante: no cuánto vende, sino qué tanto de la ganancia se queda él.</p></div>
+      <div class="cardtools"><button class="btn sm ghost" data-explain>¿Cómo lo leo?</button></div></div>
+    <div class="explain">Si un vendedor vende $100,000, de ahí nos quedan como $27,750 de ganancia antes de gastos. Si su comisión es 6%, se lleva $6,000. Esos $6,000 son 21.6% de los $27,750. Por eso decimos que "se lleva $21.6 de cada $100 de ganancia". Un vendedor con 2.5% se lleva solo $9.</div>
+    <div class="chartbox" id="c-vend-com"></div>
+    <p class="caption" id="cap-vcom"></p>
+    <details open><summary>Ver la tabla completa (puedes ordenarla haciendo clic en los encabezados)</summary>
+      <div class="tablewrap" id="t-vend"></div></details>
+  </div>
+</section>
+
+<section id="sec-cobranza">
+  <h2>6. Y aquí está el dinero que falta en el banco</h2>
+  <p class="lead">Vendimos y facturamos $822,800 que los clientes todavía no nos pagan. Casi la mitad lleva más de tres meses sin cobrarse.
+    <span class="flag" style="margin-left:6px">⚠ La cobranza no se puede separar por mes ni por sucursal</span></p>
+  <div class="grid2">
+    <div class="card" data-chart="cxc">
+      <div class="cardhead"><div><h3>¿Qué tan viejo es el dinero que nos deben?</h3></div>
+        <div class="cardtools"><button class="btn sm ghost" data-png title="Descargar como imagen">⬇</button></div></div>
+      <div class="chartbox" id="c-pie-cxc"></div>
+      <p class="caption">Mientras más viejo, más difícil de cobrar. <b>$344,800 llevan más de 90 días.</b></p>
+    </div>
+    <div class="card" data-chart="deudores">
+      <div class="cardhead"><div><h3>¿Quién nos debe más?</h3></div>
+        <div class="cardtools"><button class="btn sm ghost" data-png title="Descargar como imagen">⬇</button></div></div>
+      <div class="chartbox" id="c-deudores"></div>
+      <p class="caption">Grupo Salinas solo nos debe <b>$312,000</b>: casi 4 de cada 10 pesos por cobrar.</p>
+    </div>
+  </div>
+  <div class="card" style="margin-top:18px">
+    <p class="caption" style="margin:0 0 4px"><b>Lo que más preocupa:</b> a varios clientes les seguimos vendiendo a crédito aunque ya nos deben de más y no han pagado lo anterior.</p>
+    <div class="tablewrap" id="t-cxc"></div>
+    <p class="caption"><b>Cómo leerlo:</b> “Días vencida” es cuánto lleva la factura pasada de su fecha de pago. A Papelería Central le dimos 30 días y ya lleva 100 de vencida, con el 92% de su crédito usado, y le seguimos facturando.</p>
+  </div>
+</section>
+
+<section id="sec-gastos">
+  <h2>7. En qué se nos van los gastos fijos</h2>
+  <p class="lead">Los gastos fijos son lo que pagamos cada mes vendamos o no: renta, sueldos, luz e internet.</p>
+  <div class="grid2">
+    <div class="card" data-chart="gastos">
+      <div class="cardhead"><div><h3>¿En qué se va el gasto fijo?</h3></div>
+        <div class="cardtools"><button class="btn sm ghost" data-png title="Descargar como imagen">⬇</button></div></div>
+      <div class="chartbox" id="c-pie-gastos"></div>
+      <p class="caption" id="cap-gastos"></p>
+    </div>
+    <div class="card" data-chart="suc">
+      <div class="cardhead"><div><h3>¿Cómo le fue a cada sucursal?</h3>
+        <p class="caption" style="margin-top:2px">Clic en una sucursal para filtrar todo el reporte por ella.</p></div>
+        <div class="cardtools"><button class="btn sm ghost" data-png title="Descargar como imagen">⬇</button></div></div>
+      <div class="chartbox" id="c-suc"></div>
+      <p class="caption" id="cap-suc"></p>
+    </div>
+  </div>
+</section>
+
+<section id="sec-sim">
+  <h2>8. El simulador: ¿qué pasa si...?</h2>
+  <p class="lead">Mueve las palancas y mira cómo cambia el resultado en vivo. Los números de arriba del reporte no se mueven: esto es un escenario aparte, para probar ideas antes de tomar una decisión.</p>
+  <div class="sim">
+    <div class="simgrid">
+      <div>
+        <div class="lever">
+          <div class="lh"><span class="lt">1. Subir el precio de la laptop</span><span class="lv" id="lv1">+0%</span></div>
+          <input type="range" id="sl1" min="0" max="15" step="0.5" value="0">
+          <p class="ld" id="ld1"></p>
+        </div>
+        <div class="lever">
+          <div class="lh"><span class="lt">2. Tope de comisión sobre la ganancia</span><span class="lv" id="lv2">14.2%</span></div>
+          <input type="range" id="sl2" min="5" max="20" step="0.01" value="14.23">
+          <p class="ld" id="ld2"></p>
+        </div>
+        <div class="lever">
+          <div class="lh"><span class="lt">3. Cobranza que logramos recuperar</span><span class="lv" id="lv3">0%</span></div>
+          <input type="range" id="sl3" min="0" max="100" step="5" value="0">
+          <p class="ld" id="ld3"></p>
+        </div>
+        <div class="lever">
+          <div class="lh"><span class="lt">4. Laptops que salen con kit de accesorios</span><span class="lv" id="lv4">36%</span></div>
+          <input type="range" id="sl4" min="36" max="100" step="1" value="36">
+          <p class="ld" id="ld4"></p>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:4px">
+          <button class="btn sm" id="simSave">Guardar este escenario</button>
+          <button class="btn sm ghost" id="simReset">Volver a como estamos hoy</button>
+          <button class="btn sm ghost" id="simPlan">Poner el plan completo</button>
+        </div>
+        <div class="scen" id="scenList"></div>
+      </div>
+      <div class="simout">
+        <div class="simrow"><span>Lo que vendemos</span><b id="so1"></b></div>
+        <div class="simrow"><span>Menos el costo de la mercancía</span><b id="so2"></b></div>
+        <div class="simrow"><span>Menos renta, sueldos y luz</span><b id="so3"></b></div>
+        <div class="simrow"><span>Menos comisiones</span><b id="so4"></b></div>
+        <div class="simrow big"><span>El negocio<br><span style="font-size:12px;color:var(--muted)">gana o pierde</span></span><b class="n" id="soRes"></b></div>
+        <div class="meter"><i id="meterBar"></i></div>
+        <div class="meterlab"><span>−$500 mil</span><span>$0</span><span>+$1 M</span></div>
+        <div class="simrow big" style="border-top:1px solid var(--grid)"><span>Entra al banco<br><span style="font-size:12px;color:var(--muted)">resultado + cobranza</span></span><b class="n" id="soCash"></b></div>
+        <p class="caption" id="simMsg" style="margin-top:10px"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="sec-plan">
+  <h2>9. Qué hacer, y cuánto dinero trae cada cosa</h2>
+  <p class="lead">Cuatro acciones. Ninguna requiere despedir gente ni vender más. Las tres primeras se pueden empezar esta semana.</p>
+  <div class="actions">
+    <div class="action">
+      <div class="num">1</div>
+      <div><h3>Salir a cobrar lo que ya nos deben</h3>
+        <p>Empezar por Grupo Salinas ($312,000, con facturas de hasta 85 días vencidas). Asignar cada factura vencida al vendedor que hizo la venta y no pagarle su comisión de esa venta hasta que el cliente pague. Congelar crédito a quien ya pasó su límite: Papelería Central (92%) y Restaurante Don Pepe (81%).</p></div>
+      <div class="money"><span class="m">+$576,000</span><span class="ml">de efectivo, si cobramos<br>el 70% en 60 días</span></div>
+    </div>
+    <div class="action">
+      <div class="num">2</div>
+      <div><h3>Subir 3% el precio de la laptop</h3>
+        <p>Son $735 pesos más por laptop, de $24,500 a $25,235. Nuestro proveedor ya nos subió el costo en marzo y nosotros no ajustamos lo suficiente. Este dinero entra completo a la ganancia porque el costo no cambia.</p></div>
+      <div class="money"><span class="m">+$285,105</span><span class="ml">en 5 meses<br>(~$684 mil al año)</span></div>
+    </div>
+    <div class="action">
+      <div class="num">3</div>
+      <div><h3>Cambiar cómo se pagan las comisiones</h3>
+        <p>Hoy se paga sobre lo facturado y con porcentajes que no siguen ninguna regla (del 2.5% al 6%). Proponemos pagar sobre la <b>ganancia</b> que deja cada venta, con tope del 10%, y solo cuando el cliente ya pagó. Así el vendedor gana más si vende accesorios y si cobra rápido.</p></div>
+      <div class="money"><span class="m">+$155,445</span><span class="ml">en 5 meses<br>(~$373 mil al año)</span></div>
+    </div>
+    <div class="action">
+      <div class="num">4</div>
+      <div><h3>Empujar accesorios en cada venta de laptop</h3>
+        <p>Vendimos 391 laptops y solo 141 monitores. Hoy 1 de cada 3 laptops sale con monitor. Si logramos que salgan 2 de cada 3, con kit completo de monitor, teclado, mouse y webcam, cada kit deja $3,690 limpios. No hay que vender a más clientes: hay que venderle más a los mismos.</p></div>
+      <div class="money"><span class="m">+$447,265</span><span class="ml">en 5 meses, si pasamos<br>de 1 de cada 3<br>a 2 de cada 3</span></div>
+    </div>
+  </div>
+  <div class="card" style="margin-top:18px;border-left:4px solid var(--good)">
+    <p class="caption" style="margin:0;font-size:15px"><b>Sumando las cuatro:</b> las acciones 2, 3 y 4 juntas llevan el resultado de <b>−$237,256 a +$577,322</b>. La acción 1 no cambia la ganancia (esas ventas ya estaban contadas) pero mete <b>$575,960 de efectivo</b> al banco. <b>Efecto total en la caja: alrededor de $1.15 millones.</b> Compruébalo tú mismo con el botón “Poner el plan completo” del simulador.</p>
+    <p class="caption" style="font-size:12.5px">Los cuatro montos de arriba no suman exactamente ese resultado: la comisión se recalcula sobre la ganancia nueva, que ya es más grande. Cada tarjeta muestra el efecto de esa acción por sí sola.</p>
+  </div>
+</section>
+
+<section id="sec-notas">
+  <div class="notes">
+    <h3>De dónde salieron estos números, y qué hay que tomar con pinzas</h3>
+    <ul>
+      <li><b>Fuente:</b> los archivos de la carpeta “reportes de ventas”: metas y comisiones 2026, ventas de enero a mayo, costos de productos, lista de precios, gastos por sucursal, cobranza del primer trimestre y cruce de ventas y cobranza de mayo.</li>
+      <li><b>Los archivos de cada mes están sucios.</b> Nombres de sucursal escritos de tres formas (“GDL”, “Gdl”, “Guadalajra”), productos con y sin espacios, renglones con el importe vacío. Los totales de venta que se usan aquí son los del reporte oficial de comisiones, que es el único conciliado.</li>
+      <li><b>Enero y marzo no tienen registro de monitores ni webcams</b> en el archivo transaccional, aunque sí se vendieron. Por eso el margen de esos meses se ve un poco mejor de lo que probablemente fue.</li>
+      <li><b>Abril está incompleto:</b> el propio archivo trae una nota que dice que faltan las capturas del 28 al 30 de abril. El mejor mes del año en realidad fue todavía mejor.</li>
+      <li><b>Una diferencia a revisar:</b> a Juan Pérez se le comisionaron $4,720 de mayo que no aparecen en el reporte de ventas detallado.</li>
+      <li><b>La cobranza no dice quién hizo cada venta</b>, así que no se puede repartir por vendedor ni filtrar por mes o sucursal. Hay que arreglarlo para poder atar la comisión al cobro.</li>
+      <li><b>La “ganancia que dejó” de cada vendedor y el resultado de cada sucursal son aproximados:</b> se reparten con el margen promedio del negocio, porque no tenemos el detalle de qué productos vendió cada quien. Los totales de venta y de comisión sí son exactos.</li>
+      <li><b>Al filtrar por sucursal,</b> el pastel de productos se reparte en proporción a las ventas de esa sucursal, porque los archivos no dicen qué producto se vendió en cada plaza.</li>
+      <li><b>El simulador es un escenario, no una promesa.</b> Asume que el volumen de venta no cambia al subir el precio y que los gastos fijos se quedan igual.</li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  Datos al 19 de agosto de 2026 · Periodo analizado: enero a mayo de 2026 · Cifras en pesos mexicanos<br>
+  Atajos: <span class="kbd">T</span> cambiar claro/oscuro · <span class="kbd">C</span> cambiar color · <span class="kbd">P</span> presentar · <span class="kbd">R</span> quitar filtros · <span class="kbd">←</span><span class="kbd">→</span> navegar
+</footer>
+
+</div>
+
+<script>
+/* ══════════════════════════════════════════════════════════════
+   1. DATOS
+   ══════════════════════════════════════════════════════════════ */
+const MESES = ['Enero','Febrero','Marzo','Abril','Mayo'];
+const SUC   = ['CDMX','GDL','MTY'];
+const SUCN  = {CDMX:'CDMX', GDL:'Guadalajara', MTY:'Monterrey'};
+const PROD  = ['Laptop Pro 14','Monitor 27"','Teclado Mecánico','Mouse Inalámbrico','Webcam HD'];
+const COSTO = {'Laptop Pro 14':19200,'Monitor 27"':4100,'Teclado Mecánico':780,'Mouse Inalámbrico':290,'Webcam HD':590};
+const PRECIO= {'Laptop Pro 14':24500,'Monitor 27"':6200,'Teclado Mecánico':1450,'Mouse Inalámbrico':620,'Webcam HD':1180};
+
+const VEND = [
+  {n:'Juan Pérez',     suc:'GDL',  meta:250000, pct:0.030, m:[520160,609860,689890,758320,711150]},
+  {n:'Sofía Martínez', suc:'MTY',  meta:200000, pct:0.060, m:[409670,470280,509510,564980,532440]},
+  {n:'María López',    suc:'CDMX', meta:300000, pct:0.050, m:[379980,429840,470100,507020,516740]},
+  {n:'Ana Torres',     suc:'CDMX', meta:220000, pct:0.025, m:[589900,680030,720050,776720,466010]},
+  {n:'Luis Gómez',     suc:'GDL',  meta:260000, pct:0.035, m:[0,0,150160,232750,384260]},
+  {n:'Carlos Ruiz',    suc:'MTY',  meta:280000, pct:0.045, m:[210250,225250,235050,243540,242980]}
+];
+// gastos[sucursal][mes] = renta + nómina + servicios + otros
+const GASTOS = {
+  CDMX:[256463,263631,265452,281075,279411],
+  GDL: [214968,223015,210167,206686,242231],
+  MTY: [187051,194982,183990,201224,177799]
+};
+const GASTOS_CAT = [
+  {n:'Sueldos', v:2344121},{n:'Renta', v:575000},{n:'Servicios', v:297170},{n:'Otros', v:171854}
+];
+// mezcla de producto por mes: [ingreso, costo, unidades]
+const MIX = {
+  'Laptop Pro 14':     [[1486800,1190400,62],[1744700,1401600,73],[1935500,1516800,79],[2229500,1747200,91],[2107000,1651200,86]],
+  'Monitor 27"':       [[0,0,0],[112100,77900,19],[0,0,0],[285200,188600,46],[471200,311600,76]],
+  'Teclado Mecánico':  [[459920,248040,318],[356700,191880,246],[574200,308880,396],[337850,181740,233],[118900,63960,82]],
+  'Mouse Inalámbrico': [[190960,89320,308],[158100,73950,255],[240560,112520,388],[148180,69310,239],[51460,24070,83]],
+  'Webcam HD':         [[0,0,0],[43660,21830,37],[0,0,0],[82600,41300,70],[100300,50150,85]]
+};
+const CXC_EDAD = [
+  {n:'1 a 30 días', v:41800, tok:'--good'},
+  {n:'31 a 60 días', v:228500, tok:'--warn'},
+  {n:'61 a 90 días', v:207700, tok:'--serious'},
+  {n:'Más de 90 días', v:344800, tok:'--crit'}
+];
+const DEUDORES = [
+  {n:'Grupo Salinas SA',v:312000},{n:'Papelería Central',v:82600},{n:'Clínica Santa Fe',v:82000},
+  {n:'Hotel Miramar',v:56000},{n:'Constructora Vega',v:48800},{n:'Restaurante Don Pepe',v:48600},
+  {n:'Abarrotes La Esquina',v:43200},{n:'Distribuidora Andrade',v:42000},{n:'Comercial El Roble',v:34900},
+  {n:'Autopartes Norte',v:33400},{n:'Ferretería López',v:21000},{n:'Boutique Aurora',v:18300}
+];
+const CXC_DET = [
+  {n:'Grupo Salinas SA',debe:312000,lim:400000,dias:30,venc:85},
+  {n:'Papelería Central',debe:82600,lim:90000,dias:30,venc:100},
+  {n:'Clínica Santa Fe',debe:82000,lim:120000,dias:45,venc:100},
+  {n:'Restaurante Don Pepe',debe:48600,lim:60000,dias:15,venc:73},
+  {n:'Constructora Vega',debe:48800,lim:200000,dias:45,venc:103},
+  {n:'Distribuidora Andrade',debe:42000,lim:150000,dias:30,venc:104},
+  {n:'Comercial El Roble',debe:34900,lim:80000,dias:30,venc:98},
+  {n:'Autopartes Norte',debe:33400,lim:100000,dias:15,venc:41}
+];
+const CXC_TOTAL = 822800;
+
+/* ══════════════════════════════════════════════════════════════
+   2. PALETAS (validadas con el validador del skill de dataviz)
+   ══════════════════════════════════════════════════════════════ */
+const PALETAS = {
+  azul:      {nom:'Azul',           light:['#2a78d6','#eb6834','#1baf7a','#eda100','#e87ba4'],
+                                    dark: ['#3987e5','#d95926','#199e70','#c98500','#d55181']},
+  atardecer: {nom:'Atardecer',      light:['#df5e96','#be8700','#00a9a2','#e4682d','#a473ee'],
+                                    dark: ['#dd6126','#9e6de7','#00a39c','#b88000','#d8588f']},
+  bosque:    {nom:'Bosque',         light:['#4488d8','#349d62','#b066b4','#ab7e00','#00969f'],
+                                    dark: ['#4488d8','#349d62','#b066b4','#ab7e00','#00969f']},
+  contraste: {nom:'Alto contraste', light:['#dd5041','#a366cd','#479c4d','#5283e0','#b57800'],
+                                    dark: ['#cf4235','#4777d2','#3a8f42','#975ac0','#a76d00']}
+};
+
+/* ── color: OKLab, CVD (Machado 2009), contraste ── */
+const s2lin=c=>c<=0.04045?c/12.92:Math.pow((c+0.055)/1.055,2.4);
+const lin2s=c=>{c=Math.max(0,Math.min(1,c));return c<=0.0031308?12.92*c:1.055*Math.pow(c,1/2.4)-0.055;};
+const hex2lin=h=>{h=h.replace('#','');return [0,2,4].map(i=>s2lin(parseInt(h.slice(i,i+2),16)/255));};
+function oklabL(rgb){const [r,g,b]=rgb;
+  const l=Math.cbrt(0.4122214708*r+0.5363325363*g+0.0514459929*b),
+        m=Math.cbrt(0.2119034982*r+0.6806995451*g+0.1073969566*b),
+        s=Math.cbrt(0.0883024619*r+0.2817188376*g+0.6299787005*b);
+  return [0.2104542553*l+0.7936177850*m-0.0040720468*s,
+          1.9779984951*l-2.4285922050*m+0.4505937099*s,
+          0.0259040371*l+0.7827717662*m-0.8086757660*s];}
+const oklab=h=>oklabL(hex2lin(h));
+const oklch=h=>{const [L,a,b]=oklab(h);return [L,Math.hypot(a,b),((Math.atan2(b,a)*180/Math.PI)%360+360)%360];};
+function lch2hex(L,C,H){const h=H*Math.PI/180,a=C*Math.cos(h),b=C*Math.sin(h);
+  const l_=L+0.3963377774*a+0.2158037573*b,m_=L-0.1055613458*a-0.0638541728*b,s_=L-0.0894841775*a-1.2914855480*b;
+  const l=l_**3,m=m_**3,s=s_**3;
+  const r=4.0767416621*l-3.3077115913*m+0.2309699292*s,
+        g=-1.2684380046*l+2.6097574011*m-0.3413193965*s,
+        bb=-0.0041960863*l-0.7034186147*m+1.7076147010*s;
+  return '#'+[r,g,bb].map(v=>Math.round(lin2s(v)*255).toString(16).padStart(2,'0')).join('');}
+const MACHADO={
+  protan:[[0.152286,1.052583,-0.204868],[0.114503,0.786281,0.099216],[-0.003882,-0.048116,1.051998]],
+  deutan:[[0.367322,0.860646,-0.227968],[0.280085,0.672501,0.047413],[-0.011820,0.042940,0.968881]]};
+function sim(hex,kind){const [r,g,b]=hex2lin(hex),M=MACHADO[kind],cl=c=>Math.max(0,Math.min(1,c));
+  return [cl(M[0][0]*r+M[0][1]*g+M[0][2]*b),cl(M[1][0]*r+M[1][1]*g+M[1][2]*b),cl(M[2][0]*r+M[2][1]*g+M[2][2]*b)];}
+function dE(a,b,kind){const A=kind?oklabL(sim(a,kind)):oklab(a), B=kind?oklabL(sim(b,kind)):oklab(b);
+  return Math.hypot(A[0]-B[0],A[1]-B[1],A[2]-B[2])*100;}
+function checkPal(pal,mode){
+  const [lo,hi]=mode==='light'?[0.43,0.77]:[0.48,0.67];
+  let band=true,chroma=true;
+  pal.forEach(h=>{const [L,C]=oklch(h); if(L<lo||L>hi)band=false; if(C<0.10)chroma=false;});
+  let cvd=99,nor=99;
+  for(let i=0;i<pal.length-1;i++){
+    cvd=Math.min(cvd, Math.min(dE(pal[i],pal[i+1],'protan'), dE(pal[i],pal[i+1],'deutan')));
+    nor=Math.min(nor, dE(pal[i],pal[i+1]));
+  }
+  return {band,chroma,cvd,nor, ok: band&&chroma&&cvd>=6&&nor>=15, bueno: band&&chroma&&cvd>=8&&nor>=15};
+}
+// genera 5 colores a partir del tono que escoja el usuario y los ajusta hasta que pasen los chequeos.
+// El primer color se queda pegado al tono elegido; los otros cuatro se mueven para separarse bien.
+const OFFSETS=[[0,150,72,215,290],[0,180,60,240,300],[0,120,240,60,180],[0,200,100,300,40],[0,165,85,255,320]];
+function generarPaleta(H0, C, mode){
+  const [lo,hi]=mode==='light'?[0.47,0.73]:[0.50,0.65];
+  const L0 = mode==='light'?0.62:0.60;
+  const opciones=[]; for(let L=lo;L<=hi+1e-9;L+=0.02) opciones.push(+L.toFixed(2));
+  const score=p=>{const r=checkPal(p,mode); if(!r.band||!r.chroma) return -1e9;
+    const Ls=p.map(h=>oklch(h)[0]); const spread=Math.max(...Ls)-Math.min(...Ls);
+    return Math.min(r.cvd,9.5)*10 + Math.min(r.nor,20)*2 - spread*6;};
+  let mejorPal=null, mejorSc=-Infinity;
+  for(const OFF of OFFSETS){
+    const hues=OFF.map(o=>(H0+o)%360);
+    const base=lch2hex(L0,C,hues[0]);
+    let pal=hues.map((h,i)=> i===0? base : lch2hex(mode==='light'?0.60:0.58,C,h));
+    let cur=score(pal);
+    for(let it=0;it<6;it++){ let mejora=false;
+      for(let i=1;i<5;i++) for(const L of opciones){          // el slot 0 no se mueve
+        const t=pal.slice(); t[i]=lch2hex(L,C,hues[i]);
+        if(oklch(t[i])[1]<0.10) continue;
+        const sc=score(t); if(sc>cur+1e-9){cur=sc;pal=t;mejora=true;}
+      }
+      if(!mejora) break; }
+    if(cur>mejorSc){mejorSc=cur;mejorPal=pal;}
+  }
+  return mejorPal;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   3. ESTADO
+   ══════════════════════════════════════════════════════════════ */
+const S = {
+  mode:'auto', pal:'azul', custom:null,
+  meses:[0,1,2,3,4], sucs:['CDMX','GDL','MTY'],
+  unidad:'pesos', hl:null,
+  sort:{vend:{k:'v',dir:-1}},
+  sim:{precio:0, tope:14.23, cobra:0, kit:36}, escenarios:[],
+  present:false, slide:0
+};
+const SECCIONES=[...document.querySelectorAll('section')];
+
+/* ── helpers ── */
+const CSS = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const SER = ['--s1','--s2','--s3','--s4','--s5'];
+const money = n => '$' + Math.round(Math.abs(n)).toLocaleString('es-MX');
+const smoney = n => (n<0?'−':'') + money(n);
+const kmoney = n => { const a=Math.abs(n);
+  if(a>=1e6) return (n<0?'−':'')+'$'+(a/1e6).toFixed(2).replace(/\.?0+$/,'')+' M';
+  if(a>=1e3) return (n<0?'−':'')+'$'+Math.round(a/1e3)+' mil';
+  return smoney(n); };
+const pctf = (part,total) => total ? (part/total*100).toFixed(1)+'%' : '0%';
+const NS='http://www.w3.org/2000/svg';
+const el=(t,a={})=>{const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);return e;};
+function txt(x,y,s,cls,anchor){const t=el('text',{x,y,class:cls||'axis-lab'});
+  if(anchor)t.setAttribute('text-anchor',anchor); t.textContent=s; return t;}
+function barPath(x,y,w,h,r,dir){
+  if(h<=0.4)h=0.4; if(w<=0.4)w=0.4; r=Math.min(r,w/2,h);
+  if(dir==='up')   return `M${x},${y+h} L${x},${y+r} Q${x},${y} ${x+r},${y} L${x+w-r},${y} Q${x+w},${y} ${x+w},${y+r} L${x+w},${y+h} Z`;
+  if(dir==='down') return `M${x},${y} L${x},${y+h-r} Q${x},${y+h} ${x+r},${y+h} L${x+w-r},${y+h} Q${x+w},${y+h} ${x+w},${y+h-r} L${x+w},${y} Z`;
+  if(dir==='left') return `M${x+w},${y} L${x+r},${y} Q${x},${y} ${x},${y+r} L${x},${y+h-r} Q${x},${y+h} ${x+r},${y+h} L${x+w},${y+h} Z`;
+  return `M${x},${y} L${x+w-r},${y} Q${x+w},${y} ${x+w},${y+r} L${x+w},${y+h-r} Q${x+w},${y+h} ${x+w-r},${y+h} L${x},${y+h} Z`;
+}
+const REDUCE = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+function tween(dur, fn){
+  if(REDUCE){fn(1);return;}
+  const t0=performance.now();
+  const step=t=>{const p=Math.min(1,(t-t0)/dur); fn(1-Math.pow(1-p,3)); if(p<1) requestAnimationFrame(step);};
+  requestAnimationFrame(step);
+}
+const PREV = {};   // valores anteriores para animar
+
+/* ── tooltip ── */
+const tipEl=document.getElementById('tip');
+function tip(node,html){
+  node.classList.add('hit'); node.setAttribute('tabindex','0');
+  const show=ev=>{ tipEl.innerHTML=html; tipEl.style.opacity=1;
+    const r=node.getBoundingClientRect();
+    const x=(ev&&ev.clientX!=null)?ev.clientX:r.left+r.width/2;
+    const y=(ev&&ev.clientY!=null)?ev.clientY:r.top;
+    requestAnimationFrame(()=>{const tw=tipEl.offsetWidth,th=tipEl.offsetHeight;
+      tipEl.style.left=Math.max(8,Math.min(innerWidth-tw-8,x-tw/2))+'px';
+      tipEl.style.top=Math.max(8,y-th-14)+'px';});};
+  const hide=()=>tipEl.style.opacity=0;
+  node.addEventListener('mouseenter',show); node.addEventListener('mousemove',show);
+  node.addEventListener('mouseleave',hide); node.addEventListener('focus',show); node.addEventListener('blur',hide);
+}
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');
+  clearTimeout(t._h); t._h=setTimeout(()=>t.classList.remove('show'),2200);}
+
+/* ══════════════════════════════════════════════════════════════
+   4. CÁLCULO
+   ══════════════════════════════════════════════════════════════ */
+function calc(){
+  const M=S.meses, B=S.sucs;
+  const vendF = VEND.filter(v=>B.includes(v.suc));
+  // ventas por mes (solo meses y sucursales activos)
+  const ventasMes = MESES.map((_,i)=> M.includes(i) ? vendF.reduce((a,v)=>a+v.m[i],0) : 0);
+  const ventasMesTot = MESES.map((_,i)=> VEND.reduce((a,v)=>a+v.m[i],0));
+  const comMes = MESES.map((_,i)=> M.includes(i) ? vendF.reduce((a,v)=>a+v.m[i]*v.pct,0) : 0);
+  const gasMes = MESES.map((_,i)=> M.includes(i) ? B.reduce((a,b)=>a+GASTOS[b][i],0) : 0);
+  // margen por mes desde la mezcla real de producto de ese mes
+  const mpct = MESES.map((_,i)=>{
+    let ing=0,cost=0; PROD.forEach(p=>{ing+=MIX[p][i][0]; cost+=MIX[p][i][1];});
+    return ing? (ing-cost)/ing : 0;
+  });
+  const share = MESES.map((_,i)=> ventasMesTot[i] ? ventasMes[i]/ventasMesTot[i] : 0);
+  const costoMes = MESES.map((_,i)=> ventasMes[i]*(1-mpct[i]));
+  const mbMes    = MESES.map((_,i)=> ventasMes[i]-costoMes[i]);
+  const resMes   = MESES.map((_,i)=> mbMes[i]-gasMes[i]-comMes[i]);
+
+  const T={ventas:0,costo:0,mb:0,gastos:0,com:0,res:0};
+  MESES.forEach((_,i)=>{ if(!M.includes(i)) return;
+    T.ventas+=ventasMes[i]; T.costo+=costoMes[i]; T.mb+=mbMes[i]; T.gastos+=gasMes[i]; T.com+=comMes[i]; T.res+=resMes[i];});
+
+  // mezcla de producto agregada (escalada por la porción de sucursal)
+  const mix = PROD.map(p=>{
+    let ing=0,cost=0,u=0;
+    MESES.forEach((_,i)=>{ if(!M.includes(i)) return;
+      ing+=MIX[p][i][0]*share[i]; cost+=MIX[p][i][1]*share[i]; u+=MIX[p][i][2]*share[i];});
+    return {n:p,ing,cost,u,mg:ing-cost, pct: ing? (ing-cost)/ing*100:0};
+  }).sort((a,b)=>b.ing-a.ing);
+
+  // vendedores
+  const mgRatio = T.ventas? T.mb/T.ventas : 0;
+  const vend = vendF.map(v=>{
+    const ven=MESES.reduce((a,_,i)=>a+(M.includes(i)?v.m[i]:0),0);
+    const act=MESES.reduce((a,_,i)=>a+((M.includes(i)&&v.m[i]>0)?1:0),0);
+    const com=ven*v.pct, mg=ven*mgRatio;
+    return {...v, ven, com, mg, act, cm: mg? com/mg*100:0, cumpl: act? ven/(v.meta*act)*100:0};
+  }).sort((a,b)=>b.ven-a.ven);
+
+  // sucursales
+  const suc = SUC.map(b=>{
+    const vs=VEND.filter(v=>v.suc===b);
+    let ven=0, com=0, mg=0;
+    MESES.forEach((_,i)=>{ if(!M.includes(i)) return;
+      const vm=vs.reduce((a,v)=>a+v.m[i],0);
+      ven+=vm; com+=vs.reduce((a,v)=>a+v.m[i]*v.pct,0); mg+=vm*mpct[i];   // margen real del mes
+    });
+    const gas=MESES.reduce((a,_,i)=>a+(M.includes(i)?GASTOS[b][i]:0),0);
+    return {b, nom:SUCN[b], ven, com, gas, mg, res:mg-gas-com, activa:S.sucs.includes(b)};
+  });
+
+  // gastos por categoría (proporcional a los meses/sucursales activos)
+  const gasTot = SUC.reduce((a,b)=>a+GASTOS[b].reduce((x,y)=>x+y,0),0);
+  const f = gasTot? T.gastos/gasTot : 0;
+  const gastosCat = GASTOS_CAT.map(g=>({n:g.n, v:g.v*f}));
+
+  return {T, ventasMes, costoMes, mbMes, gasMes, comMes, resMes, mpct, mix, vend, suc, gastosCat, mgRatio};
+}
+
+/* ══════════════════════════════════════════════════════════════
+   5. GRÁFICAS
+   ══════════════════════════════════════════════════════════════ */
+function hlKey(tipo,nombre){ return S.hl && S.hl.t===tipo && S.hl.n===nombre; }
+function anyHl(tipo){ return S.hl && S.hl.t===tipo; }
+function setHl(t,n){ S.hl = (S.hl && S.hl.t===t && S.hl.n===n) ? null : {t,n}; render(); }
+
+function tickStep(max, n){
+  const raw=max/n, mag=Math.pow(10,Math.floor(Math.log10(raw)));
+  const norm=raw/mag; const m = norm<=1?1: norm<=2?2: norm<=2.5?2.5: norm<=5?5:10;
+  return m*mag;
+}
+
+/* ── 5.1 columnas: ventas por mes ── */
+function chartVentas(D){
+  const box=document.getElementById('c-ventas'); box.innerHTML='';
+  const activos=MESES.map((m,i)=>({m,i,v:D.ventasMes[i]})).filter(d=>S.meses.includes(d.i));
+  if(!activos.length){box.innerHTML='<p class="caption">Selecciona al menos un mes.</p>';return;}
+  const W=720,H=320,P={t:32,r:20,b:46,l:78};
+  const s=el('svg',{viewBox:`0 0 ${W} ${H}`,role:'img','aria-label':'Ventas por mes'});
+  const maxv=Math.max(...activos.map(d=>d.v))||1, step=tickStep(maxv,3);
+  const max=Math.ceil(maxv/step)*step*1.06;
+  const pw=W-P.l-P.r, ph=H-P.t-P.b, yy=v=>P.t+ph-(v/max)*ph;
+  for(let v=0; v<=max-step*0.4; v+=step){
+    s.appendChild(el('line',{x1:P.l,x2:W-P.r,y1:yy(v),y2:yy(v),class:'gridline'}));
+    s.appendChild(txt(P.l-10,yy(v)+4,S.unidad==='pesos'?kmoney(v):pctf(v,D.T.ventas),'axis-lab','end'));
+  }
+  const st=pw/activos.length, bw=Math.min(62,st-22);
+  activos.forEach((d,k)=>{
+    const x=P.l+st*k+(st-bw)/2;
+    const p=el('path',{fill:CSS('--s1'),class:'mark clickable'});
+    const key='ventas'+d.i, from=PREV[key]??0; PREV[key]=d.v;
+    tween(600,t=>{const v=from+(d.v-from)*t, y=yy(v);
+      p.setAttribute('d',barPath(x,y,bw,P.t+ph-y,4,'up'));});
+    tip(p,`<b>${d.m}</b>Vendimos ${money(d.v)}<br>${pctf(d.v,D.T.ventas)} del periodo mostrado`);
+    p.addEventListener('click',()=>{S.meses=[d.i];sync();render();toast('Mostrando solo '+d.m);});
+    s.appendChild(p);
+    const lab=txt(x+bw/2,yy(d.v)-10, S.unidad==='pesos'?kmoney(d.v):pctf(d.v,D.T.ventas),'val-lab-big','middle');
+    lab.style.opacity=0; s.appendChild(lab);
+    tween(700,t=>lab.style.opacity=t);
+    s.appendChild(txt(x+bw/2,P.t+ph+22,d.m,'axis-lab','middle'));
+  });
+  s.appendChild(el('line',{x1:P.l,x2:W-P.r,y1:P.t+ph,y2:P.t+ph,class:'baseline'}));
+  box.appendChild(s);
+
+  const mejor=activos.reduce((a,b)=>b.v>a.v?b:a);
+  document.getElementById('cap-ventas').innerHTML =
+    `<b>Cómo leerlo:</b> mientras más alta la barra, más vendimos ese mes. El mejor mes del periodo mostrado es <b>${mejor.m}</b> con ${money(mejor.v)}.`;
+
+  let rows=activos.map((d,k)=>{
+    const prev=k? activos[k-1].v : null;
+    const ch=prev? (d.v-prev)/prev*100 : null;
+    return `<tr><td>${d.m}</td><td>${money(d.v)}</td><td>${ch===null?'—':(ch>0?'+':'−')+Math.abs(ch).toFixed(1)+'%'}</td></tr>`;
+  }).join('');
+  document.getElementById('t-ventas').innerHTML =
+    `<table><thead><tr><th>Mes</th><th>Ventas</th><th>Cambio vs. mes anterior</th></tr></thead><tbody>${rows}
+     <tr class="total"><td>TOTAL</td><td>${money(D.T.ventas)}</td><td>—</td></tr></tbody></table>`;
+}
+
+/* ── 5.2 cascada ── */
+function chartCascada(D){
+  const box=document.getElementById('c-cascada'); box.innerHTML='';
+  const T=D.T;
+  const pasos=[
+    {n:'Lo que vendimos', v:T.ventas, tipo:'in'},
+    {n:'Le pagamos al proveedor', v:-T.costo, tipo:'out'},
+    {n:'Renta, sueldos y luz', v:-T.gastos, tipo:'out'},
+    {n:'Comisiones', v:-T.com, tipo:'out'},
+    {n:'Nos quedó', v:T.res, tipo:'end'}
+  ];
+  const W=760,H=380,P={t:34,r:20,b:78,l:88};
+  const s=el('svg',{viewBox:`0 0 ${W} ${H}`,role:'img','aria-label':'A dónde se va cada peso'});
+  const step=tickStep(T.ventas||1,4), max=Math.max(T.ventas,1)*1.08;
+  const pw=W-P.l-P.r, ph=H-P.t-P.b, yy=v=>P.t+ph-(v/max)*ph;
+  for(let v=0; v<=max-step*0.4; v+=step){
+    s.appendChild(el('line',{x1:P.l,x2:W-P.r,y1:yy(v),y2:yy(v),class:'gridline'}));
+    s.appendChild(txt(P.l-10,yy(v)+4,S.unidad==='pesos'?kmoney(v):pctf(v,T.ventas),'axis-lab','end'));
+  }
+  const st=pw/pasos.length, bw=Math.min(82,st-26);
+  let run=0;
+  pasos.forEach((d,i)=>{
+    const x=P.l+st*i+(st-bw)/2;
+    let top,bot,fill,dir;
+    if(d.tipo==='in'){top=d.v;bot=0;fill=CSS('--s1');dir='up';run=d.v;}
+    else if(d.tipo==='out'){top=run;bot=run+d.v;fill=CSS('--s2');dir='down';run+=d.v;}
+    else {top=Math.max(0,d.v);bot=Math.min(0,d.v);fill=d.v>=0?CSS('--good'):CSS('--crit');dir=d.v>=0?'up':'down';}
+    const y1=yy(Math.max(top,bot)), y2=yy(Math.min(top,bot));
+    const p=el('path',{d:barPath(x,y1,bw,Math.max(y2-y1,3),4,dir),fill,class:'mark'});
+    tip(p,`<b>${d.n}</b>${smoney(d.v)}<br>${(Math.abs(d.v)/(T.ventas||1)*100).toFixed(1)} de cada 100 pesos vendidos`);
+    s.appendChild(p);
+    if(i<pasos.length-1&&d.tipo!=='end'){
+      const cy=yy(d.tipo==='in'?d.v:run);
+      s.appendChild(el('line',{x1:x+bw,x2:P.l+st*(i+1)+(st-bw)/2,y1:cy,y2:cy,stroke:CSS('--axis'),'stroke-width':1}));
+    }
+    const lab = S.unidad==='pesos'
+      ? (d.tipo==='end'? smoney(d.v) : (d.tipo==='out'?'−':'')+kmoney(Math.abs(d.v)))
+      : (d.tipo==='out'?'−':'')+ (Math.abs(d.v)/(T.ventas||1)*100).toFixed(1)+'%';
+    s.appendChild(txt(x+bw/2,y1-10,lab,'val-lab-big','middle'));
+    const words=d.n.split(' '); let lines=[''],li=0;
+    words.forEach(w=>{ if((lines[li]+' '+w).trim().length>13){li++;lines[li]=w;} else lines[li]=(lines[li]+' '+w).trim(); });
+    lines.forEach((ln,k)=>s.appendChild(txt(x+bw/2,P.t+ph+22+k*15,ln,'axis-lab','middle')));
+  });
+  s.appendChild(el('line',{x1:P.l,x2:W-P.r,y1:P.t+ph,y2:P.t+ph,class:'baseline'}));
+  box.appendChild(s);
+
+  document.getElementById('h-cascada').textContent = `De los ${kmoney(T.ventas)} que entraron, ¿qué quedó?`;
+  const p100=v=>Math.round(v/(T.ventas||1)*100);
+  document.getElementById('cap-cascada').innerHTML =
+    `<b>Cómo leerlo:</b> de cada $100 que vendemos, <b>$${p100(T.costo)} se van en pagarle al proveedor</b> la mercancía que revendemos, <b>$${p100(T.gastos)} en renta, sueldos y luz</b>, y <b>$${p100(T.com)} en comisiones</b>. Eso suma $${p100(T.costo)+p100(T.gastos)+p100(T.com)}. ${T.res<0?`Por eso salimos debiendo $${Math.abs(p100(T.res))} de cada $100.`:`Por eso nos quedan $${p100(T.res)} de cada $100.`}`;
+  document.getElementById('swend').style.background = T.res>=0?CSS('--good'):CSS('--crit');
+  document.getElementById('lblend').textContent = T.res>=0?'Lo que quedó (ganancia)':'Lo que quedó (en rojo)';
+  document.getElementById('t-cascada').innerHTML =
+    `<table><thead><tr><th>Concepto</th><th>Monto</th><th>De cada $100</th></tr></thead><tbody>`+
+    pasos.map(d=>`<tr class="${d.tipo==='end'?'total':''}"><td>${d.n}</td><td>${smoney(d.v)}</td><td>$${(Math.abs(d.v)/(T.ventas||1)*100).toFixed(2)}</td></tr>`).join('')+
+    `</tbody></table>`;
+}
+
+/* ── 5.3 resultado mes a mes ── */
+function chartResultado(D){
+  const box=document.getElementById('c-resultado'); box.innerHTML='';
+  const act=MESES.map((m,i)=>({m,i,v:D.resMes[i]})).filter(d=>S.meses.includes(d.i));
+  if(!act.length){box.innerHTML='<p class="caption">Selecciona al menos un mes.</p>';return;}
+  const W=720,H=330,P={t:34,r:20,b:74,l:82};
+  const s=el('svg',{viewBox:`0 0 ${W} ${H}`,role:'img','aria-label':'Ganancia o pérdida de cada mes'});
+  const mx=Math.max(...act.map(d=>Math.abs(d.v)),1);
+  const step=tickStep(mx,2), max=Math.ceil(mx/step)*step;
+  const pw=W-P.l-P.r, ph=H-P.t-P.b, yy=v=>P.t+ph/2-(v/max)*(ph/2);
+  for(let v=-max; v<=max+1e-6; v+=step){
+    s.appendChild(el('line',{x1:P.l,x2:W-P.r,y1:yy(v),y2:yy(v),class:Math.abs(v)<1e-6?'baseline':'gridline'}));
+    s.appendChild(txt(P.l-10,yy(v)+4,Math.abs(v)<1e-6?'$0':kmoney(v),'axis-lab','end'));
+  }
+  s.appendChild(el('line',{x1:P.l,x2:W-P.r,y1:H-54,y2:H-54,class:'gridline'}));
+  const st=pw/act.length, bw=Math.min(58,st-24);
+  act.forEach((d,k)=>{
+    const x=P.l+st*k+(st-bw)/2, pos=d.v>=0;
+    const p=el('path',{fill:pos?CSS('--good'):CSS('--crit'),class:'mark'});
+    const key='res'+d.i, from=PREV[key]??0; PREV[key]=d.v;
+    tween(600,t=>{const v=from+(d.v-from)*t, pp=v>=0;
+      const y=pp?yy(v):yy(0), h=Math.abs(yy(v)-yy(0));
+      p.setAttribute('d',barPath(x,y,bw,h,4,pp?'up':'down'));
+      p.setAttribute('fill',pp?CSS('--good'):CSS('--crit'));});
+    tip(p,`<b>${d.m}</b>${pos?'Ganamos':'Perdimos'} ${money(d.v)}<br>Vendimos ${money(D.ventasMes[d.i])}<br>Margen del mes: ${(D.mpct[d.i]*100).toFixed(1)} de cada 100`);
+    s.appendChild(p);
+    const y=pos?yy(d.v):yy(0), h=Math.abs(yy(d.v)-yy(0));
+    s.appendChild(txt(x+bw/2, pos? y-10 : y+h+18, smoney(d.v),'val-lab-big','middle'));
+    s.appendChild(txt(x+bw/2,H-34,d.m,'axis-lab','middle'));
+  });
+  box.appendChild(s);
+  const buenos=act.filter(d=>d.v>=0).map(d=>d.m);
+  document.getElementById('cap-resultado').innerHTML = buenos.length
+    ? `<b>Cómo leerlo:</b> ${buenos.length===1?'el único mes con ganancia fue':'los meses con ganancia fueron'} <b>${buenos.join(' y ')}</b>. En los demás, los gastos fijos y las comisiones se comieron todo el margen.`
+    : `<b>Cómo leerlo:</b> en el periodo mostrado ningún mes cerró con ganancia.`;
+
+  document.getElementById('t-resultado').innerHTML =
+    `<table><thead><tr><th>Mes</th><th>Ventas</th><th>Costo del producto</th><th>Nos quedó de margen</th><th>Renta y sueldos</th><th>Comisiones</th><th>Resultado</th></tr></thead><tbody>`+
+    act.map(d=>`<tr><td>${d.m}</td><td>${money(D.ventasMes[d.i])}</td><td>${money(D.costoMes[d.i])}</td><td>${money(D.mbMes[d.i])}</td><td>${money(D.gasMes[d.i])}</td><td>${money(D.comMes[d.i])}</td><td style="color:${d.v>=0?'var(--good-ink)':'var(--crit)'};font-weight:700">${smoney(d.v)}</td></tr>`).join('')+
+    `<tr class="total"><td>TOTAL</td><td>${money(D.T.ventas)}</td><td>${money(D.T.costo)}</td><td>${money(D.T.mb)}</td><td>${money(D.T.gastos)}</td><td>${money(D.T.com)}</td><td style="color:${D.T.res>=0?'var(--good-ink)':'var(--crit)'}">${smoney(D.T.res)}</td></tr></tbody></table>`;
+}
+
+/* ── 5.4 dona ── */
+function donut(mount,data,opts){
+  opts=opts||{}; mount.innerHTML='';
+  const W=400,H=300,cx=148,cy=148,R=104,r0=58;
+  const s=el('svg',{viewBox:`0 0 ${W} ${H}`,role:'img','aria-label':opts.aria||'gráfica de pastel'});
+  const total=data.reduce((a,b)=>a+b.v,0)||1;
+  let ang=-Math.PI/2; const gap=0.016;
+  data.forEach((d,i)=>{
+    const frac=d.v/total, sweep=frac*Math.PI*2;
+    const a1=ang+gap/2, a2=ang+sweep-gap/2;
+    if(a2>a1){
+      const large=(a2-a1)>Math.PI?1:0;
+      const col = d.tok? CSS(d.tok) : CSS(SER[i%5]);
+      const p=el('path',{fill:col,class:'mark'+(opts.click?' clickable':'')});
+      const draw=k=>{const e=a1+(a2-a1)*k, lg=(e-a1)>Math.PI?1:0;
+        p.setAttribute('d',`M${cx+R*Math.cos(a1)},${cy+R*Math.sin(a1)} A${R},${R} 0 ${lg} 1 ${cx+R*Math.cos(e)},${cy+R*Math.sin(e)} L${cx+r0*Math.cos(e)},${cy+r0*Math.sin(e)} A${r0},${r0} 0 ${lg} 0 ${cx+r0*Math.cos(a1)},${cy+r0*Math.sin(a1)} Z`);};
+      draw(1);
+      if(!PREV['donut'+(opts.id||'')+i]){ tween(650,draw); PREV['donut'+(opts.id||'')+i]=1; }
+      tip(p,`<b>${d.n}</b>${money(d.v)}<br>${(frac*100).toFixed(1)}% del total${d.extra?'<br>'+d.extra:''}`);
+      if(opts.click){ p.addEventListener('click',()=>opts.click(d)); }
+      if(opts.hlType && anyHl(opts.hlType) && !hlKey(opts.hlType,d.n)) p.classList.add('dim');
+      s.appendChild(p);
+    }
+    ang+=sweep;
+  });
+  s.appendChild(txt(cx,cy-4,opts.centerTop||'','axis-lab','middle'));
+  const ct=txt(cx,cy+20,opts.center||kmoney(total),'val-lab-big','middle');
+  ct.setAttribute('style','font-size:19px'); s.appendChild(ct);
+  data.forEach((d,i)=>{
+    const y=44+i*30;
+    const g=el('g',{class:'mark'+(opts.click?' clickable':'')});
+    if(opts.hlType && anyHl(opts.hlType) && !hlKey(opts.hlType,d.n)) g.classList.add('dim');
+    g.appendChild(el('rect',{x:272,y:y-9,width:11,height:11,rx:3,fill:d.tok?CSS(d.tok):CSS(SER[i%5])}));
+    g.appendChild(txt(290,y,d.n,'val-lab'));
+    g.appendChild(txt(290,y+15,`${money(d.v)} · ${(d.v/total*100).toFixed(0)}%`,'axis-lab'));
+    if(opts.click) g.addEventListener('click',()=>opts.click(d));
+    s.appendChild(g);
+  });
+  mount.appendChild(s);
+}
+
+/* ── 5.5 barras horizontales ── */
+function hbar(mount,data,opts){
+  opts=opts||{}; mount.innerHTML='';
+  const rows=data.length; if(!rows){mount.innerHTML='<p class="caption">Sin datos.</p>';return;}
+  const rowH=opts.rowH||40, labW=opts.labW||132;
+  const W=700,H=rows*rowH+40,P={t:12,r:opts.padR||112,l:labW};
+  const s=el('svg',{viewBox:`0 0 ${W} ${H}`,role:'img','aria-label':opts.aria||'gráfica de barras'});
+  const max=Math.max(...data.map(d=>d.v),0.0001)*1.02, pw=W-P.l-P.r;
+  data.forEach((d,i)=>{
+    const y=P.t+i*rowH, bh=Math.min(20,rowH-18);
+    const p=el('path',{fill:d.color||CSS('--s1'),class:'mark'+(opts.click?' clickable':'')});
+    const key=(opts.id||'')+d.n, from=PREV[key]??0; PREV[key]=d.v;
+    tween(600,t=>{const v=from+(d.v-from)*t;
+      p.setAttribute('d',barPath(P.l,y,Math.max((v/max)*pw,1.5),bh,4,'right'));});
+    tip(p,`<b>${d.n}</b>${d.tipText||money(d.v)}`);
+    if(opts.click) p.addEventListener('click',()=>opts.click(d));
+    if(opts.hlType && anyHl(opts.hlType) && !hlKey(opts.hlType,d.n)) p.classList.add('dim');
+    s.appendChild(p);
+    const g=el('g',{class:'mark'+(opts.click?' clickable':'')});
+    if(opts.hlType && anyHl(opts.hlType) && !hlKey(opts.hlType,d.n)) g.classList.add('dim');
+    g.appendChild(txt(P.l-12,y+bh-4,d.n,'val-lab','end'));
+    if(d.sub) g.appendChild(txt(P.l-12,y+bh+11,d.sub,'axis-lab','end'));
+    if(opts.click) g.addEventListener('click',()=>opts.click(d));
+    s.appendChild(g);
+    s.appendChild(txt(P.l+Math.max((d.v/max)*pw,1.5)+10,y+bh-4,d.lab||money(d.v),'val-lab-big'));
+  });
+  s.appendChild(el('line',{x1:P.l,x2:P.l,y1:P.t-4,y2:P.t+rows*rowH-12,class:'baseline'}));
+  mount.appendChild(s);
+}
+
+/* ── 5.6 sucursales (diverging) ── */
+function chartSuc(D){
+  const box=document.getElementById('c-suc'); box.innerHTML='';
+  const W=700,P={t:26,l:124,r:20,b:34}, rows=D.suc.length, H=P.t+rows*46+P.b;
+  const s=el('svg',{viewBox:`0 0 ${W} ${H}`,role:'img','aria-label':'Resultado por sucursal'});
+  const pw=W-P.l-P.r, mx=Math.max(...D.suc.map(d=>Math.abs(d.res)),1)*1.05;
+  const zero=P.l+pw*0.62, xx=v=>zero+(v/mx)*(pw*0.58);
+  s.appendChild(el('line',{x1:zero,x2:zero,y1:P.t-6,y2:H-P.b,class:'baseline'}));
+  s.appendChild(txt(zero,H-P.b+18,'$0','axis-lab','middle'));
+  D.suc.forEach((d,i)=>{
+    const y=P.t+i*46, bh=20;
+    const x1=Math.min(xx(0),xx(d.res)), w=Math.abs(xx(d.res)-xx(0));
+    const p=el('path',{d:barPath(x1,y,Math.max(w,2),bh,4,d.res>=0?'right':'left'),
+      fill:d.res>=0?CSS('--good'):CSS('--crit'),class:'mark clickable'});
+    if(!d.activa) p.classList.add('dim');
+    tip(p,`<b>${d.nom}</b>Vendió ${money(d.ven)}<br>Gastos fijos ${money(d.gas)}<br>Comisiones ${money(d.com)}<br><b>${d.res>=0?'Ganó':'Perdió'} ${money(d.res)}</b><br><span style="opacity:.7">Clic para ver solo esta sucursal</span>`);
+    p.addEventListener('click',()=>{S.sucs=[d.b];sync();render();toast('Mostrando solo '+d.nom);});
+    s.appendChild(p);
+    const g=el('g',{class:'clickable'});
+    if(!d.activa) g.classList.add('dim');
+    g.appendChild(txt(P.l-12,y+bh-4,d.nom,'val-lab','end'));
+    g.appendChild(txt(P.l-12,y+bh+11,'vendió '+kmoney(d.ven),'axis-lab','end'));
+    g.addEventListener('click',()=>{S.sucs=[d.b];sync();render();toast('Mostrando solo '+d.nom);});
+    s.appendChild(g);
+    s.appendChild(txt(zero+12,y+bh-4,smoney(d.res),'val-lab-big'));
+  });
+  box.appendChild(s);
+  const peor=D.suc.filter(d=>d.activa).reduce((a,b)=>b.res<a.res?b:a, D.suc[0]);
+  const todas=D.suc.filter(d=>d.activa);
+  document.getElementById('cap-suc').innerHTML = todas.every(d=>d.res<0)
+    ? `<b>Las ${todas.length===1?'sucursal mostrada pierde':'sucursales mostradas pierden'} dinero.</b> ${peor.nom} es la que más pierde (${money(peor.res)}).`
+    : `Resultado por sucursal en el periodo mostrado. Recuerda que se reparte con el margen promedio del negocio.`;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   6. TABLAS
+   ══════════════════════════════════════════════════════════════ */
+function tablaMix(D){
+  const tot=D.mix.reduce((a,b)=>({ing:a.ing+b.ing,cost:a.cost+b.cost,mg:a.mg+b.mg,u:a.u+b.u}),{ing:0,cost:0,mg:0,u:0});
+  document.getElementById('t-mix').innerHTML =
+    `<table><thead><tr><th>Producto</th><th>Piezas vendidas</th><th>Vendimos</th><th>Nos costó</th><th>Nos quedó</th><th>De cada $100</th></tr></thead><tbody>`+
+    D.mix.map(m=>`<tr class="${hlKey('prod',m.n)?'rowhi':''}"><td>${m.n}</td><td>${Math.round(m.u).toLocaleString('es-MX')}</td><td>${money(m.ing)}</td><td>${money(m.cost)}</td><td>${money(m.mg)}</td><td><span class="pill ${m.pct<25?'p-crit':m.pct<40?'p-warn':'p-good'}">$${m.pct.toFixed(1)}</span></td></tr>`).join('')+
+    `<tr class="total"><td>TOTAL</td><td>${Math.round(tot.u).toLocaleString('es-MX')}</td><td>${money(tot.ing)}</td><td>${money(tot.cost)}</td><td>${money(tot.mg)}</td><td>$${(tot.mg/(tot.ing||1)*100).toFixed(1)}</td></tr></tbody></table>`;
+  document.getElementById('notamix').innerHTML =
+    `Esta tabla suma venta por venta (${money(tot.ing)}). El total oficial del reporte de comisiones para el mismo filtro es ${money(D.T.ventas)}. La diferencia son renglones capturados sin importe.`;
+}
+
+function tablaVend(D){
+  const so=S.sort.vend;
+  const rows=D.vend.slice().sort((a,b)=>(a[so.k]<b[so.k]?1:-1)*so.dir);
+  const T=rows.reduce((a,b)=>({ven:a.ven+b.ven,com:a.com+b.com,mg:a.mg+b.mg}),{ven:0,com:0,mg:0});
+  const th=(k,l)=>`<th class="sortable" data-sort="${k}">${l} <span class="arr">${so.k===k?(so.dir<0?'▼':'▲'):'⇅'}</span></th>`;
+  document.getElementById('t-vend').innerHTML =
+    `<table><thead><tr><th class="sortable" data-sort="n">Vendedor <span class="arr">${so.k==='n'?(so.dir<0?'▼':'▲'):'⇅'}</span></th><th>Sucursal</th>`+
+    th('ven','Vendió')+th('pct','% comisión')+th('com','Se le pagó')+th('mg','Ganancia que dejó')+th('cm','Se lleva de cada $100')+th('cumpl','¿Llegó a su meta?')+
+    `</tr></thead><tbody>`+
+    rows.map(v=>{
+      const p=v.cumpl>=100?'p-good':'p-crit';
+      const lbl=v.cumpl>=100?'Sí, '+Math.round(v.cumpl)+'%':'No, '+Math.round(v.cumpl)+'%';
+      const meta=v.act<S.meses.length?`<span class="pill p-warn">Solo ${v.act} ${v.act===1?'mes':'meses'}</span>`:`<span class="pill ${p}">${lbl}</span>`;
+      return `<tr class="${hlKey('vend',v.n)?'rowhi':''}" data-vend="${v.n}" style="cursor:pointer"><td>${v.n}</td><td style="text-align:left">${SUCN[v.suc]}</td><td>${money(v.ven)}</td><td>${(v.pct*100).toFixed(v.pct*100%1?1:0)}%</td><td>${money(v.com)}</td><td>${money(v.mg)}</td><td><span class="pill ${v.cm>=18?'p-crit':v.cm>=13?'p-warn':'p-good'}">$${v.cm.toFixed(1)}</span></td><td>${meta}</td></tr>`;
+    }).join('')+
+    `<tr class="total"><td>TOTAL</td><td style="text-align:left">—</td><td>${money(T.ven)}</td><td>—</td><td>${money(T.com)}</td><td>${money(T.mg)}</td><td>$${(T.com/(T.mg||1)*100).toFixed(1)}</td><td>—</td></tr></tbody></table>`;
+  document.querySelectorAll('#t-vend th.sortable').forEach(h=>h.onclick=()=>{
+    const k=h.dataset.sort; S.sort.vend = (so.k===k)?{k,dir:-so.dir}:{k,dir:k==='n'?1:-1}; render();});
+  document.querySelectorAll('#t-vend tr[data-vend]').forEach(r=>r.onclick=()=>setHl('vend',r.dataset.vend));
+}
+
+function tablaCxc(){
+  document.getElementById('t-cxc').innerHTML =
+    `<table><thead><tr><th>Cliente</th><th>Nos debe</th><th>Su límite de crédito</th><th>Qué tanto lo usa</th><th>Días de crédito que le dimos</th><th>Días vencida</th><th>Semáforo</th></tr></thead><tbody>`+
+    CXC_DET.map(c=>{
+      const uso=c.debe/c.lim*100;
+      const sem=c.venc>90?['p-crit','Grave']:c.venc>45?['p-warn','Atención']:['p-good','Vigilar'];
+      return `<tr><td>${c.n}</td><td>${money(c.debe)}</td><td>${money(c.lim)}</td><td><span class="pill ${uso>=80?'p-crit':uso>=50?'p-warn':'p-good'}">${uso.toFixed(0)}%</span></td><td>${c.dias} días</td><td>${c.venc} días</td><td><span class="pill ${sem[0]}">${sem[1]}</span></td></tr>`;
+    }).join('')+`</tbody></table>`;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   7. RENDER
+   ══════════════════════════════════════════════════════════════ */
+function render(){
+  const D=calc();
+
+  /* KPIs */
+  const nm=S.meses.length, ns=S.sucs.length;
+  const filtro = (nm<5||ns<3) ? ` <span class="flag" style="margin-top:6px">Filtrado</span>` : '';
+  document.getElementById('kpis').innerHTML=`
+    <div class="kpi"><p class="lab">Lo que vendimos${nm<5?' ('+nm+(nm===1?' mes':' meses')+')':' en 5 meses'}</p>
+      <p class="val">${kmoney(D.T.ventas)}</p><p class="note">${nm>1?'Creciendo mes a mes':'Un solo mes seleccionado'}${ns<3?' · solo '+S.sucs.map(b=>SUCN[b]).join(', '):''}</p></div>
+    <div class="kpi ${D.T.res<0?'neg':'pos'}"><p class="lab">Lo que quedó al final, ya pagando todo</p>
+      <p class="val">${D.T.res<0?'−':'+'}${kmoney(D.T.res).replace('−','')}</p>
+      <p class="note">${D.T.res<0?'Vendimos mucho, pero terminamos en números rojos':'Con este filtro el resultado sale positivo'}</p></div>
+    <div class="kpi neg"><p class="lab">Dinero vendido que nunca cobramos</p>
+      <p class="val">${money(CXC_TOTAL)}</p><p class="note">4 de cada 10 pesos llevan más de 90 días sin pagarse</p></div>
+    <div class="kpi"><p class="lab">Lo que pagamos en comisiones</p>
+      <p class="val">${money(D.T.com)}</p><p class="note">Se paga aunque el cliente todavía no nos pague</p></div>`;
+
+  /* resumen */
+  const p100=v=>Math.round(v/(D.T.ventas||1)*100);
+  document.getElementById('tldrList').innerHTML=`
+    <li>Vendimos <b>${kmoney(D.T.ventas)}</b>${nm===5?' en cinco meses':''}, y cada mes vendemos más que el anterior. <b>El equipo de ventas sí está funcionando.</b></li>
+    <li>Pero al final del día <b>${D.T.res<0?'perdimos':'ganamos'} ${money(D.T.res)}</b>. No es que se esté robando nadie: es que lo que compramos para revender se lleva ${p100(D.T.costo)} de cada 100 pesos que vendemos.</li>
+    <li>Además hay <b>${money(CXC_TOTAL)} que ya vendimos pero nunca cobramos</b>. Ese dinero es nuestro, solo que está en el bolsillo de los clientes.</li>
+    <li>Si cobramos lo que nos deben y ajustamos precios y comisiones, <b>el negocio da vuelta este mismo año</b>. No hay que despedir a nadie ni vender más. Compruébalo en el simulador.</li>`;
+
+  chartVentas(D); chartCascada(D); chartResultado(D); chartSuc(D);
+
+  /* producto */
+  donut(document.getElementById('c-pie-mix'), D.mix.map(m=>({n:m.n,v:m.ing,extra:'Deja $'+m.pct.toFixed(0)+' de cada $100'})),
+    {id:'mix',centerTop:'Vendimos',center:kmoney(D.T.ventas),aria:'Qué parte de las ventas es cada producto',
+     hlType:'prod', click:d=>setHl('prod',d.n)});
+  const top=D.mix[0];
+  document.getElementById('cap-mix').innerHTML = top
+    ? `La ${top.n.split(' ')[0].toLowerCase()} es <b>${pctf(top.ing,D.mix.reduce((a,b)=>a+b.ing,0))} de todo lo que vendemos</b>. Haz clic en una rebanada para seguir ese producto.` : '';
+  hbar(document.getElementById('c-margen-prod'),
+    D.mix.slice().sort((a,b)=>b.pct-a.pct).map(m=>({n:m.n,v:m.pct,lab:'$'+m.pct.toFixed(0)+' de cada $100',
+      color:CSS(m.pct<25?'--crit':m.pct<40?'--warn':'--good'),
+      tipText:`Nos deja $${m.pct.toFixed(1)} de cada $100 vendidos<br>Ganancia total: ${money(m.mg)}`})),
+    {id:'mg',rowH:58,labW:138,hlType:'prod',click:d=>setHl('prod',d.n),aria:'Cuánto deja cada producto'});
+  tablaMix(D);
+
+  /* vendedores */
+  hbar(document.getElementById('c-vend-ventas'),
+    D.vend.map(v=>({n:v.n,v:v.ven,lab:kmoney(v.ven),sub:SUCN[v.suc],color:CSS('--s1'),
+      tipText:`Vendió ${money(v.ven)} en ${v.act} ${v.act===1?'mes':'meses'}<br>Llegó al ${Math.round(v.cumpl)}% de su meta<br>Comisión pagada: ${money(v.com)}<br><span style="opacity:.7">Clic para resaltarlo</span>`})),
+    {id:'vv',rowH:46,labW:132,hlType:'vend',click:d=>setHl('vend',d.n),aria:'Ventas por vendedor'});
+  const mejor=D.vend[0], peor=D.vend.filter(v=>v.act===S.meses.length).reduce((a,b)=>b.cumpl<a.cumpl?b:a,D.vend[0]);
+  document.getElementById('cap-vend').innerHTML = mejor
+    ? `<b>El mejor:</b> ${mejor.n} con ${money(mejor.ven)}. <b>El más bajo en cumplimiento:</b> ${peor.n}, con ${Math.round(peor.cumpl)}% de su meta.${D.vend.some(v=>v.act<S.meses.length)?' Ojo: hay vendedores que no estuvieron todos los meses, por eso su total es más bajo.':''}` : '';
+  hbar(document.getElementById('c-vend-com'),
+    D.vend.slice().sort((a,b)=>b.cm-a.cm).map(v=>({n:v.n,v:v.cm,lab:'$'+v.cm.toFixed(1)+' de cada $100',
+      sub:(v.pct*100).toFixed(v.pct*100%1?1:0)+'% de comisión',
+      color:CSS(v.cm>=18?'--crit':v.cm>=13?'--warn':'--good'),
+      tipText:`Comisión pagada: ${money(v.com)}<br>Ganancia que generó: ${money(v.mg)}<br>Se lleva $${v.cm.toFixed(1)} de cada $100 de ganancia`})),
+    {id:'vc',rowH:46,labW:132,hlType:'vend',click:d=>setHl('vend',d.n),aria:'Parte de la ganancia que se lleva cada vendedor'});
+  const caro=D.vend.slice().sort((a,b)=>b.cm-a.cm)[0], barato=D.vend.slice().sort((a,b)=>a.cm-b.cm)[0];
+  document.getElementById('cap-vcom').innerHTML = caro
+    ? `<b>Aquí está lo raro:</b> ${caro.n} se lleva <b>$${caro.cm.toFixed(0)} de cada $100 de ganancia</b> que genera, porque tiene ${(caro.pct*100).toFixed(1)}% de comisión. ${barato.n} se lleva <b>$${barato.cm.toFixed(0)}</b>. Los porcentajes no premian a quien más vende ni a quien más deja.` : '';
+  tablaVend(D);
+
+  /* cobranza y gastos */
+  donut(document.getElementById('c-pie-cxc'), CXC_EDAD, {id:'cxc',centerTop:'Nos deben',center:kmoney(CXC_TOTAL),aria:'Antigüedad de lo que nos deben'});
+  hbar(document.getElementById('c-deudores'), DEUDORES.slice(0,8).map(d=>({n:d.n,v:d.v,lab:money(d.v),color:CSS('--s2'),
+    tipText:`Nos debe ${money(d.v)}<br>${pctf(d.v,CXC_TOTAL)} de todo lo por cobrar`})),
+    {id:'deu',rowH:34,labW:168,aria:'Clientes que más nos deben'});
+  tablaCxc();
+  donut(document.getElementById('c-pie-gastos'), D.gastosCat, {id:'gas',centerTop:'Gasto fijo',center:kmoney(D.T.gastos),aria:'En qué se van los gastos fijos'});
+  const sue=D.gastosCat[0];
+  document.getElementById('cap-gastos').innerHTML =
+    `Los sueldos son <b>${Math.round(sue.v/(D.T.gastos||1)*10)} de cada 10 pesos</b> del gasto fijo. Esta parte se paga vendamos o no.`;
+
+  renderSim();
+  document.querySelectorAll('[data-hlreset]').forEach(b=>b.remove());
+  if(S.hl) mostrarBotonQuitar();
+}
+
+let btnQuitar=null;
+function mostrarBotonQuitar(){
+  if(btnQuitar) btnQuitar.remove();
+  btnQuitar=document.createElement('button');
+  btnQuitar.className='btn sm'; btnQuitar.dataset.hlreset='1';
+  btnQuitar.style.cssText='position:fixed;bottom:18px;left:18px;z-index:80';
+  btnQuitar.textContent='✕ Quitar resaltado de '+S.hl.n;
+  btnQuitar.onclick=()=>{S.hl=null;render();};
+  document.body.appendChild(btnQuitar);
+}
+
+/* ══════════════════════════════════════════════════════════════
+   8. SIMULADOR
+   ══════════════════════════════════════════════════════════════ */
+const BASE={ventas:13236890, costo:9563186, mb:3673704, gastos:3388145, com:522815, res:-237256,
+            laptopIng:9503500, laptops:391, cxc:822800, kitBase:36};
+const TASA_HOY = BASE.com/BASE.mb*100;   // 14.2313 de cada 100 pesos de ganancia
+const KIT_MARGEN = (6200-4100)+(1450-780)+(620-290)+(1180-590); // 3690
+function simCalc(){
+  const s=S.sim;
+  const extraPrecio = BASE.laptopIng*(s.precio/100);
+  const kits = Math.max(0,(s.kit-BASE.kitBase)/100)*BASE.laptops;
+  const extraKit = kits*KIT_MARGEN;
+  const ventas = BASE.ventas + extraPrecio + kits*(6200+1450+620+1180);
+  const mb = BASE.mb + extraPrecio + extraKit;
+  const costo = ventas - mb;
+  const tasa = Math.abs(s.tope-14.23)<0.02 ? TASA_HOY : s.tope;   // la posición inicial usa la cifra real
+  const com = mb*(tasa/100);
+  const res = mb - BASE.gastos - com;
+  const cobrado = BASE.cxc*(s.cobra/100);
+  return {ventas,costo,mb,com,res,cobrado,cash:res+cobrado,kits,extraPrecio,extraKit};
+}
+function renderSim(){
+  const s=S.sim, r=simCalc();
+  document.getElementById('lv1').textContent='+'+s.precio+'%';
+  document.getElementById('lv2').textContent=s.tope.toFixed(1)+'%';
+  document.getElementById('lv3').textContent=s.cobra+'%';
+  document.getElementById('lv4').textContent=s.kit+'%';
+  document.getElementById('ld1').innerHTML= s.precio===0
+    ? 'Hoy la vendemos en $24,500 y nos cuesta $19,200.'
+    : `La laptop pasaría de $24,500 a <b>$${Math.round(24500*(1+s.precio/100)).toLocaleString('es-MX')}</b>. Son ${money(r.extraPrecio)} más de ganancia.`;
+  document.getElementById('ld2').innerHTML= Math.abs(s.tope-14.23)<0.06
+    ? 'Hoy pagamos en promedio 14.2 de cada 100 pesos de ganancia en comisiones, con porcentajes que van del 2.5% al 6% de la venta.'
+    : `Pagaríamos ${money(r.com)} de comisiones en vez de ${money(BASE.com)}. Diferencia: <b>${smoney(BASE.com-r.com)}</b>.`;
+  document.getElementById('ld3').innerHTML= s.cobra===0
+    ? 'Hoy tenemos $822,800 sin cobrar. Esto no cambia la ganancia: es dinero que ya contamos como venta, solo falta que entre al banco.'
+    : `Entrarían <b>${money(r.cobrado)}</b> al banco. No cambia la ganancia, cambia el efectivo.`;
+  document.getElementById('ld4').innerHTML= s.kit===BASE.kitBase
+    ? 'Hoy 1 de cada 3 laptops sale con monitor. Un kit completo (monitor, teclado, mouse y webcam) deja $3,690 limpios.'
+    : `Serían <b>${Math.round(r.kits)} kits</b> más, o sea ${money(r.extraKit)} de ganancia extra.`;
+
+  const fm=(id,v,neg)=>{const e=document.getElementById(id); e.textContent=(neg?'−':'')+money(v);};
+  fm('so1',r.ventas); fm('so2',r.costo,true); fm('so3',BASE.gastos,true); fm('so4',r.com,true);
+  const res=document.getElementById('soRes');
+  res.textContent=smoney(r.res); res.className='n '+(r.res>=0?'pos':'negv');
+  const cash=document.getElementById('soCash');
+  cash.textContent=smoney(r.cash); cash.className='n '+(r.cash>=0?'pos':'negv');
+  const lo=-500000, hi=1000000, clamp=v=>Math.max(lo,Math.min(hi,v));
+  const z=(0-lo)/(hi-lo)*100, v=(clamp(r.res)-lo)/(hi-lo)*100;
+  const bar=document.getElementById('meterBar');
+  bar.style.left=Math.min(z,v)+'%'; bar.style.width=Math.abs(v-z)+'%';
+  bar.style.background=r.res>=0?CSS('--good'):CSS('--crit');
+  document.getElementById('simMsg').innerHTML = r.res>=0
+    ? `✅ <b>Con estos cambios el negocio gana dinero.</b> Pasa de perder ${money(BASE.res)} a ganar ${money(r.res)}.`
+    : `Todavía en rojo. Faltan <b>${money(-r.res)}</b> para llegar a cero.`;
+  if(r.res>=0 && !renderSim._verde){ renderSim._verde=true; confetti(); toast('¡El negocio está en verde!'); }
+  if(r.res<0) renderSim._verde=false;
+
+  document.getElementById('scenList').innerHTML = S.escenarios.map((e,i)=>
+    `<span class="chip" data-scen="${i}">${e.nom}: <b>${smoney(e.res)}</b></span>`).join('');
+  document.querySelectorAll('[data-scen]').forEach(c=>c.onclick=()=>{
+    S.sim={...S.escenarios[c.dataset.scen].sim}; syncSim(); renderSim();});
+}
+function syncSim(){
+  document.getElementById('sl1').value=S.sim.precio;
+  document.getElementById('sl2').value=S.sim.tope;
+  document.getElementById('sl3').value=S.sim.cobra;
+  document.getElementById('sl4').value=S.sim.kit;
+}
+
+/* confeti */
+function confetti(){
+  if(REDUCE) return;
+  const c=document.getElementById('confetti'), ctx=c.getContext('2d');
+  c.width=innerWidth; c.height=innerHeight; c.style.display='block';
+  const cols=[CSS('--s1'),CSS('--s2'),CSS('--s3'),CSS('--s4'),CSS('--s5'),CSS('--good')];
+  const ps=Array.from({length:120},(_,i)=>({x:innerWidth*(0.3+0.4*((i*37)%100)/100), y:-20-((i*53)%300),
+    vx:((i%7)-3)*0.8, vy:2+((i%5)*0.7), r:4+((i%4)*2), rot:(i*29)%360, vr:((i%9)-4)*3,
+    c:cols[i%cols.length]}));
+  let f=0;
+  (function loop(){
+    ctx.clearRect(0,0,c.width,c.height); f++;
+    ps.forEach(p=>{p.x+=p.vx; p.y+=p.vy; p.vy+=0.09; p.rot+=p.vr;
+      ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.rot*Math.PI/180);
+      ctx.fillStyle=p.c; ctx.globalAlpha=Math.max(0,1-f/130);
+      ctx.fillRect(-p.r/2,-p.r/2,p.r,p.r*0.6); ctx.restore();});
+    if(f<130) requestAnimationFrame(loop); else {c.style.display='none'; ctx.clearRect(0,0,c.width,c.height);}
+  })();
+}
+
+/* ══════════════════════════════════════════════════════════════
+   9. TEMA Y PALETA
+   ══════════════════════════════════════════════════════════════ */
+function modoReal(){ return S.mode==='auto'
+  ? (matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light') : S.mode; }
+function aplicarTema(){
+  const m=modoReal();
+  document.documentElement.dataset.mode=m;
+  const pal = S.pal==='custom' ? (S.custom?S.custom[m]:PALETAS.azul[m]) : PALETAS[S.pal][m];
+  pal.forEach((c,i)=>document.documentElement.style.setProperty('--s'+(i+1),c));
+  document.documentElement.style.setProperty('--acc',pal[0]);
+}
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change',()=>{ if(S.mode==='auto'){aplicarTema();render();} });
+
+/* ══════════════════════════════════════════════════════════════
+   10. CONTROLES
+   ══════════════════════════════════════════════════════════════ */
+function sync(){
+  document.querySelectorAll('[data-mode-btn]').forEach(b=>b.classList.toggle('on',b.dataset.modeBtn===S.mode));
+  document.querySelectorAll('[data-pal]').forEach(b=>b.classList.toggle('on',b.dataset.pal===S.pal));
+  document.getElementById('btnCustom').classList.toggle('on',S.pal==='custom');
+  document.querySelectorAll('[data-mes]').forEach(b=>b.classList.toggle('on',S.meses.includes(+b.dataset.mes)));
+  document.querySelectorAll('[data-suc]').forEach(b=>b.classList.toggle('on',S.sucs.includes(b.dataset.suc)));
+  document.getElementById('unitBtn').textContent = S.unidad==='pesos'?'$ Pesos':'% De cada $100';
+}
+// chips de mes y sucursal
+document.getElementById('mchips').innerHTML = MESES.map((m,i)=>
+  `<button class="btn sm" data-mes="${i}">${m.slice(0,3)}</button>`).join('');
+document.getElementById('bchips').innerHTML = SUC.map(b=>
+  `<button class="btn sm" data-suc="${b}">${b}</button>`).join('');
+
+document.querySelectorAll('[data-mes]').forEach(b=>b.onclick=()=>{
+  const i=+b.dataset.mes;
+  S.meses = S.meses.includes(i) ? S.meses.filter(x=>x!==i) : [...S.meses,i].sort();
+  if(!S.meses.length){S.meses=[i];toast('Necesitas al menos un mes');}
+  sync(); render();});
+document.getElementById('mAll').onclick=()=>{S.meses=[0,1,2,3,4];sync();render();};
+document.querySelectorAll('[data-suc]').forEach(b=>b.onclick=()=>{
+  const s=b.dataset.suc;
+  S.sucs = S.sucs.includes(s) ? S.sucs.filter(x=>x!==s) : [...S.sucs,s];
+  if(!S.sucs.length){S.sucs=[s];toast('Necesitas al menos una sucursal');}
+  sync(); render();});
+document.querySelectorAll('[data-mode-btn]').forEach(b=>b.onclick=()=>{
+  S.mode=b.dataset.modeBtn; aplicarTema(); sync(); render();});
+document.querySelectorAll('[data-pal]').forEach(b=>b.onclick=()=>{
+  S.pal=b.dataset.pal; aplicarTema(); sync(); render(); toast('Tema '+PALETAS[S.pal].nom);});
+document.getElementById('unitBtn').onclick=()=>{
+  S.unidad = S.unidad==='pesos'?'pct':'pesos'; sync(); render();};
+document.getElementById('btnReset').onclick=()=>{
+  S.meses=[0,1,2,3,4]; S.sucs=['CDMX','GDL','MTY']; S.hl=null; S.unidad='pesos';
+  if(btnQuitar) btnQuitar.remove();
+  sync(); render(); toast('Filtros quitados');};
+document.getElementById('btnHelp').onclick=()=>toast('T claro/oscuro · C color · P presentar · R quitar filtros · ←→ navegar');
+
+/* explicaciones y descargas */
+document.querySelectorAll('[data-explain]').forEach(b=>b.onclick=()=>{
+  const p=b.closest('.card').querySelector('.explain');
+  p.classList.toggle('open');
+  b.textContent = p.classList.contains('open') ? '✕ Cerrar' : '¿Cómo lo leo?';});
+document.querySelectorAll('[data-png]').forEach(b=>b.onclick=()=>{
+  const card=b.closest('.card'), svg=card.querySelector('svg');
+  if(!svg){toast('Esta tarjeta no tiene gráfica');return;}
+  descargarPNG(svg, (card.querySelector('h3')?.textContent||'grafica').slice(0,40));});
+function descargarPNG(svg,nombre){
+  const clone=svg.cloneNode(true);
+  // resolver variables CSS a color fijo
+  const cs=getComputedStyle(document.documentElement);
+  clone.querySelectorAll('*').forEach(n=>{
+    ['fill','stroke'].forEach(a=>{const v=n.getAttribute(a);
+      if(v&&v.startsWith('var(')) n.setAttribute(a,cs.getPropertyValue(v.slice(4,-1)).trim());});
+  });
+  const style=document.createElementNS(NS,'style');
+  style.textContent=`text{font-family:system-ui,-apple-system,sans-serif}
+    .axis-lab{font-size:12px;fill:${cs.getPropertyValue('--muted').trim()}}
+    .val-lab{font-size:12.5px;font-weight:650;fill:${cs.getPropertyValue('--ink2').trim()}}
+    .val-lab-big{font-size:13px;font-weight:700;fill:${cs.getPropertyValue('--ink').trim()}}
+    .gridline{stroke:${cs.getPropertyValue('--grid').trim()};stroke-width:1}
+    .baseline{stroke:${cs.getPropertyValue('--axis').trim()};stroke-width:1}
+    .dim{opacity:.18}`;
+  clone.insertBefore(style,clone.firstChild);
+  const vb=(svg.getAttribute('viewBox')||'0 0 700 400').split(/\s+/).map(Number);
+  clone.setAttribute('width',vb[2]); clone.setAttribute('height',vb[3]);
+  const data=new XMLSerializer().serializeToString(clone);
+  const img=new Image();
+  img.onload=()=>{
+    const c=document.createElement('canvas'); c.width=vb[2]*2; c.height=vb[3]*2;
+    const x=c.getContext('2d'); x.scale(2,2);
+    x.fillStyle=cs.getPropertyValue('--surface').trim(); x.fillRect(0,0,vb[2],vb[3]);
+    x.drawImage(img,0,0);
+    const a=document.createElement('a');
+    a.download=nombre.replace(/[^\wáéíóúñÁÉÍÓÚÑ ]/g,'').trim().replace(/\s+/g,'_')+'.png';
+    a.href=c.toDataURL('image/png'); a.click(); toast('Imagen descargada');
+  };
+  img.onerror=()=>toast('No se pudo generar la imagen');
+  img.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(data);
+}
+
+/* simulador */
+['sl1','sl2','sl3','sl4'].forEach((id,i)=>{
+  document.getElementById(id).addEventListener('input',e=>{
+    S.sim[['precio','tope','cobra','kit'][i]]=+e.target.value; renderSim();});
+});
+document.getElementById('simReset').onclick=()=>{S.sim={precio:0,tope:14.23,cobra:0,kit:36};syncSim();renderSim();};
+document.getElementById('simPlan').onclick=()=>{S.sim={precio:3,tope:10,cobra:70,kit:67};syncSim();renderSim();
+  toast('Plan completo cargado');};
+document.getElementById('simSave').onclick=()=>{
+  const r=simCalc();
+  S.escenarios.push({nom:'Escenario '+(S.escenarios.length+1), sim:{...S.sim}, res:r.res});
+  renderSim(); toast('Escenario guardado');};
+
+/* selector de color libre */
+const pop=document.getElementById('popCustom');
+document.getElementById('btnCustom').onclick=()=>{pop.classList.toggle('open'); if(pop.classList.contains('open')) previewCustom();};
+document.getElementById('closeCustom').onclick=()=>pop.classList.remove('open');
+document.getElementById('hueSlider').oninput=previewCustom;
+document.getElementById('chromaSlider').oninput=previewCustom;
+let customPrev=null;
+function previewCustom(){
+  const H=+document.getElementById('hueSlider').value, C=+document.getElementById('chromaSlider').value/100;
+  const light=generarPaleta(H,C,'light'), dark=generarPaleta(H,C,'dark');
+  customPrev={light,dark};
+  const m=modoReal(), pal=customPrev[m];
+  document.getElementById('customSw').innerHTML=pal.map(c=>`<i style="background:${c}"></i>`).join('');
+  const rL=checkPal(light,'light'), rD=checkPal(dark,'dark');
+  const v=document.getElementById('customVerdict');
+  const peor=Math.min(rL.cvd,rD.cvd), peorN=Math.min(rL.nor,rD.nor);
+  if(rL.bueno&&rD.bueno){ v.className='verdict v-ok';
+    v.innerHTML=`✓ <b>Se lee bien.</b> Los colores se distinguen entre sí, también para quien es daltónico (separación ${peor.toFixed(1)}, mínimo 8).`; }
+  else if(rL.ok&&rD.ok){ v.className='verdict v-ok';
+    v.innerHTML=`✓ <b>Aceptable.</b> Separación ${peor.toFixed(1)} (el mínimo cómodo es 8). Como cada gráfica trae su etiqueta con el nombre, se sigue entendiendo.`; }
+  else { v.className='verdict v-no';
+    v.innerHTML=`⚠ <b>Con este tono dos colores se parecen demasiado</b> (separación ${peor.toFixed(1)} para daltonismo, ${peorN.toFixed(1)} a color normal). Mueve un poco el tono o súbele a lo vivo.`; }
+}
+document.getElementById('applyCustom').onclick=()=>{
+  if(!customPrev) previewCustom();
+  S.custom=customPrev; S.pal='custom'; aplicarTema(); sync(); render();
+  pop.classList.remove('open'); toast('Tu color aplicado');};
+document.addEventListener('click',e=>{
+  if(!pop.contains(e.target) && e.target.id!=='btnCustom' && !e.target.closest('#btnCustom')) pop.classList.remove('open');});
+
+/* carrera de vendedores mes a mes */
+document.getElementById('btnRace').onclick=()=>{
+  const orig={meses:[...S.meses]};
+  let i=0; const btn=document.getElementById('btnRace'); btn.disabled=true;
+  const paso=()=>{
+    if(i>4){ S.meses=orig.meses; sync(); render(); btn.disabled=false; toast('Fin de la carrera'); return; }
+    S.meses=[...Array(i+1).keys()]; sync(); render();
+    toast('Acumulado hasta '+MESES[i]);
+    i++; setTimeout(paso, 1100);
+  };
+  paso();
+};
+
+/* modo presentación */
+function presentar(on){
+  S.present=on;
+  document.documentElement.style.setProperty('--barh', document.querySelector('.bar').offsetHeight+'px');
+  document.body.classList.toggle('present',on);
+  if(on){ S.slide=0; mostrarSlide(); } else SECCIONES.forEach(s=>s.classList.remove('slide-on'));
+  document.getElementById('btnPresent').classList.toggle('on',on);
+}
+function mostrarSlide(){
+  document.documentElement.style.setProperty('--barh', document.querySelector('.bar').offsetHeight+'px');
+  SECCIONES.forEach((s,i)=>s.classList.toggle('slide-on',i===S.slide));
+  document.getElementById('pCount').textContent=(S.slide+1)+' / '+SECCIONES.length;
+  scrollTo({top:0,behavior:'instant'});
+}
+document.getElementById('btnPresent').onclick=()=>presentar(!S.present);
+document.getElementById('pExit').onclick=()=>presentar(false);
+document.getElementById('pNext').onclick=()=>{S.slide=Math.min(SECCIONES.length-1,S.slide+1);mostrarSlide();};
+document.getElementById('pPrev').onclick=()=>{S.slide=Math.max(0,S.slide-1);mostrarSlide();};
+
+/* teclado */
+addEventListener('keydown',e=>{
+  if(e.target.matches('input,textarea')) return;
+  const k=e.key.toLowerCase();
+  if(k==='t'){ S.mode = modoReal()==='dark'?'light':'dark'; aplicarTema(); sync(); render(); toast('Modo '+(modoReal()==='dark'?'oscuro':'claro')); }
+  else if(k==='c'){ const ks=Object.keys(PALETAS); S.pal=ks[(ks.indexOf(S.pal)+1)%ks.length];
+    aplicarTema(); sync(); render(); toast('Tema '+PALETAS[S.pal].nom); }
+  else if(k==='p'){ presentar(!S.present); }
+  else if(k==='r'){ document.getElementById('btnReset').click(); }
+  else if(k==='escape'){ if(S.present) presentar(false); if(S.hl){S.hl=null;render();} pop.classList.remove('open'); }
+  else if(e.key==='ArrowRight'&&S.present){ S.slide=Math.min(SECCIONES.length-1,S.slide+1); mostrarSlide(); }
+  else if(e.key==='ArrowLeft'&&S.present){ S.slide=Math.max(0,S.slide-1); mostrarSlide(); }
+});
+
+/* arranque */
+aplicarTema(); sync(); syncSim(); render();
+setTimeout(()=>toast('Tip: haz clic en cualquier vendedor o producto para seguirlo por todo el reporte'),1400);
+</script>
+</body>
+</html>

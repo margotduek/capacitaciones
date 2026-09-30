@@ -1,0 +1,733 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ventas Mayo 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>:root{
+  color-scheme: light;
+  --bg:#f6f5f2; --surface:#fcfcfb; --surface-2:#f1f0ec; --border:#e2e0da; --border-2:#cfccc3;
+  --ink:#0b0b0b; --ink-2:#52514e; --ink-3:#7d7b74;
+  --s1:#2a78d6; --s2:#eb6834; --s3:#1baf7a; --s4:#eda100;
+  --s5:#e87ba4; --s6:#008300; --s7:#4a3aa7; --s8:#e34948;
+  --good:#0ca30c; --warning:#fab219; --serious:#ec835a; --critical:#d03b3b;
+  --seq0:#eeece7; --seq1:#cde2fb; --seq2:#9ec5f4; --seq3:#6da7ec; --seq4:#2a78d6; --seq5:#1c5cab; --seq6:#0d366b;
+  --shadow:0 1px 2px rgba(0,0,0,.05),0 8px 24px -12px rgba(0,0,0,.12);
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  color-scheme: dark;
+  --bg:#121211; --surface:#1a1a19; --surface-2:#232322; --border:#302f2d; --border-2:#45443f;
+  --ink:#ffffff; --ink-2:#c3c2b7; --ink-3:#8e8d84;
+  --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s4:#c98500;
+  --s5:#d55181; --s6:#008300; --s7:#9085e9; --s8:#e66767;
+  --seq0:#262624; --seq1:#0d366b; --seq2:#184f95; --seq3:#256abf; --seq4:#3987e5; --seq5:#6da7ec; --seq6:#b7d3f6;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px -12px rgba(0,0,0,.6);
+}}
+:root[data-theme="dark"]{
+  color-scheme: dark;
+  --bg:#121211; --surface:#1a1a19; --surface-2:#232322; --border:#302f2d; --border-2:#45443f;
+  --ink:#ffffff; --ink-2:#c3c2b7; --ink-3:#8e8d84;
+  --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s4:#c98500;
+  --s5:#d55181; --s6:#008300; --s7:#9085e9; --s8:#e66767;
+  --seq0:#262624; --seq1:#0d366b; --seq2:#184f95; --seq3:#256abf; --seq4:#3987e5; --seq5:#6da7ec; --seq6:#b7d3f6;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px -12px rgba(0,0,0,.6);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4,.kpi .k-v,.t-hero{font-family:"Archivo","Inter",-apple-system,"Segoe UI",Helvetica,Arial,sans-serif}
+.eyebrow,.sec-eye,.kpi .k-l,.f-tag,th,.t-mut{font-family:"IBM Plex Mono","SFMono-Regular",ui-monospace,Menlo,monospace}
+.wrap{max-width:1200px;margin:0 auto;padding:0 20px 96px}
+
+/* ---------- header ---------- */
+header.hero{padding:56px 0 32px;border-bottom:1px solid var(--border)}
+.eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--s1);font-weight:700;margin:0 0 10px}
+h1{font-size:clamp(30px,5vw,46px);line-height:1.08;letter-spacing:-.02em;margin:0 0 12px;font-weight:800}
+.sub{color:var(--ink-2);max-width:64ch;margin:0}
+.meta-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.chip{font-size:12px;padding:5px 11px;border-radius:999px;background:var(--surface-2);
+  border:1px solid var(--border);color:var(--ink-2);font-weight:500}
+.chip b{color:var(--ink);font-weight:700}
+
+/* ---------- nav ---------- */
+nav.jump{position:sticky;top:0;z-index:30;background:color-mix(in srgb,var(--bg) 88%,transparent);
+  backdrop-filter:blur(12px);border-bottom:1px solid var(--border);margin-bottom:36px;
+  overflow-x:auto;-webkit-overflow-scrolling:touch}
+nav.jump ul{display:flex;gap:4px;list-style:none;margin:0;padding:9px 20px;max-width:1200px;
+  margin-inline:auto;white-space:nowrap}
+nav.jump a{font-size:13px;font-weight:600;color:var(--ink-2);text-decoration:none;padding:6px 12px;border-radius:8px;display:block}
+nav.jump a:hover{background:var(--surface-2);color:var(--ink)}
+
+/* ---------- secciones ---------- */
+section{margin:0 0 56px;scroll-margin-top:64px}
+.sec-eye{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);
+  font-weight:500;margin:0 0 8px;display:flex;align-items:center;gap:9px}
+.sec-eye::before{content:"";width:22px;height:2px;background:var(--s1);border-radius:2px;flex:none}
+.sec-h{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin:0 0 6px}
+h2{font-size:25px;letter-spacing:-.015em;margin:0;font-weight:700;text-wrap:balance}
+.sec-sub{color:var(--ink-2);margin:0 0 22px;max-width:72ch;font-size:14.5px}
+
+/* ---------- KPIs ---------- */
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(178px,1fr));gap:12px;margin:28px 0 8px}
+.kpi{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:16px 18px;box-shadow:var(--shadow)}
+.kpi .k-l{font-size:11.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-3);font-weight:700;margin:0 0 6px}
+.kpi .k-v{font-size:clamp(22px,3vw,28px);font-weight:800;letter-spacing:-.02em;line-height:1.1;font-variant-numeric:tabular-nums}
+.kpi .k-s{font-size:12.5px;color:var(--ink-2);margin-top:5px}
+.kpi.accent{border-color:var(--s1);box-shadow:var(--shadow),inset 0 0 0 1px var(--s1)}
+.k-v.good{color:var(--good)} .k-v.critical{color:var(--critical)}
+
+/* ---------- grid de cards ---------- */
+.grid{display:grid;gap:16px}
+.g2{grid-template-columns:repeat(auto-fit,minmax(330px,1fr))}
+.g3{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:20px 20px 18px;box-shadow:var(--shadow);min-width:0}
+.card h3{font-size:15.5px;margin:0 0 3px;font-weight:700;letter-spacing:-.005em}
+.card .c-sub{font-size:13px;color:var(--ink-2);margin:0 0 16px}
+.card.full{grid-column:1/-1}
+.scrollx{overflow-x:auto;-webkit-overflow-scrolling:touch}
+
+/* ---------- svg ---------- */
+svg.viz{width:100%;height:auto;display:block;overflow:visible}
+svg.viz.wide{min-width:820px}
+.grid{stroke:var(--border)}
+line.grid{stroke:var(--border);stroke-width:1}
+line.grid.strong{stroke:var(--border-2);stroke-width:1.5}
+.t-ax{fill:var(--ink-3);font-size:11px;font-weight:500;font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace}
+.t-lbl{fill:var(--ink-2);font-size:12.5px;font-weight:600}
+.t-val{fill:var(--ink);font-size:11.5px;font-weight:600;font-variant-numeric:tabular-nums;font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace}
+.t-hero{fill:var(--ink);font-size:26px;font-weight:800;letter-spacing:-.02em}
+.t-mut{fill:var(--ink-3);font-size:11.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em}
+.t-cell{fill:var(--ink);font-size:11.5px;font-weight:600;font-variant-numeric:tabular-nums;font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace}
+.t-cell.on-dark{fill:#fff}
+.bar,.slice,.dot,.cell{transition:opacity .12s ease}
+.bar:hover,.slice:hover,.cell:hover{opacity:.78;cursor:pointer}
+.dot:hover{r:7;cursor:pointer}
+.seg{stroke:var(--surface);stroke-width:2}
+
+/* ---------- leyenda ---------- */
+.lg{display:flex;flex-wrap:wrap;gap:6px 16px;margin-top:16px;padding-top:14px;border-top:1px solid var(--border)}
+.lg-i{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink-2);font-weight:500}
+.lg-i i{width:11px;height:11px;border-radius:3px;flex:none}
+.lg-i b{color:var(--ink);font-weight:700;font-variant-numeric:tabular-nums}
+
+/* ---------- tooltip ---------- */
+.viz-tip{position:fixed;top:0;left:0;z-index:999;pointer-events:none;opacity:0;
+  background:var(--ink);color:var(--bg);font-size:12.5px;line-height:1.45;padding:8px 11px;
+  border-radius:9px;max-width:260px;transition:opacity .1s ease;box-shadow:0 6px 20px -6px rgba(0,0,0,.5)}
+.viz-tip.on{opacity:1}
+.viz-tip b{color:var(--bg)}
+
+/* ---------- bullets ---------- */
+.bullets{display:flex;flex-direction:column;gap:11px}
+.bl{display:grid;grid-template-columns:120px 1fr 52px;align-items:center;gap:12px;cursor:pointer}
+.bl-l{font-size:13px;font-weight:600;color:var(--ink-2)}
+.bl-t{position:relative;height:16px;background:var(--surface-2);border-radius:5px;overflow:hidden;display:block}
+.bl-t i{position:absolute;left:0;top:0;bottom:0;border-radius:5px;display:block}
+.bl-t u{position:absolute;top:-2px;bottom:-2px;width:2px;background:var(--ink-3);display:block}
+.bl-v{font-size:13px;font-weight:700;text-align:right;font-variant-numeric:tabular-nums;font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace}
+.bl-v.good{color:var(--good)} .bl-v.warning{color:var(--warning)} .bl-v.critical{color:var(--critical)}
+.cap{font-size:12px;color:var(--ink-3);margin:14px 0 0}
+
+/* ---------- tablas ---------- */
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th{text-align:left;font-size:11.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-3);
+  font-weight:700;padding:0 12px 9px;border-bottom:1px solid var(--border-2);white-space:nowrap}
+td{padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top}
+tbody tr:last-child td{border-bottom:none}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace;font-size:12.5px}
+tbody tr:hover{background:var(--surface-2)}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;
+  background:var(--surface-2);padding:1.5px 6px;border-radius:5px;border:1px solid var(--border)}
+
+/* ---------- hallazgos ---------- */
+.finds{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
+.find{background:var(--surface);border:1px solid var(--border);border-left:4px solid var(--ink-3);
+  border-radius:12px;padding:15px 17px;box-shadow:var(--shadow)}
+.find.critical{border-left-color:var(--critical)}
+.find.warning{border-left-color:var(--warning)}
+.find.serious{border-left-color:var(--serious)}
+.find.good{border-left-color:var(--good)}
+.find .f-top{display:flex;align-items:center;gap:8px;margin-bottom:7px;flex-wrap:wrap}
+.f-tag{font-size:10.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;
+  padding:3px 8px;border-radius:5px;background:var(--surface-2);color:var(--ink-2);border:1px solid var(--border)}
+.f-tag.critical{color:var(--critical);border-color:color-mix(in srgb,var(--critical) 40%,transparent)}
+.f-tag.warning{color:#8a6100;border-color:color-mix(in srgb,var(--warning) 50%,transparent)}
+:root[data-theme="dark"] .f-tag.warning,:root:not([data-theme="light"]) .f-tag.warning{color:var(--warning)}
+@media (prefers-color-scheme: light){:root:not([data-theme="dark"]) .f-tag.warning{color:#8a6100}}
+.f-tag.serious{color:#a04a20;border-color:color-mix(in srgb,var(--serious) 45%,transparent)}
+.f-tag.good{color:var(--good);border-color:color-mix(in srgb,var(--good) 40%,transparent)}
+.find h4{margin:0;font-size:14.5px;font-weight:700;flex:1;min-width:180px}
+.find p{margin:0 0 8px;font-size:13.5px;color:var(--ink-2)}
+.find .fix{margin:0;font-size:13px;color:var(--ink);background:var(--surface-2);
+  padding:9px 11px;border-radius:8px;border:1px solid var(--border)}
+.find .fix b{color:var(--s1)}
+
+/* ---------- callout ---------- */
+.callout{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:22px 24px;
+  box-shadow:var(--shadow);margin-bottom:20px}
+.callout h3{margin:0 0 10px;font-size:17px;font-weight:750}
+.callout ul{margin:0;padding-left:20px;color:var(--ink-2)}
+.callout li{margin-bottom:8px}
+.callout li b{color:var(--ink)}
+.callout li:last-child{margin-bottom:0}
+
+footer{border-top:1px solid var(--border);padding-top:24px;color:var(--ink-3);font-size:13px}
+@media(max-width:640px){
+  .bl{grid-template-columns:88px 1fr 46px;gap:8px}
+  .card{padding:16px 14px 14px}
+  .wrap{padding:0 14px 64px}
+}
+
+/* contenedores de gráfica: nunca desbordan la tarjeta */
+.card > div[id^="c_"]{max-width:100%;overflow-x:auto;overflow-y:hidden}
+@media(max-width:760px){ .card.full svg.viz{min-width:620px} }
+
+a:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--s1);outline-offset:3px;border-radius:6px}
+@media (prefers-reduced-motion: reduce){*{transition:none !important;animation:none !important}}
+</style>
+
+</head>
+<body>
+<nav class="jump"><ul>
+<li><a href="#resumen">Resumen</a></li>
+<li><a href="#productos">Productos</a></li>
+<li><a href="#vendedores">Vendedores</a></li>
+<li><a href="#sucursales">Sucursales</a></li>
+<li><a href="#tiempo">Días fuertes</a></li>
+<li><a href="#metas">Metas y comisiones</a></li>
+<li><a href="#cobranza">Cobranza</a></li>
+<li><a href="#auditoria">Auditoría del Excel</a></li>
+</ul></nav>
+
+<div class="wrap">
+<header class="hero">
+  <p class="eyebrow">Reporte de ventas</p>
+  <h1>Mayo 2026</h1>
+  <p class="sub">Dashboard construido sobre <b>Ventas_Mayo_2026 - Ventas Mayo.csv</b>, cruzado con costos de producto,
+  lista de precios, metas y comisiones, y cuentas por cobrar. Todas las cifras salen del detalle de operaciones,
+  no de los totales precalculados del archivo.</p>
+  <div class="meta-row">
+    <span class="chip"><b>120</b> operaciones válidas</span>
+    <span class="chip"><b>6</b> vendedores</span>
+    <span class="chip"><b>5</b> productos</span>
+    <span class="chip"><b>3</b> sucursales</span>
+    <span class="chip"><b>24</b> filas con problemas de captura</span>
+  </div>
+</header>
+
+<section id="resumen">
+  <div class="kpis">
+    <div class="kpi accent"><p class="k-l">Ventas totales</p><div class="k-v ">$2,848,860</div><p class="k-s">412 unidades · ticket promedio $23,740</p></div>
+    <div class="kpi"><p class="k-l">Margen bruto</p><div class="k-v good">$747,880</div><p class="k-s">26.3% sobre venta</p></div>
+    <div class="kpi"><p class="k-l">Costo de venta</p><div class="k-v ">$2,100,980</div><p class="k-s">según Costos_Productos.csv</p></div>
+    <div class="kpi"><p class="k-l">Operaciones</p><div class="k-v ">120</div><p class="k-s">en 31 días · 3.9 por día</p></div>
+    <div class="kpi"><p class="k-l">Cartera pendiente</p><div class="k-v critical">$656,400</div><p class="k-s">19 facturas, todas vencidas</p></div>
+    <div class="kpi"><p class="k-l">Comisiones a pagar</p><div class="k-v ">$115,009</div><p class="k-s">sobre ventas reales de mayo</p></div>
+  </div>
+</section>
+
+<section id="productos">
+  <p class="sec-eye">Ventas de mayo × Costos_Productos.csv</p><div class="sec-h"><h2>Mezcla de producto</h2></div>
+  <p class="sec-sub">La Laptop Pro 14 es <b>74% de la facturación con solo 22 de 120 operaciones</b>,
+  y es justo el producto de menor margen (21.6%). Los periféricos son el 95% del volumen de piezas y solo el
+  10% del dinero, pero con casi el doble de margen porcentual.</p>
+  <div class="grid g3">
+    <div class="card "><h3>Ventas por producto</h3><p class="c-sub">Participación sobre el total facturado</p><div id="c_prod_pie"></div></div>
+    <div class="card "><h3>Cómputo vs Periférico</h3><p class="c-sub">Dos negocios distintos dentro del mismo mes</p><div id="c_cat_pie"></div></div>
+    <div class="card "><h3>Unidades vendidas</h3><p class="c-sub">Piezas movidas por producto</p><div id="c_prod_unid"></div></div>
+  </div>
+  <div class="grid g2" style="margin-top:16px">
+    <div class="card "><h3>Margen bruto por producto</h3><p class="c-sub">Pesos de utilidad, no facturación</p><div id="c_prod_margen"></div></div>
+    <div class="card "><h3>Margen porcentual</h3><p class="c-sub">El ranking se invierte por completo</p><div id="c_prod_pct"></div></div>
+  </div>
+  <div class="card full" style="margin-top:16px">
+    <h3>Detalle por producto</h3><p class="c-sub">Vista de tabla de las mismas cifras</p>
+    <div class="scrollx"><table><thead><tr><th>Producto</th><th class="n">Unidades</th><th class="n">Ops</th>
+    <th class="n">Ventas</th><th class="n">Margen</th><th class="n">Margen %</th></tr></thead><tbody><tr><td>Laptop Pro 14</td><td class="n">86</td><td class="n">22</td><td class="n">$2,107,000</td><td class="n">$455,800</td><td class="n">21.6%</td></tr><tr><td>Monitor 27"</td><td class="n">76</td><td class="n">23</td><td class="n">$471,200</td><td class="n">$159,600</td><td class="n">33.9%</td></tr><tr><td>Teclado Mecánico</td><td class="n">82</td><td class="n">24</td><td class="n">$118,900</td><td class="n">$54,940</td><td class="n">46.2%</td></tr><tr><td>Webcam HD</td><td class="n">85</td><td class="n">28</td><td class="n">$100,300</td><td class="n">$50,150</td><td class="n">50.0%</td></tr><tr><td>Mouse Inalámbrico</td><td class="n">83</td><td class="n">23</td><td class="n">$51,460</td><td class="n">$27,390</td><td class="n">53.2%</td></tr></tbody></table></div>
+  </div>
+</section>
+
+<section id="vendedores">
+  <p class="sec-eye">Detalle de operaciones</p><div class="sec-h"><h2>Vendedores</h2></div>
+  <p class="sec-sub">El pastel de vendedores que pediste, más el detalle de qué vende cada quien. Juan Pérez concentra
+  25% de la venta; Carlos Ruiz cierra el mes en último lugar y es el único que
+  no llega a su meta.</p>
+  <div class="grid g2">
+    <div class="card "><h3>Ventas por vendedor</h3><p class="c-sub">El pastel del equipo</p><div id="c_vend_pie"></div></div>
+    <div class="card "><h3>Ranking por facturación</h3><p class="c-sub">Orden de mayor a menor</p><div id="c_vend_rank"></div></div>
+  </div>
+  <div class="grid g2" style="margin-top:16px">
+    <div class="card full"><h3>Qué vende cada quien</h3><p class="c-sub">Mapa de calor: vendedor por producto. Más oscuro = más pesos.</p><div id="c_heat"></div><p class="cap">Desliza horizontalmente si la tabla no cabe.</p></div>
+  </div>
+  <div class="grid g2" style="margin-top:16px">
+    <div class="card full"><h3>Vendedor por sucursal</h3><p class="c-sub">Barras apiladas: nadie vende en una sola plaza</p><div id="c_vend_suc"></div></div>
+  </div>
+</section>
+
+<section id="sucursales">
+  <p class="sec-eye">Detalle de operaciones</p><div class="sec-h"><h2>Sucursales</h2></div>
+  <p class="sec-sub">Guadalajara factura más, pero Monterrey tiene el mejor margen porcentual porque vende proporcionalmente
+  más periférico. CDMX es la que más operaciones levanta (47 de 120).</p>
+  <div class="grid g3">
+    <div class="card "><h3>Ventas por sucursal</h3><p class="c-sub">Reparto del total</p><div id="c_suc_pie"></div></div>
+    <div class="card "><h3>Operaciones por sucursal</h3><p class="c-sub">Volumen de tickets, no de pesos</p><div id="c_suc_ops"></div></div>
+    <div class="card "><h3>Margen por sucursal</h3><p class="c-sub">Utilidad bruta en pesos</p><div id="c_suc_margen"></div></div>
+  </div>
+  <div class="grid g2" style="margin-top:16px">
+    <div class="card full"><h3>Mezcla de producto por sucursal</h3><p class="c-sub">Qué se vende en cada plaza</p><div id="c_suc_prod"></div></div>
+  </div>
+</section>
+
+<section id="tiempo">
+  <p class="sec-eye">Serie diaria del 1 al 31 de mayo</p><div class="sec-h"><h2>Los días más fuertes</h2></div>
+  <p class="sec-sub">El día más fuerte del mes fue el <b>19 de mayo</b>
+  ($345,480 en 9 operaciones). Por día de la semana, el <b>sábado</b> promedia
+  $129,996 y el <b>domingo</b> apenas $57,446: el fin de semana no está muerto,
+  el domingo sí.</p>
+  <div class="grid g2">
+    <div class="card full"><h3>Ventas día por día</h3><p class="c-sub">Los 5 días más fuertes van en naranja</p><div id="c_dias"></div></div>
+  </div>
+  <div class="grid g3" style="margin-top:16px">
+    <div class="card "><h3>Promedio por día de la semana</h3><p class="c-sub">Total del día entre número de veces que cayó en mayo</p><div id="c_dow"></div></div>
+    <div class="card "><h3>Operaciones por día de la semana</h3><p class="c-sub">Cuántos tickets, no cuántos pesos</p><div id="c_dow_ops"></div></div>
+    <div class="card "><h3>Ventas por semana del mes</h3><p class="c-sub">Semana 5 son solo los días 29 al 31</p><div id="c_semana"></div></div>
+  </div>
+  <div class="grid g2" style="margin-top:16px">
+    <div class="card full"><h3>Acumulado del mes</h3><p class="c-sub">Cómo se fue construyendo el total</p><div id="c_acum"></div></div>
+  </div>
+</section>
+
+<section id="metas">
+  <p class="sec-eye">Metas_Comisiones_2026.xlsx</p><div class="sec-h"><h2>Metas, comisiones y comparativo con abril</h2></div>
+  <p class="sec-sub">Aquí hay un problema de fondo: el cumplimiento promedio del equipo es de <b>195%</b>.
+  Cuando todos rebasan la meta por dos o tres veces, la meta ya no mide nada y la comisión deja de ser un incentivo.</p>
+  <div class="grid g2">
+    <div class="card "><h3>Cumplimiento de meta</h3><p class="c-sub">Escala hasta 320% porque los números se salieron del rango</p><div id="c_bullets"></div></div>
+    <div class="card "><h3>Meta contra venta real</h3><p class="c-sub">Barras agrupadas por vendedor</p><div id="c_meta_grp"></div></div>
+  </div>
+  <div class="grid g2" style="margin-top:16px">
+    <div class="card "><h3>Crecimiento contra abril</h3><p class="c-sub">Verde crece, rojo cae</p><div id="c_crec"></div></div>
+    <div class="card "><h3>Comisión a pagar</h3><p class="c-sub">Calculada sobre la venta real de mayo, no sobre la reportada</p><div id="c_com"></div></div>
+  </div>
+  <div class="grid g2" style="margin-top:16px">
+    <div class="card full"><h3>Evolución enero a mayo</h3><p class="c-sub">Cinco meses por vendedor. Ana Torres es la caída del mes.</p><div id="c_tend"></div></div>
+  </div>
+  <div class="card full" style="margin-top:16px">
+    <h3>Tabla de cierre por vendedor</h3><p class="c-sub">Comisión total del mes: <b>$115,009</b></p>
+    <div class="scrollx"><table><thead><tr><th>Vendedor</th><th class="n">Meta</th><th class="n">Venta real</th>
+    <th class="n">Cumplimiento</th><th class="n">vs Abril</th><th class="n">Comisión</th></tr></thead><tbody><tr><td>Juan Pérez</td><td class="n">$250,000</td><td class="n">$706,430</td><td class="n">283%</td><td class="n">-6.8%</td><td class="n">$21,193</td></tr><tr><td>Sofía Martínez</td><td class="n">$200,000</td><td class="n">$532,440</td><td class="n">266%</td><td class="n">-5.8%</td><td class="n">$31,946</td></tr><tr><td>María López</td><td class="n">$300,000</td><td class="n">$516,740</td><td class="n">172%</td><td class="n">+1.9%</td><td class="n">$25,837</td></tr><tr><td>Ana Torres</td><td class="n">$220,000</td><td class="n">$466,010</td><td class="n">212%</td><td class="n">-40.0%</td><td class="n">$11,650</td></tr><tr><td>Luis Gómez</td><td class="n">$260,000</td><td class="n">$384,260</td><td class="n">148%</td><td class="n">+65.1%</td><td class="n">$13,449</td></tr><tr><td>Carlos Ruiz</td><td class="n">$280,000</td><td class="n">$242,980</td><td class="n">87%</td><td class="n">-0.2%</td><td class="n">$10,934</td></tr></tbody></table></div>
+  </div>
+</section>
+
+<section id="cobranza">
+  <p class="sec-eye">Cuentas por cobrar · corte 14-jul-2026</p><div class="sec-h"><h2>Cobranza</h2></div>
+  <p class="sec-sub">De $851,100 facturados en el archivo de cuentas por cobrar, <b>$656,400 siguen sin cobrarse
+  (77%)</b>. Al corte del 14 de julio no hay una sola factura pendiente que esté dentro de plazo:
+  las 19 ya están vencidas, y $178,400 llevan más de 90 días.</p>
+  <div class="grid g2">
+    <div class="card "><h3>Pagado contra pendiente</h3><p class="c-sub">Estado de la cartera</p><div id="c_cob_pie"></div></div>
+    <div class="card "><h3>Antigüedad de saldos</h3><p class="c-sub">Días vencidos al corte del 14-jul-2026</p><div id="c_aging"></div></div>
+  </div>
+  <div class="grid g2" style="margin-top:16px">
+    <div class="card full"><h3>Concentración de riesgo</h3><p class="c-sub">Saldo pendiente por cliente. Los dos primeros son la mitad de la cartera.</p><div id="c_cob_cli"></div></div>
+  </div>
+</section>
+
+<section id="auditoria">
+  <p class="sec-eye">Revisión de captura del archivo fuente</p><div class="sec-h"><h2>Auditoría del Excel</h2></div>
+  <p class="sec-sub">Esta es la parte incómoda. El archivo de mayo funciona, pero está capturado a mano y sin validaciones,
+  y eso ya te está costando dinero visible. Lo que sigue es lo que encontré, ordenado por qué tan caro sale ignorarlo.</p>
+
+  <div class="callout">
+    <h3>Lo que arreglaría esta semana</h3>
+    <ul>
+      <li><b>Validación de datos en las columnas Vendedor, Producto y Sucursal.</b> Una lista desplegable elimina de golpe
+      las 42 variantes de escritura que encontré. Es literalmente un menú en Datos → Validación de datos.</li>
+      <li><b>Formato de fecha forzado en la columna A.</b> Hoy conviven cuatro formatos distintos y 26 registros ni siquiera traen año.</li>
+      <li><b>Monto Total como fórmula (<code>=Cant*Precio</code>), no como número escrito a mano.</b> Eso elimina los 6 huecos
+      y evita que alguien teclee un total que no cuadra.</li>
+      <li><b>Sacar la fila "TOTAL PARCIAL" de en medio de los datos.</b> Los totales van en otra hoja o abajo con una fila en blanco de por medio.</li>
+      <li><b>Recalibrar las metas mensuales.</b> Cumplimiento promedio de 195% no es un equipo excepcional, es una meta mal puesta.</li>
+    </ul>
+  </div>
+
+  <div class="finds">
+    <div class="find critical"><div class="f-top"><span class="f-tag critical">Costo directo</span><h4>6 ventas sin monto: $231,950 que no aparecían en ningún total</h4></div><p>Seis renglones tienen cantidad y precio unitario pero la columna Monto Total está vacía. Si alguien suma esa columna en Excel, se pierden $231,950, un 8.1% de la venta del mes. Las recalculé multiplicando cantidad por precio.</p><p class="fix"><b>Solución:</b> convertir Monto Total en fórmula y proteger la columna para que no se pueda sobrescribir.</p></div>
+
+    <div class="find critical"><div class="f-top"><span class="f-tag critical">Riesgo de doble conteo</span><h4>Una fila "TOTAL PARCIAL" escondida dentro de los datos</h4></div><p>En la fila 64 del CSV hay un renglón que dice TOTAL PARCIAL con $1,066,170 en la columna de monto. No es una venta. Si alguien selecciona toda la columna para sacar el total, ese número se suma otra vez.</p><p class="fix"><b>Solución:</b> ningún total vive dentro del rango de datos. Se va a una hoja de resumen.</p></div>
+
+    <div class="find warning"><div class="f-top"><span class="f-tag warning">Consistencia</span><h4>19 formas distintas de escribir 6 nombres de vendedor</h4></div><p>María López aparece como <code>maria lopez</code>, <code>Maria Lopez</code>, <code>María López</code> y <code>María López·</code> (con espacio al final). Una tabla dinámica los cuenta como cuatro vendedores diferentes.</p><p class="fix"><b>Solución:</b> lista desplegable en la columna Vendedor + <code>=ESPACIOS()</code> para limpiar lo ya capturado.</p></div>
+
+    <div class="find warning"><div class="f-top"><span class="f-tag warning">Consistencia</span><h4>16 variantes de nombre para 5 productos</h4></div><p>"Monitor 27", "Monitor 27 pulgadas" y <code>Monitor 27"</code> son el mismo monitor. "Laptop Pro 14", "LAPTOP PRO 14", "Laptop Pro14 " y "laptop pro14" son la misma laptop. Ningún reporte automático puede agrupar esto.</p><p class="fix"><b>Solución:</b> catálogo de productos en una hoja aparte y BUSCARV o lista desplegable contra ese catálogo.</p></div>
+
+    <div class="find warning"><div class="f-top"><span class="f-tag warning">Consistencia</span><h4>La sucursal "Guadalajara" está mal escrita 11 veces</h4></div><p>Aparece como <code>Guadalajra</code> en 11 registros, además de convivir con <code>GDL</code> y <code>Guadalajara</code>. Monterrey se escribe como <code>Mty</code> y <code>Monterrey</code>; CDMX como <code>CDMX</code> y <code>Cdmx</code>.</p><p class="fix"><b>Solución:</b> tres opciones fijas en una lista desplegable. Se acabó el problema para siempre.</p></div>
+
+    <div class="find serious"><div class="f-top"><span class="f-tag serious">Formato</span><h4>Números guardados como texto en 3 celdas</h4></div><p>Los precios <code>$620</code>, <code>$1,450</code> y <code>$620</code> están capturados con el signo de pesos y la coma dentro de la celda. Para Excel eso es texto, no un número: <code>SUMA()</code> los ignora en silencio.</p><p class="fix"><b>Solución:</b> el formato de moneda se aplica con formato de celda, nunca escribiendo el signo a mano.</p></div>
+
+    <div class="find serious"><div class="f-top"><span class="f-tag serious">Formato</span><h4>Cuatro formatos de fecha distintos en la misma columna</h4></div><p>Conviven <code>2026-05-05 0:00:00</code> (33 registros), <code>2026/05/23</code> (33), <code>18-05-2026</code> (28) y <code>27-may</code> (26 registros, sin año). Así no se puede filtrar por rango ni ordenar cronológicamente.</p><p class="fix"><b>Solución:</b> formato de fecha corta en toda la columna y validación que rechace texto libre.</p></div>
+
+    <div class="find serious"><div class="f-top"><span class="f-tag serious">Trazabilidad</span><h4>Una devolución disfrazada de venta negativa</h4></div><p>El 6 de mayo hay un registro de Juan Pérez con cantidad <code>-1</code> de Webcam HD. Probablemente es una devolución, pero nada en el archivo lo dice: no hay columna de tipo de movimiento.</p><p class="fix"><b>Solución:</b> agregar una columna "Tipo" con valores Venta / Devolución / Nota de crédito.</p></div>
+
+    <div class="find warning"><div class="f-top"><span class="f-tag warning">Cruce de archivos</span><h4>El detalle no cuadra con el maestro de comisiones</h4></div><p>Metas_Comisiones_2026.xlsx reporta $711,150 de venta en mayo para Juan Pérez, pero el detalle de operaciones suma $706,430. Faltan $4,720, exactamente el importe de una venta de 4 webcams. Además, las cifras de abril difieren entre ese archivo y Vendedores_Comisiones_Mayo_2026.csv en los seis vendedores.</p><p class="fix"><b>Solución:</b> el maestro debe leer del detalle con SUMAR.SI, no capturarse aparte.</p></div>
+
+    <div class="find warning"><div class="f-top"><span class="f-tag warning">Diseño del modelo</span><h4>La "Sucursal del vendedor" no existe en la realidad</h4></div><p>El maestro asigna una sucursal fija a cada vendedor (Sofía = MTY, Juan = GDL). En el detalle, los seis vendedores registran operaciones en las tres plazas. O el campo del maestro es la plaza base y debería llamarse así, o alguien está capturando mal la sucursal.</p><p class="fix"><b>Solución:</b> renombrar el campo a "Plaza base" y usar siempre la sucursal del detalle para reportar.</p></div>
+
+    <div class="find critical"><div class="f-top"><span class="f-tag critical">Metas</span><h4>Cumplimiento promedio de 195%: las metas están rotas</h4></div><p>Juan Pérez cumple 283% de su meta y Sofía Martínez 266%. Ninguna meta se ha movido desde enero, aunque las ventas se duplicaron. Una meta que se cumple al 280% no motiva ni mide.</p><p class="fix"><b>Solución:</b> recalcular metas sobre el promedio de los últimos tres meses más el crecimiento esperado.</p></div>
+
+    <div class="find warning"><div class="f-top"><span class="f-tag warning">Cobranza</span><h4>Una factura sin estatus y cero facturas al corriente</h4></div><p>La factura F-2620 de Ferretería López por $21,000 tiene la columna Estatus vacía: no se sabe si está pagada. Y de las 19 facturas pendientes, ninguna está dentro de plazo al corte del 14 de julio.</p><p class="fix"><b>Solución:</b> validación que no permita guardar una factura sin estatus, y un semáforo de días vencidos automático.</p></div>
+
+    <div class="find good"><div class="f-top"><span class="f-tag good">Lo que sí está bien</span><h4>Los totales del archivo limpio cuadran al peso</h4></div><p>El total que calculé desde el detalle sucio ($2,848,860 en 120 operaciones) coincide exactamente con Reporte_Ventas_Mayo_2026_LIMPIO.xlsx. Quien haya hecho esa limpieza la hizo bien: el problema está aguas arriba, en la captura.</p><p class="fix"><b>Sugerencia:</b> automatizar ese paso de limpieza para no repetirlo cada mes a mano.</p></div>
+  </div>
+
+  <div class="grid g2" style="margin-top:20px">
+    <div class="card "><h3>Formatos de fecha encontrados</h3><p class="c-sub">En una sola columna, en un solo mes</p><div id="c_fechas"></div></div>
+    <div class="card">
+      <h3>Ventas que estaban sin monto</h3>
+      <p class="c-sub">$231,950 recuperados al recalcular cantidad × precio</p>
+      <div class="scrollx"><table><thead><tr><th class="n">Fila</th><th>Vendedor</th><th>Producto</th><th class="n">Monto real</th></tr></thead>
+      <tbody><tr><td class="n">9</td><td>Sofía Martínez</td><td>Teclado Mecánico</td><td class="n">$4,350</td></tr><tr><td class="n">25</td><td>Juan Pérez</td><td>Monitor 27"</td><td class="n">$37,200</td></tr><tr><td class="n">44</td><td>Carlos Ruiz</td><td>Monitor 27"</td><td class="n">$37,200</td></tr><tr><td class="n">70</td><td>María López</td><td>Laptop Pro 14</td><td class="n">$122,500</td></tr><tr><td class="n">94</td><td>Carlos Ruiz</td><td>Webcam HD</td><td class="n">$5,900</td></tr><tr><td class="n">108</td><td>Juan Pérez</td><td>Monitor 27"</td><td class="n">$24,800</td></tr></tbody></table></div>
+    </div>
+  </div>
+
+  <div class="card full" style="margin-top:16px">
+    <h3>Todas las variantes de escritura encontradas</h3>
+    <p class="c-sub">42 formas distintas de escribir 14 valores que deberían ser fijos</p>
+    <div class="scrollx"><table><thead><tr><th>Campo</th><th>Valor correcto</th><th class="n">Variantes</th><th>Cómo aparece en el archivo</th></tr></thead>
+    <tbody><tr><td>Vendedor</td><td><b>María López</b></td><td class="n">4</td><td><code>maria lopez</code> <code>Maria Lopez</code> <code>María·López·</code> <code>María López</code></td></tr><tr><td>Vendedor</td><td><b>Sofía Martínez</b></td><td class="n">3</td><td><code>Sofía Martinez</code> <code>sofia martinez</code> <code>Sofía Martínez</code></td></tr><tr><td>Vendedor</td><td><b>Juan Pérez</b></td><td class="n">3</td><td><code>Juan Pérez</code> <code>JUAN PEREZ</code> <code>Juan Perez</code></td></tr><tr><td>Vendedor</td><td><b>Carlos Ruiz</b></td><td class="n">3</td><td><code>Carlos Ruiz</code> <code>Carlos Ruíz</code> <code>carlos·ruiz·</code></td></tr><tr><td>Vendedor</td><td><b>Luis Gómez</b></td><td class="n">3</td><td><code>LUIS GOMEZ</code> <code>Luis Gomez</code> <code>Luis Gómez</code></td></tr><tr><td>Vendedor</td><td><b>Ana Torres</b></td><td class="n">3</td><td><code>ana torres</code> <code>Ana·Torres·</code> <code>Ana Torres</code></td></tr><tr><td>Producto</td><td><b>Laptop Pro 14</b></td><td class="n">4</td><td><code>Laptop·Pro14·</code> <code>LAPTOP PRO 14</code> <code>Laptop Pro 14</code> <code>laptop pro14</code></td></tr><tr><td>Producto</td><td><b>Webcam HD</b></td><td class="n">3</td><td><code>Webcam HD</code> <code>webcam hd</code> <code>WEBCAM HD</code></td></tr><tr><td>Producto</td><td><b>Monitor 27"</b></td><td class="n">3</td><td><code>monitor 27</code> <code>Monitor 27 pulgadas</code> <code>Monitor 27"</code></td></tr><tr><td>Producto</td><td><b>Teclado Mecánico</b></td><td class="n">3</td><td><code>Teclado Mec.</code> <code>teclado mecanico</code> <code>Teclado Mecánico</code></td></tr><tr><td>Producto</td><td><b>Mouse Inalámbrico</b></td><td class="n">3</td><td><code>mouse inalambrico</code> <code>Mouse Inal.</code> <code>Mouse Inalámbrico</code></td></tr><tr><td>Sucursal</td><td><b>Guadalajara</b></td><td class="n">3</td><td><code>GDL</code> <code>Guadalajra</code> <code>Guadalajara</code></td></tr><tr><td>Sucursal</td><td><b>CDMX</b></td><td class="n">2</td><td><code>CDMX</code> <code>Cdmx</code></td></tr><tr><td>Sucursal</td><td><b>Monterrey</b></td><td class="n">2</td><td><code>Mty</code> <code>Monterrey</code></td></tr></tbody></table></div>
+  </div>
+</section>
+
+<footer>
+  <p>Fuente: <b>Ventas_Mayo_2026 - Ventas Mayo.csv</b> (120 operaciones válidas de 123 renglones), cruzado con
+  Costos_Productos.csv, Lista_Precios_2026.xlsx, Metas_Comisiones_2026.xlsx y Cobranza_Mayo_2026.csv.
+  Corte de cartera: 14 de julio de 2026. Los montos vacíos se recalcularon como cantidad × precio unitario;
+  las filas vacías y la fila de total parcial se excluyeron del conteo.</p>
+</footer>
+</div>
+
+<script>
+const DATA = {"producto": [{"nombre": "Laptop Pro 14", "monto": 2107000, "ops": 22, "unid": 86, "costo": 1651200, "margen": 455800, "margen_pct": 21.6}, {"nombre": "Monitor 27\"", "monto": 471200, "ops": 23, "unid": 76, "costo": 311600, "margen": 159600, "margen_pct": 33.9}, {"nombre": "Teclado Mecánico", "monto": 118900, "ops": 24, "unid": 82, "costo": 63960, "margen": 54940, "margen_pct": 46.2}, {"nombre": "Webcam HD", "monto": 100300, "ops": 28, "unid": 85, "costo": 50150, "margen": 50150, "margen_pct": 50.0}, {"nombre": "Mouse Inalámbrico", "monto": 51460, "ops": 23, "unid": 83, "costo": 24070, "margen": 27390, "margen_pct": 53.2}], "vendedor": [{"nombre": "Juan Pérez", "monto": 706430, "ops": 26, "unid": 97, "costo": 518900, "margen": 187530, "margen_pct": 26.5}, {"nombre": "Sofía Martínez", "monto": 532440, "ops": 22, "unid": 71, "costo": 395440, "margen": 137000, "margen_pct": 25.7}, {"nombre": "María López", "monto": 516740, "ops": 18, "unid": 59, "costo": 387630, "margen": 129110, "margen_pct": 25.0}, {"nombre": "Ana Torres", "monto": 466010, "ops": 21, "unid": 80, "costo": 343820, "margen": 122190, "margen_pct": 26.2}, {"nombre": "Luis Gómez", "monto": 384260, "ops": 13, "unid": 46, "costo": 286530, "margen": 97730, "margen_pct": 25.4}, {"nombre": "Carlos Ruiz", "monto": 242980, "ops": 20, "unid": 59, "costo": 168660, "margen": 74320, "margen_pct": 30.6}], "sucursal": [{"nombre": "Guadalajara", "monto": 1265400, "ops": 36, "unid": 121, "costo": 951220, "margen": 314180, "margen_pct": 24.8}, {"nombre": "CDMX", "monto": 1106280, "ops": 47, "unid": 178, "costo": 815010, "margen": 291270, "margen_pct": 26.3}, {"nombre": "Monterrey", "monto": 477180, "ops": 37, "unid": 113, "costo": 334750, "margen": 142430, "margen_pct": 29.8}], "categoria": [{"nombre": "Cómputo", "monto": 2578200, "ops": 45, "unid": 162, "costo": 1962800, "margen": 615400, "margen_pct": 23.9}, {"nombre": "Periférico", "monto": 270660, "ops": 75, "unid": 250, "costo": 138180, "margen": 132480, "margen_pct": 48.9}], "dia": [{"fecha": "2026-05-01", "dia": 1, "monto": 30700, "ops": 2, "dow": "Viernes"}, {"fecha": "2026-05-02", "dia": 2, "monto": 5530, "ops": 3, "dow": "Sábado"}, {"fecha": "2026-05-03", "dia": 3, "monto": 79340, "ops": 8, "dow": "Domingo"}, {"fecha": "2026-05-04", "dia": 4, "monto": 2360, "ops": 1, "dow": "Lunes"}, {"fecha": "2026-05-05", "dia": 5, "monto": 158800, "ops": 4, "dow": "Martes"}, {"fecha": "2026-05-06", "dia": 6, "monto": 174340, "ops": 4, "dow": "Miércoles"}, {"fecha": "2026-05-07", "dia": 7, "monto": 79640, "ops": 5, "dow": "Jueves"}, {"fecha": "2026-05-08", "dia": 8, "monto": 92620, "ops": 5, "dow": "Viernes"}, {"fecha": "2026-05-09", "dia": 9, "monto": 332470, "ops": 7, "dow": "Sábado"}, {"fecha": "2026-05-10", "dia": 10, "monto": 107520, "ops": 3, "dow": "Domingo"}, {"fecha": "2026-05-11", "dia": 11, "monto": 103800, "ops": 3, "dow": "Lunes"}, {"fecha": "2026-05-12", "dia": 12, "monto": 8380, "ops": 2, "dow": "Martes"}, {"fecha": "2026-05-13", "dia": 13, "monto": 37580, "ops": 5, "dow": "Miércoles"}, {"fecha": "2026-05-14", "dia": 14, "monto": 229820, "ops": 4, "dow": "Jueves"}, {"fecha": "2026-05-15", "dia": 15, "monto": 6820, "ops": 2, "dow": "Viernes"}, {"fecha": "2026-05-16", "dia": 16, "monto": 228480, "ops": 6, "dow": "Sábado"}, {"fecha": "2026-05-17", "dia": 17, "monto": 10180, "ops": 2, "dow": "Domingo"}, {"fecha": "2026-05-18", "dia": 18, "monto": 13530, "ops": 5, "dow": "Lunes"}, {"fecha": "2026-05-19", "dia": 19, "monto": 345480, "ops": 9, "dow": "Martes"}, {"fecha": "2026-05-20", "dia": 20, "monto": 40300, "ops": 2, "dow": "Miércoles"}, {"fecha": "2026-05-21", "dia": 21, "monto": 27600, "ops": 2, "dow": "Jueves"}, {"fecha": "2026-05-22", "dia": 22, "monto": 290630, "ops": 6, "dow": "Viernes"}, {"fecha": "2026-05-23", "dia": 23, "monto": 76860, "ops": 6, "dow": "Sábado"}, {"fecha": "2026-05-24", "dia": 24, "monto": 10790, "ops": 3, "dow": "Domingo"}, {"fecha": "2026-05-25", "dia": 25, "monto": 140940, "ops": 6, "dow": "Lunes"}, {"fecha": "2026-05-26", "dia": 26, "monto": 6200, "ops": 2, "dow": "Martes"}, {"fecha": "2026-05-27", "dia": 27, "monto": 100360, "ops": 3, "dow": "Miércoles"}, {"fecha": "2026-05-28", "dia": 28, "monto": 14900, "ops": 2, "dow": "Jueves"}, {"fecha": "2026-05-29", "dia": 29, "monto": 6850, "ops": 4, "dow": "Viernes"}, {"fecha": "2026-05-30", "dia": 30, "monto": 6640, "ops": 2, "dow": "Sábado"}, {"fecha": "2026-05-31", "dia": 31, "monto": 79400, "ops": 2, "dow": "Domingo"}], "dow": [{"nombre": "Lunes", "monto": 260630, "ops": 15, "dias": 4, "promedio": 65158}, {"nombre": "Martes", "monto": 518860, "ops": 17, "dias": 4, "promedio": 129715}, {"nombre": "Miércoles", "monto": 352580, "ops": 14, "dias": 4, "promedio": 88145}, {"nombre": "Jueves", "monto": 351960, "ops": 13, "dias": 4, "promedio": 87990}, {"nombre": "Viernes", "monto": 427620, "ops": 19, "dias": 5, "promedio": 85524}, {"nombre": "Sábado", "monto": 649980, "ops": 24, "dias": 5, "promedio": 129996}, {"nombre": "Domingo", "monto": 287230, "ops": 18, "dias": 5, "promedio": 57446}], "semana": [{"nombre": "Semana 1", "monto": 530710}, {"nombre": "Semana 2", "monto": 912190}, {"nombre": "Semana 3", "monto": 672390}, {"nombre": "Semana 4", "monto": 640680}, {"nombre": "Semana 5", "monto": 92890}], "acumulado": [{"fecha": "2026-05-01", "dia": 1, "acum": 30700}, {"fecha": "2026-05-02", "dia": 2, "acum": 36230}, {"fecha": "2026-05-03", "dia": 3, "acum": 115570}, {"fecha": "2026-05-04", "dia": 4, "acum": 117930}, {"fecha": "2026-05-05", "dia": 5, "acum": 276730}, {"fecha": "2026-05-06", "dia": 6, "acum": 451070}, {"fecha": "2026-05-07", "dia": 7, "acum": 530710}, {"fecha": "2026-05-08", "dia": 8, "acum": 623330}, {"fecha": "2026-05-09", "dia": 9, "acum": 955800}, {"fecha": "2026-05-10", "dia": 10, "acum": 1063320}, {"fecha": "2026-05-11", "dia": 11, "acum": 1167120}, {"fecha": "2026-05-12", "dia": 12, "acum": 1175500}, {"fecha": "2026-05-13", "dia": 13, "acum": 1213080}, {"fecha": "2026-05-14", "dia": 14, "acum": 1442900}, {"fecha": "2026-05-15", "dia": 15, "acum": 1449720}, {"fecha": "2026-05-16", "dia": 16, "acum": 1678200}, {"fecha": "2026-05-17", "dia": 17, "acum": 1688380}, {"fecha": "2026-05-18", "dia": 18, "acum": 1701910}, {"fecha": "2026-05-19", "dia": 19, "acum": 2047390}, {"fecha": "2026-05-20", "dia": 20, "acum": 2087690}, {"fecha": "2026-05-21", "dia": 21, "acum": 2115290}, {"fecha": "2026-05-22", "dia": 22, "acum": 2405920}, {"fecha": "2026-05-23", "dia": 23, "acum": 2482780}, {"fecha": "2026-05-24", "dia": 24, "acum": 2493570}, {"fecha": "2026-05-25", "dia": 25, "acum": 2634510}, {"fecha": "2026-05-26", "dia": 26, "acum": 2640710}, {"fecha": "2026-05-27", "dia": 27, "acum": 2741070}, {"fecha": "2026-05-28", "dia": 28, "acum": 2755970}, {"fecha": "2026-05-29", "dia": 29, "acum": 2762820}, {"fecha": "2026-05-30", "dia": 30, "acum": 2769460}, {"fecha": "2026-05-31", "dia": 31, "acum": 2848860}], "heatmap": {"vendedores": ["Juan Pérez", "Sofía Martínez", "María López", "Ana Torres", "Luis Gómez", "Carlos Ruiz"], "productos": ["Laptop Pro 14", "Monitor 27\"", "Teclado Mecánico", "Webcam HD", "Mouse Inalámbrico"], "data": [[490000, 161200, 27550, 16520, 11160], [416500, 62000, 31900, 17700, 4340], [416500, 68200, 8700, 16520, 6820], [367500, 37200, 27550, 18880, 14880], [294000, 68200, 5800, 9440, 6820], [122500, 74400, 17400, 21240, 7440]]}, "suc_prod": {"sucursales": ["Guadalajara", "CDMX", "Monterrey"], "productos": ["Laptop Pro 14", "Monitor 27\"", "Teclado Mecánico", "Webcam HD", "Mouse Inalámbrico"], "data": {"Laptop Pro 14": [1004500, 833000, 269500], "Monitor 27\"": [198400, 155000, 117800], "Teclado Mecánico": [43500, 43500, 31900], "Webcam HD": [16520, 41300, 42480], "Mouse Inalámbrico": [2480, 33480, 15500]}}, "vend_suc": {"vendedores": ["Juan Pérez", "Sofía Martínez", "María López", "Ana Torres", "Luis Gómez", "Carlos Ruiz"], "sucursales": ["Guadalajara", "CDMX", "Monterrey"], "data": {"Guadalajara": [416970, 239540, 51660, 368750, 160860, 27620], "CDMX": [248600, 273060, 304480, 81180, 40240, 158720], "Monterrey": [40860, 19840, 160600, 16080, 183160, 56640]}}, "metas": [{"vendedor": "Juan Pérez", "sucursal": "GDL", "meta": 250000, "com": 0.03, "ene": 520160, "feb": 609860, "mar": 689890, "abr": 758320, "may_reportado": 711150, "may_real": 706430, "cumplimiento": 282.6, "comision": 21193, "gap_reportado": -4720, "crec_abr": -6.8}, {"vendedor": "Sofía Martínez", "sucursal": "MTY", "meta": 200000, "com": 0.06, "ene": 409670, "feb": 470280, "mar": 509510, "abr": 564980, "may_reportado": 532440, "may_real": 532440, "cumplimiento": 266.2, "comision": 31946, "gap_reportado": 0, "crec_abr": -5.8}, {"vendedor": "María López", "sucursal": "CDMX", "meta": 300000, "com": 0.05, "ene": 379980, "feb": 429840, "mar": 470100, "abr": 507020, "may_reportado": 516740, "may_real": 516740, "cumplimiento": 172.2, "comision": 25837, "gap_reportado": 0, "crec_abr": 1.9}, {"vendedor": "Ana Torres", "sucursal": "CDMX", "meta": 220000, "com": 0.025, "ene": 589900, "feb": 680030, "mar": 720050, "abr": 776720, "may_reportado": 466010, "may_real": 466010, "cumplimiento": 211.8, "comision": 11650, "gap_reportado": 0, "crec_abr": -40.0}, {"vendedor": "Luis Gómez", "sucursal": "GDL", "meta": 260000, "com": 0.035, "ene": null, "feb": null, "mar": 150160, "abr": 232750, "may_reportado": 384260, "may_real": 384260, "cumplimiento": 147.8, "comision": 13449, "gap_reportado": 0, "crec_abr": 65.1}, {"vendedor": "Carlos Ruiz", "sucursal": "MTY", "meta": 280000, "com": 0.045, "ene": 210250, "feb": 225250, "mar": 235050, "abr": 243540, "may_reportado": 242980, "may_real": 242980, "cumplimiento": 86.8, "comision": 10934, "gap_reportado": 0, "crec_abr": -0.2}], "tendencia": {"meses": ["Ene", "Feb", "Mar", "Abr", "May"], "series": [{"nombre": "Juan Pérez", "data": [520160, 609860, 689890, 758320, 706430]}, {"nombre": "Sofía Martínez", "data": [409670, 470280, 509510, 564980, 532440]}, {"nombre": "María López", "data": [379980, 429840, 470100, 507020, 516740]}, {"nombre": "Ana Torres", "data": [589900, 680030, 720050, 776720, 466010]}, {"nombre": "Luis Gómez", "data": [0, 0, 150160, 232750, 384260]}, {"nombre": "Carlos Ruiz", "data": [210250, 225250, 235050, 243540, 242980]}]}, "aging": [{"nombre": "Al corriente", "monto": 0, "n": 0}, {"nombre": "1-30 días", "monto": 20800, "n": 2}, {"nombre": "31-60 días", "monto": 228500, "n": 7}, {"nombre": "61-90 días", "monto": 228700, "n": 5}, {"nombre": "+90 días", "monto": 178400, "n": 5}], "cob_cliente": [{"nombre": "Grupo Salinas SA", "monto": 256000}, {"nombre": "Papeleria Central", "monto": 82600}, {"nombre": "Clinica Santa Fe", "monto": 82000}, {"nombre": "Restaurante Don Pepe", "monto": 48600}, {"nombre": "Distribuidora Andrade", "monto": 42000}, {"nombre": "Autopartes Norte", "monto": 33400}, {"nombre": "Constructora Vega", "monto": 33400}, {"nombre": "Comercial El Roble", "monto": 29300}, {"nombre": "Ferreteria Lopez", "monto": 21000}, {"nombre": "Boutique Aurora", "monto": 18300}, {"nombre": "Abarrotes La Esquina", "monto": 9800}], "cob_kpi": {"total": 851100, "pagado": 194700, "pendiente": 656400, "facturas_pend": 19, "sin_estatus": 1}, "formatos": {"ISO con hora 0:00:00": 33, "DD-MM-AAAA": 28, "AAAA/MM/DD": 33, "D-mmm (sin año)": 26}, "top_dias": ["2026-05-19", "2026-05-09", "2026-05-22", "2026-05-14", "2026-05-16"]};
+/* ============ helpers ============ */
+const $ = (s, r) => (r || document).querySelector(s);
+const fmt = n => '$' + Math.round(n).toLocaleString('es-MX');
+const fmtK = n => n >= 1000000 ? '$' + (n / 1000000).toFixed(2) + 'M'
+  : n >= 1000 ? '$' + Math.round(n / 1000) + 'k' : '$' + Math.round(n);
+const pct = n => (n > 0 ? '+' : '') + n.toFixed(1) + '%';
+const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+const SC = i => 'var(--s' + ((i % 8) + 1) + ')';
+
+/* ---- tooltip ---- */
+const tipEl = document.createElement('div');
+tipEl.className = 'viz-tip'; tipEl.setAttribute('role', 'status');
+document.body.appendChild(tipEl);
+document.addEventListener('mousemove', e => {
+  const t = e.target.closest ? e.target.closest('[data-tip]') : null;
+  if (!t) { tipEl.classList.remove('on'); return; }
+  tipEl.innerHTML = t.getAttribute('data-tip');
+  tipEl.classList.add('on');
+  const w = tipEl.offsetWidth, h = tipEl.offsetHeight;
+  let x = e.clientX + 14, y = e.clientY - h - 12;
+  if (x + w > innerWidth - 8) x = e.clientX - w - 14;
+  if (y < 8) y = e.clientY + 18;
+  tipEl.style.transform = 'translate(' + x + 'px,' + y + 'px)';
+}, { passive: true });
+document.addEventListener('scroll', () => tipEl.classList.remove('on'), { passive: true });
+
+function svg(w, h, inner, cls) {
+  return '<svg class="viz ' + (cls || '') + '" viewBox="0 0 ' + w + ' ' + h + '" preserveAspectRatio="xMidYMid meet" role="img">' + inner + '</svg>';
+}
+function legend(items) {
+  return '<div class="lg">' + items.map(it =>
+    '<span class="lg-i"><i style="background:' + it.color + '"></i>' + esc(it.label) +
+    (it.extra ? '<b>' + it.extra + '</b>' : '') + '</span>').join('') + '</div>';
+}
+
+/* ============ 1. DONA ============ */
+function donut(el, data, opts) {
+  opts = opts || {};
+  const W = 320, H = 320, cx = 160, cy = 156, R = 128, r = opts.ring === false ? 0 : 76;
+  const total = data.reduce((a, b) => a + b.value, 0);
+  let ang = -Math.PI / 2, paths = '';
+  data.forEach((d, i) => {
+    const frac = d.value / total;
+    const gap = frac > 0.005 ? 0.016 : 0;
+    const a0 = ang + gap / 2, a1 = ang + frac * Math.PI * 2 - gap / 2;
+    ang += frac * Math.PI * 2;
+    const large = (a1 - a0) > Math.PI ? 1 : 0;
+    const p = (rad, a) => [cx + rad * Math.cos(a), cy + rad * Math.sin(a)];
+    const [x0, y0] = p(R, a0), [x1, y1] = p(R, a1), [x2, y2] = p(r, a1), [x3, y3] = p(r, a0);
+    const dstr = r ?
+      `M${x0} ${y0}A${R} ${R} 0 ${large} 1 ${x1} ${y1}L${x2} ${y2}A${r} ${r} 0 ${large} 0 ${x3} ${y3}Z` :
+      `M${cx} ${cy}L${x0} ${y0}A${R} ${R} 0 ${large} 1 ${x1} ${y1}Z`;
+    paths += `<path class="slice" d="${dstr}" fill="${SC(i)}" data-tip="<b>${esc(d.label)}</b><br>${fmt(d.value)} · ${(frac * 100).toFixed(1)}%${d.note ? '<br>' + esc(d.note) : ''}"></path>`;
+  });
+  let center = '';
+  if (r) center = `<text x="${cx}" y="${cy - 6}" class="t-hero" text-anchor="middle">${opts.centerTop || fmtK(total)}</text>` +
+    `<text x="${cx}" y="${cy + 16}" class="t-mut" text-anchor="middle">${esc(opts.centerSub || 'total')}</text>`;
+  el.innerHTML = svg(W, H, paths + center, 'donut') +
+    legend(data.map((d, i) => ({ label: d.label, color: SC(i), extra: (d.value / total * 100).toFixed(1) + '%' })));
+}
+
+/* ============ 2. BARRAS HORIZONTALES ============ */
+function barsH(el, data, opts) {
+  opts = opts || {};
+  const W = opts.W || 520;
+  const n = data.length, bh = opts.bh || 26, gap = opts.gap == null ? 14 : opts.gap;
+  const padL = opts.padL || 130, padR = opts.padR || 84, padT = 8;
+  const H = padT + n * (bh + gap);
+  const max = Math.max(...data.map(d => Math.abs(d.value))) || 1;
+  const bw = W - padL - padR;
+  let s = '';
+  data.forEach((d, i) => {
+    const y = padT + i * (bh + gap);
+    const w = Math.max(2, Math.abs(d.value) / max * bw);
+    const c = d.color || (opts.fillOf ? opts.fillOf(d, i) : (opts.mono ? 'var(--s1)' : SC(opts.colorIdx ? opts.colorIdx(d, i) : i)));
+    s += `<text x="${padL - 12}" y="${y + bh / 2 + 5}" class="t-lbl" text-anchor="end">${esc(d.label)}</text>`;
+    s += `<rect class="bar" x="${padL}" y="${y}" width="${w}" height="${bh}" rx="4" fill="${c}" data-tip="<b>${esc(d.label)}</b><br>${d.tip || fmt(d.value)}"></rect>`;
+    s += `<text x="${padL + w + 10}" y="${y + bh / 2 + 5}" class="t-val">${d.vlabel || fmt(d.value)}</text>`;
+  });
+  el.innerHTML = svg(W, H, s);
+}
+
+/* ============ 3. BARRAS VERTICALES ============ */
+function barsV(el, data, opts) {
+  opts = opts || {};
+  const W = opts.W || 900, H = opts.h || 300, padB = 46, padT = 26, padL = opts.padL || 56, padR = 10;
+  const AF = opts.axFmt || fmtK;
+  const n = data.length, max = Math.max(...data.map(d => d.value)) || 1;
+  const step = (W - padL - padR) / n, bw = Math.max(4, step - (opts.gap == null ? 6 : opts.gap));
+  const ph = H - padB - padT;
+  let s = '';
+  for (let g = 0; g <= 4; g++) {
+    const y = padT + ph - ph * g / 4;
+    s += `<line class="grid" x1="${padL}" y1="${y}" x2="${W - padR}" y2="${y}"></line>`;
+    s += `<text x="${padL - 10}" y="${y + 4}" class="t-ax" text-anchor="end">${AF(max * g / 4)}</text>`;
+  }
+  data.forEach((d, i) => {
+    const h = Math.max(1.5, d.value / max * ph);
+    const x = padL + i * step + (step - bw) / 2, y = padT + ph - h;
+    const c = d.hl ? 'var(--s2)' : (opts.colorIdx ? SC(opts.colorIdx(d, i)) : 'var(--s1)');
+    s += `<rect class="bar" x="${x}" y="${y}" width="${bw}" height="${h}" rx="4" fill="${c}" data-tip="<b>${esc(d.tipTitle || d.label)}</b><br>${d.tip || fmt(d.value)}"></rect>`;
+    if (d.hl && opts.hlLabel !== false) s += `<text x="${x + bw / 2}" y="${y - 7}" class="t-val" text-anchor="middle">${AF(d.value)}</text>`;
+    if (opts.everyLabel || n <= 12 || i % (opts.tickEvery || 1) === 0)
+      s += `<text x="${x + bw / 2}" y="${H - padB + 20}" class="t-ax" text-anchor="middle">${esc(d.label)}</text>`;
+  });
+  el.innerHTML = svg(W, H, s);
+}
+
+/* ============ 4. BARRAS AGRUPADAS ============ */
+function groupedBars(el, cats, series, opts) {
+  opts = opts || {};
+  const W = opts.W || 900, H = opts.h || 340, padB = 52, padT = 24, padL = opts.padL || 62, padR = 10;
+  const max = Math.max(...series.flatMap(s => s.data)) || 1;
+  const ph = H - padB - padT, step = (W - padL - padR) / cats.length;
+  const k = series.length, bw = Math.max(6, Math.min(34, (step - 22) / k));
+  let s = '';
+  for (let g = 0; g <= 4; g++) {
+    const y = padT + ph - ph * g / 4;
+    s += `<line class="grid" x1="${padL}" y1="${y}" x2="${W - padR}" y2="${y}"></line>`;
+    s += `<text x="${padL - 10}" y="${y + 4}" class="t-ax" text-anchor="end">${fmtK(max * g / 4)}</text>`;
+  }
+  cats.forEach((c, i) => {
+    series.forEach((se, j) => {
+      const v = se.data[i], h = Math.max(1.5, v / max * ph);
+      const x = padL + i * step + (step - bw * k - 2 * (k - 1)) / 2 + j * (bw + 2);
+      const y = padT + ph - h;
+      s += `<rect class="bar" x="${x}" y="${y}" width="${bw}" height="${h}" rx="4" fill="${SC(se.ci != null ? se.ci : j)}" data-tip="<b>${esc(c)}</b><br>${esc(se.name)}: ${fmt(v)}"></rect>`;
+    });
+    s += `<text x="${padL + i * step + step / 2}" y="${H - padB + 22}" class="t-ax" text-anchor="middle">${esc(c)}</text>`;
+  });
+  el.innerHTML = svg(W, H, s) + legend(series.map((se, j) => ({ label: se.name, color: SC(se.ci != null ? se.ci : j) })));
+}
+
+/* ============ 5. BARRAS APILADAS ============ */
+function stackedBars(el, cats, series, opts) {
+  opts = opts || {};
+  const W = opts.W || 900, H = opts.h || 330, padB = 48, padT = 22, padL = 66, padR = 10;
+  const totals = cats.map((_, i) => series.reduce((a, s) => a + s.data[i], 0));
+  const max = Math.max(...totals) || 1;
+  const ph = H - padB - padT, step = (W - padL - padR) / cats.length, bw = Math.min(96, step - 40);
+  let s = '';
+  for (let g = 0; g <= 4; g++) {
+    const y = padT + ph - ph * g / 4;
+    s += `<line class="grid" x1="${padL}" y1="${y}" x2="${W - padR}" y2="${y}"></line>`;
+    s += `<text x="${padL - 10}" y="${y + 4}" class="t-ax" text-anchor="end">${fmtK(max * g / 4)}</text>`;
+  }
+  cats.forEach((c, i) => {
+    let acc = 0;
+    const x = padL + i * step + (step - bw) / 2;
+    series.forEach((se, j) => {
+      const v = se.data[i]; if (v <= 0) return;
+      const h = v / max * ph, y = padT + ph - (acc + v) / max * ph;
+      acc += v;
+      s += `<rect class="bar seg" x="${x}" y="${y}" width="${bw}" height="${Math.max(1, h - 2)}" rx="3" fill="${SC(j)}" data-tip="<b>${esc(c)}</b><br>${esc(se.name)}: ${fmt(v)} · ${(v / totals[i] * 100).toFixed(1)}%"></rect>`;
+    });
+    s += `<text x="${x + bw / 2}" y="${padT + ph - totals[i] / max * ph - 9}" class="t-val" text-anchor="middle">${fmtK(totals[i])}</text>`;
+    s += `<text x="${x + bw / 2}" y="${H - padB + 22}" class="t-ax" text-anchor="middle">${esc(c)}</text>`;
+  });
+  el.innerHTML = svg(W, H, s) + legend(series.map((se, j) => ({ label: se.name, color: SC(j) })));
+}
+
+/* ============ 6. LÍNEAS ============ */
+function lineChart(el, labels, series, opts) {
+  opts = opts || {};
+  const W = opts.W || 900, H = opts.h || 330, padB = 46, padT = 24, padL = 66, padR = 16;
+  const max = Math.max(...series.flatMap(s => s.data)) * 1.08 || 1;
+  const ph = H - padB - padT, pw = W - padL - padR;
+  const X = i => padL + (labels.length === 1 ? pw / 2 : i * pw / (labels.length - 1));
+  const Y = v => padT + ph - v / max * ph;
+  let s = '';
+  for (let g = 0; g <= 4; g++) {
+    const y = padT + ph - ph * g / 4;
+    s += `<line class="grid" x1="${padL}" y1="${y}" x2="${W - padR}" y2="${y}"></line>`;
+    s += `<text x="${padL - 10}" y="${y + 4}" class="t-ax" text-anchor="end">${fmtK(max * g / 4)}</text>`;
+  }
+  series.forEach((se, j) => {
+    const pts = se.data.map((v, i) => X(i) + ',' + Y(v)).join(' ');
+    if (opts.area) s += `<polygon points="${X(0)},${padT + ph} ${pts} ${X(labels.length - 1)},${padT + ph}" fill="${SC(j)}" opacity=".14"></polygon>`;
+    s += `<polyline points="${pts}" fill="none" stroke="${SC(j)}" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"></polyline>`;
+    se.data.forEach((v, i) => {
+      s += `<circle class="dot" cx="${X(i)}" cy="${Y(v)}" r="5" fill="${SC(j)}" data-tip="<b>${esc(labels[i])}</b><br>${esc(se.name)}: ${fmt(v)}"></circle>`;
+    });
+  });
+  labels.forEach((l, i) => {
+    if (opts.tickEvery && i % opts.tickEvery !== 0 && i !== labels.length - 1) return;
+    s += `<text x="${X(i)}" y="${H - padB + 22}" class="t-ax" text-anchor="middle">${esc(l)}</text>`;
+  });
+  el.innerHTML = svg(W, H, s) + (series.length > 1 ? legend(series.map((se, j) => ({ label: se.name, color: SC(j) }))) : '');
+}
+
+/* ============ 7. HEATMAP ============ */
+function heatmap(el, rows, cols, data, opts) {
+  opts = opts || {};
+  const padL = opts.padL || 172, padT = 52, cw = opts.cw || 188, ch = 50;
+  const W = padL + cols.length * cw + 14, H = padT + rows.length * ch + 16;
+  const max = Math.max(...data.flat()) || 1;
+  let s = '';
+  cols.forEach((c, j) => {
+    s += `<text x="${padL + j * cw + cw / 2}" y="${padT - 16}" class="t-lbl" text-anchor="middle">${esc(c)}</text>`;
+  });
+  rows.forEach((r, i) => {
+    s += `<text x="${padL - 12}" y="${padT + i * ch + ch / 2 + 5}" class="t-lbl" text-anchor="end">${esc(r)}</text>`;
+    cols.forEach((c, j) => {
+      const v = data[i][j], t = v / max;
+      const step = t === 0 ? 0 : Math.min(6, Math.floor(Math.sqrt(t) * 5.99) + 1);
+      s += `<rect class="cell" x="${padL + j * cw + 2}" y="${padT + i * ch + 2}" width="${cw - 4}" height="${ch - 4}" rx="5" fill="var(--seq${step})" data-tip="<b>${esc(r)}</b> · ${esc(c)}<br>${fmt(v)}"></rect>`;
+      s += `<text x="${padL + j * cw + cw / 2}" y="${padT + i * ch + ch / 2 + 5}" class="t-cell ${step >= 4 ? 'on-dark' : ''}" text-anchor="middle">${v ? fmt(v) : '·'}</text>`;
+    });
+  });
+  el.innerHTML = svg(W, H, s, 'wide');
+}
+
+/* ============ 8. BARRAS DIVERGENTES ============ */
+function divBars(el, data, opts) {
+  opts = opts || {};
+  const W = opts.W || 520;
+  const n = data.length, bh = 28, gap = 16, padL = opts.padL || 132, padT = 10;
+  const H = padT + n * (bh + gap) + 6;
+  const max = Math.max(...data.map(d => Math.abs(d.value))) || 1;
+  const mid = padL + (W - padL - 30) / 2, half = (W - padL - 30) / 2 - 52;
+  let s = `<line class="grid strong" x1="${mid}" y1="${padT - 2}" x2="${mid}" y2="${H - 6}"></line>`;
+  data.forEach((d, i) => {
+    const y = padT + i * (bh + gap);
+    const w = Math.max(2, Math.abs(d.value) / max * half);
+    const neg = d.value < 0;
+    const x = neg ? mid - w : mid;
+    s += `<text x="${padL - 12}" y="${y + bh / 2 + 5}" class="t-lbl" text-anchor="end">${esc(d.label)}</text>`;
+    s += `<rect class="bar" x="${x}" y="${y}" width="${w}" height="${bh}" rx="4" fill="${neg ? 'var(--critical)' : 'var(--good)'}" data-tip="<b>${esc(d.label)}</b><br>${d.tip || pct(d.value)}"></rect>`;
+    s += `<text x="${neg ? x - 10 : x + w + 10}" y="${y + bh / 2 + 5}" class="t-val" text-anchor="${neg ? 'end' : 'start'}">${d.vlabel || pct(d.value)}</text>`;
+  });
+  el.innerHTML = svg(W, H, s);
+}
+
+/* ============ 9. BULLET / CUMPLIMIENTO ============ */
+function bullets(el, data) {
+  const cap = 320;
+  el.innerHTML = '<div class="bullets">' + data.map((d, i) => {
+    const w = Math.min(100, d.value / cap * 100);
+    const st = d.value >= 100 ? 'good' : d.value >= 80 ? 'warning' : 'critical';
+    return `<div class="bl" data-tip="<b>${esc(d.label)}</b><br>Meta ${fmt(d.meta)} · Real ${fmt(d.real)}<br>Cumplimiento ${d.value.toFixed(1)}%">
+      <span class="bl-l">${esc(d.label)}</span>
+      <span class="bl-t"><i style="width:${w}%;background:var(--s${(i % 8) + 1})"></i><u style="left:${100 / cap * 100}%"></u></span>
+      <span class="bl-v ${st}">${d.value.toFixed(0)}%</span></div>`;
+  }).join('') + '</div><p class="cap">La marca vertical es el 100% de la meta. La escala llega a 320%.</p>';
+}
+
+
+/* ================= RENDER ================= */
+const g = id => document.getElementById(id);
+const P = DATA.producto, V = DATA.vendedor, S = DATA.sucursal;
+/* color estable por entidad: el mismo producto/vendedor/sucursal conserva su color en todas las gráficas */
+const IDX = arr => Object.fromEntries(arr.map((x,i)=>[x.nombre,i]));
+const PI = IDX(P), VI = IDX(V), SI = IDX(S);
+
+/* --- productos --- */
+donut(g('c_prod_pie'), P.map(p => ({label:p.nombre, value:p.monto})), {centerSub:'ventas'});
+donut(g('c_cat_pie'), DATA.categoria.map(c => ({label:c.nombre, value:c.monto, note:'Margen '+c.margen_pct+'%'})), {centerSub:'ventas'});
+barsH(g('c_prod_unid'), P.slice().sort((a,b)=>b.unid-a.unid).map(p => ({label:p.nombre, value:p.unid, vlabel:p.unid+' pz', tip:p.unid+' piezas en '+p.ops+' operaciones'})), {W:372, padL:140, padR:48, bh:22, gap:12, colorIdx:d=>PI[d.label]});
+barsH(g('c_prod_margen'), P.slice().sort((a,b)=>b.margen-a.margen).map(p => ({label:p.nombre, value:p.margen, vlabel:fmtK(p.margen), tip:fmt(p.margen)+' de utilidad<br>'+p.margen_pct+'% sobre venta'})), {W:520, padL:132, padR:70, colorIdx:d=>PI[d.label]});
+barsH(g('c_prod_pct'), P.slice().sort((a,b)=>b.margen_pct-a.margen_pct).map(p => ({label:p.nombre, value:p.margen_pct, vlabel:p.margen_pct+'%', tip:'Margen '+p.margen_pct+'%<br>'+fmt(p.margen)+' de utilidad'})), {W:520, padL:132, padR:60, colorIdx:d=>PI[d.label]});
+
+/* --- vendedores --- */
+donut(g('c_vend_pie'), V.map(v => ({label:v.nombre, value:v.monto})), {centerSub:'ventas'});
+barsH(g('c_vend_rank'), V.map(v => ({label:v.nombre, value:v.monto, vlabel:fmtK(v.monto), tip:fmt(v.monto)+'<br>'+v.ops+' operaciones · ticket '+fmt(v.monto/v.ops)})), {W:520, padL:128, padR:66, bh:30, gap:18, colorIdx:d=>VI[d.label]});
+heatmap(g('c_heat'), DATA.heatmap.vendedores, DATA.heatmap.productos, DATA.heatmap.data);
+stackedBars(g('c_vend_suc'), DATA.vend_suc.vendedores,
+  DATA.vend_suc.sucursales.map(s => ({name:s, data:DATA.vend_suc.data[s]})), {h:380, W:1080});
+
+/* --- sucursales --- */
+donut(g('c_suc_pie'), S.map(s => ({label:s.nombre, value:s.monto})), {centerSub:'ventas'});
+donut(g('c_suc_ops'), S.map(s => ({label:s.nombre, value:s.ops})), {centerSub:'operaciones', centerTop:String(S.reduce((a,b)=>a+b.ops,0))});
+barsH(g('c_suc_margen'), S.slice().sort((a,b)=>b.margen-a.margen).map(s => ({label:s.nombre, value:s.margen, vlabel:fmtK(s.margen), tip:fmt(s.margen)+'<br>Margen '+s.margen_pct+'%'})), {W:340, padL:102, padR:56, bh:26, gap:22, colorIdx:d=>SI[d.label]});
+stackedBars(g('c_suc_prod'), DATA.suc_prod.sucursales,
+  DATA.suc_prod.productos.map(p => ({name:p, data:DATA.suc_prod.data[p]})), {h:380, W:1080});
+
+/* --- tiempo --- */
+const topSet = new Set(DATA.top_dias);
+barsV(g('c_dias'), DATA.dia.map(d => ({
+  label:String(d.dia), value:d.monto, hl:topSet.has(d.fecha),
+  tipTitle:d.dia+' de mayo ('+d.dow+')', tip:fmt(d.monto)+'<br>'+d.ops+' operaciones'
+})), {h:360, W:1080, tickEvery:2, gap:9});
+barsV(g('c_dow'), DATA.dow.map((d,i) => ({
+  label:d.nombre.slice(0,3), value:d.promedio, hl:d.promedio===Math.max(...DATA.dow.map(x=>x.promedio)),
+  tipTitle:d.nombre, tip:'Promedio '+fmt(d.promedio)+'<br>Total '+fmt(d.monto)+' en '+d.dias+' '+d.nombre.toLowerCase()+'s'
+})), {h:270, W:340, gap:10, padL:48});
+barsV(g('c_dow_ops'), DATA.dow.map(d => ({
+  label:d.nombre.slice(0,3), value:d.ops, tipTitle:d.nombre, tip:d.ops+' operaciones'
+})), {h:270, W:340, gap:10, padL:36, colorIdx:(d,i)=>i, axFmt:v=>Math.round(v)});
+barsV(g('c_semana'), DATA.semana.map(s => ({label:s.nombre.replace('Semana ','S'), value:s.monto, tipTitle:s.nombre, tip:fmt(s.monto)})), {h:270, W:340, gap:14, padL:48, colorIdx:(d,i)=>i});
+lineChart(g('c_acum'), DATA.acumulado.map(a=>String(a.dia)), [{name:'Acumulado', data:DATA.acumulado.map(a=>a.acum)}], {area:true, h:330, W:1080, tickEvery:2});
+
+/* --- metas --- */
+bullets(g('c_bullets'), DATA.metas.map(m => ({label:m.vendedor, value:m.cumplimiento, meta:m.meta, real:m.may_real})));
+groupedBars(g('c_meta_grp'), DATA.metas.map(m=>m.vendedor.split(' ')[0]),
+  [{name:'Meta mensual', data:DATA.metas.map(m=>m.meta), ci:3}, {name:'Venta real mayo', data:DATA.metas.map(m=>m.may_real), ci:0}], {h:330, W:520, padL:56});
+divBars(g('c_crec'), DATA.metas.slice().sort((a,b)=>b.crec_abr-a.crec_abr).map(m => ({
+  label:m.vendedor, value:m.crec_abr, tip:'Abril '+fmt(m.abr)+'<br>Mayo '+fmt(m.may_real)
+})), {W:520, padL:126});
+barsH(g('c_com'), DATA.metas.slice().sort((a,b)=>b.comision-a.comision).map(m => ({
+  label:m.vendedor, value:m.comision, vlabel:fmt(m.comision), tip:fmt(m.may_real)+' × '+(m.com*100).toFixed(1)+'%'
+})), {W:520, padL:126, padR:78, colorIdx:d=>VI[d.label]});
+lineChart(g('c_tend'), DATA.tendencia.meses,
+  DATA.tendencia.series.map(t => ({name:t.nombre, data:t.data})), {h:360, W:1080});
+
+/* --- cobranza --- */
+donut(g('c_cob_pie'), [
+  {label:'Pendiente de cobro', value:DATA.cob_kpi.pendiente},
+  {label:'Pagado', value:DATA.cob_kpi.pagado}
+], {centerSub:'cartera'});
+barsH(g('c_aging'), DATA.aging.filter(a=>a.monto>0).map(a => ({
+  label:a.nombre, value:a.monto, vlabel:fmtK(a.monto), tip:fmt(a.monto)+' en '+a.n+' facturas'
+})), {W:520, padL:118, padR:64, bh:26, gap:18, fillOf:(d,i)=>['var(--seq2)','var(--seq3)','var(--seq4)','var(--seq6)'][i]});
+barsH(g('c_cob_cli'), DATA.cob_cliente.map(c => ({label:c.nombre, value:c.monto, vlabel:fmt(c.monto), tip:fmt(c.monto)+' pendiente'})), {W:1080, padL:190, padR:110, bh:26, gap:14, mono:true});
+
+/* --- auditoría --- */
+donut(g('c_fechas'), Object.entries(DATA.formatos).map(([kk,v]) => ({label:kk, value:v})),
+  {centerSub:'registros', centerTop:String(Object.values(DATA.formatos).reduce((a,b)=>a+b,0))});
+</script>
+</body>
+</html>
