@@ -66,6 +66,10 @@
   .ley .ln{flex:none;width:2.2em;height:2.2em;border-radius:50%;background:var(--green);color:#fff;font-weight:900;display:grid;place-items:center;font-size:clamp(15px,1.5vw,24px)}
   .ley .lt{font-size:clamp(16px,1.65vw,26px);font-weight:800;line-height:1.15}
   .ley .le{margin-top:.5vh;font-size:clamp(13px,1.2vw,19px);color:var(--muted);font-weight:600;line-height:1.3}
+  .qrcard{display:flex;flex-direction:column;align-items:center;background:#fff;border:1px solid var(--line);border-radius:24px;padding:3vh 2.4vw;box-shadow:0 24px 60px rgba(11,45,91,.14)}
+  .qrcard img{width:min(34vh,380px);height:auto;display:block;image-rendering:pixelated}
+  .qr-t{margin-top:2vh;font-size:clamp(18px,1.9vw,30px);font-weight:800;color:var(--ink)}
+  .qr-u{margin-top:.8vh;font-size:clamp(13px,1.3vw,20px);font-weight:700;color:var(--blue)}
   /* bio */
   .bio{display:flex;flex-direction:column;align-items:flex-start;max-width:74vw}
   .bio .name{font-size:clamp(44px,6.6vw,110px);font-weight:900;letter-spacing:-.03em;line-height:1}
@@ -549,7 +553,11 @@ const SLIDES = [
         <div class="c-sub frag" data-step="0">Abran Claude. Lo que sigue lo hacen ustedes.</div>
         <div class="c-logo end"><div class="duo"><img src="assets/logo-triage.png" alt="TRiAGE"><span>×</span><img src="assets/logo-weport.png" alt="WePort"></div></div>
       </div>
-      <div class="c-right"><video src="assets/weport-banner.mp4" autoplay muted loop playsinline></video></div>
+      <div class="c-right"><div class="qrcard">
+        <img src="assets/qr-guia.png" alt="QR a la guía del taller">
+        <div class="qr-t">Escanea y abre la guía</div>
+        <div class="qr-u">margotduek.github.io/capacitaciones/weport</div>
+      </div></div>
     </div>` },
 ];
 
