@@ -160,6 +160,7 @@
     <a href="#m5">4 · Chrome</a>
     <a href="#m3">5 · Tu Excel</a>
     <a href="#s4">Sesión 4</a>
+    <a href="#mbandeja">Tu bandeja</a>
     <a href="#sextra">Extras</a>
   </div>
   <button class="toggle" id="themeBtn">🌙 Oscuro</button>
@@ -584,6 +585,110 @@ Ya que estén ordenados, dime qué no cuadra. No te voy a decir qué buscar: enc
   </div>
 </section>
 
+<!-- MODULO BANDEJA -->
+<section class="module" id="mbandeja">
+  <div class="wrap">
+    <div class="head"><div class="mico">✉️</div><div><div class="badge">SESIÓN 4</div><h3>Tu bandeja bajo control <span style="display:inline-block;margin-left:6px;padding:2px 8px;border-radius:999px;background:#f59e0b;color:#111;font-size:11px;font-weight:800;vertical-align:middle">⭐ PLAN DE PAGA</span></h3></div></div>
+    <p class="lead">El correo es lo que más se repite en todos los trabajos. Al terminar este módulo te vas con tu bandeja ordenada <b>a tu manera</b>: qué es urgente para ti, qué puede esperar y qué ya atendió alguien de tu equipo. Y no se lo vas a tener que volver a explicar nunca.</p>
+    <div class="note" style="border-left:4px solid #16a34a"><b>🆓 Alternativa gratis:</b> si no tienes conector, copia y pega el texto de uno o varios correos en el chat y pídele lo mismo. El resultado es igual, solo que tú le das los correos en vez de que él entre a buscarlos.</div>
+
+    <div class="sub">
+      <div class="sh"><span class="sn">3.1</span><h4>El resumen de siempre</h4></div>
+      <p class="obj"><b>Objetivo:</b> ver qué hace Claude cuando todavía no sabe nada de ti. Abre un chat nuevo y pídeselo así, sin más:</p>
+      <div class="prompt">Resúmeme mis correos no leídos de hoy.<button class="copy">Copiar</button></div>
+      <p class="obj">Fíjate bien en lo que salió. Está bien resumido, pero <b>todo pesa igual</b>: el newsletter que nunca lees aparece del mismo tamaño que el cliente molesto. Claude no sabe qué es urgente <b>para ti</b>, porque nadie se lo ha dicho. Eso es lo que vamos a arreglar.</p>
+    </div>
+
+    <div class="sub">
+      <div class="sh"><span class="sn">3.2</span><h4>Arma tu skill de correos</h4></div>
+      <p class="obj"><b>Objetivo:</b> enseñarle <b>una sola vez</b> cómo lees tú tu correo. Este prompt no te pide que escribas el skill: te hace una entrevista, una pregunta a la vez, y al final te lo entrega escrito y listo para pegar.</p>
+      <div class="note"><b>Contesta como hablas.</b> No te pongas formal ni trates de sonar ordenado. Entre más natural contestes, mejor te queda, porque el skill va a estar escrito con tus palabras.</div>
+      <div class="pl">Paso 1 · el armador · pégalo en un chat nuevo</div>
+      <div class="prompt">Quiero armar mi skill personal para revisar y contestar mis correos de trabajo.
+
+Hazme una entrevista corta. UNA pregunta a la vez y espera mi respuesta antes de seguir. En cada pregunta dame 3 o 4 ejemplos que tengan sentido para mi negocio, para que yo solo tenga que decir "sí", "no" o "esto otro".
+
+Las preguntas:
+1. ¿A qué se dedica tu empresa, cuál es tu puesto y qué parte del negocio te toca a ti?
+2. ¿Qué correos son de "suelta todo y contesta"?
+3. ¿Qué correos puedes atender hoy, pero no en este momento?
+4. ¿Qué correos pueden esperar a la tarde o a mañana?
+5. ¿Alguien de tu equipo contesta correos por ti? ¿Quién? Si ya contestó, ¿te lo marco como atendido?
+6. ¿Recibes solicitudes que tienen que traer ciertos datos para que puedas trabajarlas? ¿Cuáles datos?
+7. ¿Con quién escribes en otro idioma? ¿Cómo firmas y en qué tono escribes?
+8. ¿Cómo reconoces en el asunto que un correo es de un cliente, un pedido o un proyecto en particular?
+
+A partir de la pregunta 1 usa lo que te dije de mi negocio para que los ejemplos de las demás preguntas sean míos y no genéricos.
+
+Cuando termine la entrevista, escríbeme mi skill completo en tres bloques separados para copiar: NOMBRE (mis-correos), DESCRIPCIÓN (una línea que diga que se usa siempre que yo pida revisar, resumir, ordenar o contestar correos) e INSTRUCCIONES.
+
+Las instrucciones deben incluir mis respuestas y, SIN CAMBIARLAS, estas reglas fijas:
+
+REGLAS QUE NUNCA SE ROMPEN
+1. Nunca envío, borro, archivo ni marco como leído ningún correo. Solo leo y, si me lo pides, dejo borradores.
+2. No escondo nada. Todo correo aparece en la lista. Lo que puede esperar va hasta abajo, con una línea de resumen.
+3. Las cuentas cuadran. Siempre cierro con: "Revisé N correos: X 🔴 + Y 🟡 + Z 🟢 = N". Si había más correos de los que alcancé a leer, lo digo.
+4. Lista roja. Sube a 🔴 aunque mis otras reglas digan otra cosa: dinero (pagos, cobros, facturas vencidas), multas o penalizaciones, una queja o reclamo de un cliente, algo que vence hoy o mañana, y todo lo que venga de dirección.
+5. En duda, sube. Si tengo duda de dónde va un correo, lo pongo más arriba y explico por qué.
+6. Lo atendido se ve. Si alguien de mi equipo ya contestó, lo marco 🔁 con quién contestó y qué dijo. Yo decido si ya quedó.
+7. Nunca invento un dato. Si falta una fecha, un monto o un nombre, lo digo en lugar de suponerlo.
+
+CÓMO ME ENTREGAS LA BANDEJA
+Tres grupos: 🔴 Urgente, 🟡 Hoy, 🟢 Puede esperar.
+Cada correo en una línea: semáforo + emoji del tipo + quién lo manda + qué pide + por qué lo pusiste ahí.
+Propón tú los emojis por tipo de correo según mi negocio, máximo 8, y déjalos escritos en el skill para que siempre sean los mismos.
+Si un hilo es largo, dime en qué quedó, qué falta y quién lo debe.
+Si te pido contestar, redactas el borrador en el idioma del hilo y en mi tono, y lo dejas guardado como borrador. Nunca lo envías.<button class="copy">Copiar</button></div>
+    </div>
+
+    <div class="sub">
+      <div class="sh"><span class="sn">3.3</span><h4>Guárdalo</h4></div>
+      <ol class="steps">
+        <li>Ve a <b>Configuración → Capacidades</b> y prende <b>Ejecución de código y creación de archivos</b>. Sin eso los skills no corren.</li>
+        <li>Ve a <b>Personalizar → Skills</b> y dale <b>Crear skill</b> (el botón de <b>+</b>).</li>
+        <li>Pega el nombre, la descripción y las instrucciones que te acaba de dar. Guárdalo y déjalo <b>activado</b>.</li>
+      </ol>
+    </div>
+
+    <div class="sub">
+      <div class="sh"><span class="sn">3.4</span><h4>La misma pregunta, ahora con tu skill</h4></div>
+      <p class="obj"><b>Objetivo:</b> ver el antes y el después en tu propia bandeja. Abre un <b>chat nuevo</b> y pide exactamente lo mismo que en el 3.1:</p>
+      <div class="prompt">Resúmeme mis correos no leídos de hoy.<button class="copy">Copiar</button></div>
+      <div class="note" style="border-left:4px solid var(--accent)">Ahora sale ordenado a tu manera: lo urgente arriba, lo que ya atendió tu equipo marcado, lo que puede esperar abajo y la cuenta cuadrada. <b>Y no le volviste a explicar nada.</b> Eso es un skill.</div>
+    </div>
+
+    <div class="sub">
+      <div class="sh"><span class="sn">3.5</span><h4>Platica con tu bandeja</h4></div>
+      <p class="obj"><b>Objetivo:</b> contestar más rápido sin perder el control. Sigue en el mismo chat. Todo lo que redacte se queda como <b>borrador</b>, nunca se envía solo.</p>
+      <div class="pl">Contestar</div>
+      <div class="prompt">Contesta el 3. Dile que ya lo estoy revisando y que le confirmo mañana antes de las 12.<button class="copy">Copiar</button></div>
+      <div class="pl">Un hilo eterno</div>
+      <div class="prompt">¿En qué quedó el hilo con [nombre o asunto]? Dime qué falta y quién lo debe.<button class="copy">Copiar</button></div>
+      <div class="pl">Lo que me llegó incompleto</div>
+      <div class="prompt">¿Qué solicitudes me llegaron sin toda la información que necesito? Dime qué dato le falta a cada una y redáctame el correo para pedirlo.<button class="copy">Copiar</button></div>
+    </div>
+
+    <div class="sub">
+      <div class="sh"><span class="sn">3.6</span><h4>A fondo · lo que dice tu correo de un cliente</h4></div>
+      <p class="obj"><b>Objetivo:</b> tu bandeja es tu historial completo con cada cliente, solo que nunca lo lees entero. Pregúntale como le preguntarías a alguien que sí se leyó todos tus correos.</p>
+      <div class="prompt">Revisa todos mis correos con [cliente] de los últimos 6 meses y dime:
+1. ¿Qué ha pasado con este cliente en el último mes? Lo importante, en 5 líneas.
+2. ¿Hace cuánto no me pide algo nuevo?
+3. ¿Cada cuánto me compra en promedio? ¿Va subiendo, bajando o igual?
+4. ¿Qué cotizaciones o propuestas le mandé que nunca contestó?
+5. ¿Qué pendientes siguen abiertos con él y quién los tiene?
+6. ¿Se ha quejado de algo? ¿De qué y cuándo?
+
+Cita la fecha y el asunto del correo de donde sacas cada dato. Si algo no está en mis correos, dilo en vez de suponerlo.<button class="copy">Copiar</button></div>
+      <div class="pl">Antes de una llamada</div>
+      <div class="prompt">Tengo llamada con [cliente] en 10 minutos. Dame en 5 puntos todo lo que tengo que saber: qué traemos en curso, qué pendientes hay, lo último que le prometí y cualquier queja.<button class="copy">Copiar</button></div>
+      <div class="pl">Clientes que se enfriaron</div>
+      <div class="prompt">¿Qué clientes me escribían seguido y llevan más de 30 días sin mandarme nada? Dame la lista con la fecha del último correo de cada uno y de qué se trataba.<button class="copy">Copiar</button></div>
+      <div class="note"><b>Dale una semana de prueba.</b> Los primeros días compara lo que te dice tu skill contra tu propia revisión. Si algo quedó donde no debía, lo corriges en <b>Personalizar → Skills</b>. Tú sigues siendo responsable de tu bandeja: el skill es una segunda mirada, no un reemplazo.</div>
+    </div>
+  </div>
+</section>
+
 <section class="module" id="m7">
   <div class="wrap">
     <div class="head"><div class="mico">⏰</div><div><div class="badge">SESIÓN 4</div><h3>Niñera y tareas programadas <span style="display:inline-block;margin-left:6px;padding:2px 8px;border-radius:999px;background:#f59e0b;color:#111;font-size:11px;font-weight:800;vertical-align:middle">⭐ PLAN DE PAGA</span></h3></div></div>
@@ -601,7 +706,7 @@ Ya que estén ordenados, dime qué no cuadra. No te voy a decir qué buscar: enc
     </div>
 
     <div class="sub">
-      <div class="sh"><span class="sn">3.1</span><h4>Cómo se arma</h4></div>
+      <div class="sh"><span class="sn">4.1</span><h4>Cómo se arma</h4></div>
       <ol class="steps">
         <li>Abre un <b>chat nuevo</b> y pídele a Claude que te cree tu archivo <b>.md</b> de pendientes. Pon mucha atención en <b>dónde lo guardas</b> para que después lo puedas encontrar.</li>
         <li>Estructúralo por secciones: <b>pendientes, en curso, por vencer</b>.</li>
@@ -611,16 +716,26 @@ Ya que estén ordenados, dime qué no cuadra. No te voy a decir qué buscar: enc
     </div>
 
     <div class="sub">
-      <div class="sh"><span class="sn">3.2</span><h4>Prompt de la niñera</h4></div>
+      <div class="sh"><span class="sn">4.2</span><h4>Prompt de la niñera</h4></div>
       <div class="prompt">Todos los días a las [8:00 am], prepárame el día: lee mi archivo .md de pendientes y revisa mi calendario de hoy. Revisa también en Granola a qué me comprometí el día hábil anterior (ayer, o el viernes si hoy es lunes) y recuérdamelo para que lo agregue a mi archivo .md. Dame mis pendientes en semáforo: rojo lo vencido o que se vence hoy, amarillo lo de esta semana, verde lo que va al día. Incluye las juntas que tengo hoy y las de mañana, para ver si tengo que preparar algo.<button class="copy">Copiar</button></div>
     </div>
   </div>
 </section>
 
+
+
+<div class="sesh-wrap"><div class="wrap"><div class="sesh" id="sextra">
+  <div class="k">Extras</div>
+  <h2>Para que lo veas por tu cuenta</h2>
+  <p>No están en la agenda de ninguna sesión, pero quedan completos aquí por si los necesitas.</p>
+</div></div></div>
+
+
+
 <section class="module" id="mskill">
   <div class="wrap">
-    <div class="head"><div class="mico">💾</div><div><div class="badge">SESIÓN 4</div><h3>Graba tu primer skill <span style="display:inline-block;margin-left:6px;padding:2px 8px;border-radius:999px;background:#f59e0b;color:#111;font-size:11px;font-weight:800;vertical-align:middle">⭐ PLAN DE PAGA</span></h3></div></div>
-    <p class="lead">Todo lo que hiciste hoy se borra cuando cierras el chat. Mañana le tienes que volver a explicar cómo quieres las cosas, otra vez desde cero. Un <b>skill</b> es la forma de que ya no se te vaya: se lo enseñas <b>una sola vez</b> y lo sabe para siempre.</p>
+    <div class="head"><div class="mico">💾</div><div><div class="badge">EXTRA</div><h3>Graba otro skill <span style="display:inline-block;margin-left:6px;padding:2px 8px;border-radius:999px;background:#f59e0b;color:#111;font-size:11px;font-weight:800;vertical-align:middle">⭐ PLAN DE PAGA</span></h3></div></div>
+    <p class="lead">Ya armaste el de tus correos. Este es el segundo, y lo escribes tú en vez de que Claude te entreviste. Sirve para cualquier cosa que le pidas siempre igual: aquí lo hacemos con los dashboards.</p>
     <div class="note"><b>Antes de empezar:</b> ve a <b>Configuración → Capacidades</b> y prende <b>"Ejecución de código y creación de archivos"</b>. Sin eso los skills no corren.</div>
 
     <div class="sub">
@@ -657,35 +772,6 @@ Descripción: Convierte en dashboard cualquier archivo de datos que me suban. Ú
       <p class="obj"><b>Objetivo:</b> comprobar que ya no tienes que explicar nada. Abre un <b>chat nuevo</b>, sube otro Excel cualquiera y escribe nada más lo de abajo. Si el skill quedó bien, sale con tu formato sin que se lo pidas.</p>
       <div class="prompt">Hazme un dashboard de esto.<button class="copy">Copiar</button></div>
       <div class="note" style="border-left:4px solid var(--accent)"><b>Aquí está el punto de todo el taller.</b> Cada cosa que le enseñes a hacer bien una vez, la puedes guardar. Tu conciliación, tu reporte de la mañana, cómo escribes tú. Esto deja de ser una herramienta que usas y se vuelve algo que ya sabe cómo trabajas.</div>
-    </div>
-  </div>
-</section>
-
-<div class="sesh-wrap"><div class="wrap"><div class="sesh" id="sextra">
-  <div class="k">Extras</div>
-  <h2>Para que lo veas por tu cuenta</h2>
-  <p>No están en la agenda de ninguna sesión, pero quedan completos aquí por si los necesitas.</p>
-</div></div></div>
-
-<section class="module" id="m6">
-  <div class="wrap">
-    <div class="head"><div class="mico">✉️</div><div><div class="badge">EXTRA</div><h3>Triaje de correos <span style="display:inline-block;margin-left:6px;padding:2px 8px;border-radius:999px;background:#f59e0b;color:#111;font-size:11px;font-weight:800;vertical-align:middle">⭐ PLAN DE PAGA</span></h3></div></div>
-    <p class="lead">Que Claude lea tu bandeja y te la clasifique por lo que de verdad importa. Para que entre solo a tu Gmail necesita conector (plan de paga).</p>
-    <p class="casos-lbl">Dos maneras de cortar tu bandeja</p>
-    <div class="casos">
-      <div class="caso">
-        <div class="caso-h"><span class="tag">Si atiendes personas</span></div>
-        <div class="prompt">Clasifica mi bandeja en cuatro: duda de un usuario, solicitud de una empresa cliente, tema administrativo o bancario, y proveedor. Ponme hasta arriba lo que lleve más de 24 horas sin respuesta.<button class="copy">Copiar</button></div>
-      </div>
-      <div class="caso">
-        <div class="caso-h"><span class="tag">Si atiendes pedidos</span></div>
-        <div class="prompt">Clasifica mi bandeja en cuatro: pedido nuevo, cotización de mayoreo, garantía o devolución, y proveedor. Ponme hasta arriba las garantías y dime cuáles ya me habían escrito antes.<button class="copy">Copiar</button></div>
-      </div>
-    </div>
-    <div class="note" style="border-left:4px solid #16a34a"><b>🆓 Alternativa gratis:</b> <b>copia y pega el texto de un correo</b> (o varios) en el chat y pídele que te lo clasifique y te redacte la respuesta. Mismo resultado, sin conectar nada.</div>
-    <div class="sub">
-      <div class="sh"><span class="sn">5.1</span><h4>Clasifica tu bandeja</h4></div>
-      <div class="prompt">Revisa mis correos de hoy y clasifícalos así: cuáles son urgentes que tengo que responder, cuáles me buscan para una colaboración, cuáles son newsletters que me convienen por mi trabajo, cuáles vale la pena leer aunque no sean urgentes, y cuáles son basura de alguien que me quiere vender algo. Para los urgentes, redáctame el borrador de respuesta.<button class="copy">Copiar</button></div>
     </div>
   </div>
 </section>
@@ -763,6 +849,8 @@ Descripción: Convierte en dashboard cualquier archivo de datos que me suban. Ú
     <div class="note"><b>El plan de paga no lo sabemos.</b> Cada quien con su cuenta y nadie confirmó si son gratis o de paga. De los cinco módulos, el 3 y el 4 son ⭐ completos y el 2 es mixto. <b>Encuádralo al abrir</b>: "donde vean la estrellita se los demuestro yo, y donde vean 🆓 lo hacen ustedes conmigo". El <b>Módulo 5 es el único donde todos tocan teclado</b>, así que no lo sacrifiques aunque vayas tarde: si algo se cae, que sea el 4.</div>
 
     <div class="note"><b>Por qué el dashboard no está hoy.</b> Lo partí en dos: hoy nada más suben el archivo y le preguntan en español (fácil y gratis), y el tablero con gráficas queda para la sesión 4. Es justo donde se les hizo complejo la vez pasada. De paso arregla la sesión 4, que arrancaba directo con la conciliación: ahora queda escalera, un archivo primero y varios que no cuadran después.</div>
+
+    <div class="note"><b>El módulo de la bandeja (sesión 4) es el nuevo plato fuerte.</b> El prompt del 3.2 no les pide escribir un skill: los entrevista una pregunta a la vez y al final se los entrega escrito. Es el mismo armador que funcionó en WePort, ya sin nada de logística. <b>Haz el 3.1 antes del 3.2 sí o sí</b>: el chiste es que vean el resumen malo primero, donde el newsletter pesa igual que el cliente molesto, para que el después se sienta. Diles que contesten la entrevista como hablan, no formal, porque el skill queda escrito con sus palabras. Es ⭐ por el conector de Gmail, pero hay alternativa gratis pegando el texto de los correos en el chat.</div>
 
     <div class="sub">
       <div class="sh"><span class="sn">A</span><h4>Apertura de cada sesión (5 min)</h4></div>
