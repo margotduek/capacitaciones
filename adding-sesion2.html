@@ -283,7 +283,7 @@ const SLIDES = [
       <div class="c-left">
         <div class="c-tag">Escala con IA · Adding · Sesión 2</div>
         <h1>Háblale bien<br>a la <span class="kick">IA</span></h1>
-        <div class="c-sub">Hoy no vienes a aprender teoría. Vienes a salir con tu cuenta configurada y con tu primer skill hecho.</div>
+        <div class="c-sub">Cómo pedirle las cosas para que te sirvan, y cómo enseñarle a trabajar como tú.</div>
         <div class="c-who"><b>Margot Duek</b></div>
       </div>
     </div>` },
@@ -301,22 +301,25 @@ const SLIDES = [
       </ul>
     </div>` },
 
-  { steps:4, html:`
-    <div class="title frag" data-step="-1">Levanten la mano</div>
-    <div class="leyes" style="margin-top:5vh">
-      <div class="ley frag" data-step="0"><div class="ln">1</div><div><div class="lt">¿Quién ha usado ChatGPT o Claude alguna vez?</div></div></div>
-      <div class="ley frag" data-step="1"><div class="ln">2</div><div><div class="lt">¿Quién lo usa cada semana para trabajar?</div></div></div>
-      <div class="ley frag" data-step="2"><div class="ln">3</div><div><div class="lt">¿Quién sabe qué es un prompt?</div></div></div>
-      <div class="ley frag" data-step="3"><div class="ln">4</div><div><div class="lt">¿Quién le ha enseñado a la IA cómo trabaja?</div></div></div>
+  { steps:5, html:`
+    <div class="title frag" data-step="-1">La IA no es nueva.<br>Tiene <span class="kick">75 años</span>.</div>
+    <div class="revs" style="margin-top:5vh">
+      <div class="rev frag" data-step="0"><div class="ico">🧠</div><div class="nm">Turing: ¿pueden pensar las máquinas?</div><div class="yr">1950</div></div>
+      <div class="rev frag" data-step="1"><div class="ico">💾</div><div class="nm">Machine Learning</div><div class="yr">1990s</div></div>
+      <div class="rev frag" data-step="2"><div class="ico">⚙️</div><div class="nm">Transformers (Google)</div><div class="yr">2017</div></div>
+      <div class="rev now frag" data-step="3"><div class="ico">💬</div><div class="nm">ChatGPT te la pone en las manos</div><div class="yr">2022</div></div>
     </div>
-    <div class="defi frag" data-step="3">Donde se acabaron las manos, <span class="kick">ahí empieza la clase de hoy.</span></div>` },
+    <div class="defi frag" data-step="4">Existía hace décadas, pero no era para ti.<br><span class="kick">Lo que cambió en 2022 no fue la tecnología. Fue el acceso.</span></div>` },
 
-  { steps:2, html:`
-    <div class="statement">
-      <h1 class="frag" data-step="-1">Esto no es una moda.</h1>
-      <div class="sub frag" data-step="0">La electricidad tardó <b style="color:var(--ink)">100 años</b> en cambiar los negocios.<br>El internet tardó <b style="color:var(--ink)">20</b>.</div>
-      <h1 class="frag" data-step="1" style="margin-top:4vh">La IA lleva <span class="kick">2</span>.</h1>
-    </div>` },
+  { steps:4, html:`
+    <div class="title frag" data-step="-1">Y por eso nadie la había visto<br>moverse <span class="kick">tan rápido</span></div>
+    <div class="bars">
+      <div class="bar frag" data-step="0"><div class="lbl">Electricidad ⚡</div><div class="track"><div class="fill" style="--w:100%"><span>46 años</span></div></div></div>
+      <div class="bar frag" data-step="1"><div class="lbl">Teléfono ☎️</div><div class="track"><div class="fill" style="--w:76%"><span>35 años</span></div></div></div>
+      <div class="bar frag" data-step="2"><div class="lbl">Internet 🌐</div><div class="track"><div class="fill" style="--w:15%"><span>7 años</span></div></div></div>
+      <div class="bar ai frag" data-step="3"><div class="lbl">IA generativa 🤖</div><div class="track"><div class="fill" style="--w:5%"><span>menos de 2 años</span></div></div></div>
+    </div>
+    <div class="src frag" data-step="3">Tiempo en llegar a 1 de cada 4 personas en Estados Unidos.</div>` },
 
   { steps:2, html:`
     <div class="statement">
@@ -325,54 +328,89 @@ const SLIDES = [
       <h1 class="frag" data-step="0" style="font-size:clamp(28px,3.6vw,58px)">no ha visto ningún retorno.</h1>
       <div class="sub frag" data-step="1">No porque la IA no sirva.<br><span class="kick">Porque confunden usarla con integrarla.</span></div>
     </div>
-    <div class="pfoot frag" data-step="1" style="margin-top:3vh;opacity:.6;font-size:14px">MIT Sloan Management Review &amp; NANDA Project (2025). State of AI in Business 2025.</div>` },
+    <div class="src frag" data-step="1">MIT Sloan Management Review &amp; NANDA Project (2025). State of AI in Business 2025.</div>` },
 
   { steps:3, html:`
-    <div class="title frag" data-step="-1">Entonces, ¿qué es un <span class="kick">prompt</span>?</div>
-    <div class="defi frag" data-step="0" style="font-size:clamp(22px,2.6vw,40px);font-weight:700;margin-top:5vh">Es lo que le pides. Nada más.</div>
-    <div class="sub frag" data-step="1">Si le escribes "hola", eso ya fue un prompt.</div>
-    <div class="sub frag" data-step="2"><span class="kick">El problema no es que no sepas usarla.</span><br>Es que le estás pidiendo como le pedirías a Google, no como le pedirías a un empleado.</div>` },
+    <div class="statement">
+      <div class="title frag" data-step="-1">¿Qué es un <span class="kick">prompt</span>?</div>
+      <div class="sub frag" data-step="0" style="margin-top:6vh">Es lo que le pides. Nada más.</div>
+      <div class="sub frag" data-step="1">Si le escribiste "hola", eso ya fue un prompt.</div>
+      <div class="sub frag" data-step="2" style="margin-top:6vh"><span class="kick">El problema no es que no sepas usarla.</span></div>
+      <div class="sub frag" data-step="2">Es que le pides como le pedirías a Google,<br>no como le pedirías a una persona.</div>
+    </div>` },
+
+  { steps:4, html:`
+    <div class="title frag" data-step="-1">Todos conocemos a alguien<br>que pide <span class="kick">así</span></div>
+    <div class="chatwrap">
+      <div class="msg user frag" data-step="0">Pásame el este que está en el este.</div>
+      <div class="msg ai frag" data-step="1"><div class="who">Tú</div>¿...el qué? ¿dónde?</div>
+    </div>
+    <div class="tarifa-foot frag" data-step="2">Tus papás te lo dicen y no entiendes nada.</div>
+    <div class="defi frag" data-step="3"><span class="kick">Pues así le hablamos a la IA todos los días</span>, y luego nos quejamos de que no entendió.</div>` },
+
+  { steps:4, html:`
+    <div class="title frag" data-step="-1">Empieza por el <span class="kick">rol</span></div>
+    <div class="sub frag" data-step="0" style="margin-top:3vh">No es lo mismo pedirle ayuda con tu tarea de matemáticas</div>
+    <div class="strat" style="margin-top:3vh">
+      <div class="srow frag" data-step="1"><div class="bad">a tu mamá</div><div class="ar">vs</div><div class="ok">a tu maestra de matemáticas</div></div>
+    </div>
+    <div class="defi frag" data-step="2">Las dos te quieren ayudar. <span class="kick">Solo una sabe de lo que estás hablando.</span></div>
+    <div class="sub frag" data-step="3">Lo primero que haces con la IA es decirle <b style="color:var(--ink)">quién quieres que sea</b>.</div>` },
 
   { steps:3, html:`
     <div class="title frag" data-step="-1">No es lo mismo pedir <span class="kick">así</span></div>
     <div class="chatwrap">
       <div class="msg user frag" data-step="0">Hazme un ensayo de la fotosíntesis.</div>
-      <div class="msg user frag" data-step="1" style="background:var(--card);color:var(--ink);border:2px solid var(--blue)">Redacta un ensayo académico de nivel licenciatura sobre el proceso de la fotosíntesis, usa storytelling y un tono empático, dirigido a estudiantes de Ingeniería en Desarrollo Sustentable, que analice su relevancia científica y sus aplicaciones en el desarrollo sustentable.</div>
+      <div class="msg user frag" data-step="1" style="background:var(--card);color:var(--ink);border:2px solid var(--blue)"><b>Eres profesor de biología a nivel licenciatura.</b> Redacta un ensayo sobre la fotosíntesis para estudiantes de Ingeniería en Desarrollo Sustentable, con storytelling y un tono empático, que analice su relevancia científica y sus aplicaciones. Dámelo en 4 secciones con subtítulos.</div>
     </div>
-    <div class="tarifa-foot frag" data-step="2">Las dos piden lo mismo.<br><span class="kick">Solo una te va a servir.</span></div>` },
+    <div class="tarifa-foot frag" data-step="2">Las dos piden lo mismo. <span class="kick">Solo una te va a servir.</span></div>` },
 
   { steps:5, html:`
     <div class="title frag" data-step="-1">Los 4 pilares de un <span class="kick">buen prompt</span></div>
     <div class="pillars" style="grid-template-columns:repeat(4,1fr)">
-      <div class="pil frag" data-step="0"><div class="pn">01</div><div class="pt">Rol</div><div class="pq">¿Quién quieres que sea?</div><div class="pe">"Eres un contador con 20 años de experiencia."</div></div>
+      <div class="pil frag" data-step="0"><div class="pn">01</div><div class="pt">Rol</div><div class="pq">¿Quién quieres que sea?</div><div class="pe">"Eres un contador con 20 años de experiencia en PyMEs."</div></div>
       <div class="pil frag" data-step="1"><div class="pn">02</div><div class="pt">Contexto</div><div class="pq">¿Qué sabes tú que ella no?</div><div class="pe">"Tengo una tienda de ropa, vendo a mujeres de 30 a 50."</div></div>
       <div class="pil frag" data-step="2"><div class="pn">03</div><div class="pt">Tarea</div><div class="pq">¿Qué tiene que hacer?</div><div class="pe">"Analiza. Escribe. Compara. Resume." Un verbo claro.</div></div>
       <div class="pil frag" data-step="3"><div class="pn">04</div><div class="pt">Formato</div><div class="pq">¿Cómo lo quieres recibir?</div><div class="pe">"En una tabla." "En 5 bullets." "En un correo corto."</div></div>
     </div>
     <div class="defi frag" data-step="4">Si no le dices el formato, <span class="kick">el que va a terminar formateando eres tú.</span></div>` },
 
+  { steps:2, html:`
+    <div class="title frag" data-step="-1">Los 4 pilares, <span class="kick">juntos</span></div>
+    <div class="chatwrap">
+      <div class="msg user frag" data-step="0" style="background:var(--card);color:var(--ink);border:2px solid var(--blue);max-width:92%">
+        <b style="color:var(--blue)">ROL ·</b> Eres un contador con 20 años de experiencia en PyMEs mexicanas.<br><br>
+        <b style="color:var(--blue)">CONTEXTO ·</b> Tengo una tienda de ropa en Monterrey, 6 empleados, facturo 400 mil al mes y siento que se me va el dinero en cosas chicas.<br><br>
+        <b style="color:var(--blue)">TAREA ·</b> Analiza este estado de cuenta y dime dónde se me está yendo el dinero que no debería.<br><br>
+        <b style="color:var(--blue)">FORMATO ·</b> En una tabla de 5 filas, de mayor a menor, con cuánto me ahorraría al año en cada una.
+      </div>
+    </div>
+    <div class="defi frag" data-step="1">Mismo trabajo. <span class="kick">Otro resultado.</span></div>` },
+
   { steps:3, html:`
-    <div class="title frag" data-step="-1">Darle un buen prompt es <span class="kick">lo mismo que ser buen jefe</span></div>
+    <div class="title frag" data-step="-1">Darle un buen prompt es<br><span class="kick">lo mismo que ser buen jefe</span></div>
     <div class="strat">
       <div class="shead frag" data-step="-1"><div>❌ Mal jefe</div><div></div><div>✔ Buen jefe</div></div>
-      <div class="srow frag" data-step="0"><div class="bad">"Ayúdame con una campaña."</div><div class="ar">→</div><div class="ok">"Eres experto en marketing. Vendo X a Y. Crea una campaña que comunique Z. Dame concepto, dolor del cliente y 5 canales."</div></div>
-      <div class="srow frag" data-step="1"><div class="bad">"Ayúdame" no es una tarea</div><div class="ar">→</div><div class="ok">Un verbo preciso sí lo es</div></div>
-      <div class="srow frag" data-step="2"><div class="bad">Asumir que ya sabe tu negocio</div><div class="ar">→</div><div class="ok">De nada sirve un empleado brillante que no sabe a qué te dedicas</div></div>
+      <div class="srow frag" data-step="0"><div class="bad">"Ayúdame con esto"</div><div class="ar">→</div><div class="ok">Le dice exactamente qué necesita</div></div>
+      <div class="srow frag" data-step="1"><div class="bad">Asume que ya sabe del negocio</div><div class="ar">→</div><div class="ok">Le explica el contexto una vez, bien</div></div>
+      <div class="srow frag" data-step="2"><div class="bad">Se queja del resultado</div><div class="ar">→</div><div class="ok">Dice cómo lo quiere antes de pedirlo</div></div>
     </div>` },
 
   { steps:4, html:`
     <div class="title frag" data-step="-1">4 cosas que suben la calidad <span class="kick">de inmediato</span></div>
     <div class="leyes" style="margin-top:4vh">
-      <div class="ley frag" data-step="0"><div class="ln">1</div><div><div class="lt">Máximo 500 palabras</div><div class="le">Demasiado contexto diluye la respuesta. No es concurso de quién escribe más.</div></div></div>
-      <div class="ley frag" data-step="1"><div class="ln">2</div><div><div class="lt">Dile qué NO quieres</div><div class="le">"Sin tecnicismos, sin emojis, sin guiones largos."</div></div></div>
-      <div class="ley frag" data-step="2"><div class="ln">3</div><div><div class="lt">No le des tu hipótesis</div><div class="le">Es complaciente y te va a dar la razón. Deja que llegue sola.</div></div></div>
-      <div class="ley frag" data-step="3"><div class="ln">4</div><div><div class="lt">Pídele objeciones</div><div class="le">"Dime qué objeciones podría poner el cliente" y lo ajustas antes de vender.</div></div></div>
+      <div class="ley frag" data-step="0"><div class="ln">1</div><div><div class="lt">No te pases de largo</div><div class="le">Demasiado contexto diluye la respuesta. No es concurso de quién escribe más.</div></div></div>
+      <div class="ley frag" data-step="1"><div class="ln">2</div><div><div class="lt">Dile qué NO quieres</div><div class="le">"Sin tecnicismos, sin emojis, sin inventar datos."</div></div></div>
+      <div class="ley frag" data-step="2"><div class="ln">3</div><div><div class="lt">No le des tu conclusión</div><div class="le">Es complaciente y te va a dar la razón. Deja que llegue sola.</div></div></div>
+      <div class="ley frag" data-step="3"><div class="ln">4</div><div><div class="lt">Pídele que le busque los peros</div><div class="le">"Encuéntrale los errores a esto." "¿Qué se me está pasando?" "Cuestiónate lo que acabas de decir."</div></div></div>
     </div>` },
 
   { steps:2, html:`
-    <div class="title frag" data-step="-1">El truco que casi nadie usa</div>
-    <div class="defi frag" data-step="0" style="font-size:clamp(22px,2.6vw,40px);font-weight:700;margin-top:5vh">Copia su respuesta.<br>Ábre un <span class="kick">chat nuevo</span>.<br>Y pégasela.</div>
-    <div class="sub frag" data-step="1">"Analiza esta estrategia y dime los riesgos, objeciones y problemas que no consideraste."<br><br>En chat nuevo no está defendiendo su propio trabajo.<br><span class="kick">Nunca te quedes con la primera versión.</span></div>` },
+    <div class="statement">
+      <div class="title frag" data-step="-1">El truco que casi nadie usa</div>
+      <div class="sub frag" data-step="0" style="margin-top:5vh;font-size:clamp(22px,2.6vw,40px);font-weight:800;color:var(--ink)">Copia su respuesta.<br>Abre un <span class="kick">chat nuevo</span>.<br>Y pégasela.</div>
+      <div class="sub frag" data-step="1" style="margin-top:5vh">"Encuéntrale los errores y los huecos a esto."<br><br>En un chat nuevo <span class="kick">no está defendiendo su propio trabajo.</span></div>
+    </div>` },
 
   { steps:5, html:`
     <div class="title frag" data-step="-1">Hay <span class="kick">5 tipos</span> de petición</div>
@@ -393,22 +431,24 @@ const SLIDES = [
       <div class="farrow frag" data-step="0">→</div>
       <div class="ochip win frag" data-step="0"><span class="ol">3</span>Criticar</div>
     </div>
-    <div class="defi frag" data-step="1">Un prompt por paso, no todo junto.<br><span class="kick">La gente se salta el primero y el último</span>, y por eso siente que la IA le da resultados genéricos.</div>` },
+    <div class="defi frag" data-step="1">Un prompt por paso, no todo junto.<br><span class="kick">La gente se salta el primero y el último</span>, y por eso siente que le da resultados genéricos.</div>` },
 
   { steps:4, html:`
     <div class="title frag" data-step="-1">Mis trucos <span class="kick">de todos los días</span></div>
     <div class="leyes" style="margin-top:4vh">
-      <div class="ley frag" data-step="0"><div class="ln">🎙️</div><div><div class="lt">Háblale, no le escribas</div><div class="le">Yo casi no tecleo. Le doy al micrófono y le hablo como le hablaría a una persona. Sale más natural y das muchísimo más contexto en menos tiempo.</div></div></div>
+      <div class="ley frag" data-step="0"><div class="ln">🎙️</div><div><div class="lt">Háblale, no le escribas</div><div class="le">Yo casi no tecleo. Le doy al micrófono y le hablo como le hablaría a una persona. Das muchísimo más contexto en mucho menos tiempo.</div></div></div>
       <div class="ley frag" data-step="1"><div class="ln">📱</div><div><div class="lt">Bájala en tu celular</div><div class="le">Es la misma cuenta. Lo que empiezas en la compu lo sigues en el teléfono.</div></div></div>
-      <div class="ley frag" data-step="2"><div class="ln">🚗</div><div><div class="lt">En el coche, voice notes</div><div class="le">Ese rato que pierdes en el tráfico, mándale notas de voz y deja el trabajo adelantado. <b>Pero por favor no veas la pantalla, no quiero que te mueras.</b></div></div></div>
-      <div class="ley frag" data-step="3"><div class="ln">🧹</div><div><div class="lt">Chat nuevo al cambiar de tema</div><div class="le">Mientras más largo el chat, más contexto arrastra y peor responde.</div></div></div>
+      <div class="ley frag" data-step="2"><div class="ln">🚗</div><div><div class="lt">En el coche, notas de voz</div><div class="le">Ese rato que pierdes en el tráfico le vas dictando y dejas trabajo adelantado. <b>Pero por favor no veas la pantalla, no quiero que te mueras.</b></div></div></div>
+      <div class="ley frag" data-step="3"><div class="ln">🧹</div><div><div class="lt">Chat nuevo al cambiar de tema</div><div class="le">Mientras más largo el chat, más contexto arrastra y peor te responde.</div></div></div>
     </div>` },
 
   { steps:3, html:`
-    <div class="title frag" data-step="-1">Los prompts se quedaron en 2024</div>
-    <div class="sub frag" data-step="0" style="margin-top:3vh">Lo que importa ahora es el <b style="color:var(--ink)">contexto</b>.</div>
-    <div class="defi frag" data-step="1" style="font-size:clamp(20px,2.3vw,34px);font-weight:700">Trátala como a alguien que acabas de contratar.</div>
-    <div class="sub frag" data-step="2"><span class="kick">Nadie le explica a su empleado nuevo quién es el cliente todas las mañanas.</span></div>` },
+    <div class="statement">
+      <div class="title frag" data-step="-1">Los prompts se quedaron en 2024</div>
+      <div class="sub frag" data-step="0" style="margin-top:5vh">Lo que importa ahora es el <b style="color:var(--ink)">contexto</b>.</div>
+      <div class="sub frag" data-step="1" style="margin-top:5vh;font-size:clamp(20px,2.3vw,34px);font-weight:800;color:var(--ink)">Trátala como a alguien que acabas de contratar.</div>
+      <div class="sub frag" data-step="2"><span class="kick">Nadie le explica a su empleado nuevo quién es el cliente todas las mañanas.</span></div>
+    </div>` },
 
   { steps:4, html:`
     <div class="title frag" data-step="-1">Las <span class="kick">3 capas</span></div>
@@ -423,30 +463,30 @@ const SLIDES = [
     <div class="statement">
       <h1 class="frag" data-step="-1">Deja de preguntarle.</h1>
       <h1 class="frag" data-step="0"><span class="kick">Empieza a delegarle.</span></h1>
-      <div class="sub frag" data-step="1">Un prompt se lo explicas cada vez.<br>Un skill se lo explicas <b style="color:var(--ink)">una sola vez</b> y ya lo sabe para siempre.</div>
+      <div class="sub frag" data-step="1" style="margin-top:5vh">Un prompt se lo explicas cada vez.<br>Un skill se lo explicas <b style="color:var(--ink)">una sola vez</b> y ya lo sabe para siempre.</div>
     </div>` },
 
   { steps:3, html:`
     <div class="title frag" data-step="-1">Manos a la obra</div>
     <div class="sub frag" data-step="0" style="margin-top:2vh">Vas a copiar un texto y pegarlo en tu chat.<br><span class="kick">La IA te va a ir entrevistando sola.</span> Tú nada más contesta.</div>
     <div class="leyes" style="margin-top:4vh">
-      <div class="ley frag" data-step="1"><div class="ln">1</div><div><div class="lt">Construye tu memoria</div><div class="le">Te pregunta a qué te dedicas, qué haces, cómo trabajas, y te arma tu Contexto Maestro. <b>Si nunca has usado IA, empieza aquí.</b></div></div></div>
+      <div class="ley frag" data-step="1"><div class="ln">1</div><div><div class="lt">Que te conozca</div><div class="le">Te pregunta a qué te dedicas, qué haces y cómo trabajas, y te arma tu contexto. <b>Si nunca has usado IA, empieza aquí.</b></div></div></div>
       <div class="ley frag" data-step="1"><div class="ln">2</div><div><div class="lt">Aprende a pedirle</div><div class="le">Escribes 3 prompts reales de tu trabajo y te los califica y mejora uno por uno.</div></div></div>
-      <div class="ley frag" data-step="2"><div class="ln">3</div><div><div class="lt">Crea tu primer skill</div><div class="le">Encuentra 3 tareas tuyas que se repiten y convierte una en un skill que puedas usar siempre.</div></div></div>
+      <div class="ley frag" data-step="2"><div class="ln">3</div><div><div class="lt">Tu primer skill</div><div class="le">Encuentra 3 tareas tuyas que se repiten y convierte una en un skill que puedas usar siempre.</div></div></div>
     </div>
-    <div class="defi frag" data-step="2">Háganlos <span class="kick">en el mismo chat</span>, uno tras otro, para que no pierda lo que ya te preguntó.</div>` },
+    <div class="defi frag" data-step="2">Háganlos <span class="kick">en el mismo chat</span>, uno tras otro.</div>` },
 
-  { steps:3, html:`
+  { steps:2, html:`
     <div class="statement">
       <h1 class="frag" data-step="-1">Con lo que te llevas hoy</h1>
-      <div class="sub frag" data-step="0">Tu cuenta ya sabe quién eres.<br>Sabes pedirle con <b style="color:var(--ink)">rol, contexto, tarea y formato</b>.<br>Y tienes tu primer skill hecho.</div>
-      <h1 class="frag" data-step="1" class="end" style="margin-top:5vh">La próxima vez <span class="kick">ya no empiezas de cero.</span></h1>
+      <div class="sub frag" data-step="0" style="margin-top:5vh">Tu cuenta ya sabe quién eres.<br>Sabes pedirle con <b style="color:var(--ink)">rol, contexto, tarea y formato</b>.<br>Y tienes tu primer skill hecho.</div>
+      <h1 class="frag" data-step="1" style="margin-top:6vh">La próxima vez <span class="kick">ya no empiezas de cero.</span></h1>
     </div>` },
 
   { steps:1, html:`
     <div class="statement">
       <h1 class="frag" data-step="-1">¿Preguntas?</h1>
-      <div class="sub frag" data-step="0"><b style="color:var(--ink)">Margot Duek</b><br>@margotduekk · 55 8537 1607</div>
+      <div class="sub frag" data-step="0" style="margin-top:5vh"><b style="color:var(--ink)">Margot Duek</b><br>@margotduekk · 55 8537 1607</div>
     </div>` }
 ];
 
