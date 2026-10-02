@@ -256,6 +256,10 @@
   #prog{position:fixed;left:0;bottom:0;height:3px;background:var(--green);z-index:60;transition:width .5s ease;opacity:.8}
   #blackout{position:fixed;inset:0;background:#fff;z-index:100;opacity:0;visibility:hidden;transition:.25s}
   #blackout.on{opacity:1;visibility:visible}
+  .pillars{grid-template-columns:repeat(4,1fr)!important}
+  .pillars.c3{grid-template-columns:repeat(3,1fr)!important}
+  .statement .sub{margin-top:3.2vh}
+  .statement .sub+.sub{margin-top:1.6vh}
 </style>
 </head>
 <body>
@@ -301,6 +305,21 @@ const SLIDES = [
       </ul>
     </div>` },
 
+  { steps:1, html:`
+    <div class="statement">
+      <h1 class="frag" data-step="-1">La IA no viene por tu trabajo.</h1>
+      <h1 class="frag" data-step="0"><span class="kick">Viene por la parte de tu trabajo<br>que no te gusta.</span></h1>
+    </div>` },
+
+  { steps:3, html:`
+    <div class="title frag" data-step="-1">La tercera vez que pasa esto</div>
+    <div class="revs" style="margin-top:5vh">
+      <div class="rev frag" data-step="0"><div class="ico">⚙️</div><div class="nm">Revolución Industrial</div><div class="yr">1760 · 1840</div></div>
+      <div class="rev frag" data-step="1"><div class="ico">🌐</div><div class="nm">Internet y la web</div><div class="yr">1991 · 2005</div></div>
+      <div class="rev now frag" data-step="2"><div class="ico">🤖</div><div class="nm">Inteligencia Artificial</div><div class="yr">2022 · hoy</div></div>
+    </div>
+    <div class="defi frag" data-step="2">En ninguna ganó quien tenía la herramienta.<br><span class="kick">Ganó quien supo usarla.</span></div>` },
+
   { steps:5, html:`
     <div class="title frag" data-step="-1">La IA no es nueva.<br>Tiene <span class="kick">75 años</span>.</div>
     <div class="revs" style="margin-top:5vh">
@@ -329,6 +348,14 @@ const SLIDES = [
       <div class="sub frag" data-step="1">No porque la IA no sirva.<br><span class="kick">Porque confunden usarla con integrarla.</span></div>
     </div>
     <div class="src frag" data-step="1">MIT Sloan Management Review &amp; NANDA Project (2025). State of AI in Business 2025.</div>` },
+
+  { steps:3, html:`
+    <div class="title frag" data-step="-1">Por eso a veces <span class="kick">inventa</span></div>
+    <div class="chatwrap">
+      <div class="msg user frag" data-step="0">¿Cuánto facturó mi empresa el año pasado?</div>
+      <div class="msg ai frag" data-step="1"><div class="who">IA</div>El año pasado facturaste <b>4.2 millones de pesos</b>, un 18% más que el año anterior, con tu mejor trimestre en el último.</div>
+    </div>
+    <div class="defi frag" data-step="2">No te está mintiendo. <span class="kick">Está completando la frase.</span><br>Nunca vio tus números. Dale el dato y deja de adivinar.</div>` },
 
   { steps:3, html:`
     <div class="statement">
@@ -367,7 +394,7 @@ const SLIDES = [
 
   { steps:5, html:`
     <div class="title frag" data-step="-1">Los 4 pilares de un <span class="kick">buen prompt</span></div>
-    <div class="pillars" style="grid-template-columns:repeat(4,1fr)">
+    <div class="pillars">
       <div class="pil frag" data-step="0"><div class="pn">01</div><div class="pt">Rol</div><div class="pq">¿Quién quieres que sea?</div><div class="pe">"Eres un contador con 20 años de experiencia en PyMEs."</div></div>
       <div class="pil frag" data-step="1"><div class="pn">02</div><div class="pt">Contexto</div><div class="pq">¿Qué sabes tú que ella no?</div><div class="pe">"Tengo una tienda de ropa, vendo a mujeres de 30 a 50."</div></div>
       <div class="pil frag" data-step="2"><div class="pn">03</div><div class="pt">Tarea</div><div class="pq">¿Qué tiene que hacer?</div><div class="pe">"Analiza. Escribe. Compara. Resume." Un verbo claro.</div></div>
@@ -406,10 +433,13 @@ const SLIDES = [
     </div>` },
 
   { steps:2, html:`
+
     <div class="statement">
-      <div class="title frag" data-step="-1">El truco que casi nadie usa</div>
-      <div class="sub frag" data-step="0" style="margin-top:5vh;font-size:clamp(22px,2.6vw,40px);font-weight:800;color:var(--ink)">Copia su respuesta.<br>Abre un <span class="kick">chat nuevo</span>.<br>Y pégasela.</div>
-      <div class="sub frag" data-step="1" style="margin-top:5vh">"Encuéntrale los errores y los huecos a esto."<br><br>En un chat nuevo <span class="kick">no está defendiendo su propio trabajo.</span></div>
+      <div class="title frag" data-step="-1">Nunca te quedes con<br>la <span class="kick">primera respuesta</span></div>
+      <div class="sub frag" data-step="0" style="margin-top:6vh">Cuando te entregue algo, pregúntale:</div>
+      <div class="sub frag" data-step="0" style="font-weight:800;color:var(--ink)">"¿Esto es lo mejor que podías hacer?"<br>"Encuéntrale los errores y los huecos."</div>
+      <div class="sub frag" data-step="1" style="margin-top:6vh">En el mismo chat <span class="kick">ya funciona</span>, y es lo que yo hago casi siempre.</div>
+      <div class="sub frag" data-step="2">Si es algo importante de verdad, pégalo en un <b style="color:var(--ink)">chat nuevo</b>: ahí no está defendiendo su propio trabajo.</div>
     </div>` },
 
   { steps:5, html:`
@@ -439,7 +469,7 @@ const SLIDES = [
       <div class="ley frag" data-step="0"><div class="ln">🎙️</div><div><div class="lt">Háblale, no le escribas</div><div class="le">Yo casi no tecleo. Le doy al micrófono y le hablo como le hablaría a una persona. Das muchísimo más contexto en mucho menos tiempo.</div></div></div>
       <div class="ley frag" data-step="1"><div class="ln">📱</div><div><div class="lt">Bájala en tu celular</div><div class="le">Es la misma cuenta. Lo que empiezas en la compu lo sigues en el teléfono.</div></div></div>
       <div class="ley frag" data-step="2"><div class="ln">🚗</div><div><div class="lt">En el coche, notas de voz</div><div class="le">Ese rato que pierdes en el tráfico le vas dictando y dejas trabajo adelantado. <b>Pero por favor no veas la pantalla, no quiero que te mueras.</b></div></div></div>
-      <div class="ley frag" data-step="3"><div class="ln">🧹</div><div><div class="lt">Chat nuevo al cambiar de tema</div><div class="le">Mientras más largo el chat, más contexto arrastra y peor te responde.</div></div></div>
+      <div class="ley frag" data-step="3"><div class="ln">🧹</div><div><div class="lt">Chat nuevo todo el tiempo</div><div class="le">Mientras más largo el chat, más arrastra y peor responde. Ábrelo nuevo sin miedo: <b>lo importante no vive en el chat, vive en tu memoria y en tus skills.</b></div></div></div>
     </div>` },
 
   { steps:3, html:`
@@ -450,9 +480,17 @@ const SLIDES = [
       <div class="sub frag" data-step="2"><span class="kick">Nadie le explica a su empleado nuevo quién es el cliente todas las mañanas.</span></div>
     </div>` },
 
+  { steps:3, html:`
+    <div class="statement">
+      <div class="title frag" data-step="-1">¿Te acuerdas de <span class="kick">Matrix</span>?</div>
+      <div class="sub frag" data-step="0" style="margin-top:5vh">Le conectaban un cable en la nuca y en tres segundos<br>ya sabía kung fu. No lo estudió. <b style="color:var(--ink)">Se lo instalaron.</b></div>
+      <div class="sub frag" data-step="1" style="margin-top:5vh;font-size:clamp(20px,2.3vw,34px);font-weight:800;color:var(--ink)">Eso es un skill.</div>
+      <div class="sub frag" data-step="2">Una habilidad que le instalas <span class="kick">una vez</span> y ya la trae puesta para siempre, sin que se la vuelvas a explicar.</div>
+    </div>` },
+
   { steps:4, html:`
     <div class="title frag" data-step="-1">Las <span class="kick">3 capas</span></div>
-    <div class="pillars" style="grid-template-columns:repeat(3,1fr)">
+    <div class="pillars c3">
       <div class="pil frag" data-step="0"><div class="pn">01</div><div class="pt">Instrucciones</div><div class="pq">Quién eres y cómo te gusta trabajar. Aplican a todas tus conversaciones.</div><div class="pe">Como el primer día de trabajo de alguien nuevo.</div></div>
       <div class="pil frag" data-step="1"><div class="pn">02</div><div class="pt">Proyectos</div><div class="pq">Una carpeta por cliente o por área, con sus archivos e instrucciones.</div><div class="pe">Como la inducción a un área específica.</div></div>
       <div class="pil frag" data-step="2"><div class="pn">03</div><div class="pt">Skills</div><div class="pq">Un proceso que sale siempre igual, lo pida quien lo pida.</div><div class="pe">Como un manual de procedimiento.</div></div>
