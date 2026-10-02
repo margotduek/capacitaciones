@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Háblale bien a la IA · Adding</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#ffffff; --ink:#1b1340; --muted:#6b6391; --soft:#4a3b74; --line:#e4e0f0; --card:#f6f4fd;
+    --green:#16a34a; --blue:#6d3bf5; --red:#D93A2B;
+    --font:"Libre Franklin",system-ui,-apple-system,"SF Pro Display","SF Pro Text",BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{height:100%;background:#fff;overflow:hidden;font-family:var(--font);color:var(--ink);
+    -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  #stage{position:fixed;inset:0;background:var(--bg)}
+  .slide{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    opacity:0;visibility:hidden;transition:opacity .7s ease, visibility .7s;padding:0 7vw}
+  .slide.active{opacity:1;visibility:visible}
+
+  .frag{opacity:0;transform:translateY(22px);transition:opacity .6s ease,transform .6s cubic-bezier(.2,.8,.2,1)}
+  .frag.show{opacity:1;transform:none}
+  .kick,.hl{color:var(--blue)}
+  .red{color:var(--red)}
+  .mark{background:linear-gradient(transparent 52%, rgba(68,169,72,.45) 52%, rgba(68,169,72,.45) 92%, transparent 92%);padding:0 .06em}
+
+  .statement{text-align:center;max-width:86vw}
+  .statement h1{font-size:clamp(36px,5.6vw,92px);font-weight:800;line-height:1.04;letter-spacing:-.03em}
+  .statement h1.xl{font-size:clamp(48px,8vw,140px)}
+  .statement .sub{margin-top:2.4vh;font-size:clamp(19px,2.15vw,32px);font-weight:600;color:var(--muted)}
+  .divider{color:var(--green);font-size:clamp(18px,1.8vw,26px);letter-spacing:.5em;margin-bottom:3vh;opacity:.9}
+  .eyebrow{font-size:clamp(13px,1.2vw,18px);letter-spacing:.24em;text-transform:uppercase;color:var(--green);font-weight:700;margin-bottom:2vh}
+  .title{font-size:clamp(30px,4vw,64px);font-weight:800;letter-spacing:-.02em;line-height:1.05;text-align:center}
+  .src{position:absolute;left:7vw;bottom:7vh;font-size:clamp(11px,.95vw,14px);color:#8a97aa;max-width:60vw;line-height:1.35}
+
+  /* portada */
+  .cover h1{font-size:clamp(54px,9vw,156px);font-weight:900;letter-spacing:-.04em;line-height:.95}
+  .cover .sub{margin-top:3vh;font-size:clamp(18px,2vw,30px);color:var(--soft);font-weight:600;max-width:60vw;margin-left:auto;margin-right:auto}
+  .cover .who{margin-top:6vh;font-size:clamp(14px,1.3vw,20px);color:var(--muted);letter-spacing:.14em;text-transform:uppercase;font-weight:700}
+  .cover .who b{color:var(--ink)}
+
+  /* portada estilo weport.global */
+  .cover2{display:flex;align-items:center;justify-content:space-between;gap:4vw;width:min(88vw,1500px)}
+  .c-left{flex:1.25;display:flex;flex-direction:column;align-items:flex-start}
+  .c-logo{margin-bottom:5vh}
+  .c-logo .duo img{height:clamp(38px,6vh,66px)}
+  .c-logo .duo img[alt="TRiAGE"]{height:clamp(26px,4.2vh,46px)}
+  .c-logo .duo span{font-size:clamp(24px,2.6vw,40px)}
+  .c-logo.end{margin:6vh 0 0}
+  .c-tag{background:#0B5A8F;color:#fff;font-weight:800;letter-spacing:.06em;text-transform:uppercase;font-size:clamp(12px,1.25vw,19px);padding:.7em 1em;margin-bottom:3vh}
+  .cover2 h1{font-size:clamp(50px,7.6vw,132px);font-weight:900;letter-spacing:-.03em;line-height:.98;color:var(--ink)}
+  .c-sub{margin-top:3vh;font-size:clamp(18px,2vw,30px);font-weight:600;color:var(--soft);max-width:44vw;line-height:1.3}
+  .c-who{margin-top:4vh;font-size:clamp(13px,1.2vw,18px);letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--muted)}
+  .c-who b{color:var(--ink)}
+  .c-right{flex:1;display:flex;justify-content:center}
+  .c-right video{width:min(38vw,560px);aspect-ratio:1;object-fit:cover;mix-blend-mode:multiply}
+  .defi{margin-top:4vh}
+  .defi .dn{font-size:clamp(22px,2.6vw,40px);font-weight:900;color:var(--green);letter-spacing:.02em}
+  .defi .dt{margin-top:1.4vh;font-size:clamp(22px,2.6vw,42px);font-weight:700;line-height:1.2;max-width:70vw;margin-left:auto;margin-right:auto}
+  .defi .dx{margin-top:2vh;font-size:clamp(15px,1.5vw,23px);color:var(--muted);font-weight:600}
+  .leyes{display:grid;grid-template-columns:1fr 1fr;gap:1.4vh 2.4vw;width:min(90vw,1480px)}
+  .ley{display:flex;gap:1.2vw;align-items:flex-start;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:1.6vh 1.4vw}
+  .ley:last-child{grid-column:1 / -1;max-width:50%;justify-self:center}
+  .ley .ln{flex:none;width:2.2em;height:2.2em;border-radius:50%;background:var(--green);color:#fff;font-weight:900;display:grid;place-items:center;font-size:clamp(15px,1.5vw,24px)}
+  .ley .lt{font-size:clamp(16px,1.65vw,26px);font-weight:800;line-height:1.15}
+  .ley .le{margin-top:.5vh;font-size:clamp(13px,1.2vw,19px);color:var(--muted);font-weight:600;line-height:1.3}
+  .qrcard{display:flex;flex-direction:column;align-items:center;background:#fff;border:1px solid var(--line);border-radius:24px;padding:3vh 2.4vw;box-shadow:0 24px 60px rgba(11,45,91,.14)}
+  .qrcard img{width:min(34vh,380px);height:auto;display:block;image-rendering:pixelated}
+  .qr-t{margin-top:2vh;font-size:clamp(18px,1.9vw,30px);font-weight:800;color:var(--ink)}
+  .qr-u{margin-top:.8vh;font-size:clamp(13px,1.3vw,20px);font-weight:700;color:var(--blue)}
+  /* bio */
+  .bio{display:flex;flex-direction:column;align-items:flex-start;max-width:74vw}
+  .bio .name{font-size:clamp(44px,6.6vw,110px);font-weight:900;letter-spacing:-.03em;line-height:1}
+  .bio .role{margin-top:1.6vh;font-size:clamp(18px,2vw,30px);color:var(--green);font-weight:700}
+  .bio ul{list-style:none;margin-top:4vh;display:flex;flex-direction:column;gap:1.6vh}
+  .bio li{font-size:clamp(18px,2vw,30px);font-weight:600;color:var(--soft)}
+  .bio li b{color:var(--ink)}
+
+  /* revoluciones */
+  .revs{display:flex;gap:2.4vw;margin-top:6vh;width:100%;justify-content:center}
+  .rev{flex:1;max-width:25vw;border:1px solid var(--line);background:var(--card);border-radius:24px;padding:4vh 2vw;text-align:center}
+  .rev .ico{font-size:clamp(40px,5vw,80px);line-height:1}
+  .rev .nm{margin-top:2vh;font-size:clamp(20px,2.2vw,34px);font-weight:800}
+  .rev .yr{margin-top:1vh;font-size:clamp(16px,1.6vw,24px);color:var(--muted);font-weight:700;font-variant-numeric:tabular-nums}
+  .rev.now{border-color:rgba(68,169,72,.6);box-shadow:0 0 60px rgba(68,169,72,.18)}
+  .rev.now .yr{color:var(--green)}
+
+  /* barras de adopción */
+  .bars{width:min(78vw,1180px);margin-top:5vh;display:flex;flex-direction:column;gap:2.4vh}
+  .bar{display:grid;grid-template-columns:18vw 1fr;align-items:center;gap:1.6vw}
+  .bar .lbl{font-size:clamp(17px,1.9vw,28px);font-weight:700;text-align:right}
+  .bar .track{height:5.4vh;position:relative}
+  .bar .fill{position:absolute;left:0;top:0;bottom:0;border-radius:10px;background:#dbe3ee;width:0;
+    transition:width 1.4s cubic-bezier(.2,.8,.2,1);display:flex;align-items:center;justify-content:flex-end;padding-right:1vw}
+  .bar .fill span{font-size:clamp(16px,1.8vw,28px);font-weight:900;white-space:nowrap;font-variant-numeric:tabular-nums}
+  .bar.ai .fill{background:var(--green);color:#fff}
+  .bar.ai .fill span{position:absolute;left:calc(100% + 1vw);color:var(--green)}
+  .frag.show .fill{width:var(--w)}
+
+  /* fábrica */
+  .factory{display:flex;align-items:center;gap:2vw;margin-top:6vh}
+  .fstep{display:flex;flex-direction:column;align-items:center;gap:2vh;width:20vw}
+  .fbox{width:min(22vh,200px);height:min(22vh,200px);border-radius:28px;background:var(--card);border:1px solid var(--line);
+    display:flex;align-items:center;justify-content:center}
+  .fbox svg{width:62%;height:62%}
+  .fstep .fl{font-size:clamp(20px,2.2vw,34px);font-weight:800;text-align:center;line-height:1.1}
+  .fstep .fd{font-size:clamp(14px,1.35vw,20px);color:var(--muted);font-weight:600;text-align:center}
+  .farrow{font-size:clamp(30px,3.6vw,60px);color:var(--green);font-weight:300}
+  .factory{margin-top:4vh}
+  .order{display:flex;align-items:center;gap:2vw;margin-top:4vh}
+  .ochip{border:1px solid var(--line);background:var(--card);border-radius:18px;padding:1.8vh 2vw;font-size:clamp(17px,1.9vw,29px);font-weight:700;color:var(--soft)}
+  .ochip .ol{display:block;font-size:.62em;letter-spacing:.18em;text-transform:uppercase;color:var(--green);font-weight:800;margin-bottom:.4vh}
+  .ochip.win{border-color:rgba(68,169,72,.55);color:var(--ink)}
+
+  /* el cielo es */
+  .cielo{display:flex;align-items:center;gap:5vw;width:100%;justify-content:center}
+  .cielo img{width:min(40vw,640px);border-radius:22px;filter:grayscale(1) contrast(1.05);box-shadow:0 24px 60px rgba(11,45,91,.22)}
+  .cielo .ct{max-width:40vw}
+  .cielo .q{font-size:clamp(40px,5.6vw,96px);font-weight:900;letter-spacing:-.03em;line-height:1}
+  .blank{display:inline-block;min-width:3.4em;border-bottom:.08em solid var(--ink);text-align:center;color:transparent;transition:color .5s}
+  .blank.fill{color:var(--green);border-color:var(--green)}
+  .cielo .lesson{margin-top:5vh;font-size:clamp(20px,2.3vw,36px);font-weight:700;line-height:1.2;color:var(--soft)}
+
+  /* chat de la tarifa inventada */
+  .chatwrap{width:min(72vw,1040px);display:flex;flex-direction:column;gap:2.6vh;margin-top:4vh;position:relative}
+  .msg{max-width:78%;padding:2.2vh 2vw;border-radius:22px;font-size:clamp(17px,1.9vw,29px);font-weight:600;line-height:1.3}
+  .msg.user{align-self:flex-end;background:var(--ink);color:#fff;border-bottom-right-radius:6px}
+  .msg.ai{align-self:flex-start;background:var(--card);border:1px solid var(--line);border-bottom-left-radius:6px}
+  .msg.ai .who{font-size:.62em;color:var(--muted);font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:.6vh}
+  .msg.ai b{color:var(--ink)}
+  .stamp{position:absolute;right:4%;top:46%;transform:rotate(-12deg) scale(1.6);opacity:0;
+    border:.14em solid var(--red);color:var(--red);font-weight:900;font-size:clamp(30px,4.4vw,72px);
+    padding:.1em .4em;border-radius:12px;letter-spacing:.06em;transition:transform .35s cubic-bezier(.2,1.4,.3,1),opacity .2s}
+  .stamp.show{opacity:1;transform:rotate(-12deg) scale(1)}
+  .tarifa-foot{margin-top:4vh;font-size:clamp(20px,2.3vw,36px);font-weight:700;text-align:center;max-width:70vw}
+
+  /* gato */
+  .gato{display:flex;align-items:center;gap:5vw;width:100%;justify-content:center}
+  .board{display:grid;grid-template-columns:repeat(3,1fr);width:min(56vh,520px);height:min(56vh,520px);gap:10px;position:relative;cursor:pointer}
+  .cell{background:var(--card);border:1px solid var(--line);border-radius:18px;display:flex;align-items:center;justify-content:center;
+    font-size:min(12vh,110px);font-weight:300;line-height:1;transition:background .2s,border-color .2s;user-select:none}
+  .cell:hover{background:#eaf0f7;border-color:#b9c7da}
+  .cell.x{color:var(--ink)} .cell.o{color:var(--green)}
+  .cell .mk{display:inline-block;animation:pop .35s cubic-bezier(.2,1.5,.3,1)}
+  @keyframes pop{from{transform:scale(.3);opacity:0}to{transform:none;opacity:1}}
+  .cell.win{background:rgba(68,169,72,.14);border-color:var(--green)}
+  .gside{width:min(40vw,600px)}
+  .gside h2{font-size:clamp(34px,4.4vw,72px);font-weight:900;letter-spacing:-.02em}
+  .gside .turn{margin-top:1.2vh;font-size:clamp(15px,1.4vw,21px);color:var(--muted);font-weight:700;letter-spacing:.06em}
+  .say{margin-top:2vh;min-height:9vh;font-size:clamp(18px,2vw,30px);font-weight:700;line-height:1.25}
+  .say b{color:var(--green)}
+  .book{margin-top:2vh;list-style:none;counter-reset:r;display:flex;flex-direction:column;gap:.8vh}
+  .book li{counter-increment:r;font-size:clamp(14px,1.45vw,22px);font-weight:600;color:#7d8ba0;padding:.7vh 1vw;border-radius:10px;border:1px solid transparent;transition:all .3s}
+  .book li::before{content:"Regla " counter(r) " · ";color:#a3afc0;font-weight:800}
+  .book li.on{color:var(--ink);background:#ecf7ed;border-color:rgba(68,169,72,.5)}
+  .book li.on::before{color:var(--green)}
+  .cell.ghost{border-color:var(--green);animation:ghostp 1s ease-in-out infinite}
+  .cell.ghost::after{content:"○";color:var(--green);opacity:.45}
+  @keyframes ghostp{0%,100%{box-shadow:0 0 0 rgba(68,169,72,0)}50%{box-shadow:0 0 30px rgba(68,169,72,.45)}}
+  .rules{margin-top:3vh;display:flex;flex-direction:column;gap:1vh;min-height:24vh;max-height:32vh;overflow:hidden}
+  .rule{font-size:clamp(15px,1.5vw,23px);font-weight:600;color:var(--soft);font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+    background:#111318;border:1px solid var(--line);border-radius:10px;padding:.8vh 1vw;animation:pop .35s ease}
+  .rule b{color:var(--green);font-weight:700}
+  .rcount{margin-top:2vh;font-size:clamp(15px,1.5vw,22px);font-weight:700;color:var(--muted)}
+  .rcount b{color:var(--ink);font-variant-numeric:tabular-nums}
+  .gnote{margin-top:2.6vh;font-size:clamp(18px,2vw,30px);font-weight:700;line-height:1.2}
+  .greset{margin-top:2vh;display:inline-block;font-size:clamp(12px,1.1vw,16px);color:var(--muted);border:1px solid #2c313b;border-radius:999px;padding:.4em 1em;cursor:pointer;user-select:none}
+  .greset:hover{color:var(--ink);border-color:var(--muted)}
+
+  /* línea del tiempo */
+  .tl{position:relative;width:min(88vw,1400px);margin-top:9vh;height:36vh}
+  .tl .axis{position:absolute;left:0;right:0;top:50%;height:2px;background:#d5dde8}
+  .tl .axis .prog{position:absolute;left:0;top:0;bottom:0;background:var(--green);width:0;transition:width .7s ease}
+  .tev{position:absolute;top:50%;width:12vw;transform:translateX(-50%);text-align:center}
+  .tev .dot{width:16px;height:16px;border-radius:50%;background:#c3cddb;margin:-8px auto 0;border:3px solid var(--bg);transition:background .4s}
+  .tev.frag.show .dot{background:var(--ink)}
+  .tev.key.frag.show .dot{background:var(--green);box-shadow:0 0 22px rgba(68,169,72,.7)}
+  .tev .yr{font-size:clamp(22px,2.6vw,42px);font-weight:900;font-variant-numeric:tabular-nums}
+  .tev .tx{margin-top:.8vh;font-size:clamp(12px,1.2vw,18px);font-weight:600;color:var(--soft);line-height:1.25}
+  .tev.up{transform:translate(-50%,-100%);padding-bottom:3.4vh}
+  .tev.up .dot{position:absolute;bottom:-8px;left:50%;margin:0;transform:translateX(-50%)}
+  .tev.dn{padding-top:3.4vh}
+  .tev.dn .dot{position:absolute;top:-8px;left:50%;margin:0;transform:translateX(-50%)}
+  .tev.key .yr{color:var(--green)}
+  .tl-cap{margin-top:5vh;font-size:clamp(18px,2vw,30px);font-weight:700;color:var(--soft);text-align:center}
+
+  /* MIT */
+  .mit-big{font-size:clamp(90px,15vw,250px);font-weight:900;line-height:.86;letter-spacing:-.04em;color:var(--red)}
+  .funnel{display:flex;gap:5vw;margin-top:4vh;align-items:flex-end}
+  .fgroup{display:flex;flex-direction:column;align-items:center;gap:1.6vh}
+  .fcols{display:flex;gap:1.4vw;align-items:flex-end;height:40vh}
+  .fcol{width:7vw;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%}
+  .fcol .fv{font-size:clamp(20px,2.4vw,40px);font-weight:900;margin-bottom:1vh;font-variant-numeric:tabular-nums}
+  .fcol .fb{width:100%;border-radius:10px 10px 4px 4px;background:#dbe3ee;height:0;transition:height 1.2s cubic-bezier(.2,.8,.2,1)}
+  .frag.show .fcol .fb{height:var(--h)}
+  .fcol.last .fb{background:var(--green)} .fcol.last .fv{color:var(--green)}
+  .fcol .fl{margin-top:1vh;font-size:clamp(11px,1.1vw,16px);color:var(--muted);font-weight:700;text-align:center;line-height:1.2}
+  .fgroup .gl{font-size:clamp(15px,1.6vw,24px);font-weight:800;text-align:center}
+
+  /* usar vs integrar / estrategia */
+  .vs{display:grid;grid-template-columns:1fr 1fr;gap:2vw;width:min(80vw,1200px);margin-top:5vh}
+  .vcard{border:1px solid var(--line);background:var(--card);border-radius:24px;padding:4vh 2.4vw}
+  .vcard h3{font-size:clamp(24px,2.8vw,46px);font-weight:900}
+  .vcard p{margin-top:1.6vh;font-size:clamp(17px,1.8vw,28px);color:var(--soft);font-weight:600;line-height:1.3}
+  .vcard.good{border-color:rgba(68,169,72,.55)} .vcard.good h3{color:var(--green)}
+  .strat{width:min(84vw,1240px);margin-top:5vh;display:flex;flex-direction:column;gap:1.6vh}
+  .srow{display:grid;grid-template-columns:1fr 60px 1fr;align-items:center;gap:1vw}
+  .srow .bad,.srow .ok{border-radius:16px;padding:2.2vh 1.6vw;font-size:clamp(17px,1.9vw,29px);font-weight:700}
+  .srow .bad{background:#fdf0ee;border:1px solid #f1c9c3;color:#9b2c22}
+  .srow .ok{background:#eef8ef;border:1px solid rgba(68,169,72,.4);color:var(--ink)}
+  .srow .ar{text-align:center;color:var(--green);font-size:clamp(22px,2.4vw,38px)}
+  .shead{display:grid;grid-template-columns:1fr 60px 1fr;gap:1vw;font-size:clamp(13px,1.2vw,18px);letter-spacing:.2em;text-transform:uppercase;font-weight:800;color:var(--muted)}
+
+  /* casos */
+  .caso{display:flex;flex-direction:column;align-items:center;width:100%}
+  .caso .big{font-size:clamp(46px,7vw,120px);font-weight:900;letter-spacing:-.03em;line-height:1;text-align:center}
+  .caso .big s{color:var(--muted);text-decoration-color:var(--red);text-decoration-thickness:.08em}
+  .flow{display:flex;align-items:center;gap:1.2vw;margin-top:6vh;flex-wrap:nowrap}
+  .fnode{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:2.4vh 1.6vw;font-size:clamp(16px,1.7vw,26px);font-weight:700;text-align:center;min-width:13vw}
+  .fnode .n{display:block;font-size:.7em;color:var(--green);letter-spacing:.14em;margin-bottom:.6vh}
+  .flow .ar{color:var(--green);font-size:clamp(22px,2.4vw,38px)}
+
+  /* prompt */
+  .pillars{display:grid;grid-template-columns:repeat(5,1fr);gap:1.2vw;width:min(90vw,1400px);margin-top:4vh}
+  .pil{border:1px solid var(--line);background:var(--card);border-radius:20px;padding:2.6vh 1.2vw;display:flex;flex-direction:column;gap:1.2vh}
+  .pil .pn{font-size:clamp(12px,1.1vw,16px);color:var(--green);font-weight:800;letter-spacing:.18em}
+  .pil .pt{font-size:clamp(22px,2.4vw,40px);font-weight:900}
+  .pil .pq{font-size:clamp(13px,1.25vw,19px);color:var(--muted);font-weight:600;line-height:1.25}
+  .pil .pe{margin-top:auto;font-size:clamp(13px,1.3vw,20px);font-weight:600;color:var(--soft);line-height:1.3;
+    border-top:1px solid var(--line);padding-top:1.2vh;font-style:italic}
+  .pfoot{margin-top:4vh;font-size:clamp(18px,2vw,30px);font-weight:700;text-align:center}
+
+  /* escalera */
+  .stairs{position:relative;width:min(84vw,1260px);height:50vh;margin-top:5vh;border-bottom:2px solid #d5dde8}
+  .stair{position:absolute;bottom:0;width:23%;border-radius:18px 18px 0 0;background:var(--card);border:1px solid var(--line);border-bottom:none;
+    padding:2vh 1.1vw;display:flex;flex-direction:column;gap:.8vh;overflow:hidden}
+  .stair .sn{font-size:clamp(28px,3.4vw,56px);font-weight:900;color:#c3cddb;line-height:1;transition:color .4s}
+  .stair .st{font-size:clamp(22px,2.5vw,42px);font-weight:900}
+  .stair .sd{font-size:clamp(12px,1.2vw,18px);color:var(--muted);font-weight:600;line-height:1.3}
+  .stair.frag.show .sn{color:var(--green)}
+  .stair.s1{left:0;height:46%} .stair.s2{left:25.6%;height:62%} .stair.s3{left:51.2%;height:79%} .stair.s4{left:76.8%;height:96%;border-color:rgba(68,169,72,.55);box-shadow:0 0 60px rgba(68,169,72,.15)}
+
+  /* HUD */
+  #sig{position:fixed;left:5vw;right:5vw;bottom:2.6vh;z-index:52;pointer-events:none;display:flex;align-items:center;justify-content:space-between;font-size:clamp(11px,1vw,15px);color:#8a97aa;letter-spacing:.04em;font-weight:600}
+  .duo{display:flex;align-items:center;gap:.8em}
+  .duo img{display:block}
+  .duo span{color:#9aa7b8;font-weight:400;font-size:1.3em}
+  #sig .duo img{height:clamp(16px,2.2vh,26px)}
+  #sig .duo img[alt="TRiAGE"]{height:clamp(12px,1.6vh,19px)}
+  #sig b{color:var(--ink)}
+  body.nosig #sig{opacity:0}
+  #help{position:fixed;top:14px;right:16px;z-index:50;color:#c3cddb;font-size:11px;letter-spacing:.12em}
+  #slideno{position:fixed;top:14px;left:16px;z-index:50;color:#c3cddb;font-size:11px;letter-spacing:.12em;font-variant-numeric:tabular-nums}
+  #prog{position:fixed;left:0;bottom:0;height:3px;background:var(--green);z-index:60;transition:width .5s ease;opacity:.8}
+  #blackout{position:fixed;inset:0;background:#fff;z-index:100;opacity:0;visibility:hidden;transition:.25s}
+  #blackout.on{opacity:1;visibility:visible}
+</style>
+</head>
+<body>
+<div id="stage"></div>
+<div id="sig"><div class="duo"><img src="assets/logo-triage.png" alt="TRiAGE"><span>×</span><img src="assets/logo-weport.png" alt="WePort"></div><span><b>Margot Duek</b> · 30 de septiembre 2026</span></div>
+<div id="help">← → clicker · F pantalla completa · B negro</div>
+<div id="slideno"></div>
+<div id="prog"></div>
+<div id="blackout"></div>
+
+<script>
+/* ============ CONTENIDO · BLOQUE TEÓRICO WEPORT ============
+   Cada slide: steps = cuántos clics internos tiene.
+   Los .frag con data-step="n" aparecen en el clic n+1 (data-step="-1" aparece al entrar).
+============================================================ */
+const ICON = {
+  truck:`<svg viewBox="0 0 64 64" fill="none" stroke="#1b1340" stroke-width="2.4" stroke-linejoin="round"><path d="M6 20h30v24H6z"/><path d="M36 28h12l8 9v7H36z"/><circle cx="16" cy="47" r="5" fill="#ffffff"/><circle cx="46" cy="47" r="5" fill="#ffffff"/><path d="M10 20l5-8h8l4 6 5-5 4 7" stroke="#16a34a"/></svg>`,
+  gears:`<svg viewBox="0 0 64 64" fill="none" stroke="#1b1340" stroke-width="2.4"><circle cx="24" cy="28" r="9"/><circle cx="24" cy="28" r="3" fill="#16a34a" stroke="#16a34a"/><path d="M24 14v5M24 37v5M10 28h5M33 28h5M14 18l4 4M30 34l4 4M14 38l4-4M30 22l4-4"/><circle cx="44" cy="44" r="6"/><path d="M44 35v3M44 50v3M35 44h3M50 44h3"/></svg>`,
+  model:`<svg viewBox="0 0 64 64" fill="none" stroke="#1b1340" stroke-width="2.4" stroke-linejoin="round"><path d="M8 52V30l12 7v-7l12 7v-7l12 7V16h10v36z"/><path d="M8 52h48"/><rect x="36" y="40" width="10" height="12" fill="#16a34a" stroke="#16a34a"/><path d="M47 12c2-4 7-4 8 0" stroke="#8a97aa"/></svg>`,
+};
+
+const SLIDES = [
+  { steps:0, cls:'nosig', html:`
+    <div class="cover2">
+      <div class="c-left">
+        <div class="c-tag">Escala con IA · Adding · Sesión 2</div>
+        <h1>Háblale bien<br>a la <span class="kick">IA</span></h1>
+        <div class="c-sub">Hoy no vienes a aprender teoría. Vienes a salir con tu cuenta configurada y con tu primer skill hecho.</div>
+        <div class="c-who"><b>Margot Duek</b></div>
+      </div>
+    </div>` },
+
+  { steps:0, html:`
+    <div class="bio">
+      <div class="eyebrow">Quién soy</div>
+      <div class="name">Margot Duek</div>
+      <div class="role">Fundadora y CEO · TRiAGE · Al Chile Media</div>
+      <ul>
+        <li><b>Ingeniera en Tecnologías Computacionales</b> con MBA en Marketing</li>
+        <li><b>+300 empresas</b> acompañadas en México y Estados Unidos</li>
+        <li>Docente de IA en el <b>Tec de Monterrey</b> e <b>ISDI</b></li>
+        <li>Mi trabajo: que la IA dé <b class="kick">resultados reales</b>, no demos bonitas</li>
+      </ul>
+    </div>` },
+
+  { steps:4, html:`
+    <div class="title frag" data-step="-1">Levanten la mano</div>
+    <div class="leyes" style="margin-top:5vh">
+      <div class="ley frag" data-step="0"><div class="ln">1</div><div><div class="lt">¿Quién ha usado ChatGPT o Claude alguna vez?</div></div></div>
+      <div class="ley frag" data-step="1"><div class="ln">2</div><div><div class="lt">¿Quién lo usa cada semana para trabajar?</div></div></div>
+      <div class="ley frag" data-step="2"><div class="ln">3</div><div><div class="lt">¿Quién sabe qué es un prompt?</div></div></div>
+      <div class="ley frag" data-step="3"><div class="ln">4</div><div><div class="lt">¿Quién le ha enseñado a la IA cómo trabaja?</div></div></div>
+    </div>
+    <div class="defi frag" data-step="3">Donde se acabaron las manos, <span class="kick">ahí empieza la clase de hoy.</span></div>` },
+
+  { steps:2, html:`
+    <div class="statement">
+      <h1 class="frag" data-step="-1">Esto no es una moda.</h1>
+      <div class="sub frag" data-step="0">La electricidad tardó <b style="color:var(--ink)">100 años</b> en cambiar los negocios.<br>El internet tardó <b style="color:var(--ink)">20</b>.</div>
+      <h1 class="frag" data-step="1" style="margin-top:4vh">La IA lleva <span class="kick">2</span>.</h1>
+    </div>` },
+
+  { steps:2, html:`
+    <div class="statement">
+      <div class="sub frag" data-step="-1" style="margin-top:0">Las empresas invirtieron entre <b style="color:var(--ink)">30 y 40 mil millones de dólares</b> en IA.</div>
+      <div class="mit-big frag" data-step="0">95%</div>
+      <h1 class="frag" data-step="0" style="font-size:clamp(28px,3.6vw,58px)">no ha visto ningún retorno.</h1>
+      <div class="sub frag" data-step="1">No porque la IA no sirva.<br><span class="kick">Porque confunden usarla con integrarla.</span></div>
+    </div>
+    <div class="pfoot frag" data-step="1" style="margin-top:3vh;opacity:.6;font-size:14px">MIT Sloan Management Review &amp; NANDA Project (2025). State of AI in Business 2025.</div>` },
+
+  { steps:3, html:`
+    <div class="title frag" data-step="-1">Entonces, ¿qué es un <span class="kick">prompt</span>?</div>
+    <div class="defi frag" data-step="0" style="font-size:clamp(22px,2.6vw,40px);font-weight:700;margin-top:5vh">Es lo que le pides. Nada más.</div>
+    <div class="sub frag" data-step="1">Si le escribes "hola", eso ya fue un prompt.</div>
+    <div class="sub frag" data-step="2"><span class="kick">El problema no es que no sepas usarla.</span><br>Es que le estás pidiendo como le pedirías a Google, no como le pedirías a un empleado.</div>` },
+
+  { steps:3, html:`
+    <div class="title frag" data-step="-1">No es lo mismo pedir <span class="kick">así</span></div>
+    <div class="chatwrap">
+      <div class="msg user frag" data-step="0">Hazme un ensayo de la fotosíntesis.</div>
+      <div class="msg user frag" data-step="1" style="background:var(--card);color:var(--ink);border:2px solid var(--blue)">Redacta un ensayo académico de nivel licenciatura sobre el proceso de la fotosíntesis, usa storytelling y un tono empático, dirigido a estudiantes de Ingeniería en Desarrollo Sustentable, que analice su relevancia científica y sus aplicaciones en el desarrollo sustentable.</div>
+    </div>
+    <div class="tarifa-foot frag" data-step="2">Las dos piden lo mismo.<br><span class="kick">Solo una te va a servir.</span></div>` },
+
+  { steps:5, html:`
+    <div class="title frag" data-step="-1">Los 4 pilares de un <span class="kick">buen prompt</span></div>
+    <div class="pillars" style="grid-template-columns:repeat(4,1fr)">
+      <div class="pil frag" data-step="0"><div class="pn">01</div><div class="pt">Rol</div><div class="pq">¿Quién quieres que sea?</div><div class="pe">"Eres un contador con 20 años de experiencia."</div></div>
+      <div class="pil frag" data-step="1"><div class="pn">02</div><div class="pt">Contexto</div><div class="pq">¿Qué sabes tú que ella no?</div><div class="pe">"Tengo una tienda de ropa, vendo a mujeres de 30 a 50."</div></div>
+      <div class="pil frag" data-step="2"><div class="pn">03</div><div class="pt">Tarea</div><div class="pq">¿Qué tiene que hacer?</div><div class="pe">"Analiza. Escribe. Compara. Resume." Un verbo claro.</div></div>
+      <div class="pil frag" data-step="3"><div class="pn">04</div><div class="pt">Formato</div><div class="pq">¿Cómo lo quieres recibir?</div><div class="pe">"En una tabla." "En 5 bullets." "En un correo corto."</div></div>
+    </div>
+    <div class="defi frag" data-step="4">Si no le dices el formato, <span class="kick">el que va a terminar formateando eres tú.</span></div>` },
+
+  { steps:3, html:`
+    <div class="title frag" data-step="-1">Darle un buen prompt es <span class="kick">lo mismo que ser buen jefe</span></div>
+    <div class="strat">
+      <div class="shead frag" data-step="-1"><div>❌ Mal jefe</div><div></div><div>✔ Buen jefe</div></div>
+      <div class="srow frag" data-step="0"><div class="bad">"Ayúdame con una campaña."</div><div class="ar">→</div><div class="ok">"Eres experto en marketing. Vendo X a Y. Crea una campaña que comunique Z. Dame concepto, dolor del cliente y 5 canales."</div></div>
+      <div class="srow frag" data-step="1"><div class="bad">"Ayúdame" no es una tarea</div><div class="ar">→</div><div class="ok">Un verbo preciso sí lo es</div></div>
+      <div class="srow frag" data-step="2"><div class="bad">Asumir que ya sabe tu negocio</div><div class="ar">→</div><div class="ok">De nada sirve un empleado brillante que no sabe a qué te dedicas</div></div>
+    </div>` },
+
+  { steps:4, html:`
+    <div class="title frag" data-step="-1">4 cosas que suben la calidad <span class="kick">de inmediato</span></div>
+    <div class="leyes" style="margin-top:4vh">
+      <div class="ley frag" data-step="0"><div class="ln">1</div><div><div class="lt">Máximo 500 palabras</div><div class="le">Demasiado contexto diluye la respuesta. No es concurso de quién escribe más.</div></div></div>
+      <div class="ley frag" data-step="1"><div class="ln">2</div><div><div class="lt">Dile qué NO quieres</div><div class="le">"Sin tecnicismos, sin emojis, sin guiones largos."</div></div></div>
+      <div class="ley frag" data-step="2"><div class="ln">3</div><div><div class="lt">No le des tu hipótesis</div><div class="le">Es complaciente y te va a dar la razón. Deja que llegue sola.</div></div></div>
+      <div class="ley frag" data-step="3"><div class="ln">4</div><div><div class="lt">Pídele objeciones</div><div class="le">"Dime qué objeciones podría poner el cliente" y lo ajustas antes de vender.</div></div></div>
+    </div>` },
+
+  { steps:2, html:`
+    <div class="title frag" data-step="-1">El truco que casi nadie usa</div>
+    <div class="defi frag" data-step="0" style="font-size:clamp(22px,2.6vw,40px);font-weight:700;margin-top:5vh">Copia su respuesta.<br>Ábre un <span class="kick">chat nuevo</span>.<br>Y pégasela.</div>
+    <div class="sub frag" data-step="1">"Analiza esta estrategia y dime los riesgos, objeciones y problemas que no consideraste."<br><br>En chat nuevo no está defendiendo su propio trabajo.<br><span class="kick">Nunca te quedes con la primera versión.</span></div>` },
+
+  { steps:5, html:`
+    <div class="title frag" data-step="-1">Hay <span class="kick">5 tipos</span> de petición</div>
+    <div class="leyes" style="margin-top:4vh">
+      <div class="ley frag" data-step="0"><div class="ln">1</div><div><div class="lt">Ejecución</div><div class="le">Producir algo. <b>Escribe, crea, redacta.</b></div></div></div>
+      <div class="ley frag" data-step="1"><div class="ln">2</div><div><div class="lt">Análisis</div><div class="le">Entender datos o un documento. <b>Analiza, revisa, encuentra.</b></div></div></div>
+      <div class="ley frag" data-step="2"><div class="ln">3</div><div><div class="lt">Extracción</div><div class="le">Sacar orden de algo desordenado. <b>Extrae, clasifica, tabula.</b></div></div></div>
+      <div class="ley frag" data-step="3"><div class="ln">4</div><div><div class="lt">Ideación</div><div class="le">Abrir opciones antes de decidir. <b>Propón, compara, dame 3.</b></div></div></div>
+      <div class="ley frag" data-step="4"><div class="ln">5</div><div><div class="lt">Crítica</div><div class="le">Estresar lo que ya tienes. <b>Critica, refuta, dime qué falla.</b></div></div></div>
+    </div>` },
+
+  { steps:2, html:`
+    <div class="title frag" data-step="-1">Y van <span class="kick">en este orden</span></div>
+    <div class="order" style="margin-top:7vh">
+      <div class="ochip frag" data-step="0"><span class="ol">1</span>Idear</div>
+      <div class="farrow frag" data-step="0">→</div>
+      <div class="ochip frag" data-step="0"><span class="ol">2</span>Ejecutar</div>
+      <div class="farrow frag" data-step="0">→</div>
+      <div class="ochip win frag" data-step="0"><span class="ol">3</span>Criticar</div>
+    </div>
+    <div class="defi frag" data-step="1">Un prompt por paso, no todo junto.<br><span class="kick">La gente se salta el primero y el último</span>, y por eso siente que la IA le da resultados genéricos.</div>` },
+
+  { steps:4, html:`
+    <div class="title frag" data-step="-1">Mis trucos <span class="kick">de todos los días</span></div>
+    <div class="leyes" style="margin-top:4vh">
+      <div class="ley frag" data-step="0"><div class="ln">🎙️</div><div><div class="lt">Háblale, no le escribas</div><div class="le">Yo casi no tecleo. Le doy al micrófono y le hablo como le hablaría a una persona. Sale más natural y das muchísimo más contexto en menos tiempo.</div></div></div>
+      <div class="ley frag" data-step="1"><div class="ln">📱</div><div><div class="lt">Bájala en tu celular</div><div class="le">Es la misma cuenta. Lo que empiezas en la compu lo sigues en el teléfono.</div></div></div>
+      <div class="ley frag" data-step="2"><div class="ln">🚗</div><div><div class="lt">En el coche, voice notes</div><div class="le">Ese rato que pierdes en el tráfico, mándale notas de voz y deja el trabajo adelantado. <b>Pero por favor no veas la pantalla, no quiero que te mueras.</b></div></div></div>
+      <div class="ley frag" data-step="3"><div class="ln">🧹</div><div><div class="lt">Chat nuevo al cambiar de tema</div><div class="le">Mientras más largo el chat, más contexto arrastra y peor responde.</div></div></div>
+    </div>` },
+
+  { steps:3, html:`
+    <div class="title frag" data-step="-1">Los prompts se quedaron en 2024</div>
+    <div class="sub frag" data-step="0" style="margin-top:3vh">Lo que importa ahora es el <b style="color:var(--ink)">contexto</b>.</div>
+    <div class="defi frag" data-step="1" style="font-size:clamp(20px,2.3vw,34px);font-weight:700">Trátala como a alguien que acabas de contratar.</div>
+    <div class="sub frag" data-step="2"><span class="kick">Nadie le explica a su empleado nuevo quién es el cliente todas las mañanas.</span></div>` },
+
+  { steps:4, html:`
+    <div class="title frag" data-step="-1">Las <span class="kick">3 capas</span></div>
+    <div class="pillars" style="grid-template-columns:repeat(3,1fr)">
+      <div class="pil frag" data-step="0"><div class="pn">01</div><div class="pt">Instrucciones</div><div class="pq">Quién eres y cómo te gusta trabajar. Aplican a todas tus conversaciones.</div><div class="pe">Como el primer día de trabajo de alguien nuevo.</div></div>
+      <div class="pil frag" data-step="1"><div class="pn">02</div><div class="pt">Proyectos</div><div class="pq">Una carpeta por cliente o por área, con sus archivos e instrucciones.</div><div class="pe">Como la inducción a un área específica.</div></div>
+      <div class="pil frag" data-step="2"><div class="pn">03</div><div class="pt">Skills</div><div class="pq">Un proceso que sale siempre igual, lo pida quien lo pida.</div><div class="pe">Como un manual de procedimiento.</div></div>
+    </div>
+    <div class="defi frag" data-step="3">La regla: <span class="kick">si ya se lo explicaste 3 veces, eso es un skill.</span></div>` },
+
+  { steps:2, html:`
+    <div class="statement">
+      <h1 class="frag" data-step="-1">Deja de preguntarle.</h1>
+      <h1 class="frag" data-step="0"><span class="kick">Empieza a delegarle.</span></h1>
+      <div class="sub frag" data-step="1">Un prompt se lo explicas cada vez.<br>Un skill se lo explicas <b style="color:var(--ink)">una sola vez</b> y ya lo sabe para siempre.</div>
+    </div>` },
+
+  { steps:3, html:`
+    <div class="title frag" data-step="-1">Manos a la obra</div>
+    <div class="sub frag" data-step="0" style="margin-top:2vh">Vas a copiar un texto y pegarlo en tu chat.<br><span class="kick">La IA te va a ir entrevistando sola.</span> Tú nada más contesta.</div>
+    <div class="leyes" style="margin-top:4vh">
+      <div class="ley frag" data-step="1"><div class="ln">1</div><div><div class="lt">Construye tu memoria</div><div class="le">Te pregunta a qué te dedicas, qué haces, cómo trabajas, y te arma tu Contexto Maestro. <b>Si nunca has usado IA, empieza aquí.</b></div></div></div>
+      <div class="ley frag" data-step="1"><div class="ln">2</div><div><div class="lt">Aprende a pedirle</div><div class="le">Escribes 3 prompts reales de tu trabajo y te los califica y mejora uno por uno.</div></div></div>
+      <div class="ley frag" data-step="2"><div class="ln">3</div><div><div class="lt">Crea tu primer skill</div><div class="le">Encuentra 3 tareas tuyas que se repiten y convierte una en un skill que puedas usar siempre.</div></div></div>
+    </div>
+    <div class="defi frag" data-step="2">Háganlos <span class="kick">en el mismo chat</span>, uno tras otro, para que no pierda lo que ya te preguntó.</div>` },
+
+  { steps:3, html:`
+    <div class="statement">
+      <h1 class="frag" data-step="-1">Con lo que te llevas hoy</h1>
+      <div class="sub frag" data-step="0">Tu cuenta ya sabe quién eres.<br>Sabes pedirle con <b style="color:var(--ink)">rol, contexto, tarea y formato</b>.<br>Y tienes tu primer skill hecho.</div>
+      <h1 class="frag" data-step="1" class="end" style="margin-top:5vh">La próxima vez <span class="kick">ya no empiezas de cero.</span></h1>
+    </div>` },
+
+  { steps:1, html:`
+    <div class="statement">
+      <h1 class="frag" data-step="-1">¿Preguntas?</h1>
+      <div class="sub frag" data-step="0"><b style="color:var(--ink)">Margot Duek</b><br>@margotduekk · 55 8537 1607</div>
+    </div>` }
+];
+
+/* ============ JUEGO DE GATO (IA por reglas) ============ */
+const POS = ['la esquina de arriba a la izquierda','arriba al centro','la esquina de arriba a la derecha',
+             'el centro a la izquierda','el centro','el centro a la derecha',
+             'la esquina de abajo a la izquierda','abajo al centro','la esquina de abajo a la derecha'];
+const WINS=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+/* La máquina juega ○ siguiendo 5 reglas fijas, en orden. Tú juegas ✕.
+   Después de tu ✕, se ilumina la regla que aplica y el ○ parpadea donde debe ir.
+   Un clic en el tablero coloca el ○ ahí. */
+function oRule(s){
+  const lineFor=m=>{ for(const l of WINS){ const v=l.map(k=>s[k]); if(v.filter(x=>x===m).length===2 && v.includes('')) return l[v.indexOf('')]; } return -1; };
+  let c=lineFor('o'); if(c>=0) return {rule:0,cell:c};
+  c=lineFor('x'); if(c>=0) return {rule:1,cell:c};
+  if(!s[4]) return {rule:2,cell:4};
+  c=[0,2,6,8].find(k=>!s[k]); if(c!==undefined) return {rule:3,cell:c};
+  c=[1,3,5,7].find(k=>!s[k]); return {rule:4,cell:c};
+}
+function gatoInit(el){
+  if(el._gato) return; el._gato=true;
+  const board=el.querySelector('[data-board]'), say=el.querySelector('[data-say]'), book=[...el.querySelectorAll('[data-book] li')];
+  let cells=[], state, turn, over, pick;
+  const mark=(i,m)=>{ state[i]=m; cells[i].classList.remove('ghost'); cells[i].classList.add(m); cells[i].innerHTML='<span class="mk">'+(m==='x'?'✕':'○')+'</span>'; };
+  const lit=r=>book.forEach((li,k)=>li.classList.toggle('on',k===r));
+  function reset(){
+    state=Array(9).fill(''); turn='x'; over=false; pick=null; lit(-1);
+    say.innerHTML='Pon tu <b>✕</b> donde quieras.';
+    board.innerHTML='';
+    cells=[...Array(9)].map((_,i)=>{ const c=document.createElement('div'); c.className='cell';
+      c.addEventListener('click',e=>{ e.stopPropagation(); play(i); }); board.appendChild(c); return c; });
+  }
+  function end(m){
+    const w=WINS.find(l=>l.every(k=>state[k]===m));
+    if(w){ w.forEach(k=>cells[k].classList.add('win')); over=true; lit(-1);
+      say.innerHTML = m==='o' ? 'Ganó la máquina. <b>Solo siguió sus reglas.</b>' : 'Ganaste tú. <b>A las reglas les faltó un caso.</b>'; return true; }
+    if(state.every(Boolean)){ over=true; lit(-1); say.innerHTML='Empate. <b>Las reglas aguantaron.</b>'; return true; }
+    return false;
+  }
+  function play(i){
+    if(over) return;
+    if(turn==='x'){
+      if(state[i]) return;
+      mark(i,'x'); if(end('x')) return;
+      pick=oRule(state); lit(pick.rule); cells[pick.cell].classList.add('ghost');
+      say.innerHTML='✕ en '+POS[i]+'.<br><b>Regla '+(pick.rule+1)+': el ○ va en '+POS[pick.cell]+'.</b>';
+      turn='o';
+    } else {
+      mark(pick.cell,'o'); if(end('o')) return;
+      turn='x'; lit(-1); say.innerHTML='Tu turno: pon tu <b>✕</b>.';
+    }
+  }
+  el.querySelector('[data-reset]').addEventListener('click',e=>{ e.stopPropagation(); reset(); });
+  el._reset=reset; reset();
+}
+
+/* ============ MOTOR ============ */
+const stage=document.getElementById('stage');
+let si=0, fi=0, nodes=[], curSlide=-1;
+function build(){
+  SLIDES.forEach(sl=>{ const d=document.createElement('div'); d.className='slide '+(sl.cls||''); d.innerHTML=sl.html; stage.appendChild(d); nodes.push(d); });
+  const h=location.hash.match(/^#(\d+)$/); if(h) si=Math.min(Math.max(+h[1]-1,0),SLIDES.length-1);
+  render();
+}
+function frags(i){ return [...nodes[i].querySelectorAll('.frag')]; }
+function render(){
+  if(si!==curSlide){
+    if(curSlide>=0 && SLIDES[curSlide].leave) SLIDES[curSlide].leave(nodes[curSlide]);
+    curSlide=si; if(SLIDES[si].enter) SLIDES[si].enter(nodes[si]);
+  }
+  nodes.forEach((n,i)=>n.classList.toggle('active',i===si));
+  frags(si).forEach(f=>f.classList.toggle('show', (+f.dataset.step) < fi));
+  if(SLIDES[si].on) SLIDES[si].on(nodes[si], fi-1);
+  document.body.classList.toggle('nosig', /\bnosig\b/.test(SLIDES[si].cls||''));
+  document.getElementById('slideno').textContent=(si+1)+' / '+SLIDES.length;
+  document.getElementById('prog').style.width=((si+1)/SLIDES.length*100)+'%';
+  history.replaceState(null,'','#'+(si+1));
+}
+function next(){ if(fi<SLIDES[si].steps){fi++;render();} else if(si<SLIDES.length-1){si++;fi=0;render();} }
+function prev(){ if(fi>0){fi--;render();} else if(si>0){si--;fi=SLIDES[si].steps;render();} }
+document.addEventListener('keydown',e=>{
+  if(['ArrowRight','PageDown',' '].includes(e.key)){e.preventDefault();next();}
+  else if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();prev();}
+  else if(e.key==='f'||e.key==='F'){ if(!document.fullscreenElement)document.documentElement.requestFullscreen(); else document.exitFullscreen(); }
+  else if(e.key==='b'||e.key==='B'){ document.getElementById('blackout').classList.toggle('on'); }
+  else if((e.key==='r'||e.key==='R') && nodes[si]._reset){ nodes[si]._reset(); }
+});
+stage.addEventListener('click',()=>next());
+build();
+</script>
+</body>
+</html>
