@@ -1,0 +1,1173 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Workbook InnovAIte</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#ffffff; --ink:#14103a; --muted:#6b6391; --soft:#4a3b74;
+    --line:#E2D9FA; --card:#F3EEFF; --violet:#6D28D9; --red:#E0245E; --amber:#B45309; --coral:#D97757;
+    --font:"Libre Franklin",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth;scroll-padding-top:92px}
+  body{background:var(--bg);font-family:var(--font);color:var(--ink);line-height:1.5;
+    -webkit-font-smoothing:antialiased;padding-bottom:16vh}
+
+  header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.95);
+    backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .hwrap{max-width:860px;margin:0 auto;padding:11px 20px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+  .brand{font-weight:900;letter-spacing:-.02em;font-size:17px;white-space:nowrap}
+  .brand span{color:var(--violet)}
+  nav{display:flex;gap:6px;margin-left:auto}
+  nav a{font-size:13px;font-weight:800;text-decoration:none;color:var(--muted);
+    padding:7px 13px;border-radius:999px;border:1px solid var(--line);white-space:nowrap;cursor:pointer}
+  nav a.on{color:#fff;background:var(--violet);border-color:var(--violet)}
+  nav a.lock{opacity:.5}
+
+  main{max-width:860px;margin:0 auto;padding:0 20px}
+
+  .cover{padding:8vh 0 6vh;border-bottom:1px solid var(--line)}
+  .eyebrow{font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:var(--violet);font-weight:800}
+  .cover h1{margin-top:14px;font-size:clamp(36px,7.6vw,64px);font-weight:900;letter-spacing:-.035em;line-height:1}
+  .cover p{margin-top:18px;font-size:clamp(17px,2.4vw,20px);color:var(--soft);font-weight:600;max-width:34em}
+  .who{margin-top:26px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:800}
+  .who b{color:var(--ink)}
+
+  .part{margin-top:6vh;padding:22px 24px;border-radius:20px;color:#fff;background:var(--violet)}
+  .part .pk{font-size:11px;letter-spacing:.22em;text-transform:uppercase;font-weight:800;opacity:.75}
+  .part h2{margin-top:8px;font-size:clamp(23px,4.2vw,32px);font-weight:900;letter-spacing:-.025em;line-height:1.08}
+  .part p{margin-top:10px;font-size:15px;font-weight:600;opacity:.92;max-width:40em}
+
+  section{margin-top:5.5vh;scroll-margin-top:92px}
+  .snum{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--violet);font-weight:800}
+  section h3{margin-top:8px;font-size:clamp(22px,3.8vw,30px);font-weight:900;letter-spacing:-.025em;line-height:1.12}
+  section > p{margin-top:13px;font-size:16px;color:var(--soft);font-weight:500;max-width:40em}
+  .mins{display:inline-block;margin-left:9px;font-size:11px;font-weight:800;color:var(--muted);
+    border:1px solid var(--line);border-radius:999px;padding:3px 9px;vertical-align:middle;white-space:nowrap}
+
+  h4{margin-top:26px;font-size:17px;font-weight:800;letter-spacing:-.01em}
+  ul,ol{margin-top:13px;padding-left:22px;display:flex;flex-direction:column;gap:9px}
+  li{font-size:15.5px;color:var(--soft);font-weight:500}
+  li b,li strong{color:var(--ink);font-weight:700}
+
+  .path{list-style:none;padding-left:0;counter-reset:p;gap:13px}
+  .path li{counter-increment:p;position:relative;padding-left:40px;overflow-wrap:anywhere;line-height:1.75}
+  .path li::before{content:counter(p);position:absolute;left:0;top:2px;width:26px;height:26px;border-radius:50%;
+    background:var(--violet);color:#fff;font-size:13px;font-weight:900;display:grid;place-items:center}
+  kbd{font-family:var(--font);font-size:13.5px;font-weight:800;color:var(--ink);
+    background:var(--card);border:1px solid var(--line);border-radius:7px;padding:2px 7px;
+    display:inline;overflow-wrap:anywhere;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+  .arrow{color:var(--violet);font-weight:800;padding:0 2px}
+
+  .prompt{margin-top:17px;border:1px solid var(--line);border-radius:18px;overflow:hidden;background:#fff}
+  .ptop{display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--card);border-bottom:1px solid var(--line)}
+  .ptop .pl{font-size:11px;letter-spacing:.18em;text-transform:uppercase;font-weight:800;color:var(--violet)}
+  .copy{margin-left:auto;border:0;background:var(--violet);color:#fff;font-family:var(--font);
+    font-size:13px;font-weight:800;padding:8px 15px;border-radius:999px;cursor:pointer;white-space:nowrap}
+  .copy:hover{background:#5b21b6}
+  .copy.ok{background:#15803d}
+  .ptext{padding:16px;font-family:var(--mono);font-size:13.5px;line-height:1.62;
+    white-space:pre-wrap;color:#2a2550;max-height:300px;overflow-y:auto}
+  .ptext var{font-style:normal;font-weight:700;color:var(--violet);background:#EDE4FF;border-radius:4px;padding:1px 4px}
+  .ptext var.vacio{color:#9a93b8;background:transparent;border:1px dashed #D9C8FA;font-weight:600}
+
+  .fields{margin-top:17px;display:flex;flex-direction:column;gap:14px}
+  .f label{display:block;font-size:13px;font-weight:800;color:var(--ink);margin-bottom:5px}
+  .f label i{font-style:normal;color:var(--violet);font-family:var(--mono);font-size:12.5px}
+  .f .hint{display:block;font-size:13px;color:var(--muted);font-weight:500;margin-bottom:7px;line-height:1.4}
+  .f input,.f textarea{width:100%;font-family:var(--font);font-size:15px;color:var(--ink);
+    border:1px solid var(--line);border-radius:12px;padding:11px 13px;background:#fff;resize:vertical}
+  .f textarea{min-height:74px;line-height:1.45}
+  .f input:focus,.f textarea:focus{outline:0;border-color:var(--violet);box-shadow:0 0 0 3px rgba(109,40,217,.13)}
+
+  /* ---------- cargar excel ---------- */
+  .up{margin-top:19px;border:2px dashed var(--line);border-radius:18px;padding:26px 20px;text-align:center;
+    background:#FCFAFF;cursor:pointer;transition:border-color .2s,background .2s}
+  .up:hover,.up.over{border-color:var(--violet);background:var(--card)}
+  .up.ok{border-style:solid;border-color:#15803d;background:#F0FDF4}
+  .upic{font-size:28px;line-height:1}
+  .upt{margin-top:8px;font-size:16.5px;font-weight:800}
+  .upd{margin-top:6px;font-size:14px;color:var(--muted);font-weight:500}
+  .upd b{color:var(--violet);text-decoration:underline}
+  .upmsg{margin-top:10px;font-size:14px;font-weight:700;color:#15803d}
+  .upmsg.err{color:var(--red)}
+
+  /* ---------- escalera ---------- */
+  .lad{margin-top:18px;display:flex;flex-direction:column;gap:12px}
+  .rung{border:1px solid var(--line);border-radius:14px;padding:14px 16px;background:#fff}
+  .rung .rn{font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:800;color:var(--violet)}
+  .rung .rq{margin-top:4px;font-size:15.5px;font-weight:800}
+  .rung .rx{margin-top:4px;font-size:13.5px;color:var(--muted);font-weight:500;line-height:1.4}
+  .rung input{margin-top:9px;width:100%;font-family:var(--font);font-size:15px;color:var(--ink);
+    border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+  .rung input:focus{outline:0;border-color:var(--violet);box-shadow:0 0 0 3px rgba(109,40,217,.13)}
+  .rung:nth-child(5){border-color:var(--violet);box-shadow:0 0 0 3px rgba(109,40,217,.08)}
+
+  /* ---------- dibujos ---------- */
+  .dib{margin:24px 0 4px;padding:20px 18px;border:1px solid var(--line);border-radius:18px;background:#FCFAFF}
+  .dib svg{display:block;width:100%;max-width:440px;height:auto;margin:0 auto;overflow:visible}
+  .dib .dn{font-family:var(--font);font-size:11px;font-weight:800;fill:var(--violet);
+    letter-spacing:.1em;text-transform:uppercase}
+  .dib .de{font-family:var(--font);font-size:15px;font-weight:700;fill:var(--ink)}
+  .dib .de.hi{fill:var(--violet)}
+  .dib .dc{font-family:var(--font);font-size:12px;font-weight:600;fill:var(--muted)}
+  .dib .dc.hi{fill:var(--violet);font-weight:800}
+  .dib .dp{font-family:var(--font);font-size:12.5px;font-weight:600;fill:var(--muted)}
+  .dib .dm{font-family:var(--font);font-size:13px;font-weight:700;fill:var(--ink)}
+  .dib .dm.g{fill:#9a93b8}
+  .dib .dw{font-family:var(--font);font-size:12.5px;font-weight:800;fill:#fff}
+  .dib .ds{font-family:var(--font);font-size:11px;font-weight:600;fill:var(--muted)}
+  @media (max-width:620px){
+    .dib{padding:16px 14px}
+    .dib .de{font-size:14px}
+    .dib .dc{font-size:11px}
+  }
+
+  /* ---------- guiño discreto ---------- */
+  .aside{margin-top:22px;padding:2px 0 2px 18px;border-left:3px solid var(--violet)}
+  .aside p{font-size:15px;color:var(--soft);font-weight:500;line-height:1.55}
+  .aside p b{color:var(--ink);font-weight:700}
+  .aside a{color:var(--violet);font-weight:800;text-decoration:none;border-bottom:2px solid rgba(109,40,217,.3)}
+  .aside a:hover{border-bottom-color:var(--violet)}
+
+  /* ---------- webinar ---------- */
+  .web{margin-top:24px;border-radius:20px;padding:26px 24px;background:var(--ink);color:#fff}
+  .web .wk{font-size:11px;letter-spacing:.2em;text-transform:uppercase;font-weight:800;opacity:.7}
+  .web h4{margin-top:8px;font-size:clamp(20px,3.4vw,26px);font-weight:900;letter-spacing:-.02em;color:#fff}
+  .web p{margin-top:9px;font-size:15px;font-weight:600;opacity:.9;max-width:34em}
+  .web a{margin-top:16px;display:inline-block;background:#fff;color:var(--ink);font-size:14.5px;font-weight:800;
+    text-decoration:none;padding:12px 22px;border-radius:999px}
+
+  .dl{margin-top:18px;padding:18px;border-radius:16px;background:var(--card);border:1px solid var(--line);
+    display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+  .dl .dt{flex:1;min-width:190px;font-size:14.5px;font-weight:600;color:var(--soft)}
+  .dl .dt b{color:var(--ink)}
+  .dlbtn{border:0;background:var(--ink);color:#fff;font-family:var(--font);font-size:14px;font-weight:800;
+    padding:12px 20px;border-radius:999px;cursor:pointer;white-space:nowrap}
+  .dlbtn:hover{background:#2a2168}
+
+  .note{margin-top:19px;border-radius:16px;padding:16px 18px;border:1px solid var(--line);background:var(--card)}
+  .note .nt{font-size:11px;letter-spacing:.18em;text-transform:uppercase;font-weight:800;color:var(--violet)}
+  .note p{margin-top:7px;font-size:15px;font-weight:600;color:var(--soft)}
+  .note p + p{margin-top:9px}
+  .note b{color:var(--ink)}
+  .note.warn{background:#FFF7ED;border-color:#FED7AA}
+  .note.warn .nt{color:var(--amber)}
+  .note.stop{background:#FEF2F2;border-color:#FECACA}
+  .note.stop .nt{color:var(--red)}
+
+  .tools{margin-top:19px;display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .tool{border:1px solid var(--line);border-radius:18px;padding:18px;background:#fff}
+  .tool.pick{border-color:var(--coral);background:#FFF8F5;box-shadow:0 0 0 3px rgba(217,119,87,.1)}
+  .tnm{font-size:21px;font-weight:900;letter-spacing:-.02em}
+  .trec{margin-top:6px;font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:800;color:var(--coral)}
+  .trec.alt{color:var(--muted)}
+  .tdx{margin-top:10px;font-size:14px;color:var(--soft);font-weight:500;line-height:1.45}
+
+  .check{list-style:none;padding-left:0;gap:11px;margin-top:15px}
+  .check li{display:flex;gap:12px;align-items:flex-start}
+  .check input{flex:none;width:21px;height:21px;accent-color:var(--violet);margin-top:1px;cursor:pointer}
+  .check label{font-size:15.5px;color:var(--soft);font-weight:500;cursor:pointer}
+  .check label b{color:var(--ink);font-weight:700}
+  .check input:checked + label{color:#9a93b8;text-decoration:line-through}
+
+  /* ---------- sesión 2 bloqueada ---------- */
+  #s2wrap{position:relative;margin-top:6vh}
+  #s2wrap .veil{position:absolute;inset:0;z-index:5;border-radius:20px;
+    background:linear-gradient(180deg,rgba(255,255,255,.55) 0%,rgba(255,255,255,.88) 42%,#fff 78%);
+    backdrop-filter:blur(3px);display:flex;flex-direction:column;align-items:center;
+    justify-content:flex-start;padding-top:16vh;text-align:center}
+  #s2wrap .locked{filter:grayscale(1);opacity:.5;pointer-events:none;user-select:none}
+  .lockcard{background:#fff;border:1px solid var(--line);border-radius:22px;padding:30px 28px;
+    box-shadow:0 24px 60px rgba(20,16,58,.14);max-width:420px;margin:0 20px}
+  .lockcard .ic{font-size:34px;line-height:1}
+  .lockcard h4{margin-top:12px;font-size:21px;font-weight:900;letter-spacing:-.02em}
+  .lockcard p{margin-top:10px;font-size:15px;color:var(--soft);font-weight:600}
+  .lockcard .tag{margin-top:16px;display:inline-block;font-size:11px;letter-spacing:.16em;
+    text-transform:uppercase;font-weight:800;color:#fff;background:var(--ink);padding:8px 15px;border-radius:999px}
+
+  .end{margin-top:8vh;padding:34px 26px;border-radius:22px;background:var(--card);border:1px solid var(--line);text-align:center}
+  .end h3{font-size:clamp(22px,3.8vw,30px);font-weight:900;letter-spacing:-.025em}
+  .end p{margin-top:12px;font-size:16px;color:var(--soft);font-weight:600;max-width:34em;margin-left:auto;margin-right:auto}
+  .end .links{margin-top:22px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+  .end .links a{font-size:14px;font-weight:800;text-decoration:none;color:#fff;background:var(--violet);padding:11px 20px;border-radius:999px}
+
+  @media (max-width:620px){
+    .hwrap{padding:10px 16px;gap:9px}
+    .brand{font-size:15px}
+    nav{width:100%;margin-left:0;overflow-x:auto;padding-bottom:2px}
+    nav a{font-size:12px;padding:6px 11px}
+    main{padding:0 16px}
+    .ptext{font-size:12.8px;max-height:260px}
+    .part{padding:18px}
+    .tools{grid-template-columns:1fr}
+    #s2wrap .veil{padding-top:10vh}
+  }
+  @media print{
+    header{position:static} nav,.copy,.dlbtn{display:none}
+    body{padding-bottom:0} .ptext{max-height:none;overflow:visible}
+    section,.part{break-inside:avoid}
+    #s2wrap .veil{display:none} #s2wrap .locked{filter:none;opacity:1}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="hwrap">
+    <div class="brand">Innov<span>AI</span>te</div>
+    <nav>
+      <a href="#sesion1" class="on">Sesión 1</a>
+      <a href="#s2wrap" class="lock">🔒 Sesión 2</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <div class="cover">
+    <div class="eyebrow">Workbook · Sesión 1 de 2</div>
+    <h1>Tu IA deja de ser<br>una página abierta.</h1>
+    <p>Hoy le enseñas quién eres y a quién le hablas, averiguas qué están haciendo las que venden lo mismo que tú, y sales con tu semana de contenido escrita y con voz propia.</p>
+    <div class="who">Con <b>Margot Duek</b></div>
+  </div>
+
+  <section id="sesion1">
+    <div class="snum">Primero que nada</div>
+    <h3>Elige tu copiloto</h3>
+    <p>Hoy trabajamos con <b>Claude</b>. Todo funciona igual en ChatGPT, así que si ya tienes el tuyo entrenado, quédate ahí. Lo que no puedes es brincar entre los dos: elige uno y ese entrenas.</p>
+
+    <div class="tools">
+      <div class="tool pick">
+        <div class="tnm" style="color:var(--coral)">Claude</div>
+        <div class="trec">Lo que usamos hoy</div>
+        <div class="tdx">claude.ai · Los proyectos guardan el ADN de tu negocio de forma permanente, y vienen hasta en el plan gratis.</div>
+      </div>
+      <div class="tool">
+        <div class="tnm">ChatGPT</div>
+        <div class="trec alt">También funciona</div>
+        <div class="tdx">chatgpt.com · Si ya lo usas a diario, el equivalente es la Personalización más la Memoria. Abajo te digo cómo.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 1 -->
+  <section id="p1s">
+    <div class="snum">Paso 1</div>
+    <h3>Hazle una casa a tu negocio <span class="mins">10 min</span></h3>
+    <p>El error de todos es trabajar en chats sueltos: explicas tu negocio, te dan algo bueno, cierras la pestaña y al día siguiente vuelves a explicar lo mismo. Hoy le haces una casa fija.</p>
+
+    <ol class="path">
+      <li>Entra a <kbd>claude.ai</kbd> y en el menú de la izquierda pica <kbd>Projects</kbd>.</li>
+      <li>Arriba a la derecha, <kbd>+ New Project</kbd>.</li>
+      <li>Ponle nombre y descripción: el nombre de tu negocio, o «Mi marca».</li>
+      <li>Del lado derecho hay un botón <kbd>+</kbd> para subir archivos. <b>Sube aquí tu Excel.</b> Si no lo llenaste, el Paso 2 te lo resuelve.</li>
+      <li>Pica <kbd>Set project instructions</kbd>. Esa caja es el cerebro, y la vas a llenar en el Paso 2.</li>
+    </ol>
+
+    <figure class="dib">
+      <svg viewBox="0 0 400 246" role="img" aria-label="Sin proyecto cada chat empieza de cero; con proyecto el ADN de tu negocio vive arriba y todos los chats lo heredan">
+        <text class="dn" x="0" y="10" fill="#9a93b8">Sin proyecto</text>
+        <rect x="0" y="20" width="178" height="34" rx="9" fill="#F4F2F8" stroke="#E6E2F0"/>
+        <text class="dm g" x="12" y="41">Chat nuevo</text>
+        <rect x="0" y="62" width="178" height="34" rx="9" fill="#F4F2F8" stroke="#E6E2F0"/>
+        <text class="dm g" x="12" y="83">Chat nuevo</text>
+        <rect x="0" y="104" width="178" height="34" rx="9" fill="#F4F2F8" stroke="#E6E2F0"/>
+        <text class="dm g" x="12" y="125">Chat nuevo</text>
+        <text class="ds" x="0" y="160">Le explicas tu negocio</text>
+        <text class="ds" x="0" y="176">otra vez. Y otra. Y otra.</text>
+
+        <text class="dn" x="222" y="10">Con proyecto</text>
+        <rect x="222" y="20" width="178" height="118" rx="12" fill="#FBF8FF" stroke="#6D28D9" stroke-width="1.5"/>
+        <rect x="232" y="30" width="158" height="30" rx="8" fill="#6D28D9"/>
+        <text class="dw" x="244" y="49">Tu ADN vive aquí</text>
+        <rect x="232" y="68" width="158" height="26" rx="7" fill="#fff" stroke="#D9C8FA"/>
+        <text class="ds" x="244" y="85" fill="#4a3b74">Chat · ya sabe quién eres</text>
+        <rect x="232" y="100" width="158" height="26" rx="7" fill="#fff" stroke="#D9C8FA"/>
+        <text class="ds" x="244" y="117" fill="#4a3b74">Chat · ya sabe quién eres</text>
+        <text class="ds" x="222" y="160" fill="#6D28D9">Lo escribes una sola vez</text>
+        <text class="ds" x="222" y="176" fill="#6D28D9">y lo hereda todo.</text>
+
+        <line x1="0" y1="206" x2="400" y2="206" stroke="#E2D9FA" stroke-width="1.5"/>
+        <text class="de" x="0" y="228">Afuera del proyecto es un desconocido.</text>
+        <text class="de hi" x="0" y="244">Adentro es tu socio.</text>
+      </svg>
+    </figure>
+
+    <div class="note">
+      <div class="nt">Por qué un proyecto y no un chat</div>
+      <p>Todo chat que abras <b>dentro</b> del proyecto ya sabe quién eres, sin que repitas nada. Dentro del proyecto es tu socio. Fuera, es un desconocido.</p>
+      <p>Los proyectos vienen <b>hasta en el plan gratis</b>, con tope de cinco. Lo que da el plan de pago es más capacidad de archivos, no la función.</p>
+    </div>
+
+    <div class="note warn">
+      <div class="nt">Si te quedas en ChatGPT</div>
+      <p><kbd>foto de perfil</kbd> <span class="arrow">→</span> <kbd>Configuración</kbd> <span class="arrow">→</span> <kbd>Personalización</kbd>, y cambia <kbd>Estilo y tono base</kbd> por el tono con el que de verdad hablas.</p>
+      <p>Y en <kbd>Memoria</kbd>, deja en <b>ON</b> <kbd>Memorias guardadas</kbd> e <kbd>Historial del chat</kbd>. Sin eso, nada de hoy sobrevive.</p>
+    </div>
+  </section>
+
+  <!-- 2 -->
+  <section id="p2s">
+    <div class="snum">Paso 2</div>
+    <h3>Tu ADN <span class="mins">20 min</span></h3>
+    <p>Si ya llenaste el Excel, cárgalo aquí y las cajitas se llenan solas. Si no, las llenas a mano. Los dos caminos llegan al mismo lugar.</p>
+
+    <div class="note">
+      <div class="nt">Cómo funciona esta página</div>
+      <p>Conforme llenas las cajitas, <b>el prompt de más abajo se va llenando solo</b> con tus respuestas. Lo que está en gris punteado es lo que te falta; lo que está en morado ya quedó.</p>
+      <p>Cuando esté completo le picas a <b>Copiar</b> y lo pegas en tu chat. Ya va con tus datos adentro: no tienes que sustituir nada a mano.</p>
+    </div>
+
+    <div class="up" id="zona">
+      <input type="file" id="archivo" accept=".xlsx,.xls,.csv" hidden>
+      <div class="upic">📄</div>
+      <div class="upt">¿Ya llenaste el Excel?</div>
+      <div class="upd">Arrástralo aquí o <b>búscalo en tu compu</b>. Se queda en tu celular, no se sube a ningún lado.</div>
+      <div class="upmsg" id="upmsg"></div>
+    </div>
+
+    <div class="fields">
+      <div class="f"><label>Nombre <i>[nombre_negocio]</i></label>
+        <span class="hint">Cómo se llama. Si es marca personal, tu nombre.</span>
+        <input data-var="nombre_negocio" placeholder="Tostadas Plutón"></div>
+
+      <div class="f"><label>Tipo <i>[tipo_negocio]</i></label>
+        <input data-var="tipo_negocio" placeholder="Cocina a domicilio de tostadas y cosas frías"></div>
+
+      <div class="f"><label>Qué vendes <i>[producto_servicio]</i></label>
+        <span class="hint">Con el mayor detalle posible. Esto es lo que más le sirve a la IA.</span>
+        <textarea data-var="producto_servicio" placeholder="Tostadas de atún y ceviches por encargo, mínimo 10 piezas, entrega el mismo día…"></textarea></div>
+
+      <div class="f"><label>A quién le hablas <i>[audiencia_objetivo]</i></label>
+        <span class="hint">No pongas «todos». Descríbela como si fuera una persona.</span>
+        <textarea data-var="audiencia_objetivo" placeholder="Mamás de 30 a 45 en Polanco que organizan comidas en casa y no quieren cocinar…"></textarea></div>
+
+      <div class="f"><label>Tu competencia directa <i>[mi_competencia_directa]</i></label>
+        <input data-var="mi_competencia_directa" placeholder="Otras cocinas por encargo del rumbo"></div>
+
+      <div class="f"><label>Tu norte visual <i>[norte_visual]</i></label>
+        <span class="hint">Dos o tres marcas o cuentas cuya estética te encanta.</span>
+        <input data-var="norte_visual" placeholder="Aesop, Everlane, la cuenta de @…"></div>
+
+      <div class="f"><label>Tu alter ego <i>[alter_ego]</i></label>
+        <span class="hint">Si tu marca fuera una persona, ¿quién? Puede ser alguien famoso.</span>
+        <input data-var="alter_ego" placeholder="La amiga directa que te dice la verdad sin sermón"></div>
+
+      <div class="f"><label>Lo prohibido <i>[prohibido]</i></label>
+        <span class="hint">Palabras, tonos y temas que no quieres ver nunca. Es el campo que más te va a salvar.</span>
+        <textarea data-var="prohibido" placeholder="Nada de «desbloquea tu potencial», cero culpa con la comida, sin emojis de fuego…"></textarea></div>
+
+      <div class="f"><label>Información adicional <i>[info_adicional]</i></label>
+        <textarea data-var="info_adicional" placeholder="Premios, años, número de clientes, tu historia, lo que sientas que falta…"></textarea></div>
+
+      <div class="f"><label>Tu sitio o tu Instagram <i>[link_sitio]</i></label>
+        <input data-var="link_sitio" placeholder="instagram.com/tucuenta"></div>
+    </div>
+
+    <h4>Tus cinco textos</h4>
+    <p>La última parte del Excel te pedía cinco textos tuyos. Son los que le enseñan a escribir como tú, y valen más que cualquier instrucción de tono. Si cargaste el archivo ya están abajo.</p>
+
+    <div class="fields">
+      <div class="f"><label>Texto 1 <i>[ejemplo_copy1]</i></label>
+        <span class="hint">Un caption, un correo, un mensaje a un cliente. Lo que sea, siempre que lo hayas escrito tú.</span>
+        <textarea data-var="ejemplo_copy1"></textarea></div>
+      <div class="f"><label>Texto 2 <i>[ejemplo_copy2]</i></label><textarea data-var="ejemplo_copy2"></textarea></div>
+      <div class="f"><label>Texto 3 <i>[ejemplo_copy3]</i></label><textarea data-var="ejemplo_copy3"></textarea></div>
+      <div class="f"><label>Texto 4 <i>[ejemplo_copy4]</i></label><textarea data-var="ejemplo_copy4"></textarea></div>
+      <div class="f"><label>Texto 5 <i>[ejemplo_copy5]</i></label><textarea data-var="ejemplo_copy5"></textarea></div>
+    </div>
+
+    <div class="dl">
+      <div class="dt"><b>Extra, no es necesario para el prompt.</b> Esto te baja todo lo que escribiste como un archivo, para subirlo a tu proyecto con el botón <kbd>+</kbd> y que viva ahí permanente. Lo que escribes se guarda solo en este navegador.</div>
+      <button class="dlbtn" id="descargar">Descargar mi ficha</button>
+    </div>
+
+    <div class="prompt">
+      <div class="ptop"><div class="pl">Prompt 1 · Entrenamiento</div>
+        <button class="copy" data-prompt="p1">Copiar con mis datos</button></div>
+      <div class="ptext" id="p1">Actúa como mi [ROL: Director Creativo y Estratega de Marca]. Tu TAREA hoy es absorber la identidad de mi negocio para convertirte en mi mano derecha estratégica.
+
+CONTEXTO DE MI MARCA: Mi negocio es <var>{{nombre_negocio}}</var>, un <var>{{tipo_negocio}}</var> donde ofrecemos <var>{{producto_servicio}}</var>. Nos dirigimos a <var>{{audiencia_objetivo}}</var> y nuestra competencia directa es <var>{{mi_competencia_directa}}</var>.
+
+TONO Y REFERENCIA DE VOZ: Quiero que adoptes la personalidad de mi ALTER EGO: <var>{{alter_ego}}</var>. Nuestra estética se inspira en el NORTE VISUAL de: <var>{{norte_visual}}</var>.
+
+REGLAS DE ORO (LO PROHIBIDO): Tienes estrictamente PROHIBIDO lo siguiente: <var>{{prohibido}}</var>.
+
+INFORMACIÓN ADICIONAL: <var>{{info_adicional}}</var>. Puedes conocer más en: <var>{{link_sitio}}</var>.
+
+CÓMO ESCRIBO YO. Estos cinco textos los escribí yo. Antes de contestar nada, analízalos y dime en pocas líneas qué ves: si uso frases cortas o largas, palabras sencillas o rebuscadas, cómo puntúo, y qué energía tengo. Ese análisis es un filtro obligatorio para todo lo que escribas para mí de ahora en adelante.
+1. <var>{{ejemplo_copy1}}</var>
+2. <var>{{ejemplo_copy2}}</var>
+3. <var>{{ejemplo_copy3}}</var>
+4. <var>{{ejemplo_copy4}}</var>
+5. <var>{{ejemplo_copy5}}</var>
+
+FORMATO DE RESPUESTA: Primero el análisis de mi voz. Luego, todas las preguntas que necesites para conocer mi negocio a profundidad. No te quedes con ninguna duda y no inventes nada.</div>
+    </div>
+
+    <div class="note stop">
+      <div class="nt">Lo que de verdad importa de este paso</div>
+      <p>Va a terminar haciéndote preguntas. <b>Contéstalas.</b> Ahí está la diferencia entre una IA que escribe bien y una que escribe como tú. Si no sabes algo, dile «no lo sé todavía, ayúdame a definirlo».</p>
+      <p>Cuando acaben, pídele: <b>«resume todo lo que sabes de mi negocio en un bloque listo para pegar»</b>. Copias ese bloque y lo pegas en <kbd>Set project instructions</kbd>. Eso lo vuelve permanente.</p>
+    </div>
+
+    <div class="aside">
+      <p>Acabas de hacer algo que la mayoría de la gente que usa IA nunca hace: se quedan en el chat suelto, repitiendo su contexto todos los días. <b>Tú ya tienes un socio con memoria.</b> Lo que sigue, y que casi nadie llega a montar, es conectarlo a tu operación para que trabaje sin ti. Eso es lo que armo el <a href="https://luma.com/ziugaiik" target="_blank" rel="noopener">martes 3, en una clase gratis</a>.</p>
+    </div>
+  </section>
+
+  <!-- 3 -->
+  <section id="p3s">
+    <div class="snum">Paso 3</div>
+    <h3>A quién le hablas, de verdad <span class="mins">30 min</span></h3>
+    <p>En el Excel escribiste algo como «mujeres de 25 a 40». Eso no es tu cliente: es un dato del INEGI. Vamos a bajarle cinco niveles, y cada nivel te acerca más a una persona de carne y hueso.</p>
+
+    <h4>A · Los cinco niveles</h4>
+    <p>Baja uno por uno. No brinques. El quinto es el que te va a dar los ganchos de todo lo que escribas este año.</p>
+
+    <figure class="dib">
+      <svg viewBox="0 0 400 436" role="img" aria-label="Los cinco niveles: de mujeres de 28 a 40, que compite con todas, hasta la frase que se dice a sí misma, donde no compites con nadie">
+        <text class="dn" x="2" y="10">Nivel 1 · El grupo</text>
+        <rect x="2" y="18" width="396" height="13" rx="6.5" fill="#EDE4FF"/>
+        <text class="de" x="2" y="52">«Mujeres de 28 a 40»</text>
+        <text class="dc" x="398" y="52" text-anchor="end">compites con todas</text>
+
+        <text class="dn" x="2" y="98">Nivel 2 · Qué hace</text>
+        <rect x="2" y="106" width="310" height="13" rx="6.5" fill="#D9C8FA"/>
+        <text class="de" x="2" y="140">«Trabaja en corporativo, llega muerta»</text>
+
+        <text class="dn" x="2" y="186">Nivel 3 · En qué momento está</text>
+        <rect x="2" y="194" width="228" height="13" rx="6.5" fill="#B99BF0"/>
+        <text class="de" x="2" y="228">«Acaba de tener a su primer hijo»</text>
+
+        <text class="dn" x="2" y="274">Nivel 4 · Qué ya intentó</text>
+        <rect x="2" y="282" width="152" height="13" rx="6.5" fill="#8F5FE3"/>
+        <text class="de" x="2" y="316">«Ya hizo dos dietas y las dejó»</text>
+
+        <text class="dn" x="2" y="362">Nivel 5 · Qué se dice a sí misma</text>
+        <rect x="2" y="370" width="88" height="13" rx="6.5" fill="#6D28D9"/>
+        <text class="de hi" x="2" y="404">«No tengo fuerza de voluntad»</text>
+        <text class="dc hi" x="398" y="404" text-anchor="end">con nadie</text>
+
+        <line x1="2" y1="424" x2="398" y2="424" stroke="#E2D9FA" stroke-width="1.5"/>
+        <text class="dp" x="2" y="434">Entre más angosto, menos competencia y más te compran.</text>
+      </svg>
+    </figure>
+
+    <div class="lad">
+      <div class="rung">
+        <div class="rn">Nivel 1 · El grupo</div>
+        <div class="rq">¿Quién es, en lo obvio?</div>
+        <div class="rx">Edad, género, dónde vive. Aquí sí vale lo genérico, es el punto de partida.</div>
+        <input data-var="aud1" placeholder="Mujeres de 28 a 40 en la Ciudad de México">
+      </div>
+      <div class="rung">
+        <div class="rn">Nivel 2 · Qué hace</div>
+        <div class="rq">¿A qué se dedica y cómo es su día?</div>
+        <div class="rx">Su trabajo, sus horarios, con quién vive.</div>
+        <input data-var="aud2" placeholder="Trabaja en corporativo, sale a las 8, llega muerta">
+      </div>
+      <div class="rung">
+        <div class="rn">Nivel 3 · En qué momento está</div>
+        <div class="rq">¿Qué le acaba de cambiar en la vida?</div>
+        <div class="rx">La gente compra cuando algo cambia. Un bebé, una mudanza, una renuncia, una boda, una ruptura.</div>
+        <input data-var="aud3" placeholder="Acaba de tener a su primer hijo y no se reconoce">
+      </div>
+      <div class="rung">
+        <div class="rn">Nivel 4 · Qué ya intentó</div>
+        <div class="rq">¿Qué probó antes que no le funcionó?</div>
+        <div class="rx">Aquí está tu diferenciador. Si sabes qué la decepcionó, sabes qué prometer y qué no.</div>
+        <input data-var="aud4" placeholder="Ya hizo dos dietas y las dejó a la tercera semana">
+      </div>
+      <div class="rung">
+        <div class="rn">Nivel 5 · Qué se dice a sí misma</div>
+        <div class="rq">¿Cuál es la frase que tiene en la cabeza a las once de la noche?</div>
+        <div class="rx">En sus palabras, no en las tuyas. Esta frase, tal cual, es el mejor gancho que vas a escribir.</div>
+        <input data-var="aud5" placeholder="«No tengo fuerza de voluntad»">
+      </div>
+    </div>
+
+    <div class="note">
+      <div class="nt">Por qué funciona</div>
+      <p>En el nivel 1 compites con todo el mundo. En el nivel 5 no compites con nadie, porque nadie más le está hablando a esa persona exacta con esas palabras exactas.</p>
+      <p>Si te atoras en el 4 o el 5, pregúntale a tu socio IA: ya conoce tu negocio y te puede proponer tres opciones para que escojas.</p>
+    </div>
+
+    <h4>B · Lo que tu propio Instagram ya sabe de ti</h4>
+    <ol class="path">
+      <li>En Instagram, entra a tu perfil <span class="arrow">→</span> <kbd>Herramientas profesionales</kbd> <span class="arrow">→</span> <kbd>Estadísticas</kbd>.</li>
+      <li>Busca <kbd>Audiencia</kbd> o <kbd>Seguidores</kbd>. Ahí vienen edad, género y ciudad de tu gente real.</li>
+      <li><b>Toma capturas de pantalla</b> y súbelas al proyecto de Claude con el botón <kbd>+</kbd>.</li>
+    </ol>
+
+    <div class="note">
+      <div class="nt">Este truco se queda contigo para siempre</div>
+      <p>Cualquier pantalla que no puedas exportar, la capturas y se la das. Claude lee imágenes. Estadísticas, tickets, un menú de la competencia, una captura de tu banco: todo sirve.</p>
+    </div>
+
+    <h4>C · Las tres que venden lo mismo que tú</h4>
+    <p>Abre tres cuentas que te hagan competencia. Copia los últimos diez captions de cada una y sus precios si los publican. Es copiar y pegar, es gratis, y es el insumo que nadie se toma la molestia de juntar.</p>
+
+    <figure class="dib">
+      <svg viewBox="0 0 400 268" role="img" aria-label="Lo que dicen las tres cuentas se encima en el centro; lo que ninguna dice es tu hueco">
+        <text class="dn" x="0" y="10">Todo lo que se podría decir en tu nicho</text>
+        <rect x="0" y="20" width="400" height="190" rx="16" fill="#FCFAFF" stroke="#E2D9FA"/>
+
+        <circle cx="120" cy="92" r="50" fill="#6D28D9" fill-opacity=".16" stroke="#B99BF0"/>
+        <circle cx="186" cy="118" r="50" fill="#6D28D9" fill-opacity=".16" stroke="#B99BF0"/>
+        <circle cx="140" cy="152" r="50" fill="#6D28D9" fill-opacity=".16" stroke="#B99BF0"/>
+        <text class="ds" x="120" y="54" text-anchor="middle" fill="#6D28D9">Cuenta 1</text>
+        <text class="ds" x="214" y="104" text-anchor="middle" fill="#6D28D9">Cuenta 2</text>
+        <text class="ds" x="120" y="192" text-anchor="middle" fill="#6D28D9">Cuenta 3</text>
+        <text class="dw" x="148" y="124" text-anchor="middle">lo mismo</text>
+
+        <circle cx="330" cy="68" r="34" fill="#fff" stroke="#6D28D9" stroke-width="2" stroke-dasharray="5 4"/>
+        <text class="dn" x="330" y="64" text-anchor="middle">Tu</text>
+        <text class="dn" x="330" y="78" text-anchor="middle">hueco</text>
+
+        <line x1="0" y1="230" x2="400" y2="230" stroke="#E2D9FA" stroke-width="1.5"/>
+        <text class="de" x="0" y="252">Donde se enciman, compites.</text>
+        <text class="de hi" x="0" y="268">Donde no llega ninguna, mandas tú.</text>
+      </svg>
+    </figure>
+
+    <div class="prompt">
+      <div class="ptop"><div class="pl">Prompt 2 · El hueco</div>
+        <button class="copy" data-prompt="p2">Copiar con mis datos</button></div>
+      <div class="ptext" id="p2">Ya conoces mi negocio. Te voy a dar material de tres cuentas que venden algo parecido a lo mío, y las capturas de las estadísticas de mis propios seguidores.
+
+MI CLIENTA, EN CINCO NIVELES:
+1. Es <var>{{aud1}}</var>
+2. <var>{{aud2}}</var>
+3. Y ahorita: <var>{{aud3}}</var>
+4. Ya intentó: <var>{{aud4}}</var>
+5. Y se dice a sí misma: <var>{{aud5}}</var>
+
+TAREA: encuentra mi hueco. Entrégame:
+
+1. QUÉ PROMETEN LAS TRES. Lo que las tres dicen igual, aunque lo digan con otras palabras.
+2. QUÉ NO DICE NINGUNA. Temas, miedos o situaciones que sus clientes seguro tienen y que nadie está tocando.
+3. QUÉ SÍ LES FUNCIONA. De los posts que te pasé, cuáles tuvieron más comentarios y qué tenían en común. No adivines: dime qué ves.
+4. MI GENTE REAL. Según mis estadísticas, quién me sigue de verdad y en qué se parece o se diferencia de quien yo creía.
+5. EL HUECO. Una sola frase: qué puedo decir yo que ninguna de las tres está diciendo, y que le hable a la gente que de verdad me sigue.
+
+Sé concreto y basa todo en el material que te di. Si algo no se puede concluir con lo que tienes, dilo en vez de inventarlo.
+
+MATERIAL:
+[pega aquí los captions de las tres cuentas]</div>
+    </div>
+
+    <div class="note warn">
+      <div class="nt">La pregunta que separa esto de la papilla</div>
+      <p>«Analiza mi competencia» devuelve obviedades. Lo que acabas de pedir es específico y con material real, por eso la respuesta sirve. <b>Esa es la lección de hoy</b>, y aplica para todo lo que le pidas de aquí en adelante.</p>
+    </div>
+
+    <div class="aside">
+      <p>Y eso que acabas de hacer con tres cuentas y unas capturas <b>es la versión a mano</b>. Lo mismo se puede dejar corriendo solo, revisando a tu competencia cada semana sin que tú abras nada. Es de lo que hablo el <a href="https://luma.com/ziugaiik" target="_blank" rel="noopener">martes 3</a>, por si te quedaste con ganas.</p>
+    </div>
+  </section>
+
+  <!-- 4 -->
+  <section id="p4s">
+    <div class="snum">Paso 4</div>
+    <h3>Afila la oferta <span class="mins">15 min</span></h3>
+    <p>Ya te conoce y ya sabe dónde está tu hueco. Ahora que te destruya la oferta.</p>
+
+    <div class="prompt">
+      <div class="ptop"><div class="pl">Prompt 3 · La oferta</div>
+        <button class="copy" data-prompt="p3">Copiar</button></div>
+      <div class="ptext" id="p3">Actúa como Alex Hormozi. Ya conoces mi negocio, a mi gente real y el hueco que encontramos. Tu misión es transformar lo que vendo en una oferta que se sienta irresistible.
+
+Dime:
+- ¿Cómo aumento el valor percibido sin aumentar mis costos?
+- ¿Qué bonos o garantías la vuelven irresistible?
+- ¿Cómo la presentarías para que mi cliente sienta que pierde dinero si no me compra?
+
+Empecemos cuestionando mi precio y mi promesa principal. Sé duro, no me des por mi lado.</div>
+    </div>
+
+    <div class="note">
+      <div class="nt">La regla</div>
+      <p>No aceptes la primera respuesta. Discútele, defiéndete, cámbiale cosas. <b>Terminas cuando tu propia oferta te emocione a ti.</b></p>
+    </div>
+  </section>
+
+  <!-- 5 -->
+  <section id="p5s">
+    <div class="snum">Paso 5</div>
+    <h3>Tu semana escrita <span class="mins">30 min</span></h3>
+    <p>Siete posts, cada uno con un trabajo distinto. Un feed donde todos los posts venden, cansa. Un feed donde ninguno vende, no te da de comer.</p>
+
+    <h4>A · Primero tus pilares, y se los peleas</h4>
+    <p>Los cinco pilares de siempre son <b>autoridad, empatía, prueba, venta y personalidad</b>. Funcionan, pero son de todos. Tú vas a sacar tres o cuatro que sean tuyos, y antes de aceptarlos los discutes.</p>
+
+    <div class="prompt">
+      <div class="ptop"><div class="pl">Prompt 4 · Tus pilares</div>
+        <button class="copy" data-prompt="p4">Copiar con mis datos</button></div>
+      <div class="ptext" id="p4">Ya conoces mi negocio, a mi clienta en cinco niveles y el hueco que encontramos.
+
+Propón 3 o 4 PILARES DE CONTENIDO que sean míos, no genéricos. Pueden apoyarse en los clásicos (autoridad, empatía, prueba, venta, personalidad) pero tienen que estar escritos para <var>{{nombre_negocio}}</var> en concreto.
+
+Para cada pilar dame:
+- NOMBRE: corto, que yo lo pueda recordar sin leerlo.
+- QUÉ HACE: qué logra ese pilar en mi clienta.
+- POR QUÉ ESTE: por qué este pilar y no otro, dado mi hueco y mi competencia.
+- CUÁNTAS VECES: de cada 7 posts, cuántos deberían ser de este pilar.
+
+Y ahora lo importante: NO me los des como verdad. Después de proponerlos, dime cuál de los tres o cuatro es el más flojo y por qué, y hazme UNA pregunta que me obligue a defender o cambiar el que menos te convenza.
+
+Vamos a discutirlos antes de escribir nada.</div>
+    </div>
+
+    <div class="note warn">
+      <div class="nt">Este es el momento de pelear</div>
+      <p>Te va a preguntar algo incómodo. <b>Contéstale de verdad</b>, cámbiale los pilares, quítale uno, métele otro. Dos o tres rondas.</p>
+      <p>Si aceptas los primeros pilares que te dé, tu feed va a sonar igual al de todas. El valor de esta parte está en la discusión, no en la lista.</p>
+    </div>
+
+    <h4>B · Ahora sí, los siete posts</h4>
+
+    <div class="prompt">
+      <div class="ptop"><div class="pl">Prompt 5 · Los 7 posts</div>
+        <button class="copy" data-prompt="p5">Copiar con mis datos</button></div>
+      <div class="ptext" id="p5">Escríbeme 7 posts para la próxima semana de <var>{{nombre_negocio}}</var>, con mi tono de voz y mi oferta.
+
+Repártelos entre los pilares que acabamos de acordar, respetando cuántas veces dijimos que iba cada uno. Dos de ellos tienen que atacar el hueco que encontramos.
+
+Escríbelos para la clienta del nivel 5: la que se dice a sí misma «<var>{{aud5}}</var>». Al menos uno de los ganchos tiene que usar esa frase o algo muy cercano, en sus palabras y no en las mías.
+
+Para cada post dame:
+- PILAR: cuál es y por qué ese.
+- GANCHO: la primera línea. Tiene que funcionar sola, sin el resto.
+- TEXTO: el caption completo, listo para publicar.
+- FOTO: qué foto necesito tomar, descrita con detalle para que yo la pueda hacer con mi celular.
+- CTA: qué quiero que haga quien lo lea.
+
+Reglas: frases cortas, nada de relleno, respeta todo lo que tengo prohibido, y que no suene a inteligencia artificial. Si un post no te late, dímelo y propón otro.</div>
+    </div>
+
+    <div class="note">
+      <div class="nt">Tus fotos ganan</div>
+      <p>No vamos a generar imágenes. Una foto real de lo que vendes, tomada con tu celular, convierte más que cualquier render. Por eso cada post te dice <b>exactamente qué foto tomar</b>: es tu lista de tareas del fin de semana.</p>
+    </div>
+  </section>
+
+  <!-- 6 -->
+  <section id="p6s">
+    <div class="snum">Paso 6</div>
+    <h3>Dale voz <span class="mins">20 min</span></h3>
+    <p>Aquí pasa lo divertido. Tus fotos más una locución profesional es un reel completo, sin salir a cámara y sin generar una sola imagen.</p>
+
+    <ol class="path">
+      <li>Entra a <kbd>elevenlabs.io</kbd> y crea tu cuenta. La versión gratis alcanza de sobra para hoy.</li>
+      <li>Ve a <kbd>Text to Speech</kbd>.</li>
+      <li>En la lista de voces, filtra por <b>español</b>. Hay voces mexicanas y latinas hechas para redes: escucha varias antes de casarte con una.</li>
+      <li>Pega el guion de abajo y genera. Descarga el audio.</li>
+      <li>Arma el reel en tu celular: tus fotos, el audio encima. Con el editor de Instagram basta.</li>
+    </ol>
+
+    <div class="prompt">
+      <div class="ptop"><div class="pl">Prompt 6 · El guion</div>
+        <button class="copy" data-prompt="p6">Copiar con mis datos</button></div>
+      <div class="ptext" id="p6">De los 7 posts que escribiste, toma el del pilar de EMPATÍA y conviértelo en un guion de locución para un reel de 20 segundos de <var>{{nombre_negocio}}</var>.
+
+Reglas:
+- Se escucha, no se lee. Frases que se puedan decir de corrido sin quedarse sin aire.
+- Los primeros 3 segundos tienen que detener el scroll.
+- Entre 45 y 55 palabras. Ni una más.
+- Sin emojis, sin hashtags, sin «bienvenidos a mi canal».
+- Mi tono de voz, y respeta lo prohibido.
+
+Dame solo el texto del guion, listo para pegar. Y aparte, en una línea, qué tipo de voz le queda: edad, acento y energía.</div>
+    </div>
+
+    <div class="note warn">
+      <div class="nt">Que no suene a robot leyendo</div>
+      <p>Si queda plano, no es la voz: es la puntuación. Mete puntos donde quieras que respire y comas donde quieras que baje el ritmo. Una frase larga sin comas sale atropellada en cualquier voz.</p>
+    </div>
+
+    <div class="aside">
+      <p>Ya tienes la semana resuelta. La pregunta incómoda es qué vas a publicar <b>el mes que viene</b>, y la respuesta no puede ser «me vuelvo a sentar dos horas». Ahí es donde la mayoría abandona: no por falta de ideas, por falta de sistema. El <a href="https://luma.com/ziugaiik" target="_blank" rel="noopener">martes 3 enseño cómo se arma el sistema</a>, gratis y en vivo.</p>
+    </div>
+  </section>
+
+  <!-- tarea -->
+  <section id="tarea">
+    <div class="snum">Antes de la próxima</div>
+    <h3>Tu tarea</h3>
+
+    <h4>1 · Toma tus siete fotos</h4>
+    <p>Ya tienes la lista exacta, post por post. Es lo único que no puede hacer la IA por ti.</p>
+
+    <h4>2 · Publica tres</h4>
+    <p>No esperes a tenerlo perfecto. Publica tres de los siete y fíjate cuál se mueve más. Ese dato lo usamos en la segunda sesión.</p>
+
+    <h4>3 · Abre el candado de Instagram</h4>
+    <p>Esto es lo más importante y lo que nadie hace. Sin esto, la segunda sesión no te va a servir de nada.</p>
+
+    <ul class="check">
+      <li><input type="checkbox" id="c1"><label for="c1">Mi Instagram en <b>cuenta profesional</b>, de Creador o de Negocio</label></li>
+      <li><input type="checkbox" id="c2"><label for="c2">Mi Instagram <b>vinculado a una página de Facebook</b> que yo administro. Si no tengo página, la creo: es gratis y no necesito publicar nada en ella</label></li>
+      <li><input type="checkbox" id="c3"><label for="c3">En <kbd>Privacidad</kbd> → <kbd>Mensajes</kbd>, prendido <b>«Permitir acceso a los mensajes»</b></label></li>
+      <li><input type="checkbox" id="c4"><label for="c4">Mi <b>proyecto de Claude</b> con las instrucciones pegadas</label></li>
+      <li><input type="checkbox" id="c5"><label for="c5">Mis <b>7 posts</b> guardados y mis fotos tomadas</label></li>
+    </ul>
+
+    <div class="note stop">
+      <div class="nt">Lo de la página de Facebook va en serio</div>
+      <p>Es un requisito de Meta, no nuestro. Sin esa liga, nada de lo que vamos a armar la próxima sesión puede leer tus comentarios. Llega con eso resuelto y la segunda clase te rinde el doble.</p>
+    </div>
+
+    <div class="web">
+      <div class="wk">Martes 3 de noviembre · 7:00 pm</div>
+      <h4>Crece con IA</h4>
+      <p>Webinar gratuito en vivo, un día después de nuestra segunda sesión. Si te quedaste con ganas de más, ahí seguimos. Al registrarte entras al grupo de WhatsApp, que es por donde mandamos el link.</p>
+      <a href="https://luma.com/ziugaiik" target="_blank" rel="noopener">Registrarme gratis</a>
+    </div>
+  </section>
+
+  <!-- ===== SESIÓN 2 BLOQUEADA ===== -->
+  <div id="s2wrap">
+    <div class="veil">
+      <div class="lockcard">
+        <div class="ic">🔒</div>
+        <h4>Sesión 2</h4>
+        <p>Aquí dejas de publicar a mano y montas el sistema: tu contenido programado, y un robot que convierte comentarios en clientes mientras duermes.</p>
+        <div class="tag">Se abre en la próxima sesión</div>
+      </div>
+    </div>
+
+    <div class="locked" aria-hidden="true">
+      <div class="part">
+        <div class="pk">Sesión 2</div>
+        <h2>Que trabaje solo</h2>
+        <p>Dos horas completas de GoHighLevel. Entras con contenido escrito y sales con un sistema prendido: tu mes publicándose solo y un robot convirtiendo comentarios en clientes.</p>
+      </div>
+
+      <section>
+        <div class="snum">Un paréntesis honesto</div>
+        <h3>RecallGo y GoHighLevel son lo mismo</h3>
+        <p>En tu pantalla vas a ver <b>RecallGo</b>. La plataforma por debajo se llama <b>GoHighLevel</b>, y es exactamente la misma: mismos botones, mismas pantallas, mismo todo. RecallGo es esa plataforma bajo mi marca.</p>
+        <p>Te lo digo por dos razones, y la segunda te va a servir más que la primera.</p>
+        <ul>
+          <li><b>El precio.</b> GoHighLevel cuesta 97 dólares al mes. Aquí lo tienes en 57.</li>
+          <li><b>Los tutoriales.</b> Cuando quieras aprender algo que no vimos en clase, busca <b>«GoHighLevel»</b> en YouTube. Hay miles de videos, de gente que lleva años. Si buscas «RecallGo» no vas a encontrar nada, y es la misma pantalla que tienes enfrente.</li>
+        </ul>
+        <div class="note">
+          <div class="nt">Traducción rápida</div>
+          <p>De aquí en adelante este workbook dice <b>GoHighLevel</b>, porque así se llama en todos lados. Tú léelo como <b>RecallGo</b>, que es lo que dice tu pantalla.</p>
+        </div>
+      </section>
+
+      <section>
+        <div class="snum">Antes de empezar</div>
+        <h3>El candado de Meta <span class="mins">15 min</span></h3>
+        <p>Si hiciste la tarea, esto te toma dos minutos. Si no, aquí es donde te vas a atorar mientras las demás avanzan.</p>
+        <ol class="path">
+          <li>Tu Instagram en <b>cuenta profesional</b>, de Creador o de Negocio.</li>
+          <li>Ese Instagram <b>vinculado a una página de Facebook</b> que tú administres. Sin página no hay robot: Meta no deja.</li>
+          <li>En GoHighLevel: <kbd>Settings</kbd> <span class="arrow">→</span> <kbd>Integrations</kbd>, y conectas la cuenta de <b>Facebook que administra</b> tu Instagram.</li>
+          <li>Acepta <b>todos</b> los permisos. Si quitas uno, algo se rompe después y no vas a saber cuál.</li>
+        </ol>
+      </section>
+
+      <section>
+        <div class="snum">Bloque 1</div>
+        <h3>Tu mes, programado <span class="mins">20 min</span></h3>
+        <p>Dejar de publicar a mano es la diferencia entre acordarte a las once de la noche y tener el mes resuelto un lunes.</p>
+        <ol class="path">
+          <li><kbd>Marketing</kbd> <span class="arrow">→</span> <kbd>Social Planner</kbd></li>
+          <li>La primera vez, conecta tus cuentas: Instagram, Facebook, TikTok, lo que uses.</li>
+          <li><kbd>Create New Post</kbd>, eliges en qué cuentas sale, subes tu foto y pegas el copy.</li>
+          <li>Eliges día y hora, y <kbd>Schedule</kbd>.</li>
+          <li>Repites con tus 7 posts. En la vista de <kbd>Calendar</kbd> ves tu mes completo de un golpe.</li>
+        </ol>
+        <div class="note">
+          <div class="nt">Hazlo en bloque</div>
+          <p>Súbelos los siete de corrido, no uno por semana. El costo de empezar es lo que te cansa, no el trabajo en sí.</p>
+        </div>
+      </section>
+
+      <section>
+        <div class="snum">Bloque 2</div>
+        <h3>Comenta «X» y te mando «Y» <span class="mins">35 min</span></h3>
+        <p>Esto es lo que has visto mil veces en Instagram y siempre te preguntaste cómo se hacía. Son siete pasos.</p>
+        <ol class="path">
+          <li><kbd>Automation</kbd> <span class="arrow">→</span> <kbd>Workflows</kbd> <span class="arrow">→</span> <kbd>Create Workflow</kbd> <span class="arrow">→</span> <kbd>Start from scratch</kbd></li>
+          <li><kbd>+ Add Trigger</kbd> <span class="arrow">→</span> <kbd>Instagram Comment on Post</kbd>. Eliges tu cuenta, dejas <kbd>Post Type</kbd> en <kbd>Published Post</kbd> y seleccionas el post exacto.</li>
+          <li><kbd>+ Add Filter</kbd> <span class="arrow">→</span> <kbd>Exact Match</kbd> y escribes tu palabra clave. <b>Esto no es opcional:</b> sin filtro le mandas DM a quien comente «qué bonito».</li>
+          <li>Si está disponible, limítalo a <b>comentarios de primer nivel</b>, para que las respuestas dentro de un hilo no lo disparen.</li>
+          <li>En el lienzo, <kbd>+</kbd> <span class="arrow">→</span> <kbd>Actions</kbd> <span class="arrow">→</span> <kbd>Communication</kbd> <span class="arrow">→</span> <kbd>Instagram Interactive Messenger</kbd></li>
+          <li>Dentro de la acción: <kbd>Reply Type</kbd> en <kbd>Reply to Comment via DM</kbd>, y en <kbd>Message → Body</kbd> tu mensaje. Si metes el link con <kbd>Trigger Links</kbd>, después sabes quién le picó.</li>
+          <li>Prendes el interruptor en <b>ON</b>, <kbd>Save</kbd> y luego <kbd>Publish</kbd>. Sin publicar, no corre.</li>
+        </ol>
+
+        <div class="note">
+          <div class="nt">Botones</div>
+          <p>Puedes añadir <kbd>Buttons</kbd> o <kbd>Quick Replies</kbd> para que la persona elija y el flujo se abra en ramas. Solo uno de los dos por mensaje, y los <kbd>Quick Replies</kbd> no se llevan con un archivo adjunto.</p>
+        </div>
+
+        <h4>Pruébalo antes de presumirlo</h4>
+        <ol class="path">
+          <li>Comenta tu palabra clave <b>desde otra cuenta</b>, no desde la tuya.</li>
+          <li>Revisa que te llegue el DM.</li>
+          <li>Si no llega, abre <kbd>Execution Logs</kbd> del workflow: ahí dice en qué paso se atoró.</li>
+        </ol>
+
+        <div class="note warn">
+          <div class="nt">La ventana de 24 horas</div>
+          <p>Meta solo te deja mandar automatizado <b>dentro de las 24 horas</b> siguientes a la última interacción de esa persona. Pasado ese rato, se cierra la puerta.</p>
+          <p>Por eso tu DM cierra con pregunta: si te contesta, la ventana se reabre. Y por eso el seguimiento largo va por correo o WhatsApp, no por DM.</p>
+        </div>
+      </section>
+
+      <section>
+        <div class="snum">Bloque 3</div>
+        <h3>Y entonces, ¿qué pasa? <span class="mins">20 min</span></h3>
+        <p>El DM es el anzuelo. El dinero está en lo que sigue, y es exactamente lo que las apps de solo-DM no hacen.</p>
+
+        <figure class="dib">
+          <svg viewBox="0 0 400 320" role="img" aria-label="La cadena va de comentario a DM, y ahí se acaban las apps de solo mensajes; después siguen contacto, pipeline, seguimiento y cita">
+            <rect x="60" y="0" width="280" height="34" rx="9" fill="#EDE4FF" stroke="#D9C8FA"/>
+            <text class="dm" x="200" y="22" text-anchor="middle">Alguien comenta tu palabra</text>
+            <path d="M200 34 L200 46" stroke="#B99BF0" stroke-width="2"/>
+            <path d="M196 42 L200 48 L204 42 Z" fill="#B99BF0"/>
+
+            <rect x="60" y="48" width="280" height="34" rx="9" fill="#EDE4FF" stroke="#D9C8FA"/>
+            <text class="dm" x="200" y="70" text-anchor="middle">Le llega tu DM</text>
+
+            <line x1="0" y1="100" x2="400" y2="100" stroke="#E0245E" stroke-width="1.5" stroke-dasharray="6 4"/>
+            <text class="ds" x="400" y="95" text-anchor="end" fill="#E0245E">aquí se acaban las apps de solo DM</text>
+
+            <path d="M200 104 L200 118" stroke="#6D28D9" stroke-width="2"/>
+            <path d="M196 114 L200 120 L204 114 Z" fill="#6D28D9"/>
+
+            <rect x="60" y="120" width="280" height="34" rx="9" fill="#6D28D9"/>
+            <text class="dw" x="200" y="142" text-anchor="middle">Cae en tu CRM con nombre y correo</text>
+            <path d="M200 154 L200 166" stroke="#6D28D9" stroke-width="2"/>
+            <path d="M196 162 L200 168 L204 162 Z" fill="#6D28D9"/>
+
+            <rect x="60" y="168" width="280" height="34" rx="9" fill="#6D28D9"/>
+            <text class="dw" x="200" y="190" text-anchor="middle">Entra a tu pipeline y se etiqueta</text>
+            <path d="M200 202 L200 214" stroke="#6D28D9" stroke-width="2"/>
+            <path d="M196 210 L200 216 L204 210 Z" fill="#6D28D9"/>
+
+            <rect x="60" y="216" width="280" height="34" rx="9" fill="#6D28D9"/>
+            <text class="dw" x="200" y="238" text-anchor="middle">Si no contesta, le sigues solo</text>
+            <path d="M200 250 L200 262" stroke="#6D28D9" stroke-width="2"/>
+            <path d="M196 258 L200 264 L204 258 Z" fill="#6D28D9"/>
+
+            <rect x="60" y="264" width="280" height="34" rx="9" fill="#14103a"/>
+            <text class="dw" x="200" y="286" text-anchor="middle">Agenda cita contigo</text>
+
+            <text class="de hi" x="200" y="316" text-anchor="middle">Todo esto pasa sin que escribas nada.</text>
+          </svg>
+        </figure>
+
+        <ul>
+          <li>Quien comentó <b>cae solo en tu CRM</b>, con su nombre y su correo.</li>
+          <li>Le pones una <b>etiqueta</b> para saber de qué post llegó. En un mes sabes qué contenido te trae clientes y cuál solo te trae aplausos.</li>
+          <li>Entra a un <b>pipeline</b>: nuevo, en conversación, cotizado, cerrado. Dejas de perder gente en el olvido.</li>
+          <li>Si no te contesta en tres días, le sale un <b>seguimiento automático</b>. Ese mensaje es el que más vende y el que nadie manda.</li>
+        </ul>
+        <div class="note">
+          <div class="nt">La cuenta que nadie hace</div>
+          <p>De cada diez personas que te escriben, cuántas te compran. Si no lo sabes, estás publicando a ciegas. Al terminar este bloque lo vas a saber.</p>
+        </div>
+      </section>
+
+      <section>
+        <div class="snum">Bloque 4</div>
+        <h3>Tu calendario de citas <span class="mins">15 min</span></h3>
+        <p>Tu propio link de agenda, conectado a tu calendario real. La persona elige hora, le llega confirmación y recordatorio, y a ti te aparece la cita.</p>
+        <ul>
+          <li>Defines tus días y horas disponibles una sola vez.</li>
+          <li>Pones cuánto dura cada cita y cuánto espacio quieres entre una y otra.</li>
+          <li>Sale un link que puedes mandar por DM, poner en tu bio o meter en tu landing.</li>
+        </ul>
+        <p>Se acabó el «¿cuándo puedes?» ida y vuelta siete veces.</p>
+      </section>
+
+      <section>
+        <div class="snum">Bloque 5</div>
+        <h3>Tu link para la bio <span class="mins">20 min</span></h3>
+        <p>Una página con tu oferta, tus fotos y tu calendario, hecha aquí mismo. Sales de la sesión con el link puesto en tu perfil.</p>
+        <ul>
+          <li>Tu oferta, la que peleaste con Hormozi, escrita arriba.</li>
+          <li>Tus fotos y, si lo hiciste, tu reel con locución.</li>
+          <li>Un formulario corto o tu botón de agendar.</li>
+          <li>Todo el que llene ahí cae en el mismo CRM del Bloque 3.</li>
+        </ul>
+      </section>
+
+      <section>
+        <div class="snum">Bloque 6</div>
+        <h3>Deja el mes corriendo <span class="mins">10 min</span></h3>
+        <p>Antes de irte, revisamos juntas que las cuatro cosas estén vivas:</p>
+        <ul class="check">
+          <li><input type="checkbox" id="s2a"><label for="s2a">Contenido programado</label></li>
+          <li><input type="checkbox" id="s2b"><label for="s2b">Robot de comentarios prendido y probado</label></li>
+          <li><input type="checkbox" id="s2c"><label for="s2c">Calendario abierto y link copiado</label></li>
+          <li><input type="checkbox" id="s2d"><label for="s2d">Landing publicada y puesta en la bio</label></li>
+        </ul>
+        <p>Cierras la laptop y sigue trabajando. De eso se trataba.</p>
+      </section>
+    </div>
+  </div>
+
+  <div class="end">
+    <h3>Nos vemos en la segunda</h3>
+    <p>Hoy hiciste en dos horas lo que a mucha gente le toma meses de ensayo y error. La próxima lo dejamos corriendo solo.</p>
+    <div class="links">
+      <a href="https://www.youtube.com/@margotduek">YouTube · @margotduek</a>
+      <a href="https://instagram.com/margotduekk">Instagram · @margotduekk</a>
+    </div>
+  </div>
+
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script>
+(function(){
+  var KEY = 'innovaite-';
+
+  var fields = document.querySelectorAll('[data-var]');
+  fields.forEach(function(el){
+    var k = KEY + el.dataset.var;
+    try { var v = localStorage.getItem(k); if (v) el.value = v; } catch(e){}
+    el.addEventListener('input', function(){
+      try { localStorage.setItem(k, el.value); } catch(e){}
+      pintar();
+    });
+  });
+
+  document.querySelectorAll('.check input').forEach(function(box){
+    var k = KEY + 'chk-' + box.id;
+    try { if (localStorage.getItem(k) === '1') box.checked = true; } catch(e){}
+    box.addEventListener('change', function(){
+      try { localStorage.setItem(k, box.checked ? '1' : '0'); } catch(e){}
+    });
+  });
+
+  function valueOf(name){
+    var el = document.querySelector('[data-var="' + name + '"]');
+    var v = el && el.value.trim();
+    return v ? v : '[' + name + ']';
+  }
+
+  /* los huecos del prompt se llenan en vivo, conforme escriben arriba */
+  var huecos = [];
+  document.querySelectorAll('.ptext var').forEach(function(v){
+    var m = v.textContent.match(/\{\{(\w+)\}\}/);
+    if (m){ v.setAttribute('data-v', m[1]); huecos.push(v); }
+  });
+
+  function pintar(){
+    huecos.forEach(function(v){
+      var nombre = v.getAttribute('data-v');
+      var val = valueOf(nombre);
+      var vacio = val === '[' + nombre + ']';
+      v.textContent = val;
+      v.className = vacio ? 'vacio' : '';
+    });
+  }
+  pintar();
+
+  function fallbackCopy(text, done){
+    var ta = document.createElement('textarea');
+    ta.value = text; ta.setAttribute('readonly','');
+    ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select();
+    try { document.execCommand('copy'); done(); } catch(e){}
+    document.body.removeChild(ta);
+  }
+
+  document.querySelectorAll('.copy').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var box = document.getElementById(btn.dataset.prompt);
+      var text = box.innerText;
+      var done = function(){
+        var old = btn.textContent;
+        btn.textContent = 'Copiado'; btn.classList.add('ok');
+        setTimeout(function(){ btn.textContent = old; btn.classList.remove('ok'); }, 1600);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(done, function(){ fallbackCopy(text, done); });
+      } else { fallbackCopy(text, done); }
+    });
+  });
+
+  /* ---- descargar la ficha para subirla al proyecto ---- */
+  var LABELS = {
+    nombre_negocio:'Nombre', tipo_negocio:'Tipo de negocio', producto_servicio:'Qué vendo',
+    audiencia_objetivo:'A quién le hablo', mi_competencia_directa:'Competencia directa',
+    norte_visual:'Norte visual', alter_ego:'Alter ego', prohibido:'Lo prohibido',
+    info_adicional:'Información adicional', link_sitio:'Sitio o Instagram',
+    aud1:'Mi clienta · Nivel 1, el grupo', aud2:'Mi clienta · Nivel 2, qué hace',
+    aud3:'Mi clienta · Nivel 3, en qué momento está', aud4:'Mi clienta · Nivel 4, qué ya intentó',
+    aud5:'Mi clienta · Nivel 5, qué se dice a sí misma',
+    ejemplo_copy1:'Texto mío 1', ejemplo_copy2:'Texto mío 2', ejemplo_copy3:'Texto mío 3',
+    ejemplo_copy4:'Texto mío 4', ejemplo_copy5:'Texto mío 5'
+  };
+  var btnDl = document.getElementById('descargar');
+  if (btnDl) btnDl.addEventListener('click', function(){
+    var nombre = (document.querySelector('[data-var="nombre_negocio"]').value || 'mi negocio').trim();
+    var out = ['# Ficha de ' + nombre, '', 'Este documento describe mi negocio. Úsalo como contexto permanente.', ''];
+    Object.keys(LABELS).forEach(function(k){
+      var el = document.querySelector('[data-var="' + k + '"]');
+      var v = el && el.value.trim();
+      if (v) out.push('## ' + LABELS[k], '', v, '');
+    });
+    var blob = new Blob([out.join('\n')], {type:'text/markdown;charset=utf-8'});
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'ficha-' + nombre.toLowerCase().replace(/[^a-z0-9]+/gi,'-').replace(/^-|-$/g,'') + '.md';
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    setTimeout(function(){ URL.revokeObjectURL(a.href); }, 2000);
+    var old = btnDl.textContent;
+    btnDl.textContent = 'Descargada';
+    setTimeout(function(){ btnDl.textContent = old; }, 1800);
+  });
+
+  /* ---- cargar el Excel que ya llenaron ---- */
+  var zona = document.getElementById('zona');
+  var archivo = document.getElementById('archivo');
+  var upmsg = document.getElementById('upmsg');
+
+  function aviso(txt, malo){
+    upmsg.textContent = txt;
+    upmsg.className = 'upmsg' + (malo ? ' err' : '');
+  }
+
+  function ponerValor(nombre, valor){
+    var el = document.querySelector('[data-var="' + nombre + '"]');
+    if (!el || !valor) return false;
+    el.value = valor;
+    el.dispatchEvent(new Event('input'));
+    return true;
+  }
+
+  function leerFilas(filas){
+    /* localiza la columna de la variable y la columna donde escribieron */
+    var colVar = -1, colResp = -1, colEj = -1, filaCab = -1;
+    /* columnas del template que NUNCA son la respuesta del alumno */
+    var VETADAS = /^(prompt|variable|¿?a qué se refiere\??|ejemplo)$/i;
+
+    for (var i = 0; i < Math.min(filas.length, 12); i++){
+      var fila = filas[i] || [];
+      for (var c = 0; c < fila.length; c++){
+        if (String(fila[c]).trim().toLowerCase() === 'variable'){
+          colVar = c; filaCab = i;
+          for (var d = 0; d < fila.length; d++){
+            if (/^ejemplo$/i.test(String(fila[d]).trim())) colEj = d;
+          }
+          /* la respuesta es la última cabecera que no sea una columna del template */
+          for (var e = fila.length - 1; e > c; e--){
+            var t = String(fila[e] || '').trim();
+            if (t && !VETADAS.test(t)){ colResp = e; break; }
+          }
+          break;
+        }
+      }
+      if (colVar > -1) break;
+    }
+    if (colVar === -1){ colVar = 1; colEj = 3; colResp = 4; }
+    if (colResp <= colVar || colResp === colEj) colResp = Math.max(colVar + 3, colEj + 1);
+
+    var puestos = 0, vacios = 0;
+    filas.forEach(function(fila, idx){
+      if (!fila || idx === filaCab) return;
+      var celda = String(fila[colVar] || '');
+      var m = celda.match(/\[\s*([a-z0-9_]+)\s*\]/i);
+      if (!m) return;
+      var valor = String(fila[colResp] == null ? '' : fila[colResp]).trim();
+      var ejemplo = colEj > -1 ? String(fila[colEj] == null ? '' : fila[colEj]).trim() : '';
+      /* si lo que leímos es idéntico al ejemplo del template, leímos la columna equivocada */
+      if (!valor || (ejemplo && valor === ejemplo)) { vacios++; return; }
+      if (ponerValor(m[1], valor)) puestos++;
+    });
+    return { puestos: puestos, vacios: vacios };
+  }
+
+  function procesar(file){
+    if (!file) return;
+    if (typeof XLSX === 'undefined'){
+      aviso('No se pudo cargar el lector de Excel. Llénalo a mano, es igual de válido.', true);
+      return;
+    }
+    aviso('Leyendo…');
+    var lector = new FileReader();
+    lector.onerror = function(){ aviso('No pude abrir el archivo. Llénalo a mano.', true); };
+    lector.onload = function(e){
+      try {
+        var libro = XLSX.read(e.target.result, { type:'array' });
+        var total = { puestos:0, vacios:0 };
+        libro.SheetNames.forEach(function(nombre){
+          var filas = XLSX.utils.sheet_to_json(libro.Sheets[nombre], { header:1, blankrows:false, defval:'' });
+          var r = leerFilas(filas);
+          total.puestos += r.puestos; total.vacios += r.vacios;
+        });
+        if (total.puestos === 0){
+          aviso('Abrí el archivo pero no encontré respuestas. ¿Es el Excel de la sesión? Si no, llénalo a mano.', true);
+          zona.classList.remove('ok');
+        } else {
+          var txt = 'Listo: llené ' + total.puestos + ' campo' + (total.puestos === 1 ? '' : 's') + '.';
+          if (total.vacios) txt += ' Te faltaron ' + total.vacios + ' por contestar, búscalos abajo vacíos.';
+          aviso(txt);
+          zona.classList.add('ok');
+        }
+      } catch(err){
+        aviso('No pude leer ese archivo. Revisa que sea el Excel, o llénalo a mano.', true);
+        zona.classList.remove('ok');
+      }
+    };
+    lector.readAsArrayBuffer(file);
+  }
+
+  if (zona){
+    zona.addEventListener('click', function(){ archivo.click(); });
+    archivo.addEventListener('change', function(){ procesar(archivo.files[0]); });
+    ['dragenter','dragover'].forEach(function(ev){
+      zona.addEventListener(ev, function(e){ e.preventDefault(); zona.classList.add('over'); });
+    });
+    ['dragleave','drop'].forEach(function(ev){
+      zona.addEventListener(ev, function(e){ e.preventDefault(); zona.classList.remove('over'); });
+    });
+    zona.addEventListener('drop', function(e){
+      if (e.dataTransfer && e.dataTransfer.files.length) procesar(e.dataTransfer.files[0]);
+    });
+  }
+
+  /* ---- llave para revisar la Sesión 2 sin publicarla abierta ---- */
+  if (/(\?|&)abierto\b/.test(location.search)){
+    var env = document.getElementById('s2wrap');
+    if (env){
+      var velo = env.querySelector('.veil');
+      if (velo) velo.remove();
+      var gris = env.querySelector('.locked');
+      if (gris){ gris.classList.remove('locked'); gris.removeAttribute('aria-hidden'); }
+      var tab = document.querySelector('nav a.lock');
+      if (tab){ tab.classList.remove('lock'); tab.textContent = 'Sesión 2'; }
+    }
+  }
+
+  /* ---- nav ---- */
+  var links = Array.prototype.slice.call(document.querySelectorAll('nav a'));
+  var targets = links.map(function(a){ return document.querySelector(a.getAttribute('href')); });
+  function onScroll(){
+    var y = window.scrollY + 150, best = 0;
+    targets.forEach(function(t, i){ if (t && t.offsetTop <= y) best = i; });
+    links.forEach(function(a, i){ a.classList.toggle('on', i === best); });
+  }
+  window.addEventListener('scroll', onScroll, { passive:true });
+  onScroll();
+})();
+</script>
+</body>
+</html>
