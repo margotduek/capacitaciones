@@ -128,6 +128,19 @@
     .dib .dc{font-size:11px}
   }
 
+  /* ---------- capturas con círculos ---------- */
+  .cap{margin:22px 0 4px}
+  .capimg{position:relative;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fff}
+  .capimg img{display:block;width:100%;height:auto}
+  .capimg svg{position:absolute;inset:0;width:100%;height:100%}
+  .capimg .mk{fill:none;stroke:#E0245E;stroke-width:3}
+  .capimg .bg{fill:#E0245E}
+  .capimg .bn{font-family:var(--font);font-size:15px;font-weight:900;fill:#fff;text-anchor:middle}
+  .cap figcaption{margin-top:12px;font-size:14.5px;color:var(--soft);font-weight:600;line-height:1.5}
+  .cap figcaption b{color:var(--ink)}
+  .cap figcaption .n{display:inline-grid;place-items:center;width:19px;height:19px;border-radius:50%;
+    background:#E0245E;color:#fff;font-size:11.5px;font-weight:900;vertical-align:-3px;margin-right:4px}
+
   /* ---------- guiño discreto ---------- */
   .aside{margin-top:22px;padding:2px 0 2px 18px;border-left:3px solid var(--violet)}
   .aside p{font-size:15px;color:var(--soft);font-weight:500;line-height:1.55}
@@ -781,6 +794,27 @@ Dame solo el texto del guion, listo para pegar. Y aparte, en una línea, qué ti
         <div class="snum">Bloque 1</div>
         <h3>Tu mes, programado <span class="mins">20 min</span></h3>
         <p>Dejar de publicar a mano es la diferencia entre acordarte a las once de la noche y tener el mes resuelto un lunes.</p>
+        <figure class="cap">
+          <div class="capimg">
+            <img src="img-ghl/01-conectar-redes.jpg" alt="Pantalla del Social Planner con las tarjetas de Facebook, Instagram, LinkedIn, TikTok y YouTube, cada una con su botón de Connect" loading="lazy">
+            <svg viewBox="0 0 800 513" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+              <rect class="mk" x="6" y="357" width="136" height="26" rx="13"/>
+              <circle class="bg" cx="156" cy="370" r="12"/><text class="bn" x="156" y="375">1</text>
+
+              <rect class="mk" x="210" y="58" width="74" height="26" rx="13"/>
+              <circle class="bg" cx="298" cy="71" r="12"/><text class="bn" x="298" y="76">2</text>
+
+              <rect class="mk" x="168" y="264" width="240" height="106" rx="16"/>
+              <circle class="bg" cx="420" cy="276" r="12"/><text class="bn" x="420" y="281">3</text>
+            </svg>
+          </div>
+          <figcaption>
+            <span class="n">1</span>En el menú de la izquierda, <b>Marketing</b>.
+            <span class="n">2</span>Arriba, la pestaña <b>Social Planner</b>.
+            <span class="n">3</span>Pica <b>+ Connect</b> en Facebook y en Instagram. Esas dos van juntas: conecta primero Facebook.
+          </figcaption>
+        </figure>
+
         <ol class="path">
           <li><kbd>Marketing</kbd> <span class="arrow">→</span> <kbd>Social Planner</kbd></li>
           <li>La primera vez, conecta tus cuentas: Instagram, Facebook, TikTok, lo que uses.</li>
