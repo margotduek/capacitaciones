@@ -51,6 +51,7 @@
     border:1px solid var(--line);border-radius:999px;padding:3px 9px;vertical-align:middle;white-space:nowrap}
 
   h4{margin-top:26px;font-size:17px;font-weight:800;letter-spacing:-.01em}
+  h5{margin-top:20px;font-size:14px;font-weight:800;color:var(--violet);letter-spacing:.01em}
   ul,ol{margin-top:13px;padding-left:22px;display:flex;flex-direction:column;gap:9px}
   li{font-size:15.5px;color:var(--soft);font-weight:500}
   li b,li strong{color:var(--ink);font-weight:700}
@@ -447,16 +448,11 @@ FORMATO DE RESPUESTA: Primero el análisis de mi voz. Luego, todas las preguntas
   <!-- 3 -->
   <section id="p3s">
     <div class="snum">Paso 3</div>
-    <h3>A quién le hablas, de verdad <span class="mins">30 min</span></h3>
+    <h3>A quién le hablas, de verdad <span class="mins">15 min</span></h3>
     <p>En el Excel escribiste algo como «mujeres de 25 a 40». Eso no es tu cliente: es un dato del INEGI. Vamos a bajarle cinco niveles, y cada nivel te acerca más a una persona de carne y hueso.</p>
 
-    <div class="note warn">
-      <div class="nt">Diez minutos de buscar, ahorita</div>
-      <p>Para este paso necesitas dos cosas y las vas a conseguir en vivo: <b>las capturas de tus estadísticas de Instagram</b> y <b>diez captions de tres cuentas</b> que hagan lo mismo que tú.</p>
-      <p>Pon un cronómetro de diez minutos y no te claves buscando la cuenta perfecta. Tres parecidas a ti sirven más que una famosa. Lo que no alcances, lo completas en tu casa: el prompt te espera.</p>
-    </div>
 
-    <h4>A · Los cinco niveles</h4>
+    <h4>Los cinco niveles</h4>
     <p>Baja uno por uno. No brinques. El quinto es el que te va a dar los ganchos de todo lo que escribas este año.</p>
 
     <figure class="dib">
@@ -527,90 +523,18 @@ FORMATO DE RESPUESTA: Primero el análisis de mi voz. Luego, todas las preguntas
       <p>Si te atoras en el 4 o el 5, pregúntale a tu socio IA: ya conoce tu negocio y te puede proponer tres opciones para que escojas.</p>
     </div>
 
-    <h4>B · Lo que tu propio Instagram ya sabe de ti</h4>
-    <ol class="path">
-      <li>En Instagram, entra a tu perfil <span class="arrow">→</span> <kbd>Herramientas profesionales</kbd> <span class="arrow">→</span> <kbd>Estadísticas</kbd>.</li>
-      <li>Busca <kbd>Audiencia</kbd> o <kbd>Seguidores</kbd>. Ahí vienen edad, género y ciudad de tu gente real.</li>
-      <li><b>Toma capturas de pantalla</b> y súbelas al proyecto de Claude con el botón <kbd>+</kbd>.</li>
-    </ol>
-
-    <div class="note">
-      <div class="nt">Este truco se queda contigo para siempre</div>
-      <p>Cualquier pantalla que no puedas exportar, la capturas y se la das. Claude lee imágenes. Estadísticas, tickets, un menú de la competencia, una captura de tu banco: todo sirve.</p>
-    </div>
-
-    <h4>C · Las tres que venden lo mismo que tú</h4>
-    <p>Abre tres cuentas que te hagan competencia. Copia los últimos diez captions de cada una y sus precios si los publican. Es copiar y pegar, es gratis, y es el insumo que nadie se toma la molestia de juntar.</p>
-
-    <figure class="dib">
-      <svg viewBox="0 0 400 268" role="img" aria-label="Lo que dicen las tres cuentas se encima en el centro; lo que ninguna dice es tu hueco">
-        <text class="dn" x="0" y="10">Todo lo que se podría decir en tu nicho</text>
-        <rect x="0" y="20" width="400" height="190" rx="16" fill="#FCFAFF" stroke="#E2D9FA"/>
-
-        <circle cx="120" cy="92" r="50" fill="#6D28D9" fill-opacity=".16" stroke="#B99BF0"/>
-        <circle cx="186" cy="118" r="50" fill="#6D28D9" fill-opacity=".16" stroke="#B99BF0"/>
-        <circle cx="140" cy="152" r="50" fill="#6D28D9" fill-opacity=".16" stroke="#B99BF0"/>
-        <text class="ds" x="120" y="54" text-anchor="middle" fill="#6D28D9">Cuenta 1</text>
-        <text class="ds" x="214" y="104" text-anchor="middle" fill="#6D28D9">Cuenta 2</text>
-        <text class="ds" x="120" y="192" text-anchor="middle" fill="#6D28D9">Cuenta 3</text>
-        <text class="dw" x="148" y="124" text-anchor="middle">lo mismo</text>
-
-        <circle cx="330" cy="68" r="34" fill="#fff" stroke="#6D28D9" stroke-width="2" stroke-dasharray="5 4"/>
-        <text class="dn" x="330" y="64" text-anchor="middle">Tu</text>
-        <text class="dn" x="330" y="78" text-anchor="middle">hueco</text>
-
-        <line x1="0" y1="230" x2="400" y2="230" stroke="#E2D9FA" stroke-width="1.5"/>
-        <text class="de" x="0" y="252">Donde se enciman, compites.</text>
-        <text class="de hi" x="0" y="268">Donde no llega ninguna, mandas tú.</text>
-      </svg>
-    </figure>
-
-    <div class="prompt">
-      <div class="ptop"><div class="pl">Prompt 2 · El hueco</div>
-        <button class="copy" data-prompt="p2">Copiar con mis datos</button></div>
-      <div class="ptext" id="p2">Ya conoces mi negocio. Te voy a dar material de tres cuentas que venden algo parecido a lo mío, y las capturas de las estadísticas de mis propios seguidores.
-
-MI CLIENTA, EN CINCO NIVELES:
-1. Es <var>{{aud1}}</var>
-2. <var>{{aud2}}</var>
-3. Y ahorita: <var>{{aud3}}</var>
-4. Ya intentó: <var>{{aud4}}</var>
-5. Y se dice a sí misma: <var>{{aud5}}</var>
-
-TAREA: encuentra mi hueco. Entrégame:
-
-1. QUÉ PROMETEN LAS TRES. Lo que las tres dicen igual, aunque lo digan con otras palabras.
-2. QUÉ NO DICE NINGUNA. Temas, miedos o situaciones que sus clientes seguro tienen y que nadie está tocando.
-3. QUÉ SÍ LES FUNCIONA. De los posts que te pasé, cuáles tuvieron más comentarios y qué tenían en común. No adivines: dime qué ves.
-4. MI GENTE REAL. Según mis estadísticas, quién me sigue de verdad y en qué se parece o se diferencia de quien yo creía.
-5. EL HUECO. Una sola frase: qué puedo decir yo que ninguna de las tres está diciendo, y que le hable a la gente que de verdad me sigue.
-
-Sé concreto y basa todo en el material que te di. Si algo no se puede concluir con lo que tienes, dilo en vez de inventarlo.
-
-MATERIAL:
-[pega aquí los captions de las tres cuentas]</div>
-    </div>
-
-    <div class="note warn">
-      <div class="nt">La pregunta que separa esto de la papilla</div>
-      <p>«Analiza mi competencia» devuelve obviedades. Lo que acabas de pedir es específico y con material real, por eso la respuesta sirve. <b>Esa es la lección de hoy</b>, y aplica para todo lo que le pidas de aquí en adelante.</p>
-    </div>
-
-    <div class="aside">
-      <p>Y eso que acabas de hacer con tres cuentas y unas capturas <b>es la versión a mano</b>. Lo mismo se puede dejar corriendo solo, revisando a tu competencia cada semana sin que tú abras nada. Es de lo que hablo el <a href="https://luma.com/ziugaiik" target="_blank" rel="noopener">martes 3</a>, por si te quedaste con ganas.</p>
-    </div>
   </section>
 
   <!-- 4 -->
   <section id="p4s">
     <div class="snum">Paso 4</div>
     <h3>Afila la oferta <span class="mins">15 min</span></h3>
-    <p>Ya te conoce y ya sabe dónde está tu hueco. Ahora que te destruya la oferta.</p>
+    <p>Ya te conoce y ya sabe a quién le hablas. Ahora que te destruya la oferta.</p>
 
     <div class="prompt">
       <div class="ptop"><div class="pl">Prompt 3 · La oferta</div>
         <button class="copy" data-prompt="p3">Copiar</button></div>
-      <div class="ptext" id="p3">Actúa como Alex Hormozi. Ya conoces mi negocio, a mi gente real y el hueco que encontramos. Tu misión es transformar lo que vendo en una oferta que se sienta irresistible.
+      <div class="ptext" id="p3">Actúa como Alex Hormozi. Ya conoces mi negocio y a mi clienta en cinco niveles. Tu misión es transformar lo que vendo en una oferta que se sienta irresistible.
 
 Dime:
 - ¿Cómo aumento el valor percibido sin aumentar mis costos?
@@ -638,14 +562,14 @@ Empecemos cuestionando mi precio y mi promesa principal. Sé duro, no me des por
     <div class="prompt">
       <div class="ptop"><div class="pl">Prompt 4 · Tus pilares</div>
         <button class="copy" data-prompt="p4">Copiar con mis datos</button></div>
-      <div class="ptext" id="p4">Ya conoces mi negocio, a mi clienta en cinco niveles y el hueco que encontramos.
+      <div class="ptext" id="p4">Ya conoces mi negocio y a mi clienta en cinco niveles.
 
 Propón 3 o 4 PILARES DE CONTENIDO que sean míos, no genéricos. Pueden apoyarse en los clásicos (autoridad, empatía, prueba, venta, personalidad) pero tienen que estar escritos para <var>{{nombre_negocio}}</var> en concreto.
 
 Para cada pilar dame:
 - NOMBRE: corto, que yo lo pueda recordar sin leerlo.
 - QUÉ HACE: qué logra ese pilar en mi clienta.
-- POR QUÉ ESTE: por qué este pilar y no otro, dado mi hueco y mi competencia.
+- POR QUÉ ESTE: por qué este pilar y no otro, dada mi clienta y lo que vendo.
 - CUÁNTAS VECES: de cada 7 posts, cuántos deberían ser de este pilar.
 
 Y ahora lo importante: NO me los des como verdad. Después de proponerlos, dime cuál de los tres o cuatro es el más flojo y por qué, y hazme UNA pregunta que me obligue a defender o cambiar el que menos te convenza.
@@ -666,7 +590,7 @@ Vamos a discutirlos antes de escribir nada.</div>
         <button class="copy" data-prompt="p5">Copiar con mis datos</button></div>
       <div class="ptext" id="p5">Escríbeme 7 posts para la próxima semana de <var>{{nombre_negocio}}</var>, con mi tono de voz y mi oferta.
 
-Repártelos entre los pilares que acabamos de acordar, respetando cuántas veces dijimos que iba cada uno. Dos de ellos tienen que atacar el hueco que encontramos.
+Repártelos entre los pilares que acabamos de acordar, respetando cuántas veces dijimos que iba cada uno.
 
 Escríbelos para la clienta del nivel 5: la que se dice a sí misma «<var>{{aud5}}</var>». Al menos uno de los ganchos tiene que usar esa frase o algo muy cercano, en sus palabras y no en las mías.
 
@@ -736,13 +660,91 @@ Dame solo el texto del guion, listo para pegar. Y aparte, en una línea, qué ti
     <div class="snum">Antes de la próxima</div>
     <h3>Tu tarea</h3>
 
-    <h4>1 · Toma tus siete fotos</h4>
+    <h4>1 · Averigua a quién le hablas de verdad</h4>
+    <p>Esto es lo que más va a cambiar lo que publiques, y por eso no lo hicimos a las carreras en clase. Son dos insumos y los juntas en quince minutos.</p>
+
+    <h5>Primero, lo que tu propio Instagram ya sabe de ti</h5>
+    <ol class="path">
+      <li>En Instagram, entra a tu perfil <span class="arrow">→</span> <kbd>Herramientas profesionales</kbd> <span class="arrow">→</span> <kbd>Estadísticas</kbd>.</li>
+      <li>Busca <kbd>Audiencia</kbd> o <kbd>Seguidores</kbd>. Ahí vienen edad, género y ciudad de tu gente real.</li>
+      <li><b>Toma capturas de pantalla</b> y súbelas al proyecto de Claude con el botón <kbd>+</kbd>.</li>
+    </ol>
+
+    <div class="note">
+      <div class="nt">Este truco se queda contigo para siempre</div>
+      <p>Cualquier pantalla que no puedas exportar, la capturas y se la das. Claude lee imágenes. Estadísticas, tickets, un menú de la competencia, una captura de tu banco: todo sirve.</p>
+    </div>
+
+    <h5>Luego, las tres que venden lo mismo que tú</h5>
+    <p>Abre tres cuentas que te hagan competencia. Copia los últimos diez captions de cada una y sus precios si los publican. Es copiar y pegar, es gratis, y es el insumo que nadie se toma la molestia de juntar.</p>
+
+    <figure class="dib">
+      <svg viewBox="0 0 400 268" role="img" aria-label="Lo que dicen las tres cuentas se encima en el centro; lo que ninguna dice es tu hueco">
+        <text class="dn" x="0" y="10">Todo lo que se podría decir en tu nicho</text>
+        <rect x="0" y="20" width="400" height="190" rx="16" fill="#FCFAFF" stroke="#E2D9FA"/>
+
+        <circle cx="120" cy="92" r="50" fill="#6D28D9" fill-opacity=".16" stroke="#B99BF0"/>
+        <circle cx="186" cy="118" r="50" fill="#6D28D9" fill-opacity=".16" stroke="#B99BF0"/>
+        <circle cx="140" cy="152" r="50" fill="#6D28D9" fill-opacity=".16" stroke="#B99BF0"/>
+        <text class="ds" x="120" y="54" text-anchor="middle" fill="#6D28D9">Cuenta 1</text>
+        <text class="ds" x="214" y="104" text-anchor="middle" fill="#6D28D9">Cuenta 2</text>
+        <text class="ds" x="120" y="192" text-anchor="middle" fill="#6D28D9">Cuenta 3</text>
+        <text class="dw" x="148" y="124" text-anchor="middle">lo mismo</text>
+
+        <circle cx="330" cy="68" r="34" fill="#fff" stroke="#6D28D9" stroke-width="2" stroke-dasharray="5 4"/>
+        <text class="dn" x="330" y="64" text-anchor="middle">Tu</text>
+        <text class="dn" x="330" y="78" text-anchor="middle">hueco</text>
+
+        <line x1="0" y1="230" x2="400" y2="230" stroke="#E2D9FA" stroke-width="1.5"/>
+        <text class="de" x="0" y="252">Donde se enciman, compites.</text>
+        <text class="de hi" x="0" y="268">Donde no llega ninguna, mandas tú.</text>
+      </svg>
+    </figure>
+
+    <div class="prompt">
+      <div class="ptop"><div class="pl">Prompt 2 · El hueco</div>
+        <button class="copy" data-prompt="p2">Copiar con mis datos</button></div>
+      <div class="ptext" id="p2">Ya conoces mi negocio. Te voy a dar material de tres cuentas que venden algo parecido a lo mío, y las capturas de las estadísticas de mis propios seguidores.
+
+MI CLIENTA, EN CINCO NIVELES:
+1. Es <var>{{aud1}}</var>
+2. <var>{{aud2}}</var>
+3. Y ahorita: <var>{{aud3}}</var>
+4. Ya intentó: <var>{{aud4}}</var>
+5. Y se dice a sí misma: <var>{{aud5}}</var>
+
+TAREA: encuentra mi hueco. Entrégame:
+
+1. QUÉ PROMETEN LAS TRES. Lo que las tres dicen igual, aunque lo digan con otras palabras.
+2. QUÉ NO DICE NINGUNA. Temas, miedos o situaciones que sus clientes seguro tienen y que nadie está tocando.
+3. QUÉ SÍ LES FUNCIONA. De los posts que te pasé, cuáles tuvieron más comentarios y qué tenían en común. No adivines: dime qué ves.
+4. MI GENTE REAL. Según mis estadísticas, quién me sigue de verdad y en qué se parece o se diferencia de quien yo creía.
+5. EL HUECO. Una sola frase: qué puedo decir yo que ninguna de las tres está diciendo, y que le hable a la gente que de verdad me sigue.
+
+Sé concreto y basa todo en el material que te di. Si algo no se puede concluir con lo que tienes, dilo en vez de inventarlo.
+
+MATERIAL:
+[pega aquí los captions de las tres cuentas]</div>
+    </div>
+
+    <div class="note warn">
+      <div class="nt">La pregunta que separa esto de la papilla</div>
+      <p>«Analiza mi competencia» devuelve obviedades. Lo que acabas de pedir es específico y con material real, por eso la respuesta sirve. <b>Esa es la lección de hoy</b>, y aplica para todo lo que le pidas de aquí en adelante.</p>
+    </div>
+
+    <div class="aside">
+      <p>Y eso que acabas de hacer con tres cuentas y unas capturas <b>es la versión a mano</b>. Lo mismo se puede dejar corriendo solo, revisando a tu competencia cada semana sin que tú abras nada. Es de lo que hablo el <a href="https://luma.com/ziugaiik" target="_blank" rel="noopener">martes 3</a>, por si te quedaste con ganas.</p>
+    </div>
+    <h4>2 · Ajusta dos de tus posts</h4>
+    <p>Cuando tengas tu hueco, regresa a tus siete posts y pídele a tu socio IA: <b>«de mis 7 posts, reescribe los 2 que mejor puedan atacar este hueco»</b>. Esos dos son los que te van a traer gente nueva.</p>
+
+    <h4>3 · Toma tus siete fotos</h4>
     <p>Ya tienes la lista exacta, post por post. Es lo único que no puede hacer la IA por ti.</p>
 
-    <h4>2 · Publica tres</h4>
+    <h4>4 · Publica tres</h4>
     <p>No esperes a tenerlo perfecto. Publica tres de los siete y fíjate cuál se mueve más. Ese dato lo usamos en la segunda sesión.</p>
 
-    <h4>3 · Abre el candado de Instagram</h4>
+    <h4>5 · Abre el candado de Instagram</h4>
     <p>Esto es lo más importante y lo que nadie hace. Sin esto, la segunda sesión no te va a servir de nada.</p>
 
     <ul class="check">
@@ -751,6 +753,7 @@ Dame solo el texto del guion, listo para pegar. Y aparte, en una línea, qué ti
       <li><input type="checkbox" id="c3"><label for="c3">En <kbd>Privacidad</kbd> → <kbd>Mensajes</kbd>, prendido <b>«Permitir acceso a los mensajes»</b></label></li>
       <li><input type="checkbox" id="c4"><label for="c4">Mi <b>proyecto de Claude</b> con las instrucciones pegadas</label></li>
       <li><input type="checkbox" id="c5"><label for="c5">Mis <b>7 posts</b> guardados y mis fotos tomadas</label></li>
+      <li><input type="checkbox" id="c7"><label for="c7">Mi <b>hueco</b> encontrado y dos posts ajustados con él</label></li>
     </ul>
 
     <div class="note stop">
