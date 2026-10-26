@@ -887,17 +887,49 @@ Dame solo el texto del guion, listo para pegar. Y aparte, en una línea, qué ti
         <ol class="path">
           <li><kbd>Automation</kbd> <span class="arrow">→</span> <kbd>Workflows</kbd> <span class="arrow">→</span> <kbd>+ Create workflow</kbd> <span class="arrow">→</span> <kbd>Start from Scratch</kbd></li>
           <li>En el lienzo, <kbd>Add new trigger</kbd>. Se abre un panel con buscador: escribe <b>instagram</b> y aparece bajo <kbd>Facebook/Instagram events</kbd> la opción <kbd>Instagram - Comment(s) on a post</kbd>.</li>
-          <li>Elige tu cuenta, deja <kbd>Post Type</kbd> en <kbd>Published Post</kbd> y selecciona el post exacto.</li>
-          <li><kbd>+ Add Filter</kbd> <span class="arrow">→</span> <kbd>Exact Match</kbd> y escribes tu palabra clave. <b>Esto no es opcional:</b> sin filtro le mandas DM a quien comente «qué bonito».</li>
-          <li>Si está disponible, limítalo a <b>comentarios de primer nivel</b>, para que las respuestas dentro de un hilo no lo disparen.</li>
-          <li>En el lienzo, <kbd>+</kbd> <span class="arrow">→</span> <kbd>Actions</kbd> <span class="arrow">→</span> <kbd>Communication</kbd> <span class="arrow">→</span> <kbd>Instagram Interactive Messenger</kbd></li>
-          <li>Dentro de la acción: <kbd>Reply Type</kbd> en <kbd>Reply to Comment via DM</kbd>, y en <kbd>Message → Body</kbd> tu mensaje. Si metes el link con <kbd>Trigger Links</kbd>, después sabes quién le picó.</li>
+          <li>En <kbd>FILTERS</kbd>, el primero viene como <kbd>Page is</kbd>: en <kbd>Select</kbd> eliges tu cuenta de Instagram.</li>
+          <li>Abre ese mismo desplegable y cámbialo a <kbd>Contains phrase</kbd>. Escribe tu palabra clave y <b>dale Enter</b>: se convierte en una etiqueta. Puedes agregar varias.</li>
+          <li>Abajo hay un interruptor, <kbd>Track first level comments only</kbd>. Préndelo: así solo cuentan los comentarios del post y no las respuestas dentro de un hilo.</li>
+          <li><kbd>Save trigger</kbd>. Ya quedó la mitad.</li>
+          <li>En el lienzo, pica el <kbd>+</kbd> de abajo, escribe <b>instagram</b> y elige <kbd>Instagram interactive messenger</kbd>.</li>
+          <li><kbd>REPLY TYPE</kbd> ya viene en <kbd>Reply to comment via DM</kbd>, que es lo que queremos. En <kbd>MESSAGE</kbd> va tu mensaje. Si metes el link con <kbd>Trigger Links</kbd>, después sabes quién le picó.</li>
           <li>Prendes el interruptor en <b>ON</b>, <kbd>Save</kbd> y luego <kbd>Publish</kbd>. Sin publicar, no corre.</li>
         </ol>
+
+        <figure class="cap">
+          <div class="capimg">
+            <img src="img-ghl/08-palabra-clave.jpg" alt="Configuración del disparador con el filtro Contains phrase y la palabra GUIA agregada como etiqueta" loading="lazy">
+            <svg viewBox="0 0 800 513" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+              <rect class="mk" x="470" y="298" width="290" height="26" rx="13"/>
+              <circle class="bg" cx="776" cy="311" r="12"/><text class="bn" x="776" y="316">1</text>
+              <rect class="mk" x="470" y="328" width="290" height="28" rx="14"/>
+              <circle class="bg" cx="776" cy="342" r="12"/><text class="bn" x="776" y="347">2</text>
+              <rect class="mk" x="464" y="400" width="178" height="22" rx="11"/>
+              <circle class="bg" cx="658" cy="411" r="12"/><text class="bn" x="658" y="416">3</text>
+            </svg>
+          </div>
+          <figcaption>
+            <span class="n">1</span>Cambia el filtro a <b>Contains phrase</b>.
+            <span class="n">2</span>Escribe tu palabra y dale <b>Enter</b>: se vuelve una etiqueta como la de «GUIA».
+            <span class="n">3</span>Prende <b>Track first level comments only</b>.
+          </figcaption>
+        </figure>
+
+        <div class="note warn">
+          <div class="nt">Contains phrase, no Exact match</div>
+          <p>Las dos existen, pero <b>Exact match</b> exige que el comentario sea <i>exactamente</i> tu palabra. Si alguien escribe «GUIA porfa» o «guia!!», se queda fuera y nunca sabes por qué.</p>
+          <p><b>Contains phrase</b> la encuentra dentro de la frase. Y como puedes meter varias etiquetas, agrega las variantes: GUIA, guia, quiero la guia.</p>
+        </div>
 
         <div class="note">
           <div class="nt">Botones</div>
           <p>Puedes añadir <kbd>Buttons</kbd> o <kbd>Quick Replies</kbd> para que la persona elija y el flujo se abra en ramas. Solo uno de los dos por mensaje, y los <kbd>Quick Replies</kbd> no se llevan con un archivo adjunto.</p>
+        </div>
+
+        <div class="note">
+          <div class="nt">Ojo con la palabra que elijas</div>
+          <p>El disparador escucha <b>todos</b> tus posts, no uno solo: no hay forma de amarrarlo a una publicación. Lo que separa una campaña de otra es la palabra clave.</p>
+          <p>Así que si usaste «GUIA» el mes pasado para otra cosa, los comentarios viejos de ese post también van a disparar este flujo. Usa una palabra distinta cada vez.</p>
         </div>
 
         <h4>Pruébalo antes de presumirlo</h4>
