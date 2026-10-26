@@ -887,12 +887,15 @@ Dame solo el texto del guion, listo para pegar. Y aparte, en una línea, qué ti
         <ol class="path">
           <li><kbd>Automation</kbd> <span class="arrow">→</span> <kbd>Workflows</kbd> <span class="arrow">→</span> <kbd>+ Create workflow</kbd> <span class="arrow">→</span> <kbd>Start from Scratch</kbd></li>
           <li>En el lienzo, <kbd>Add new trigger</kbd>. Se abre un panel con buscador: escribe <b>instagram</b> y aparece bajo <kbd>Facebook/Instagram events</kbd> la opción <kbd>Instagram - Comment(s) on a post</kbd>.</li>
-          <li>En <kbd>FILTERS</kbd>, el primero viene como <kbd>Page is</kbd>: en <kbd>Select</kbd> eliges tu cuenta de Instagram.</li>
-          <li>Abre ese mismo desplegable y cámbialo a <kbd>Contains phrase</kbd>. Escribe tu palabra clave y <b>dale Enter</b>: se convierte en una etiqueta. Puedes agregar varias.</li>
-          <li>Abajo hay un interruptor, <kbd>Track first level comments only</kbd>. Préndelo: así solo cuentan los comentarios del post y no las respuestas dentro de un hilo.</li>
+          <li>Ahora los <kbd>FILTERS</kbd>. Van cuatro, y se agregan con <kbd>Add filters</kbd>:
+            <br><kbd>Page is</kbd> <span class="arrow">→</span> tu cuenta de Instagram.
+            <br><kbd>Post type is</kbd> <span class="arrow">→</span> <kbd>Published post</kbd>.
+            <br><kbd>Post is</kbd> <span class="arrow">→</span> el post exacto. Aquí lo buscas por su texto y lo eliges.
+            <br><kbd>Contains phrase</kbd> <span class="arrow">→</span> tu palabra clave, y <b>dale Enter</b> para que se vuelva etiqueta.</li>
+          <li>Abajo prende el interruptor <kbd>Track first level comments only</kbd>: así solo cuentan los comentarios del post y no las respuestas dentro de un hilo.</li>
           <li><kbd>Save trigger</kbd>. Ya quedó la mitad.</li>
-          <li>En el lienzo, pica el <kbd>+</kbd> de abajo, escribe <b>instagram</b> y elige <kbd>Instagram interactive messenger</kbd>.</li>
-          <li><kbd>REPLY TYPE</kbd> ya viene en <kbd>Reply to comment via DM</kbd>, que es lo que queremos. En <kbd>MESSAGE</kbd> va tu mensaje. Si metes el link con <kbd>Trigger Links</kbd>, después sabes quién le picó.</li>
+          <li>En el lienzo, pica el <kbd>+</kbd> de abajo, escribe <b>instagram</b> y elige <kbd>Instagram DM</kbd>.</li>
+          <li>Escribe tu mensaje. Si metes el link con <kbd>Trigger Links</kbd>, después sabes quién le picó.</li>
           <li>Prendes el interruptor en <b>ON</b>, <kbd>Save</kbd> y luego <kbd>Publish</kbd>. Sin publicar, no corre.</li>
         </ol>
 
@@ -926,10 +929,16 @@ Dame solo el texto del guion, listo para pegar. Y aparte, en una línea, qué ti
           <p>Puedes añadir <kbd>Buttons</kbd> o <kbd>Quick Replies</kbd> para que la persona elija y el flujo se abra en ramas. Solo uno de los dos por mensaje, y los <kbd>Quick Replies</kbd> no se llevan con un archivo adjunto.</p>
         </div>
 
+        <div class="note stop">
+          <div class="nt">Instagram DM, no la otra</div>
+          <p>Hay dos acciones parecidas: <kbd>Instagram DM</kbd> e <kbd>Instagram interactive messenger</kbd>. <b>Usa la primera.</b></p>
+          <p>La segunda tiene botones y se ve más vistosa, pero trae un aviso de que todavía no funciona con cuentas conectadas desde el Social Planner, que es justo como conectaste la tuya. <kbd>Instagram DM</kbd> es la que está probada y corriendo.</p>
+        </div>
+
         <div class="note">
-          <div class="nt">Ojo con la palabra que elijas</div>
-          <p>El disparador escucha <b>todos</b> tus posts, no uno solo: no hay forma de amarrarlo a una publicación. Lo que separa una campaña de otra es la palabra clave.</p>
-          <p>Así que si usaste «GUIA» el mes pasado para otra cosa, los comentarios viejos de ese post también van a disparar este flujo. Usa una palabra distinta cada vez.</p>
+          <div class="nt">Por qué el filtro del post importa</div>
+          <p>Con <kbd>Post is</kbd> amarras el flujo a <b>una sola publicación</b>. Eso te deja usar palabras cortas y naturales sin miedo, porque solo cuentan los comentarios de ese post.</p>
+          <p>Si te saltas ese filtro, el robot escucha toda tu cuenta y vas a necesitar una palabra única e irrepetible, o se te cruzan las campañas viejas.</p>
         </div>
 
         <h4>Pruébalo antes de presumirlo</h4>
