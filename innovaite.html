@@ -140,6 +140,12 @@
   .cap figcaption b{color:var(--ink)}
   .cap figcaption .n{display:inline-grid;place-items:center;width:19px;height:19px;border-radius:50%;
     background:#E0245E;color:#fff;font-size:11.5px;font-weight:900;vertical-align:-3px;margin-right:4px}
+  /* niebla sobre los datos propios: deja nítidos los nombres de los campos */
+  .capimg .fog{position:absolute;border-radius:6px;background:rgba(246,243,252,.72);
+    -webkit-backdrop-filter:blur(7px);backdrop-filter:blur(7px)}
+  @supports not (backdrop-filter:blur(1px)){
+    .capimg .fog{background:#EDE7F8}
+  }
 
   /* ---------- guiño discreto ---------- */
   .aside{margin-top:22px;padding:2px 0 2px 18px;border-left:3px solid var(--violet)}
@@ -928,6 +934,46 @@ Dame solo el texto del guion, listo para pegar. Y aparte, en una línea, qué ti
           <div class="nt">Botones</div>
           <p>Puedes añadir <kbd>Buttons</kbd> o <kbd>Quick Replies</kbd> para que la persona elija y el flujo se abra en ramas. Solo uno de los dos por mensaje, y los <kbd>Quick Replies</kbd> no se llevan con un archivo adjunto.</p>
         </div>
+
+        <h4>Así se ve uno que lleva meses corriendo</h4>
+        <p>Este no lo armé para la foto. Es uno de los míos, publicado y con gente cayendo. Los nombres de los campos están nítidos; mis datos van difuminados, porque ahí van los tuyos.</p>
+
+        <figure class="cap">
+          <div class="capimg">
+            <img src="img-ghl/11-ejemplo-flujo.jpg" alt="Workflow publicado con el disparador de comentarios de Instagram conectado a una acción de Instagram DM" loading="lazy">
+            <span class="fog" style="left:41%;top:1.5%;width:13.5%;height:4.5%"></span>
+            <span class="fog" style="left:17%;top:30.5%;width:36%;height:9.5%"></span>
+            <svg viewBox="0 0 800 739" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+              <rect class="mk" x="286" y="492" width="278" height="66" rx="14"/>
+              <circle class="bg" cx="578" cy="505" r="12"/><text class="bn" x="578" y="510">1</text>
+              <rect class="mk" x="648" y="60" width="140" height="30" rx="15"/>
+              <circle class="bg" cx="632" cy="75" r="12"/><text class="bn" x="632" y="80">2</text>
+            </svg>
+          </div>
+          <figcaption>
+            <span class="n">1</span>La acción es <b>Instagram DM</b>. Dos cajas, eso es todo el robot.
+            <span class="n">2</span>El interruptor en <b>Publish</b>, en azul. Si lo dejas en Draft, no corre aunque esté perfecto.
+          </figcaption>
+        </figure>
+
+        <figure class="cap">
+          <div class="capimg">
+            <img src="img-ghl/12-ejemplo-filtros.jpg" alt="Los cuatro filtros del disparador: Page is, Post type is, Post is y Contains phrase, con el interruptor de comentarios de primer nivel prendido" loading="lazy">
+            <span class="fog" style="left:38.5%;top:15.5%;width:53%;height:4.5%"></span>
+            <span class="fog" style="left:38.5%;top:46.5%;width:53%;height:7.5%"></span>
+            <span class="fog" style="left:39%;top:68%;width:6.5%;height:4%"></span>
+            <span class="fog" style="left:42%;top:2.5%;width:13%;height:4.5%"></span>
+            <span class="fog" style="left:17.5%;top:30%;width:17%;height:9%"></span>
+            <svg viewBox="0 0 800 739" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+              <rect class="mk" x="302" y="188" width="438" height="36" rx="12"/>
+              <rect class="mk" x="302" y="302" width="438" height="36" rx="12"/>
+              <rect class="mk" x="302" y="456" width="438" height="36" rx="12"/>
+              <rect class="mk" x="294" y="608" width="248" height="34" rx="12"/>
+              <circle class="bg" cx="558" cy="625" r="12"/><text class="bn" x="558" y="630">✓</text>
+            </svg>
+          </div>
+          <figcaption>Los cuatro filtros, en este orden: <b>Page is</b> tu cuenta, <b>Post type is</b> en Published post, <b>Post is</b> el post exacto, y <b>Contains phrase</b> tu palabra. Y abajo, el interruptor de comentarios de primer nivel prendido.</figcaption>
+        </figure>
 
         <div class="note stop">
           <div class="nt">Instagram DM, no la otra</div>
