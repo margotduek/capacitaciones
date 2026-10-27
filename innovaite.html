@@ -196,6 +196,35 @@
   .check label b{color:var(--ink);font-weight:700}
   .check input:checked + label{color:#9a93b8;text-decoration:line-through}
 
+  /* ---------- menú de las dos sesiones ---------- */
+  .menu{margin-top:6vh;display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .mcol{border:1px solid var(--line);border-radius:18px;padding:20px;background:#fff}
+  .mcol.next{background:var(--card)}
+  .mcol .mk{font-size:11px;letter-spacing:.18em;text-transform:uppercase;font-weight:800;color:var(--violet)}
+  .mcol.next .mk{color:var(--muted)}
+  .mcol .mh{margin-top:7px;font-size:19px;font-weight:900;letter-spacing:-.02em}
+  .mcol .mwhen{margin-top:4px;font-size:13px;font-weight:700;color:var(--muted)}
+  .mlist{list-style:none;padding-left:0;margin-top:16px;gap:13px}
+  .mlist li{font-size:15px;font-weight:500}
+  .mlist .mt{display:block;font-size:15px;font-weight:800;color:var(--ink);letter-spacing:-.01em}
+  .mlist .mg{display:block;margin-top:2px;font-size:13.5px;color:var(--muted);font-weight:500;line-height:1.4}
+  .mout{margin-top:17px;padding-top:15px;border-top:1px solid var(--line);font-size:14px;font-weight:800;color:var(--violet);line-height:1.45}
+  .mcol.next .mout{color:var(--soft)}
+
+  /* ---------- quién soy ---------- */
+  .bio{margin-top:6vh;border:1px solid var(--line);border-radius:20px;padding:26px 24px;background:#FCFAFF}
+  .bio .bk{font-size:11px;letter-spacing:.2em;text-transform:uppercase;font-weight:800;color:var(--violet)}
+  .bio .bn{margin-top:9px;font-size:clamp(23px,4vw,30px);font-weight:900;letter-spacing:-.03em;line-height:1.05}
+  .bio p{margin-top:13px;font-size:15.5px;color:var(--soft);font-weight:500;max-width:40em;line-height:1.56}
+  .bio p b{color:var(--ink);font-weight:700}
+  .creds{margin-top:19px;display:flex;flex-wrap:wrap;gap:8px}
+  .creds span{font-size:12.5px;font-weight:800;color:var(--soft);background:#fff;
+    border:1px solid var(--line);border-radius:999px;padding:7px 13px}
+  .biolinks{margin-top:17px;display:flex;gap:9px;flex-wrap:wrap}
+  .biolinks a{font-size:13.5px;font-weight:800;text-decoration:none;color:var(--violet);
+    border:1px solid var(--line);background:#fff;padding:9px 16px;border-radius:999px}
+  .biolinks a:hover{border-color:var(--violet)}
+
   /* ---------- sesión 2 bloqueada ---------- */
   #s2wrap{position:relative;margin-top:6vh}
   #s2wrap .veil{position:absolute;inset:0;z-index:5;border-radius:20px;
@@ -226,6 +255,8 @@
     .ptext{font-size:12.8px;max-height:260px}
     .part{padding:18px}
     .tools{grid-template-columns:1fr}
+    .menu{grid-template-columns:1fr}
+    .bio{padding:22px 20px}
     #s2wrap .veil{padding-top:10vh}
   }
   @media print{
@@ -255,6 +286,71 @@
     <h1>Tu IA deja de ser<br>una página abierta.</h1>
     <p>Hoy le enseñas quién eres y a quién le hablas, averiguas qué están haciendo las que venden lo mismo que tú, y sales con tu semana de contenido escrita y con voz propia.</p>
     <div class="who">Con <b>Margot Duek</b></div>
+  </div>
+
+  <div class="menu">
+
+    <div class="mcol">
+      <div class="mk">El menú de hoy</div>
+      <div class="mh">Tu contenido</div>
+      <div class="mwhen">Sesión 1 · dos horas</div>
+      <ul class="mlist">
+        <li><span class="mt">Hazle una casa a tu negocio <span class="mins">10 min</span></span>
+          <span class="mg">Tu proyecto de Claude, para no volver a explicarle quién eres</span></li>
+        <li><span class="mt">Tu ADN <span class="mins">20 min</span></span>
+          <span class="mg">Todo lo que tu IA necesita saber para sonar a ti</span></li>
+        <li><span class="mt">A quién le hablas, de verdad <span class="mins">15 min</span></span>
+          <span class="mg">Tu cliente en cinco niveles, no «mujeres de 25 a 40»</span></li>
+        <li><span class="mt">Afila la oferta <span class="mins">15 min</span></span>
+          <span class="mg">Lo que vendes, dicho para que se sienta irresistible</span></li>
+        <li><span class="mt">Tu semana escrita <span class="mins">30 min</span></span>
+          <span class="mg">Siete posts, uno por pilar, listos para publicar</span></li>
+        <li><span class="mt">Dale voz <span class="mins">20 min</span></span>
+          <span class="mg">Tu locución para un reel, con tus propias fotos</span></li>
+      </ul>
+      <div class="mout">Sales con siete posts escritos y un reel con voz.</div>
+    </div>
+
+    <div class="mcol next">
+      <div class="mk">Lo que sigue</div>
+      <div class="mh">Tu sistema</div>
+      <div class="mwhen">Sesión 2 · lunes 2 de noviembre</div>
+      <ul class="mlist">
+        <li><span class="mt">El candado de Meta</span>
+          <span class="mg">Dejar tu Instagram listo para conectarse</span></li>
+        <li><span class="mt">Tu mes, programado</span>
+          <span class="mg">Cargas tus posts una vez y se publican solos</span></li>
+        <li><span class="mt">Comenta «X» y te mando «Y»</span>
+          <span class="mg">El robot que manda el DM cuando alguien comenta</span></li>
+        <li><span class="mt">Y entonces, ¿qué pasa?</span>
+          <span class="mg">Dónde cae ese prospecto y cómo le das seguimiento</span></li>
+        <li><span class="mt">Tu calendario de citas</span>
+          <span class="mg">Que agenden contigo sin preguntarte horarios</span></li>
+        <li><span class="mt">Tu link para la bio</span>
+          <span class="mg">Una página que junta todo lo que ofreces</span></li>
+      </ul>
+      <div class="mout">Sales con el mes publicándose solo y el robot prendido.</div>
+    </div>
+
+  </div>
+
+  <div class="bio">
+    <div class="bk">Quién te está dando esto</div>
+    <div class="bn">Margot Duek</div>
+    <p>Soy <b>ingeniera en tecnologías computacionales con MBA</b>, y fundadora de <b>TRiAGE Business Health</b>, donde meto IA en la operación de empresas de verdad, no en presentaciones bonitas.</p>
+    <p>Antes de esto armé dos agencias, <b>Converging Works</b> y <b>Al Chile Media</b>, con más de <b>300 proyectos</b> entregados en México y Estados Unidos.</p>
+    <p>Y lo de hoy no es teoría que leí en algún lado: es el mismo sistema con el que llevo mis propias redes. Si quieres ver cómo se ve ya corriendo, ahí está mi cuenta.</p>
+    <div class="creds">
+      <span>Ingeniera + MBA</span>
+      <span>Fundadora de TRiAGE</span>
+      <span>+300 proyectos</span>
+      <span>Conferencista en Stripe Sessions</span>
+      <span>Conferencista en el Tec de Monterrey</span>
+    </div>
+    <div class="biolinks">
+      <a href="https://instagram.com/margotduekk">Instagram · @margotduekk</a>
+      <a href="https://www.youtube.com/@margotduek">YouTube · @margotduek</a>
+    </div>
   </div>
 
   <section id="sesion1">
