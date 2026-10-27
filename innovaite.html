@@ -274,7 +274,7 @@
     <div class="brand">Innov<span>AI</span>te</div>
     <nav>
       <a href="#sesion1" class="on">Sesión 1</a>
-      <a href="#s2wrap" class="lock">🔒 Sesión 2</a>
+      <a href="#s2wrap">Sesión 2</a>
     </nav>
   </div>
 </header>
@@ -282,7 +282,7 @@
 <main>
 
   <div class="cover">
-    <div class="eyebrow">Workbook · Sesión 1 de 2</div>
+    <div class="eyebrow">Workbook · Las dos sesiones</div>
     <h1>Tu IA deja de ser<br>una página abierta.</h1>
     <p>Hoy le enseñas quién eres y a quién le hablas, averiguas qué están haciendo las que venden lo mismo que tú, y sales con tu semana de contenido escrita y con voz propia.</p>
     <div class="who">Con <b>Margot Duek</b></div>
@@ -865,18 +865,9 @@ MATERIAL:
     </div>
   </section>
 
-  <!-- ===== SESIÓN 2 BLOQUEADA ===== -->
+  <!-- ===== SESIÓN 2 ===== -->
   <div id="s2wrap">
-    <div class="veil">
-      <div class="lockcard">
-        <div class="ic">🔒</div>
-        <h4>Sesión 2</h4>
-        <p>Aquí dejas de publicar a mano y montas el sistema: tu contenido programado, y un robot que convierte comentarios en clientes mientras duermes.</p>
-        <div class="tag">Se abre en la próxima sesión</div>
-      </div>
-    </div>
-
-    <div class="locked" aria-hidden="true">
+    <div>
       <div class="part">
         <div class="pk">Sesión 2</div>
         <h2>Que trabaje solo</h2>
@@ -1511,19 +1502,6 @@ MATERIAL:
     zona.addEventListener('drop', function(e){
       if (e.dataTransfer && e.dataTransfer.files.length) procesar(e.dataTransfer.files[0]);
     });
-  }
-
-  /* ---- llave para revisar la Sesión 2 sin publicarla abierta ---- */
-  if (/(\?|&)abierto\b/.test(location.search)){
-    var env = document.getElementById('s2wrap');
-    if (env){
-      var velo = env.querySelector('.veil');
-      if (velo) velo.remove();
-      var gris = env.querySelector('.locked');
-      if (gris){ gris.classList.remove('locked'); gris.removeAttribute('aria-hidden'); }
-      var tab = document.querySelector('nav a.lock');
-      if (tab){ tab.classList.remove('lock'); tab.textContent = 'Sesión 2'; }
-    }
   }
 
   /* ---- nav ---- */
