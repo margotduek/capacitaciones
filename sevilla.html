@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claude para Sevilla Arquitectos · Margot Duek</title>
+<style>
+  :root{--radius:20px;--yellow:#ffce3a;}
+  html[data-theme="light"]{
+    --bg:#f4f6fc;--bg-soft:#eef1fa;--surface:#ffffff;--surface-2:#f7f9ff;--text:#1b2440;--muted:#6b7793;
+    --line:#e7ebf5;--accent:#4f7cf7;--accent-soft:#eaf0ff;--teal:#18b3a0;--coral:#ff7a59;
+    --shadow:0 12px 34px rgba(40,60,110,.10);--shadow-sm:0 4px 14px rgba(40,60,110,.07);--code-bg:#f2f5fd;--code-text:#2a3554;
+  }
+  html[data-theme="dark"]{
+    --bg:#0f1a30;--bg-soft:#132039;--surface:#16233f;--surface-2:#1b2b4b;--text:#eaf0fb;--muted:#9fb2d6;
+    --line:rgba(255,255,255,.10);--accent:#6fa0f7;--accent-soft:rgba(111,160,247,.14);--teal:#3fd0bb;--coral:#ff8f73;
+    --shadow:0 12px 34px rgba(0,0,0,.35);--shadow-sm:0 4px 14px rgba(0,0,0,.30);--code-bg:#0c1730;--code-text:#cfe0f7;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased;transition:background .3s,color .3s}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1060px;margin:0 auto;padding:0 24px}
+
+  .nav{position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:14px;padding:12px 22px;background:color-mix(in srgb,var(--surface) 88%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+  .nav .brand{font-weight:800;white-space:nowrap}
+  .nav .brand span{color:var(--accent)}
+  .nav .links{margin-left:auto;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
+  .nav .links::-webkit-scrollbar{display:none}
+  .nav .links a{position:relative;font-size:13px;color:var(--muted);padding:8px 12px;border-radius:10px;white-space:nowrap;transition:.15s;font-weight:600}
+  .nav .links a:hover{color:var(--text);background:var(--bg-soft)}
+  .nav .links a.active{color:var(--text)}
+  .nav .links a.active::after{content:"";position:absolute;left:12px;right:12px;bottom:2px;height:3px;border-radius:3px;background:var(--yellow)}
+  .toggle{flex:none;border:1px solid var(--line);background:var(--surface);color:var(--text);border-radius:20px;padding:7px 14px;font-size:12.5px;font-weight:600;cursor:pointer;transition:.15s}
+  .toggle:hover{border-color:var(--accent)}
+
+  .hero{background:radial-gradient(900px 380px at 12% -20%,var(--accent-soft),transparent 65%),radial-gradient(700px 340px at 100% 0%,color-mix(in srgb,var(--teal) 16%,transparent),transparent 60%);padding:60px 0 48px;border-bottom:1px solid var(--line)}
+  .hero-top{display:flex;align-items:center;gap:22px;flex-wrap:wrap}
+  .avatar{width:92px;height:92px;flex:none;border-radius:26px;display:grid;place-items:center;background:linear-gradient(135deg,var(--accent),var(--teal));color:#fff;font-weight:800;font-size:34px;box-shadow:var(--shadow)}
+  .eyebrow{color:var(--accent);font-weight:700;letter-spacing:1.5px;font-size:12px;text-transform:uppercase}
+  .hero h1{font-size:46px;line-height:1.05;margin:6px 0 4px;font-weight:800}
+  .hero h1 em{font-style:italic;font-weight:500;color:var(--muted)}
+  .hero .role{color:var(--teal);font-weight:700;font-size:15.5px}
+  .hero .about{max-width:720px;color:var(--text);opacity:.9;font-size:16px;margin-top:20px}
+  .stats{display:flex;gap:12px;flex-wrap:wrap;margin:26px 0 22px}
+  .stat{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:15px 20px;min-width:148px;box-shadow:var(--shadow-sm)}
+  .stat b{display:block;font-size:26px;color:var(--accent)}
+  .stat span{font-size:12.5px;color:var(--muted)}
+  .contact{display:flex;gap:9px;flex-wrap:wrap}
+  .contact a{font-size:13px;background:var(--surface);border:1px solid var(--line);padding:9px 15px;border-radius:22px;color:var(--text);transition:.15s;box-shadow:var(--shadow-sm)}
+  .contact a:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-1px)}
+
+  .section-tag{color:var(--accent);font-weight:700;letter-spacing:1.5px;font-size:11.5px;text-transform:uppercase;margin-bottom:6px}
+  h2.big{font-size:30px;font-weight:800;margin-bottom:14px}
+
+  .bienvenida{padding:52px 0;border-top:1px solid var(--line)}
+  .journey{list-style:none;display:grid;gap:12px;max-width:820px;margin:6px 0 0}
+  .journey li{display:flex;gap:14px;align-items:flex-start;font-size:16px}
+  .journey .yr{flex:none;font-weight:800;color:var(--teal);min-width:92px}
+
+  .sesh{margin:6px 0 0;padding:30px 30px;border-radius:24px;background:linear-gradient(135deg,var(--accent),var(--teal));color:#fff;box-shadow:var(--shadow)}
+  .sesh .k{font-size:12.5px;letter-spacing:2px;text-transform:uppercase;opacity:.9;font-weight:700}
+  .sesh h2{font-size:30px;font-weight:800;margin:4px 0 4px}
+  .sesh p{opacity:.95;font-size:15px;max-width:760px}
+  .sesh-wrap{padding:44px 0 0}
+
+  .module{padding:44px 0;border-top:1px solid var(--line)}
+  .module .head{display:flex;align-items:center;gap:14px;margin-bottom:4px}
+  .module .mico{font-size:26px;width:52px;height:52px;flex:none;display:grid;place-items:center;background:var(--accent-soft);border-radius:15px}
+  .module .badge{font-size:12px;font-weight:800;color:var(--muted)}
+  .module h3{font-size:26px;font-weight:800}
+  .module .lead{color:var(--muted);margin:8px 0 24px;max-width:800px;font-size:15.5px}
+
+  .chip{display:inline-block;margin-left:6px;padding:2px 9px;border-radius:999px;font-size:11px;font-weight:800;vertical-align:middle}
+  .chip-clase{background:var(--accent);color:#fff}
+  .chip-tarea{background:#f59e0b;color:#111}
+  .chip-demo{background:#6b7280;color:#fff}
+
+  .sub{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:22px 24px;margin-bottom:14px;box-shadow:var(--shadow-sm)}
+  .sub .sh{display:flex;align-items:center;gap:11px;margin-bottom:2px;flex-wrap:wrap}
+  .sub .sn{color:#fff;background:var(--accent);font-weight:800;font-size:12.5px;padding:3px 9px;border-radius:8px}
+  .sub h4{font-size:18px;font-weight:700}
+  .sub .obj{color:var(--muted);font-size:14.5px;margin:8px 0 14px}
+  .sub .obj b{color:var(--teal);font-weight:700}
+  .steps{margin:6px 0 4px;padding-left:18px}
+  .steps li{margin:5px 0;font-size:14.5px}
+  .steps b{color:var(--accent)}
+  .pl{font-size:11px;text-transform:uppercase;letter-spacing:1.2px;color:var(--muted);margin:14px 0 7px;font-weight:700}
+
+  .prompt{position:relative;background:var(--code-bg);border:1px solid var(--line);border-radius:14px;padding:16px 46px 16px 16px;font-family:"SF Mono",Menlo,Consolas,monospace;font-size:13px;color:var(--code-text);white-space:pre-wrap;margin-bottom:10px}
+  .copy{position:absolute;top:10px;right:10px;background:var(--accent);color:#fff;border:none;border-radius:8px;padding:6px 11px;font-size:11.5px;cursor:pointer;font-weight:700;transition:.15s}
+  .copy:hover{filter:brightness(1.06)}
+  .copy.done{background:var(--teal)}
+
+  table.cmp{width:100%;border-collapse:collapse;margin:8px 0 6px;font-size:14px;background:var(--surface);border-radius:12px;overflow:hidden;box-shadow:var(--shadow-sm)}
+  table.cmp th,table.cmp td{padding:11px 14px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+  table.cmp th{background:var(--bg-soft);font-size:12.5px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted)}
+  table.cmp td b{color:var(--accent)}
+
+  .note{background:color-mix(in srgb,var(--yellow) 16%,transparent);border:1px solid color-mix(in srgb,var(--yellow) 55%,transparent);border-radius:14px;padding:13px 18px;margin:0 0 16px;font-size:14px}
+  .note b{color:#c78a00}
+  html[data-theme="dark"] .note b{color:var(--yellow)}
+
+  .quote{background:var(--surface);border-left:4px solid var(--accent);border-radius:12px;padding:16px 20px;font-size:16px;font-style:italic;box-shadow:var(--shadow-sm);margin:10px 0}
+  .quote span{display:block;font-style:normal;font-weight:700;color:var(--accent);font-size:13px;margin-top:8px}
+
+  .casos{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:18px 0 6px}
+  .caso{border-radius:18px;padding:18px 20px;border:1px solid var(--line);background:var(--surface);box-shadow:var(--shadow-sm)}
+  .caso-h{display:flex;align-items:center;gap:8px;font-weight:800;font-size:15px;margin-bottom:10px}
+  .caso-h .tag{font-size:11px;font-weight:800;letter-spacing:.4px;text-transform:uppercase;padding:3px 9px;border-radius:999px;background:color-mix(in srgb,var(--accent) 18%,transparent);color:var(--accent)}
+  .caso ul{margin:0;padding-left:18px}.caso li{margin:6px 0;font-size:14.5px}
+  .caso .prompt{margin-top:10px;margin-bottom:0;font-size:12.5px}
+  .casos-lbl{font-size:11px;text-transform:uppercase;letter-spacing:1.2px;color:var(--muted);font-weight:700;margin:20px 0 0}
+
+  /* campos que se guardan solos */
+  .vars{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;background:var(--bg-soft);border:1px solid var(--line);border-radius:16px;padding:18px 20px;margin:0 0 18px}
+  .vars label{display:block;font-size:11.5px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
+  .vars input{width:100%;padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:var(--surface);color:var(--text);font-size:14px;font-family:inherit}
+  .vars input:focus{outline:none;border-color:var(--accent)}
+  .varhint{grid-column:1/-1;font-size:13px;color:var(--muted)}
+
+  /* tareas */
+  .tarea{display:flex;gap:13px;align-items:flex-start;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px 18px;margin-bottom:10px;box-shadow:var(--shadow-sm)}
+  .tarea input[type=checkbox]{width:22px;height:22px;flex:none;margin-top:2px;accent-color:var(--teal);cursor:pointer}
+  .tarea .tt{font-weight:700;font-size:15px}
+  .tarea .who{font-size:11px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:var(--accent);margin-bottom:3px}
+  .tarea .td{font-size:14px;color:var(--muted);margin-top:4px}
+  .tarea.done .tt{text-decoration:line-through;opacity:.55}
+  .tarea .prompt{margin-top:10px;margin-bottom:0;font-size:12.5px}
+
+  /* sesion bloqueada */
+  .locked{position:relative;filter:grayscale(1);opacity:.42;pointer-events:none;user-select:none}
+  .lockbar{display:flex;align-items:center;gap:12px;background:var(--surface);border:1px dashed var(--muted);border-radius:16px;padding:16px 20px;margin:24px 0 0;font-size:14.5px;color:var(--muted)}
+  .lockbar b{color:var(--text)}
+
+  .mine-sec{background:linear-gradient(160deg,color-mix(in srgb,var(--coral) 10%,var(--bg)),var(--bg));border-top:2px solid var(--coral)}
+  .mine-tag{display:inline-block;background:var(--coral);color:#fff;font-size:11.5px;font-weight:800;letter-spacing:1px;text-transform:uppercase;padding:5px 12px;border-radius:20px;margin-bottom:10px}
+  #margot{display:none}
+  #secret{display:block;width:100%;height:46px;background:var(--bg);border:none;cursor:default;padding:0;margin:0}
+
+  footer{padding:46px 0 60px;text-align:center;color:var(--muted)}
+  footer .name{color:var(--text);font-weight:800;font-size:18px;margin-bottom:5px}
+  @media(max-width:640px){.hero h1{font-size:34px}.casos{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<div class="nav">
+  <div class="brand">Margot <span>Duek</span></div>
+  <div class="links" id="navlinks">
+    <a href="#m1">1 · Qué es</a>
+    <a href="#m2">2 · Los tres Claude</a>
+    <a href="#m3">3 · Su proyecto</a>
+    <a href="#m4">4 · Carpetas</a>
+    <a href="#m5">5 · Su Excel</a>
+    <a href="#tareas1">Tareas S1</a>
+    <a href="#m6">6 · Atorones</a>
+    <a href="#m7">7 · Cartas e INPC</a>
+    <a href="#m8">8 · Vencimientos</a>
+    <a href="#m9">9 · Chrome</a>
+    <a href="#m10">10 · Cobranza</a>
+    <a href="#m11">11 · Correo</a>
+  </div>
+  <button class="toggle" id="themeBtn">🌙 Oscuro</button>
+</div>
+
+<!-- PORTADA -->
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-top">
+      <div class="avatar">MD</div>
+      <div>
+        <div class="eyebrow">Claude para Sevilla Arquitectos</div>
+        <h1>Margot <em>Duek</em></h1>
+        <div class="role">Fundadora &amp; CEO · TRiAGE · Al Chile Media</div>
+      </div>
+    </div>
+    <p class="about">Ingeniera en Tecnologías Computacionales y MBA. Fundadora de TRiAGE, consultoría especializada en maximizar el ROI al integrar IA en las empresas, y de Al Chile Media, agencia digital con más de 300 casos de éxito. Docente de IA en el Tec de Monterrey e ISDI. Creo contenido en español sobre IA aplicada a negocios en YouTube, Instagram y TikTok.</p>
+    <div class="stats">
+      <div class="stat"><b>+300</b><span>empresas acompañadas</span></div>
+      <div class="stat"><b>+8</b><span>años en el mercado</span></div>
+      <div class="stat"><b>+500k</b><span>personas impactadas con Claude</span></div>
+    </div>
+    <div class="contact">
+      <a href="https://wa.me/525585371607">💬 WhatsApp 55 8537 1607</a>
+      <a href="mailto:margotduek@triagebh.com">✉️ margotduek@triagebh.com</a>
+      <a href="https://instagram.com/margotduekk">Instagram @margotduekk</a>
+      <a href="https://youtube.com/@margotduek">YouTube @margotduek</a>
+    </div>
+  </div>
+</section>
+
+<!-- BIENVENIDA -->
+<section class="bienvenida" id="bienvenida">
+  <div class="wrap">
+    <div class="section-tag">Bienvenida</div>
+    <h2 class="big">Esta guía se escribió para ustedes cuatro</h2>
+    <p style="max-width:800px;font-size:16px">No es un curso general de inteligencia artificial. Está armada con lo que nos contaron el 27 de octubre: los contratos que se vencen, la plaza con sus locales, las chequeras repartidas en varios Excels, los documentos de cada propiedad con vigencias distintas, y el Outlook de siempre. Todo lo que van a ver aquí sale de su oficina.</p>
+    <div class="quote">No quiero que me des un programa y que con este va a operar perfecto. Quiero paso a paso.<span>Moisés</span></div>
+    <div class="quote">Precisamente quiero aprender qué puedo aprender. Hasta dónde puedo llegar.<span>Salomón</span></div>
+    <ul class="journey" style="margin-top:26px">
+      <li><span class="yr">Sesión 1</span><span>Lunes 2 de noviembre, 12:30 a 14:00. Conocer la herramienta y ponerla a trabajar sobre sus propios archivos.</span></li>
+      <li><span class="yr">En medio</span><span>Tres semanas para usarla en el trabajo real, con las tareas de esta guía.</span></li>
+      <li><span class="yr">Sesión 2</span><span>Lunes 23 de noviembre. Resolver lo que se atoró y armar los controles que avisan solos.</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- CÓMO LEER -->
+<section class="module" id="legend">
+  <div class="wrap">
+    <div class="note" style="border-left:4px solid var(--accent)">
+      <b>Cómo leer esta guía.</b> Cada ejercicio trae una etiqueta. <span class="chip chip-clase">EN CLASE</span> lo hacemos juntos en la sesión. <span class="chip chip-tarea">DE TAREA</span> lo hacen ustedes solos en la semana, con el prompt ya escrito aquí. <span class="chip chip-demo">LO VES</span> se los muestro yo, no hace falta que lo instalen.
+    </div>
+    <div class="note">
+      <b>Lo que necesitan antes del lunes.</b> Claude Pro pagado y la <b>aplicación de escritorio instalada</b> en la computadora con la que van a trabajar, no en el celular. Sin la aplicación no se pueden abrir carpetas, que es el ejercicio 4.
+    </div>
+    <div class="note" style="border-left:4px solid var(--teal)">
+      <b>Nada se borra.</b> Trabajamos sobre copias y dentro de una carpeta nueva que ustedes crean. Sus archivos históricos se quedan exactamente donde están.
+    </div>
+
+    <div class="pl" style="margin-top:22px">Llenen esto una vez y se guarda solo en su computadora</div>
+    <div class="vars">
+      <div><label>La plaza</label><input data-k="plaza" placeholder="Nombre de la plaza"></div>
+      <div><label>Una propiedad</label><input data-k="propiedad" placeholder="Monte Chimborazo"></div>
+      <div><label>Un inquilino</label><input data-k="inquilino" placeholder="Nombre del inquilino"></div>
+      <div class="varhint">Los prompts de abajo ya traen estos datos puestos. Cuando le den a Copiar, se copian con lo que escribieron aquí.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SESIÓN 1 ============ -->
+<div class="sesh-wrap"><div class="wrap"><div class="sesh" id="s1">
+  <div class="k">Sesión 1 · lunes 2 de noviembre</div>
+  <h2>Conocer la herramienta y soltarla sobre sus archivos</h2>
+  <p>Hora y media. La primera mitad es entender con qué están tratando. La segunda es abrir sus propios Excels y empezar a preguntarles cosas en español.</p>
+</div></div></div>
+
+<section class="module" id="m1">
+  <div class="wrap">
+    <div class="head"><div class="mico">🧠</div><div><div class="badge">MÓDULO 01</div><h3>Qué es y qué no es <span class="chip chip-clase">EN CLASE</span></h3></div></div>
+    <p class="lead">Diez minutos para quitarle el misterio. No es un programa que se instala y opera solo: es alguien que sabe muchísimo, que no conoce su oficina, y al que hay que explicarle qué se necesita.</p>
+    <div class="sub">
+      <div class="sh"><span class="sn">1.1</span><h4>Trátenlo como a un empleado nuevo</h4></div>
+      <p class="obj"><b>Objetivo:</b> entender por qué a veces contesta de más y por qué a veces se equivoca.</p>
+      <ul class="steps">
+        <li><b>Sabe mucho del mundo</b> y nada de Sevilla Arquitectos, hasta que se lo cuentan.</li>
+        <li><b>Si no sabe algo, a veces lo rellena.</b> Por eso todo dato duro se verifica, igual que verificarían el trabajo de alguien que acaba de entrar.</li>
+        <li><b>No se cansa y no se ofende.</b> Si algo salió mal, se le dice qué salió mal y lo vuelve a hacer.</li>
+      </ul>
+      <div class="note"><b>Lo primero que vamos a hacer:</b> Moisés deja de pagar Gemini. No lo necesita y no es lo que conviene para lo que hacen.</div>
+    </div>
+  </div>
+</section>
+
+<section class="module" id="m2">
+  <div class="wrap">
+    <div class="head"><div class="mico">🧭</div><div><div class="badge">MÓDULO 02</div><h3>Los tres Claude: Chat, Cowork y Code <span class="chip chip-clase">EN CLASE</span></h3></div></div>
+    <p class="lead">Es la misma inteligencia en tres presentaciones distintas. Confundirlas es la razón número uno por la que la gente dice que no le sirvió.</p>
+    <table class="cmp">
+      <tr><th>Cuál</th><th>Qué hace</th><th>Ejemplo de su oficina</th></tr>
+      <tr><td><b>Chat</b></td><td>Responde y conversa. Es lo que ya conocen de ChatGPT. Vive en el navegador o en la aplicación.</td><td>Preguntarle cómo redactar la cláusula de una carta de renovación.</td></tr>
+      <tr><td><b>Cowork</b></td><td>Trabaja. Abre las carpetas de su computadora, lee los archivos, crea documentos y los deja guardados.</td><td>Abrir la carpeta de una propiedad y armar la tabla de vigencias de sus documentos.</td></tr>
+      <tr><td><b>Code</b></td><td>La versión para construir cosas a la medida. Es la que usa quien programa.</td><td>Hoy no les toca. Se los muestro para que vean hasta dónde llega.</td></tr>
+    </table>
+    <div class="sub">
+      <div class="sh"><span class="sn">2.1</span><h4>Hasta dónde llega Claude Code <span class="chip chip-demo">LO VES</span></h4></div>
+      <p class="obj"><b>Objetivo:</b> contestar la pregunta de Salomón de hasta dónde se puede llegar, sin que nadie instale nada. Yo lo abro en mi máquina y ustedes ven qué hace.</p>
+    </div>
+  </div>
+</section>
+
+<section class="module" id="m3">
+  <div class="wrap">
+    <div class="head"><div class="mico">🏢</div><div><div class="badge">MÓDULO 03</div><h3>El proyecto del despacho <span class="chip chip-clase">EN CLASE</span></h3></div></div>
+    <p class="lead">Un proyecto es una carpeta de conversaciones que comparte el mismo contexto. Se escribe una vez quién es quién y cómo se llaman las cosas en Sevilla Arquitectos, y ya no hay que explicarlo nunca más.</p>
+    <div class="sub">
+      <div class="sh"><span class="sn">3.1</span><h4>Crear el proyecto y escribir sus instrucciones</h4></div>
+      <p class="obj"><b>Objetivo:</b> que Claude sepa de qué habla cuando ustedes dicen local, plaza, inquilino o dictamen.</p>
+      <ul class="steps">
+        <li>En la aplicación, <b>Proyectos</b>, nuevo proyecto, nombre: Sevilla Arquitectos.</li>
+        <li>Pegar el texto de abajo en las <b>instrucciones del proyecto</b>, completando lo que esté entre corchetes.</li>
+      </ul>
+      <div class="pl">Prompt · instrucciones del proyecto</div>
+      <div class="prompt">Trabajo en Sevilla Arquitectos, un despacho familiar de arquitectura e inmobiliaria en la Ciudad de México. Somos cuatro titulares: Moisés y Salomón, y Jacobo y Jacobo. Tenemos dos asistentes, un dibujante y dos arquitectos externos.
+
+Cómo hablamos aquí:
+- Plaza: un inmueble nuestro con varios locales rentados. La principal es {{plaza}} y tiene alrededor de 30 locales.
+- Local o inquilino: cada arrendatario tiene su propio contrato, con su propia fecha de inicio y vencimiento.
+- INPC: el índice con el que se ajusta la renta cada año en la renovación.
+- Propiedad: cada inmueble nuestro, por ejemplo {{propiedad}}.
+- Documentos de propiedad: licencia de construcción, dictamen estructural, alineamiento y número oficial. Cada uno tiene su vigencia, que puede ser de uno, tres o cinco años.
+- Chequeras: llevamos varias, una por sociedad, y de ahí salen los pagos a contratistas y maestros de obra.
+
+Cómo quiero que trabajes conmigo:
+1. Antes de crear o modificar cualquier archivo, muéstrame primero en el chat lo que vas a hacer y espera mi confirmación. No borres ni muevas nada sin avisarme.
+2. Cuando te dé un Excel, no lo cambies: léelo y contéstame. Si hace falta un archivo nuevo, créalo aparte.
+3. Si un dato no está en lo que te di, dímelo en vez de suponerlo. Prefiero que me digas que falta.
+4. Háblame claro y en español de México, sin tecnicismos.<button class="copy">Copiar</button></div>
+    </div>
+  </div>
+</section>
+
+<section class="module" id="m4">
+  <div class="wrap">
+    <div class="head"><div class="mico">📁</div><div><div class="badge">MÓDULO 04</div><h3>Carpetas con seguridad <span class="chip chip-clase">EN CLASE</span></h3></div></div>
+    <p class="lead">Cómo trabajar con sus archivos sin darle acceso a toda la computadora. Esto es Cowork y necesita la aplicación de escritorio.</p>
+    <div class="note"><b>Buena práctica de seguridad:</b> creen una <b>carpeta nueva</b> en el escritorio solo para esto y denle acceso a Claude únicamente a esa carpeta, no a toda la compu. Todo lo que quieran que trabaje, lo meten ahí. Y siempre copias, nunca el original.</div>
+    <div class="sub">
+      <div class="sh"><span class="sn">4.1</span><h4>Ejemplo de carpetas · Juan y Margot</h4></div>
+      <p class="obj"><b>Objetivo:</b> ver cómo Claude entiende el contexto de una carpeta y manipula sus archivos. Creamos dos carpetas, le damos a cada una una identidad distinta, y vemos cómo las distingue, las edita y las reorganiza.</p>
+      <ul class="steps">
+        <li>Dentro de su carpeta nueva, crear dos subcarpetas: <b>Juan</b> y <b>Margot</b>.</li>
+        <li>Meter dos o tres archivos sueltos en cada una, cualquier cosa.</li>
+        <li>Pedirle que las revise y les diga qué hay en cada una y en qué se diferencian.</li>
+        <li>Pedirle que acomode: lo de Juan a su carpeta, lo de Margot a la suya, y que diga qué movió antes de moverlo.</li>
+      </ul>
+      <div class="pl">Prompt</div>
+      <div class="prompt">Revisa las carpetas Juan y Margot que están dentro de esta carpeta. Dime qué hay en cada una y en qué se diferencia una de otra. Luego dime qué archivos están en la carpeta equivocada y cómo los acomodarías. No muevas nada todavía: muéstrame primero tu plan y espera a que te diga que sí.<button class="copy">Copiar</button></div>
+    </div>
+    <div class="sub">
+      <div class="sh"><span class="sn">4.2</span><h4>Ahora con una propiedad de verdad</h4></div>
+      <p class="obj"><b>Objetivo:</b> el mismo truco, con los documentos de una sola propiedad. Es la antesala del control de vencimientos de la Sesión 2.</p>
+      <ul class="steps">
+        <li>Copiar a la carpeta nueva los documentos que tengan de <b>una</b> propiedad: licencia, dictamen, alineamiento, número oficial, lo que haya.</li>
+        <li>Pedirle la tabla de qué es cada documento y cuándo vence.</li>
+      </ul>
+      <div class="pl">Prompt</div>
+      <div class="prompt">En esta carpeta están los documentos de {{propiedad}}. Léelos todos y ármame una tabla con: nombre del documento, qué tipo es (licencia de construcción, dictamen estructural, alineamiento, número oficial u otro), fecha en que se expidió, vigencia, y fecha en la que vence. Si en algún documento no encuentras la fecha o la vigencia, ponlo como pendiente de revisar en vez de suponerlo. Ordénala de lo que vence más pronto a lo que vence más tarde.<button class="copy">Copiar</button></div>
+    </div>
+  </div>
+</section>
+
+<section class="module" id="m5">
+  <div class="wrap">
+    <div class="head"><div class="mico">📊</div><div><div class="badge">MÓDULO 05</div><h3>Pregúntenle a su Excel <span class="chip chip-clase">EN CLASE</span></h3></div></div>
+    <p class="lead">La parte más larga de la sesión y la que más les va a servir. Suben su Excel tal como está, con sus colores y sus hojas, y le preguntan en español, como si le preguntaran a alguien que ya lo leyó completo. Sin fórmulas y sin tablas dinámicas. No hay que ordenarlo antes.</p>
+    <div class="casos">
+      <div class="caso">
+        <div class="caso-h"><span class="tag">El control de Moisés</span></div>
+        <ul>
+          <li>Vencimientos de los locales de la plaza</li>
+          <li>Rojo es que vence, verde es que ya pagó</li>
+          <li>Cada inquilino con fecha distinta</li>
+        </ul>
+      </div>
+      <div class="caso">
+        <div class="caso-h"><span class="tag">Las chequeras de Salomón</span></div>
+        <ul>
+          <li>Varios Excels, uno por sociedad</li>
+          <li>Pagos a contratistas y maestros</li>
+          <li>Cuesta empatar el gasto por propiedad</li>
+        </ul>
+      </div>
+    </div>
+    <div class="sub">
+      <div class="sh"><span class="sn">5.1</span><h4>Los vencimientos del año</h4></div>
+      <p class="obj"><b>Objetivo:</b> que el Excel de colores conteste solo lo que hoy se revisa a ojo.</p>
+      <div class="prompt">Te subí mi control de arrendamientos de {{plaza}}. Dime, mes por mes de aquí a diciembre del año que entra, a qué inquilinos se les vence el contrato, en qué fecha exacta y cuántos son en cada mes. Marca los que se vencen en los próximos 60 días. Si una fila está incompleta o no entiendes qué significa un color, pregúntame en vez de suponerlo.<button class="copy">Copiar</button></div>
+      <div class="prompt">Del mismo archivo, dime quién no me ha pagado este mes y desde cuándo viene atrasado cada uno. Ordénalos del que más debe al que menos.<button class="copy">Copiar</button></div>
+    </div>
+    <div class="sub">
+      <div class="sh"><span class="sn">5.2</span><h4>Cuánto llevo gastado en una propiedad</h4></div>
+      <p class="obj"><b>Objetivo:</b> la pregunta que hoy toma media mañana de buscar entre chequeras.</p>
+      <div class="prompt">Te subí mis Excels de chequeras. Busca en todos los pagos que tengan que ver con {{propiedad}}, aunque estén escritos de formas distintas o con abreviaturas, y dime cuánto llevo gastado desde septiembre a la fecha. Dame el total, el desglose por mes y la lista de pagos con fecha, a quién se le pagó y concepto. Al final dime qué pagos encontraste que no estás seguro de si son de esta propiedad, para que yo los revise.<button class="copy">Copiar</button></div>
+      <div class="note"><b>Aquí está el valor real:</b> no hay que arreglar el Excel antes. Salomón decía que lo lleva desordenado y que nunca le ha dedicado tiempo a arreglarlo. Esto funciona con el desorden tal como está.</div>
+    </div>
+  </div>
+</section>
+
+<!-- TAREAS SESIÓN 1 -->
+<section class="module" id="tareas1">
+  <div class="wrap">
+    <div class="head"><div class="mico">✅</div><div><div class="badge">PARA LAS TRES SEMANAS</div><h3>Tareas de la Sesión 1</h3></div></div>
+    <p class="lead">Quince o veinte minutos cada una. Lo que no salga, se trae a la Sesión 2: ahí empezamos resolviendo justo eso. Las palomitas se guardan solas en su computadora.</p>
+
+    <div class="tarea"><input type="checkbox" data-t="t1"><div><div class="who">Los cuatro</div><div class="tt">1. La carpeta de trabajo</div><div class="td">Crear la carpeta nueva en el escritorio, meter cinco archivos de los que usan esta semana y pedirle que los ordene y les diga qué hay.</div></div></div>
+
+    <div class="tarea"><input type="checkbox" data-t="t2"><div><div class="who">Los cuatro</div><div class="tt">2. Tres preguntas a su propio Excel</div><div class="td">Cada quien con el suyo. Anotar qué contestó bien y qué contestó mal. Lo que falló se trae a clase.</div><div class="prompt">Te subí mi archivo. Antes de contestarme nada, dime qué entendiste: qué hay en cada hoja, qué significa cada columna y qué te falta para poder ayudarme bien.<button class="copy">Copiar</button></div></div></div>
+
+    <div class="tarea"><input type="checkbox" data-t="t3"><div><div class="who">Moisés</div><div class="tt">3. La carta de renovación</div><div class="td">Tomar el último contrato que se venció y pedir la carta de renovación con el ajuste de INPC. Compararla con la que usted habría escrito a mano y traer las dos.</div><div class="prompt">Se me vence el contrato de {{inquilino}} en {{plaza}}. Te subo el contrato actual. Escríbeme la carta de renovación sin hacer contrato nuevo, respetando las condiciones que ya están pactadas y aplicando el ajuste anual por INPC. Antes de calcular nada, dime qué dato de INPC vas a usar y de dónde lo sacaste, y espera a que yo te lo confirme.<button class="copy">Copiar</button></div></div></div>
+
+    <div class="tarea"><input type="checkbox" data-t="t4"><div><div class="who">Moisés</div><div class="tt">4. El estado de cuenta de un moroso</div><div class="td">Pedirle el resumen de un inquilino atrasado: cuánto debe, desde cuándo y qué se le ha cobrado.</div></div></div>
+
+    <div class="tarea"><input type="checkbox" data-t="t5"><div><div class="who">Salomón</div><div class="tt">5. Monte Chimborazo, otra vez pero solo</div><div class="td">Repetir el ejercicio 5.2 con otra propiedad, sin mí. Traer lo que no cuadró.</div></div></div>
+
+    <div class="tarea"><input type="checkbox" data-t="t6"><div><div class="who">Salomón</div><div class="tt">6. Los documentos de una segunda propiedad</div><div class="td">Juntar en la carpeta los documentos de otra propiedad y pedir la tabla de vigencias. Con dos propiedades listas, en la Sesión 2 armamos el control completo.</div></div></div>
+
+    <div class="tarea"><input type="checkbox" data-t="t7"><div><div class="who">Jacobo y Jacobo</div><div class="tt">7. Los comprobantes del banco en una tabla</div><div class="td">Una semana de comprobantes convertidos en tabla de quién pagó, cuánto, qué día y por qué vía (cheque, transferencia o efectivo), lista para pasársela a Josefina.</div><div class="prompt">Te subí los comprobantes de pago del banco de esta semana. Ármame una tabla con: fecha, quién pagó, cuánto, forma de pago (cheque, transferencia o efectivo) y referencia. Si en algún comprobante no se alcanza a leer un dato, márcalo como ilegible en vez de adivinarlo. Dame la tabla lista para copiar y pegar en Excel.<button class="copy">Copiar</button></div></div></div>
+
+    <div class="tarea"><input type="checkbox" data-t="t8"><div><div class="who">Jacobo y Jacobo</div><div class="tt">8. El papeleo que falta para escriturar</div><div class="td">Tomar uno de los departamentos que están arreglando para vender y pedir la lista de lo que falta juntar para escriturar, con qué documento, de quién depende y en qué orden conviene pedirlo.</div></div></div>
+
+    <div class="tarea"><input type="checkbox" data-t="t9"><div><div class="who">Opcional, y la más divertida</div><div class="tt">9. Un viaje</div><div class="td">Moisés va a Israel a fin de año. Pedirle el itinerario con restaurantes y qué reservar con tiempo. Jacobo ya hizo su check in con Claude: que cuente cómo le fue.</div><div class="prompt">Voy a Israel del [fecha] al [fecha]. Somos [cuántos] y nos interesa [comida, historia, caminar, museos, lo que sea]. Ármame el itinerario día por día con los restaurantes que valen la pena cerca de donde voy a estar, cuáles hay que reservar con anticipación y cuánto cuesta aproximadamente cada uno. Pregúntame lo que te falte saber antes de armarlo.<button class="copy">Copiar</button></div></div></div>
+  </div>
+</section>
+
+<!-- ============ SESIÓN 2 ============ -->
+<div class="sesh-wrap"><div class="wrap"><div class="sesh" id="s2">
+  <div class="k">Sesión 2 · lunes 23 de noviembre</div>
+  <h2>Que avise solo, y hasta dónde pueden llegar</h2>
+  <p>Empezamos resolviendo lo que no salió en las tres semanas. Después armamos los controles que avisan antes de que se venza algo, y vemos Claude dentro del navegador, que es donde se acaban los trámites interminables.</p>
+</div></div></div>
+
+<div class="wrap"><div class="lockbar" id="lockbar">🔒 <span><b>La Sesión 2 se abre el 23 de noviembre.</b> Mientras tanto queda en gris. Primero las tareas de arriba, que son las que hacen que esta sesión sirva.</span></div></div>
+
+<div id="s2body">
+
+<section class="module" id="m6">
+  <div class="wrap">
+    <div class="head"><div class="mico">🔧</div><div><div class="badge">MÓDULO 06</div><h3>Mesa de atorones <span class="chip chip-clase">EN CLASE</span></h3></div></div>
+    <p class="lead">Cada quien trae lo que no le salió en las tres semanas y lo resolvemos en pantalla, uno por uno. Esto fue lo que pidió Salomón: trabajarlo juntos para entendernos de qué estamos hablando.</p>
+    <div class="sub">
+      <div class="sh"><span class="sn">6.1</span><h4>Cuando no entiende lo que le pediste</h4></div>
+      <p class="obj"><b>Objetivo:</b> aprender a corregirlo en vez de abandonarlo. Casi siempre el problema no es la herramienta, es que le faltó contexto.</p>
+      <div class="prompt">Lo que me diste no es lo que necesito. Lo que yo quería es [explícalo con tus palabras, como se lo dirías a una persona]. Antes de volver a intentarlo, dime qué entendiste tú que te pedí y qué información te falta de mi parte.<button class="copy">Copiar</button></div>
+    </div>
+  </div>
+</section>
+
+<section class="module" id="m7">
+  <div class="wrap">
+    <div class="head"><div class="mico">📝</div><div><div class="badge">MÓDULO 07</div><h3>Cartas, contratos e INPC <span class="chip chip-clase">EN CLASE</span></h3></div></div>
+    <p class="lead">Afinamos lo que hicieron de tarea y lo dejamos como plantilla para que la siguiente carta salga en dos minutos.</p>
+    <div class="note" style="border-left:4px solid var(--coral)"><b>Cuidado con el INPC.</b> Es un dato que cambia cada mes y que Claude puede equivocar si lo contesta de memoria. Pídanle siempre que les diga de dónde sacó el número y verifíquenlo en la página del INEGI antes de mandar la carta. El cálculo lo hace bien; el dato hay que dárselo o hacérselo buscar.</div>
+    <div class="sub">
+      <div class="sh"><span class="sn">7.1</span><h4>La plantilla de renovación</h4></div>
+      <p class="obj"><b>Objetivo:</b> dejar guardada la carta modelo del despacho para no volver a escribirla desde cero.</p>
+      <div class="prompt">De la carta de renovación que ya quedó bien, hazme una plantilla que pueda reutilizar: deja marcado entre corchetes lo que cambia en cada caso (inquilino, local, fechas, renta actual, porcentaje de ajuste y renta nueva) y guárdala en mi carpeta como plantilla de renovación. Explícame en tres líneas qué tengo que cambiar cada vez que la use.<button class="copy">Copiar</button></div>
+    </div>
+    <div class="sub">
+      <div class="sh"><span class="sn">7.2</span><h4>El paquete para el abogado</h4></div>
+      <p class="obj"><b>Objetivo:</b> que la lista de documentos de un contrato nuevo salga armada y no se pida dos veces lo mismo.</p>
+      <div class="prompt">Voy a hacer un contrato de arrendamiento nuevo con {{inquilino}} en {{plaza}}. Ármame la lista de todo lo que mi abogado necesita juntar: documentos del arrendador y del arrendatario, lo que aplica si el inquilino es persona moral y tiene representante legal, y lo que aplica si es persona física. De cada documento dime para qué sirve y quién lo tiene que conseguir. Al final, la lista de las condiciones que yo tengo que definir antes de que él empiece a redactar.<button class="copy">Copiar</button></div>
+    </div>
+  </div>
+</section>
+
+<section class="module" id="m8">
+  <div class="wrap">
+    <div class="head"><div class="mico">⏰</div><div><div class="badge">MÓDULO 08</div><h3>El control que avisa antes <span class="chip chip-clase">EN CLASE</span></h3></div></div>
+    <p class="lead">Hoy se enteran de que un dictamen venció cuando el inquilino se los pide. Aquí lo armamos ustedes, con las dos propiedades que trajeron de tarea, y queda la rutina para repetirlo cada mes.</p>
+    <div class="sub">
+      <div class="sh"><span class="sn">8.1</span><h4>El tablero de documentos y vigencias</h4></div>
+      <p class="obj"><b>Objetivo:</b> una sola vista con todas las propiedades, sus documentos y cuándo vence cada uno.</p>
+      <div class="prompt">Junta las tablas de documentos de todas las propiedades que tengo en la carpeta y hazme un solo archivo con: propiedad, documento, tipo, fecha de expedición, vigencia, fecha de vencimiento y semáforo (rojo si ya venció o vence en menos de 60 días, amarillo si vence este año, verde si vence después). Guárdalo en mi carpeta y déjalo listo para que yo le siga agregando propiedades.<button class="copy">Copiar</button></div>
+    </div>
+    <div class="sub">
+      <div class="sh"><span class="sn">8.2</span><h4>El repaso del mes</h4></div>
+      <p class="obj"><b>Objetivo:</b> la rutina corta que corren el primer lunes de cada mes y les dice qué atender.</p>
+      <div class="prompt">Revisa mi tablero de documentos y mi control de arrendamientos y dime, para este mes: qué documentos vencen o ya vencieron, a qué inquilinos se les vence el contrato en los próximos 60 días, y quién trae pagos atrasados. Dámelo en una sola hoja, corto, en orden de qué tengo que atender primero y por qué.<button class="copy">Copiar</button></div>
+      <div class="note"><b>Esto es lo que la cotización llama un skill:</b> una rutina guardada que se corre con una frase. Lo armamos frente a ustedes para que lo entiendan y lo puedan cambiar, no se los entrego en una caja cerrada.</div>
+    </div>
+  </div>
+</section>
+
+<section class="module" id="m9">
+  <div class="wrap">
+    <div class="head"><div class="mico">🌐</div><div><div class="badge">MÓDULO 09</div><h3>Claude en Chrome <span class="chip chip-clase">EN CLASE</span></h3></div></div>
+    <p class="lead">La extensión para el navegador: ve lo mismo que ustedes ven en pantalla y los va llevando paso a paso dentro de una página. Donde más vale es en esa pantalla donde uno no sabe ni dónde está parado.</p>
+    <div class="note"><b>Antes de empezar:</b> instalar la extensión de Claude para Chrome y darle permiso solo en las páginas donde la vayan a usar.</div>
+    <div class="sub">
+      <div class="sh"><span class="sn">9.1</span><h4>Calentamiento, algo de todos los días</h4></div>
+      <p class="obj"><b>Objetivo:</b> ver qué hace la extensión con algo sin riesgo antes de meterla a un trámite.</p>
+      <div class="prompt">Estoy en esta página. Dime qué estoy viendo, qué se puede hacer desde aquí y dónde está lo que debería revisar primero.<button class="copy">Copiar</button></div>
+    </div>
+    <div class="sub">
+      <div class="sh"><span class="sn">9.2</span><h4>El trámite de la alcaldía</h4></div>
+      <p class="obj"><b>Objetivo:</b> el que más les va a servir. Licencias de construcción, alineamiento, número oficial, dictámenes: portales donde cada cosa está en un lugar distinto y nunca dos veces en el mismo.</p>
+      <div class="pl">Paso 1 · encontrar cuál es el trámite</div>
+      <div class="prompt">Estoy en el portal de la alcaldía y necesito [renovar la licencia / sacar el alineamiento y número oficial / lo que sea], para una propiedad en [alcaldía]. Busca en el portal cuál es el trámite que aplica, dime cómo se llama exactamente, y llévame hasta ahí un paso a la vez. Espera a que te confirme cada clic antes de darme el siguiente. Si la página cambia o algo no está donde dijiste, vuelve a mirar la pantalla y corrígeme el camino.<button class="copy">Copiar</button></div>
+      <div class="pl">Paso 2 · qué hay que juntar</div>
+      <div class="prompt">Ya sabemos cuál es el trámite. Ármame la lista de todo lo que tengo que reunir antes de sentarme a llenarlo: qué documento, en qué formato, cuáles necesitan firma, cuánto cuesta y dónde se paga. Dime también en qué se atora la gente más seguido con este trámite, para no perder el viaje.<button class="copy">Copiar</button></div>
+      <div class="note" style="border-left:4px solid var(--coral)"><b>Dos cuidados.</b> No le den contraseñas, datos bancarios ni su e.firma a la extensión: ustedes los escriben, ella nada más les dice dónde. Y si la página pide un captcha, ahí se detiene y lo resuelven a mano.</div>
+    </div>
+    <div class="sub">
+      <div class="sh"><span class="sn">9.3</span><h4>Qué vale el departamento de junto</h4></div>
+      <p class="obj"><b>Objetivo:</b> para la línea nueva de comprar, arreglar y vender. Comparables de verdad, sacados de los portales, en una tabla.</p>
+      <div class="prompt">Busca en los portales inmobiliarios los departamentos en venta en [colonia o calle] de entre [metros] y [metros] metros cuadrados. Hazme una tabla con precio, metros, precio por metro, recámaras, antigüedad y qué tan completo se ve en las fotos. Al final dime en qué rango por metro cuadrado se está vendiendo la zona y dónde quedaría el mío.<button class="copy">Copiar</button></div>
+    </div>
+  </div>
+</section>
+
+<section class="module" id="m10">
+  <div class="wrap">
+    <div class="head"><div class="mico">💰</div><div><div class="badge">MÓDULO 10</div><h3>Cobranza sin perseguir <span class="chip chip-clase">EN CLASE</span></h3></div></div>
+    <p class="lead">Lo único que Moisés dijo que detesta. No se trata de automatizar la cobranza, se trata de llegar a la llamada con todo claro y con el mensaje ya escrito.</p>
+    <div class="note" style="border-left:4px solid var(--teal)"><b>La regla:</b> los recordatorios le llegan a ustedes, no al inquilino. La máquina avisa hacia adentro y el mensaje lo manda una persona. Quién cobra y cómo se cobra sigue siendo decisión de Moisés.</div>
+    <div class="sub">
+      <div class="sh"><span class="sn">10.1</span><h4>El estado de cuenta antes de llamar</h4></div>
+      <div class="prompt">De mi control de arrendamientos, ármame el estado de cuenta de {{inquilino}}: qué meses debe, cuánto de cada mes, desde cuándo viene atrasado, cuánto suma con lo que se haya acumulado y cuándo fue el último pago que sí entró. En una sola hoja, para tenerlo enfrente cuando le llame.<button class="copy">Copiar</button></div>
+    </div>
+    <div class="sub">
+      <div class="sh"><span class="sn">10.2</span><h4>El mensaje, en tres tonos</h4></div>
+      <p class="obj"><b>Objetivo:</b> que el recordatorio ya esté escrito y ustedes solo decidan cuál mandar.</p>
+      <div class="prompt">Con ese estado de cuenta, escríbeme tres versiones del mensaje de cobro para mandarle: una amable de primer recordatorio, una firme para cuando ya van dos meses, y una formal para cuando toca escalarlo. Cortas, en español de México, sin sonar a despacho de cobranza. Yo decido cuál mando.<button class="copy">Copiar</button></div>
+    </div>
+  </div>
+</section>
+
+<section class="module" id="m11">
+  <div class="wrap">
+    <div class="head"><div class="mico">✉️</div><div><div class="badge">MÓDULO 11</div><h3>El correo y hasta dónde pueden llegar <span class="chip chip-clase">EN CLASE</span></h3></div></div>
+    <p class="lead">La respuesta al pendiente que me llevé de la primera llamada, y el cierre con la pregunta de Salomón.</p>
+    <div class="sub">
+      <div class="sh"><span class="sn">11.1</span><h4>Su correo de Telmex, con la verdad por delante</h4></div>
+      <p class="obj"><b>Objetivo:</b> saber qué sí se puede hacer hoy con su correo y qué no.</p>
+      <p style="font-size:14.5px;margin-bottom:10px">Su correo de Sevilla Arquitectos es Infinitum Mail, de Telmex. Es un buzón que se configura dentro de Outlook, no es Google ni Microsoft 365. Claude se conecta solo con Gmail y con Outlook de Microsoft 365, así que <b>con el correo como está hoy no hay conexión directa</b>. Lo que sí se puede:</p>
+      <table class="cmp">
+        <tr><th>Opción</th><th>Qué implica</th></tr>
+        <tr><td><b>Dejarlo como está</b></td><td>Copiar y pegar en el chat el correo o la cadena que les interese. Funciona desde hoy, sin cambiar nada, y es lo que vamos a practicar en clase.</td></tr>
+        <tr><td><b>Reenviar</b></td><td>Mandar a un Gmail suyo solo lo que quieran que Claude vea. Medio camino, sin mover el correo del despacho.</td></tr>
+        <tr><td><b>Mover el dominio</b></td><td>Pasar el correo de la oficina a Microsoft 365. Ya viven en Outlook, sería el salto natural, y ahí sí se conecta completo. Es una decisión de la oficina, no de esta capacitación.</td></tr>
+      </table>
+      <div class="pl">Prompt · para practicar hoy, copiando y pegando</div>
+      <div class="prompt">Te pego la cadena de correos de un asunto del despacho. Dime en cinco líneas de qué se trata, qué me están pidiendo exactamente, qué me toca contestar a mí y qué le toca a alguien más. Luego escríbeme el borrador de la respuesta, corta y clara.<button class="copy">Copiar</button></div>
+    </div>
+    <div class="sub">
+      <div class="sh"><span class="sn">11.2</span><h4>Hasta dónde pueden llegar</h4></div>
+      <p class="obj"><b>Objetivo:</b> cerrar con la pregunta de Salomón, ahora que ya vieron cómo funciona.</p>
+      <ul class="steps">
+        <li><b>Lo que ya pueden solos:</b> preguntarle a cualquier archivo, redactar lo que hoy escriben a mano, ordenar carpetas, armar sus tablas de control y moverse dentro de los portales.</li>
+        <li><b>Lo que sigue cuando lo pidan:</b> que el repaso del mes llegue solo cada primer lunes, y que el correo quede conectado si deciden moverlo.</li>
+        <li><b>Lo que no conviene en un despacho de cuatro:</b> sistemas grandes que haya que alimentar todos los días. Su operación no lo pide y el costo es que alguien se vuelve capturista.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+</div><!-- /s2body -->
+
+<footer>
+  <div class="wrap">
+    <div class="name">Margot Duek</div>
+    <p style="font-size:14px">Capacitación práctica en Inteligencia Artificial para Sevilla Arquitectos · Noviembre 2026</p>
+    <p style="font-size:13px;margin-top:8px">TRiAGE BH · margotduek@triagebh.com · 55 8537 1607</p>
+  </div>
+</footer>
+
+<button id="secret" aria-hidden="true"></button>
+
+<!-- SECCION PRIVADA MARGOT -->
+<section class="module mine-sec" id="margot">
+  <div class="wrap">
+    <span class="mine-tag">★ Solo para Margot</span>
+    <div class="head"><div class="mico">🎬</div><div><div class="badge">GUION DE FACILITACIÓN</div><h3>Mis notas</h3></div></div>
+    <p class="lead">Tu guion. No es para proyectar.</p>
+
+    <div class="note" style="border-left:4px solid var(--coral)"><b>Lo que puede tumbar la Sesión 1.</b> El módulo 04 necesita la app de escritorio con plan de paga. Si llegan sin eso, ese bloque se cae y se vuelve clase de cómo contratar Claude. Confirmarlo con Jacobo el viernes y otra vez el domingo.</div>
+
+    <div class="note"><b>Reparto de tiempo, Sesión 1.</b> 0:00 módulo 01 (10 min) · 0:10 módulo 02 (10) · 0:20 módulo 03 (10) · 0:30 módulo 04 (17) · 0:47 módulo 05 (33) · 1:20 tareas y cierre (10). El módulo 05 es el que no se sacrifica: es donde ven su propio Excel contestando. Si vas tarde, recorta el 02 y enseña Code en dos minutos.</div>
+
+    <div class="note"><b>Cómo abrir.</b> Diez minutos de historia de Anthropic antes de tocar nada: Dario y Daniela Amodei, que venían de OpenAI, y por qué Claude le fue ganando terreno a ChatGPT. Con señores grandes funciona todavía mejor, porque llegan curiosos en vez de a la defensiva.</div>
+
+    <div class="note"><b>El miedo que traen.</b> Jacobo lo dijo textual: les da miedo que alguien les borre sus archivos históricos. Abre con la regla de la carpeta nueva y las copias antes de abrir nada. Que te vean pedir confirmación antes de mover un archivo.</div>
+
+    <div class="note"><b>Moisés no quiere que lo reemplacen.</b> Dijo tres veces que le gusta su trabajo y que no quiere un programa que lo haga por él. Nunca digas automatizar: di que va a tardar menos. Lo único que odia es cobrar, y ahí sí puedes ir con todo.</div>
+
+    <div class="note"><b>Salomón pregunta hasta dónde se llega.</b> Esa pregunta se contesta al final, en el 11.2, no al principio. Si la hace antes, dile que es el cierre y que primero quieres que vea cómo funciona.</div>
+
+    <div class="note"><b>Los dos Jacobos ya usan Claude.</b> Úsalos: que Jacobo cuente lo del check in del vuelo al abrir. Vale más viniendo de él que de ti, y le baja la guardia a los dos señores. Riesgo del otro lado: que se adelanten y se aburran. Dales el papel de ayudar al de junto cuando se atore.</div>
+
+    <div class="note"><b>Si algo falla en vivo</b>, es contenido, no crisis. Encuádralo desde el inicio: esto les va a pasar a ustedes, vamos a resolverlo con la misma herramienta. Pídele a Claude que diagnostique el error frente a ellos.</div>
+
+    <div class="sub">
+      <div class="sh"><span class="sn">A</span><h4>Cómo mover cosas a tarea en vivo</h4></div>
+      <p class="obj">Cuando se te acabe el tiempo, di hasta dónde llegaron y cuáles tareas quedan. Ya están escritas, no hay que improvisar ni mandar nada después. Si quieres una tarea nueva que no está en la lista, me escribes y la agrego: es un solo archivo y se actualiza en la misma liga en dos minutos.</p>
+    </div>
+
+    <div class="sub">
+      <div class="sh"><span class="sn">B</span><h4>Pendientes antes del lunes</h4></div>
+      <ul class="steps">
+        <li>Confirmar que los cuatro tengan <b>Claude Pro y la app instalada</b>.</li>
+        <li>Confirmar con Jacobo la <b>fecha de la Sesión 2</b>: dos semanas cae el 16 y él regresa el 19 o 20, por eso está puesto el 23.</li>
+        <li>Llevar <b>tu propio Excel de prueba</b> por si ninguno llega con el suyo abierto.</li>
+        <li>Preguntar si quieren que <b>Josefina</b> entre a la Sesión 2. La facturación y los complementos son de ella.</li>
+      </ul>
+    </div>
+
+    <div class="sub">
+      <div class="sh"><span class="sn">C</span><h4>Reparto de tiempo, Sesión 2</h4></div>
+      <p class="obj">0:00 atorones (15) · 0:15 cartas e INPC (15) · 0:30 vencimientos (20) · 0:50 Chrome (20) · 1:10 cobranza (10) · 1:20 correo y cierre (10). Chrome no se sacrifica. Si algo se cae, cobranza se va a tarea, que es la que mejor se lee sola en la guía.</p>
+    </div>
+  </div>
+</section>
+
+<script>
+  var root=document.documentElement, btn=document.getElementById('themeBtn');
+  btn.addEventListener('click',function(){var dark=root.getAttribute('data-theme')==='dark';root.setAttribute('data-theme',dark?'light':'dark');btn.textContent=dark?'🌙 Oscuro':'☀️ Claro';});
+
+  /* campos que se guardan solos */
+  var FIELDS=['plaza','propiedad','inquilino'];
+  var store={};
+  FIELDS.forEach(function(k){
+    try{store[k]=localStorage.getItem('sev_'+k)||'';}catch(e){store[k]='';}
+  });
+  document.querySelectorAll('.vars input').forEach(function(inp){
+    var k=inp.getAttribute('data-k');
+    if(store[k]) inp.value=store[k];
+    inp.addEventListener('input',function(){
+      store[k]=inp.value;
+      try{localStorage.setItem('sev_'+k,inp.value);}catch(e){}
+    });
+  });
+  var LABELS={plaza:'la plaza',propiedad:'la propiedad',inquilino:'el inquilino'};
+  function fill(text){
+    FIELDS.forEach(function(k){
+      var v=(store[k]||'').trim()||'['+LABELS[k]+']';
+      text=text.split('{{'+k+'}}').join(v);
+    });
+    return text;
+  }
+  /* los prompts muestran el placeholder bonito en pantalla */
+  function paint(){
+    document.querySelectorAll('.prompt').forEach(function(box){
+      if(!box.dataset.raw){
+        var b=box.querySelector('.copy');
+        box.dataset.raw=box.textContent.replace(b?b.textContent:'','').trim();
+      }
+      var b=box.querySelector('.copy');
+      box.textContent=fill(box.dataset.raw);
+      if(b) box.appendChild(b);
+    });
+  }
+  paint();
+  document.querySelectorAll('.vars input').forEach(function(inp){inp.addEventListener('input',paint);});
+
+  /* copiar */
+  document.addEventListener('click',function(ev){
+    var b=ev.target.closest('.copy'); if(!b) return;
+    var box=b.parentElement, text=fill(box.dataset.raw||box.textContent.replace('Copiar','').trim());
+    navigator.clipboard.writeText(text).then(function(){
+      b.textContent='Copiado'; b.classList.add('done');
+      setTimeout(function(){b.textContent='Copiar';b.classList.remove('done');},1400);
+    });
+  });
+
+  /* tareas con palomita */
+  document.querySelectorAll('.tarea input[type=checkbox]').forEach(function(c){
+    var k='sev_tarea_'+c.getAttribute('data-t'), row=c.closest('.tarea');
+    try{ if(localStorage.getItem(k)==='1'){c.checked=true;row.classList.add('done');} }catch(e){}
+    c.addEventListener('change',function(){
+      row.classList.toggle('done',c.checked);
+      try{localStorage.setItem(k,c.checked?'1':'0');}catch(e){}
+    });
+  });
+
+  /* sesión 2 bloqueada hasta el 23 de noviembre, o con ?abierto */
+  (function(){
+    var abierto = location.search.indexOf('abierto')>-1 || new Date() >= new Date(2026,10,23);
+    if(!abierto){ document.getElementById('s2body').classList.add('locked'); }
+    else { var lb=document.getElementById('lockbar'); if(lb) lb.style.display='none'; }
+  })();
+
+  /* nav activo */
+  var links=Array.prototype.slice.call(document.querySelectorAll('#navlinks a')),map={};
+  links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+  var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){links.forEach(function(a){a.classList.remove('active');});var a=map[e.target.id];if(a){a.classList.add('active');a.scrollIntoView({inline:'center',block:'nearest'});}}});},{rootMargin:'-45% 0px -50% 0px',threshold:0});
+  document.querySelectorAll('section[id]').forEach(function(s){obs.observe(s);});
+
+  var sec=document.getElementById('secret');
+  if(sec){sec.addEventListener('click',function(){var m=document.getElementById('margot');m.style.display='block';m.scrollIntoView({behavior:'smooth'});});}
+</script>
+</body>
+</html>
