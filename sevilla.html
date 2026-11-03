@@ -151,12 +151,6 @@
   .semana{font-size:11.5px;text-transform:uppercase;letter-spacing:1.3px;color:var(--teal);font-weight:800;margin:26px 0 10px}
   .semana:first-of-type{margin-top:6px}
 
-  /* bitacora */
-  .bita{display:grid;gap:12px;margin:16px 0 4px}
-  .bita .row{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px 18px;box-shadow:var(--shadow-sm)}
-  .bita label{display:block;font-size:11.5px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;color:var(--accent);margin-bottom:7px}
-  .bita textarea{width:100%;min-height:68px;padding:11px 13px;border-radius:12px;border:1px solid var(--line);background:var(--surface-2);color:var(--text);font-size:14px;font-family:inherit;line-height:1.5;resize:vertical}
-  .bita textarea:focus{outline:none;border-color:var(--accent)}
   .ritmo{background:linear-gradient(135deg,color-mix(in srgb,var(--teal) 16%,var(--surface)),var(--surface));border:1px solid color-mix(in srgb,var(--teal) 40%,transparent);border-radius:20px;padding:24px 26px;margin:0 0 24px;box-shadow:var(--shadow-sm)}
   .ritmo h4{font-size:21px;font-weight:800;margin-bottom:8px}
   .ritmo p{font-size:15px;margin-bottom:10px}
@@ -220,7 +214,7 @@
     <ul class="journey" style="margin-top:26px">
       <li><span class="yr">Sesión 1</span><span>Lunes 2 de noviembre. Conocer la herramienta y soltarla sobre el Excel de cobranza. Es lo que está escrito aquí abajo.</span></li>
       <li><span class="yr">Ahora</span><span>Quince minutos a la semana, cada quien sobre su propio trabajo. Abajo hay una pestaña con tu nombre y ahí están tus tareas.</span></li>
-      <li><span class="yr">Sesión 2</span><span>Fecha por definir, cuando regresen de los viajes. El temario lo arman ustedes con lo que anoten en la bitácora.</span></li>
+      <li><span class="yr">Sesión 2</span><span>Fecha por definir, cuando regresen de los viajes. El temario lo arman ustedes con lo que se les atore en estas semanas.</span></li>
     </ul>
   </div>
 </section>
@@ -501,11 +495,10 @@ Me gusta tener el control de todo. No decidas nada por tu cuenta ni des nada por
         <li>Cada quien tiene su <b>pestaña con su nombre</b> aquí abajo. Ahí están tus tareas, una por semana.</li>
         <li><b>Una vez por semana, quince minutos.</b> De preferencia el lunes. Si el lunes no se puede, el martes, pero que no se brinque la semana.</li>
         <li>Cuando acaban, <b>una captura al grupo de WhatsApp</b>. No para presumir, para que los otros tres vean que sí se hizo.</li>
-        <li>Anotan en la bitácora de aquí abajo <b>qué salió bien y qué salió mal</b>. Eso se guarda solo en su computadora.</li>
-        <li>Lo que salió mal <b>es el temario de la Sesión 2</b>. No voy a inventar el programa: lo van a escribir ustedes en esos dos renglones.</li>
+        <li>Lo que salga mal <b>es el temario de la Sesión 2</b>. No voy a inventar el programa: me lo mandan por WhatsApp en cuanto pase, aunque sea en una línea.</li>
       </ol>
     </div>
-    <div class="note"><b>Las palomitas y la bitácora se guardan solas</b> en el navegador de cada quien, en su propia computadora. Nadie más las ve.</div>
+    <div class="note"><b>Las palomitas se guardan solas</b> en el navegador de cada quien, en su propia computadora. Nadie más las ve.</div>
   </div>
 </section>
 
@@ -601,26 +594,11 @@ Dime qué aparece en el banco y no está en el Excel, qué está en el Excel y n
   </div>
 </section>
 
-<section class="module" id="bitacora">
-  <div class="wrap">
-    <div class="head"><div class="mico">📓</div><div><div class="badge">LO QUE ARMA LA SIGUIENTE SESIÓN</div><h3>Bitácora</h3></div></div>
-    <p class="lead">Dos renglones por semana. Qué le salió bien y qué le salió mal. Esto es lo que vamos a resolver en la Sesión 2, así que lo que no escriban aquí no lo vamos a ver.</p>
-    <div class="bita">
-      <div class="row"><label>Semana 1</label><textarea data-b="b1" placeholder="Qué salió bien / qué no pude / qué no entendí"></textarea></div>
-      <div class="row"><label>Semana 2</label><textarea data-b="b2" placeholder="Qué salió bien / qué no pude / qué no entendí"></textarea></div>
-      <div class="row"><label>Semana 3</label><textarea data-b="b3" placeholder="Qué salió bien / qué no pude / qué no entendí"></textarea></div>
-      <div class="row"><label>Semana 4</label><textarea data-b="b4" placeholder="Qué salió bien / qué no pude / qué no entendí"></textarea></div>
-      <div class="row"><label>Lo que quiero que veamos en la Sesión 2, sí o sí</label><textarea data-b="b5" placeholder="Una cosa. La que más le urja."></textarea></div>
-    </div>
-    <div class="note"><b>Para la siguiente sesión, dos condiciones.</b> Que lleguen los cuatro con su laptop y con Claude abierto, y que haya un cable HDMI para ver la pantalla en grande. Sin eso volvemos a hacer demo en lugar de taller, y el taller es donde está lo bueno.</div>
-  </div>
-</section>
-
 <!-- ============ LO QUE SIGUE ============ -->
 <section class="module" id="sigue">
   <div class="wrap">
     <div class="head"><div class="mico">🗺️</div><div><div class="badge">PENDIENTES</div><h3>Lo que sigue</h3></div></div>
-    <p class="lead">Lo que todavía no vemos, sin fecha por ahora. Cuando sepamos cuándo están los cuatro en la ciudad, armamos la Sesión 2 con lo que salga de su bitácora y de esta lista.</p>
+    <p class="lead">Lo que todavía no vemos, sin fecha por ahora. Cuando sepamos cuándo están los cuatro en la ciudad, armamos la Sesión 2 con lo que se les haya atorado y con esta lista.</p>
     <div class="casos">
       <div class="caso">
         <div class="caso-h"><span class="tag">Sesión 2</span></div>
@@ -640,6 +618,7 @@ Dime qué aparece en el banco y no está en el Excel, qué está en el Excel y n
         </ul>
       </div>
     </div>
+    <div class="note"><b>Para la siguiente sesión, dos condiciones.</b> Que lleguen los cuatro con su laptop y con Claude abierto, y que haya un cable HDMI para ver la pantalla en grande. Sin eso volvemos a hacer demo en lugar de taller, y el taller es donde está lo bueno.</div>
   </div>
 </section>
 
@@ -757,15 +736,6 @@ Dime qué aparece en el banco y no está en el Excel, qué está en el Excel y n
     c.addEventListener('change',function(){
       row.classList.toggle('done',c.checked);
       try{localStorage.setItem(k,c.checked?'1':'0');}catch(e){}
-    });
-  });
-
-  /* bitacora que se guarda sola */
-  document.querySelectorAll('.bita textarea').forEach(function(t){
-    var k='sev_bita_'+t.getAttribute('data-b');
-    try{ var v=localStorage.getItem(k); if(v) t.value=v; }catch(e){}
-    t.addEventListener('input',function(){
-      try{localStorage.setItem(k,t.value);}catch(e){}
     });
   });
 
