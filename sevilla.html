@@ -141,6 +141,16 @@
   footer{padding:46px 0 60px;text-align:center;color:var(--muted)}
   footer .name{color:var(--text);font-weight:800;font-size:18px;margin-bottom:5px}
 
+  /* pestanas por persona */
+  .tabs{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 20px}
+  .tabs button{border:1px solid var(--line);background:var(--surface);color:var(--muted);border-radius:999px;padding:11px 20px;font-size:14.5px;font-weight:700;cursor:pointer;font-family:inherit;transition:.15s;box-shadow:var(--shadow-sm)}
+  .tabs button:hover{border-color:var(--accent);color:var(--text)}
+  .tabs button.on{background:var(--accent);border-color:var(--accent);color:#fff}
+  .persona{display:none}
+  .persona.on{display:block}
+  .semana{font-size:11.5px;text-transform:uppercase;letter-spacing:1.3px;color:var(--teal);font-weight:800;margin:26px 0 10px}
+  .semana:first-of-type{margin-top:6px}
+
   /* bitacora */
   .bita{display:grid;gap:12px;margin:16px 0 4px}
   .bita .row{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px 18px;box-shadow:var(--shadow-sm)}
@@ -205,13 +215,11 @@
 <section class="bienvenida" id="bienvenida">
   <div class="wrap">
     <div class="section-tag">Bienvenida</div>
-    <h2 class="big">Esta guía es lo que vimos el lunes, escrito</h2>
-    <p style="max-width:830px;font-size:16px">No es un curso general de inteligencia artificial y tampoco es el temario que les mandé antes de la sesión. Es exactamente lo que hicimos juntos el lunes 2 de noviembre, en el orden en que lo hicimos, para que el que no alcanzó a verlo en su propia computadora lo pueda repetir solo. Todos los ejemplos salen de su oficina: el Excel de cuentas por cobrar, la chequera, Carmen Xochitl, el corte de estacionamiento, la obra de Patriotismo.</p>
-    <div class="quote">Yo tengo casi 66 años. Yo no quedarme atrás, no quedarme tan atrás.<span>Salomón</span></div>
-    <div class="quote">Claude es el cerebro. Estos son los brazos con los que puede trabajar.<span>Jacobo, explicando los conectores mejor que yo</span></div>
+    <h2 class="big">Lo que vimos el lunes, escrito</h2>
+    <p style="max-width:830px;font-size:16px">Los pasos para que lo repitas en tu computadora, y lo que te toca hacer antes de la siguiente sesión.</p>
     <ul class="journey" style="margin-top:26px">
       <li><span class="yr">Sesión 1</span><span>Lunes 2 de noviembre. Conocer la herramienta y soltarla sobre el Excel de cobranza. Es lo que está escrito aquí abajo.</span></li>
-      <li><span class="yr">Ahora</span><span>Quince minutos a la semana, cada lunes, cada quien sobre su propio trabajo. Las tareas están abajo, con nombre y apellido.</span></li>
+      <li><span class="yr">Ahora</span><span>Quince minutos a la semana, cada quien sobre su propio trabajo. Abajo hay una pestaña con tu nombre y ahí están tus tareas.</span></li>
       <li><span class="yr">Sesión 2</span><span>Fecha por definir, cuando regresen de los viajes. El temario lo arman ustedes con lo que anoten en la bitácora.</span></li>
     </ul>
   </div>
@@ -221,21 +229,10 @@
 <section class="module" id="legend">
   <div class="wrap">
     <div class="note" style="border-left:4px solid var(--accent)">
-      <b>Cómo leer esta guía.</b> Cada bloque trae una etiqueta. <span class="chip chip-clase">LO VIMOS</span> ya lo hicimos juntos en la sesión. <span class="chip chip-tarea">HAZLO TÚ</span> toca repetirlo en su computadora, los pasos están escritos. <span class="chip chip-demo">PENDIENTE</span> se quedó en el tintero y lo vemos en la siguiente.
+      <b>Cómo leer esta guía.</b> Cada bloque trae una etiqueta. <span class="chip chip-clase">LO VIMOS</span> ya lo hicimos juntos en la sesión. <span class="chip chip-tarea">HAZLO TÚ</span> te toca repetirlo en tu computadora, los pasos están escritos. <span class="chip chip-demo">PENDIENTE</span> son cosas que vamos a hacer juntos en la siguiente sesión.
     </div>
     <div class="note">
-      <b>Para las tareas no necesitan instalar nada.</b> Todo lo de estas semanas se hace en claude.ai, en el navegador o en el celular. La aplicación de escritorio y las carpetas locales las vemos después, cuando ya estén los cuatro en plan de pago.
-    </div>
-    <div class="note" style="border-left:4px solid var(--teal)">
-      <b>Nada se borra.</b> Claude todavía no puede editar sus Excels: cuando le piden algo, trabaja sobre una copia nueva. Sus archivos se quedan exactamente donde están.
-    </div>
-
-    <div class="pl" style="margin-top:22px">Llenen esto una vez y se guarda solo en su computadora</div>
-    <div class="vars">
-      <div><label>Un inquilino</label><input data-k="inquilino" placeholder="Carmen Xochitl"></div>
-      <div><label>Una propiedad</label><input data-k="depto" placeholder="Patriotismo, depto 1"></div>
-      <div><label>Su archivo de cabecera</label><input data-k="archivo" placeholder="CxC 2026"></div>
-      <div class="varhint">Los prompts de abajo ya traen estos datos puestos. Cuando le den a Copiar, se copian con lo que escribieron aquí.</div>
+      <b>Dónde hacerlo, da igual.</b> En el celular, en la aplicación de tu computadora o en el navegador. Lo que esté más a la mano.
     </div>
   </div>
 </section>
@@ -283,9 +280,9 @@
       <ul class="steps">
         <li>Pican su <b>nombre de usuario</b>, abajo a la izquierda.</li>
         <li>Entran a <b>Uso</b>. Ahí dice cuánto llevan gastado de la sesión actual y de la semana.</li>
-        <li>Se rellena solo: <b>cada cuatro horas</b> una parte, y <b>cada semana</b> el total. <b>No se acumula</b>, lo que no usaron se pierde.</li>
+        <li>Se rellena solo: la sesión se reinicia <b>cada cinco horas</b>, y en los planes de pago hay además un <b>tope semanal</b>. <b>No se acumula</b>: lo que no usaste se pierde.</li>
       </ul>
-      <div class="note"><b>Dos avisos.</b> En el plan gratis este medidor no aparece. Y lo que más rápido se come los tokens son dos cosas: los Excels grandes y Claude en Chrome, que a Jacobo se le acaba en media hora con el navegador prendido.</div>
+      <div class="note"><b>Dos avisos.</b> En el plan gratis esta pantalla puede verse distinta o traer menos detalle; con el plan de pago la ves completa. Y lo que más rápido se come los tokens son dos cosas: los Excels grandes y Claude en Chrome, que a Jacobo SM se le acaba en media hora con el navegador prendido.</div>
     </div>
   </div>
 </section>
@@ -302,13 +299,15 @@
         <li><b>Instrucciones personales.</b> Aquí va cómo quieren que les hable. La mía dice que no me halague y que vaya directo al punto, porque no quiero perder tiempo en cumplidos.</li>
       </ul>
       <div class="pl">Si no saben qué poner, copien esto</div>
-      <div class="prompt">Trabajo en un despacho familiar de arquitectura e inmobiliaria en la Ciudad de México. Administramos locales comerciales y departamentos en renta: contratos, cobranza, mantenimiento y obra. Háblame directo y en español de México, sin halagos y sin introducciones largas. Cuando no tengas un dato, dime que no lo tienes en vez de suponerlo. Cuando se trate de números o de fechas de contrato, muéstrame de dónde los sacaste.<button class="copy">Copiar</button></div>
+      <div class="prompt">Trabajo en un despacho familiar de arquitectura e inmobiliaria en la Ciudad de México. Administramos locales comerciales y departamentos en renta: contratos, cobranza, mantenimiento y obra. Háblame directo y en español de México, sin halagos y sin introducciones largas.
+
+Me gusta tener el control de todo. No decidas nada por tu cuenta ni des nada por hecho: reconfirma conmigo antes de avanzar, enséñame de dónde sacaste cada número y cada fecha, y si te falta un dato pregúntamelo en vez de suponerlo. Prefiero que me preguntes de más a que te equivoques.<button class="copy">Copiar</button></div>
     </div>
     <div class="sub">
       <div class="sh"><span class="sn">3.2</span><h4>Privacidad y memoria</h4></div>
       <ul class="steps">
         <li><b>Metadatos de ubicación: déjenlos prendidos.</b> Así Claude sabe que están en México y les contesta con la ley mexicana sin que se lo tengan que decir cada vez.</li>
-        <li><b>Usar tu información para mejorar el modelo: apáguenlo.</b> Van a subir cosas de la oficina. En plan de pago no es obligatorio compartirlas. En el gratis sí lo es, una razón más para pasarse al pagado.</li>
+        <li><b>Usar tu información para mejorar el modelo: apáguenlo.</b> Van a subir cosas de la oficina, así que ese interruptor va apagado. Está en todos los planes, también en el gratis: se apaga una vez y ahí se queda.</li>
         <li><b>Memoria: préndanla.</b> Así se acuerda de un chat a otro quiénes son y qué hacen, y no tienen que volver a explicárselo cada vez.</li>
       </ul>
       <div class="note"><b>Si vienen de Gemini o de ChatGPT.</b> En Configuración hay un botón de importar memoria. Claude les da un texto, lo pegan en el otro, copian lo que les conteste y lo traen de vuelta. Se trae lo que el otro ya sabía de ustedes.</div>
@@ -328,14 +327,13 @@
         <li>Se abre la ventana de Dropbox, le dan permiso y listo. Si les pide un código al teléfono, es la autenticación de Dropbox, no de Claude.</li>
         <li>Hay más de 880 conectores. Drive, Gmail, Calendar, Dropbox, Notion, Microsoft 365. Conecten nada más lo que de verdad usan.</li>
       </ul>
-      <div class="quote">Claude es el cerebro. Estos son los brazos con los que puede trabajar.<span>Jacobo</span></div>
+      <div class="quote">Claude es el cerebro. Estos son los brazos con los que puede trabajar.<span>Jacobo SM</span></div>
     </div>
     <div class="sub">
       <div class="sh"><span class="sn">4.2</span><h4>Lo que se quedó pendiente <span class="chip chip-demo">PENDIENTE</span></h4></div>
       <ul class="steps">
-        <li><b>Microsoft 365.</b> No lo conectamos porque no estaban los accesos a la mano y preferí no quemar la clase ahí. Lo retomamos aparte: hay que tener el usuario y contraseña de 365 listos, y revisar con qué correo está creada la cuenta de Claude.</li>
+        <li><b>Microsoft 365.</b> El que tenga 365 lo puede conectar, nada más hay que tener a la mano el usuario y la contraseña correctos de 365. Se intenta igual que cualquier otro conector.</li>
         <li><b>WhatsApp.</b> No tiene conector propio. Se puede armar, pero es desarrollo, no es prender un switch.</li>
-        <li><b>El correo de Telmex.</b> Es un Exchange de los que regalan con el hosting y no tiene conector. Dos caminos: el rápido, colgar el correo de un Gmail y conectar Gmail a Claude. El bueno, mudarse a Google Workspace. Eso lo platicamos aparte porque es una mudanza, no una clase.</li>
       </ul>
     </div>
   </div>
@@ -370,8 +368,8 @@
 
 <section class="module" id="m6">
   <div class="wrap">
-    <div class="head"><div class="mico">🗄️</div><div><div class="badge">BLOQUE 06</div><h3>La mesa y el archivero <span class="chip chip-clase">LO VIMOS</span></h3></div></div>
-    <p class="lead">Esta es la parte que expliqué mal en clase. Va otra vez, con una imagen de su oficina.</p>
+    <div class="head"><div class="mico">🗄️</div><div><div class="badge">BLOQUE 06</div><h3>El contexto <span class="chip chip-clase">LO VIMOS</span></h3></div></div>
+    <p class="lead">Esto es lo que traté de explicar con mi botella de agua. Va otra vez, con otro ejemplo.</p>
     <div class="sub">
       <div class="obj">Claude trabaja sobre una <b>mesa</b>. Todo lo que le dicen lo va poniendo encima: el contrato, el Excel, la plática de hace rato. La mesa es grande, pero tiene un tamaño.</div>
       <p class="pl">Y aquí está el detalle</p>
@@ -404,15 +402,15 @@
     </div>
     <div class="sub">
       <div class="sh"><span class="sn">7.2</span><h4>Cómo dividirlos <span class="chip chip-tarea">HAZLO TÚ</span></h4></div>
-      <div class="obj">En clase le dimos muchas vueltas a si eran por plaza o por dirección, y la conclusión fue que no: una plaza con 35 inquilinos tiene 35 condiciones distintas, y el de al lado del Starbucks no se parece en nada al de junto. <b>Conviene dividirlos por tipo de trabajo, no por propiedad.</b></div>
-      <p class="pl">La propuesta para arrancar</p>
+      <div class="obj">Esta es la pregunta que les toca contestar a ustedes, no a mí. Yo no conozco su trabajo por dentro: <b>ustedes sí</b>. En clase le dimos vueltas a si eran por plaza o por dirección y no nos convenció, porque una plaza con 35 inquilinos tiene 35 condiciones distintas y el de junto al Starbucks no se parece en nada al de al lado.</div>
+      <p class="pl">Para que lo piensen, así lo dividiría yo</p>
       <ul class="steps">
-        <li><b>Cobranza.</b> El Excel de CxC, la chequera, los estados de cuenta. Ya está hecho.</li>
+        <li><b>Cobranza.</b> El Excel de CxC, la chequera, los estados de cuenta. Ese ya está hecho.</li>
         <li><b>Contratos.</b> El machote, los convenios modificatorios, el INPC, los documentos que piden.</li>
         <li><b>Prospectos.</b> Cotizaciones de locales, cartas de intención, disponibilidad.</li>
-        <li><b>Obra.</b> Lo de remodelación: contratistas, presupuestos, lo que se gastó en cada departamento.</li>
+        <li><b>Obra.</b> Contratistas, presupuestos, lo que se gastó en cada departamento.</li>
       </ul>
-      <div class="note">Esta lista es mi propuesta, no un dogma. La tarea es que cada quien la acomode a como funciona su cabeza y la traiga a la siguiente sesión.</div>
+      <div class="note"><b>Pero esa es mi cabeza, no la de ustedes.</b> Si a ustedes les hace más sentido de otra forma, esa es la buena. Lo único que les pido es que lleguen a la siguiente sesión con su división escrita, la que sea, y la montamos.</div>
     </div>
   </div>
 </section>
@@ -432,7 +430,7 @@
         <li><b>El registro de pagos.</b> Juntar los comprobantes, apuntarlos y marcar como pagado.</li>
         <li><b>La conciliación.</b> Estado de cuenta contra el Excel de cobranza.</li>
       </ul>
-      <div class="note"><b>Para que un skill salga bien hace falta una cosa:</b> que el proceso esté escrito paso por paso. Eso es la tarea de abajo, y sin eso la siguiente sesión no rinde.</div>
+      <div class="note"><b>Tranquilos, los skills los vamos a armar juntos en la siguiente clase.</b> Nadie tiene que construir uno solo. Lo único que les pido de tarea es traer <b>el proceso escrito paso por paso</b>, que es la materia prima. Con eso en la mano, armar el skill en clase toma veinte minutos.</div>
     </div>
   </div>
 </section>
@@ -453,11 +451,11 @@
     <div class="sub">
       <div class="sh"><span class="sn">9.2</span><h4>Para repetirlo <span class="chip chip-tarea">HAZLO TÚ</span></h4></div>
       <div class="pl">Primero, que le quede claro de qué archivo hablamos</div>
-      <div class="prompt">Entra a mi Dropbox y busca únicamente los archivos que se llaman CxC o C por C. No abras nada más, no quiero que revises todo el Dropbox. Cuando los tengas, dime qué hojas tiene cada uno y qué significan los colores, y espera a que yo te confirme antes de sacar conclusiones.<button class="copy">Copiar</button></div>
+      <div class="prompt">Entra a mi Dropbox y busca únicamente los archivos que se llamen CxC, con o sin espacios o puntos entre las letras. No abras nada más, no quiero que revises todo el Dropbox. Cuando los tengas, dime qué hojas tiene cada uno y qué significan los colores, y espera a que yo te confirme antes de sacar conclusiones.<button class="copy">Copiar</button></div>
       <div class="pl">Después, lo que importa</div>
       <div class="prompt">Con esos archivos: dime quién me debe, de qué meses y cuánto, ordenado del que más debe al que menos. Si un dato no está claro o se contradice entre archivos, no lo adivines: márcalo aparte en una lista de lo que hay que revisar a mano.<button class="copy">Copiar</button></div>
       <div class="pl">Y para los correos, siempre con esta frase al final</div>
-      <div class="prompt">Créame el borrador de cobranza en mi correo para {{inquilino}}. Es una persona mayor con la que tengo buena relación: háblale con paciencia, con respeto y con cariño, e invítala a ponerse al día sin presionarla. No mandes nada sin mi aprobación, solo déjalo en borradores.<button class="copy">Copiar</button></div>
+      <div class="prompt">Créame el borrador de cobranza en mi correo para [nombre del inquilino]. Es una persona mayor con la que tengo buena relación: háblale con paciencia, con respeto y con cariño, e invítala a ponerse al día sin presionarla. No mandes nada sin mi aprobación, solo déjalo en borradores.<button class="copy">Copiar</button></div>
       <div class="note"><b>La frase que no se olvida.</b> No mandes nada sin mi aprobación. Y además déjenlo bloqueado en los permisos del bloque 5, por si un día se les olvida escribirla.</div>
     </div>
     <div class="sub">
@@ -500,7 +498,8 @@
       <h4>Cómo funciona</h4>
       <p>Una cita fija, no un curso. Quince minutos, el lunes, con lo que ya tienen en la mano.</p>
       <ol>
-        <li>Cada lunes, quince minutos. Si un lunes no se puede, el martes, pero que no se brinque la semana.</li>
+        <li>Cada quien tiene su <b>pestaña con su nombre</b> aquí abajo. Ahí están tus tareas, una por semana.</li>
+        <li><b>Una vez por semana, quince minutos.</b> De preferencia el lunes. Si el lunes no se puede, el martes, pero que no se brinque la semana.</li>
         <li>Cuando acaban, <b>una captura al grupo de WhatsApp</b>. No para presumir, para que los otros tres vean que sí se hizo.</li>
         <li>Anotan en la bitácora de aquí abajo <b>qué salió bien y qué salió mal</b>. Eso se guarda solo en su computadora.</li>
         <li>Lo que salió mal <b>es el temario de la Sesión 2</b>. No voy a inventar el programa: lo van a escribir ustedes en esos dos renglones.</li>
@@ -510,48 +509,95 @@
   </div>
 </section>
 
-<section class="module" id="tsalomon">
+<section class="module" id="personas">
   <div class="wrap">
-    <div class="head"><div class="mico">🚀</div><div><div class="badge">CARRIL DE ARRANQUE</div><h3>Salomón</h3></div></div>
-    <p class="lead">El lunes trabajamos sobre la computadora de Moisés, así que a usted le toca llegar al mismo punto en la suya. Son cuatro lunes y cada uno es cortito. No hay que instalar nada: todo se hace entrando a claude.ai.</p>
+    <div class="head"><div class="mico">👥</div><div><div class="badge">TUS TAREAS</div><h3>Pica tu nombre</h3></div></div>
+    <p class="lead">Cada quien tiene las suyas, porque cada quien llegó a un lugar distinto el lunes. No tienes que leer las de los demás.</p>
 
-    <div class="tarea"><input type="checkbox" data-t="s1"><div><div class="who">Lunes 1 · diez minutos</div><div class="tt">Dejar Claude puesto</div><div class="td">Nada más el bloque 3 de esta guía, con los pasos escritos: cómo quiere que le diga, las instrucciones personales (puede copiar las de ahí), ubicación prendida, privacidad apagada y memoria prendida. Ya está.</div></div></div>
+    <div class="tabs">
+      <button data-p="moises">Moisés</button>
+      <button data-p="salomon">Salomón</button>
+      <button data-p="jacobosb">Jacobo SB</button>
+      <button data-p="jacobosm">Jacobo SM</button>
+    </div>
 
-    <div class="tarea"><input type="checkbox" data-t="s2"><div><div class="who">Lunes 1 · cinco minutos más</div><div class="tt">Contarle quién es, hablando</div><div class="td">Abre un chat, pica el micrófono y se lo cuenta de viva voz, sin escribir: qué hace en el despacho, qué propiedades lleva, qué le quita tiempo. Dictado, como un WhatsApp de voz. Luego le pide que se lo resuma para ver si entendió.</div><div class="prompt">Te acabo de contar a qué me dedico. Resúmeme en diez renglones qué entendiste de mi trabajo y qué te falta saber de mí para poder ayudarme bien. Guárdalo en tu memoria.<button class="copy">Copiar</button></div></div></div>
+    <!-- MOISÉS -->
+    <div class="persona" data-p="moises">
+      <div class="note"><b>Tú ya tienes todo montado:</b> el perfil puesto, Dropbox y Gmail conectados y el proyecto de Cobranza creado. Así que tus tareas no son armar nada, son ponerlo a prueba. Y como te vas de viaje, son tres.</div>
 
-    <div class="tarea"><input type="checkbox" data-t="s3"><div><div class="who">Lunes 2</div><div class="tt">Conectar Dropbox y dejar los permisos</div><div class="td">El bloque 4 y el bloque 5, en su computadora. Conectar Dropbox, y en Gmail dejar la lectura en completo, la escritura con aprobación y el envío bloqueado. Si se atora en cualquier paso, mándeme la captura por WhatsApp y lo resolvemos ahí mismo, no espere a la clase.</div></div></div>
+      <div class="semana">Semana 1 · la importante</div>
+      <div class="tarea"><input type="checkbox" data-t="moi1"><div><div class="tt">El cotejo. Que lo revise, no que lo llene</div><div class="td">Sube el estado de cuenta del mes y tu Excel de la chequera, y pide el cotejo contra el CxC. <b>Ojo con esto:</b> no le pidas que llene ni que corrija nada, nada más que coteje y te diga qué no amarra. El control sigue siendo tuyo, que era justo lo que te preocupaba.</div><div class="prompt">Te subo tres cosas: mi Excel de cuentas por cobrar, mi Excel de la chequera y el estado de cuenta del banco de este mes. Cotéjalos entre sí.
 
-    <div class="tarea"><input type="checkbox" data-t="s4"><div><div class="who">Lunes 3 · la suya</div><div class="tt">La obra de Patriotismo, peso por peso</div><div class="td">Esta es la que le va a servir de verdad. Empezó la remodelación el 1 de noviembre y van a entrar el electricista, el plomero, el pintor y el de la alfombra. El problema que nos contó es que luego no sabe si el gasto fue del departamento 1 o del 2. Cada vez que llegue un recibo, le toma foto y lo sube. El viernes le pregunta cuánto lleva en cada uno.</div><div class="prompt">Estoy remodelando {{depto}} y voy a irte subiendo los recibos de los contratistas conforme me lleguen: electricista, plomero, pintor, alfombra. Guárdame de cada uno: fecha, contratista, de qué fue, a qué departamento corresponde y cuánto. Si en el recibo no dice a qué departamento es, no lo adivines: pregúntame. Cuando yo te pida el corte, dame el total por departamento y por tipo de trabajo.<button class="copy">Copiar</button></div></div></div>
+No me llenes ni me modifiques nada. Solo dime: qué pagos aparecen en el banco y no están marcados en el Excel, qué está marcado como pagado y no aparece en el banco, y qué depósitos no logras asignarle a nadie. En los que no estés seguro no adivines: ponlos en una lista aparte de pendientes por revisar a mano.<button class="copy">Copiar</button></div><div class="td" style="margin-top:10px"><b>Cómo saber si sirvió.</b> En la clase ya vimos tres cosas que no amarran: Iván Guzmán aparecía como deudor y ya había pagado; el abono de 32 mil de Carmen Xochitl de junio vive en una nota aparte y no en el Excel; y Hospitales H aparece debiendo algo que todavía no se factura. Si las caza, ya ganamos. Si caza una cuarta que tú no tenías, mejor.</div></div></div>
 
-    <div class="tarea"><input type="checkbox" data-t="s5"><div><div class="who">Lunes 4 · lo que me pidió</div><div class="tt">Trabajar desde el coche</div><div class="td">Me dijo que su trabajo son diez Excels y Word, y que eso lo amarra al escritorio. Pruebe esto en el celular, parado en el tráfico: le dicta lo que necesita y Claude lo deja armado para cuando llegue. Sin tocar el teclado.</div><div class="prompt">Estoy en el coche y te voy a dictar. No me pidas que escriba nada. Apúntame esto que te voy a decir y cuando termine, déjame una lista ordenada de lo que hay que hacer, para que cuando llegue a la oficina ya nada más la revise.<button class="copy">Copiar</button></div></div></div>
-  </div>
-</section>
+      <div class="semana">Semana 2</div>
+      <div class="tarea"><input type="checkbox" data-t="moi2"><div><div class="tt">El convenio del mes, pero en un chat nuevo</div><div class="td">El convenio modificatorio de renta lo haces cada mes, y lo estás haciendo en el mismo chat de siempre, que ya está larguísimo. Hazlo este mes en un <b>chat nuevo</b>, dándole el contrato y nada más. Si sale igual de bien, ahí hay un skill y lo armamos juntos. Si sale peor, tráeme la diferencia: eso también nos dice qué hay que escribirle.</div><div class="prompt">Te subo el contrato vigente de [nombre del inquilino]. Hazme el convenio modificatorio de renta a partir del mes que entra, por un año, respetando las condiciones ya pactadas, aplicando el incremento acordado y ajustando el depósito en garantía en la misma proporción.
 
-<section class="module" id="tmoises">
-  <div class="wrap">
-    <div class="head"><div class="mico">📑</div><div><div class="badge">POCO TIEMPO, VA DE VIAJE</div><h3>Moisés</h3></div></div>
-    <p class="lead">Usted ya tiene el perfil puesto, Dropbox y Gmail conectados y el proyecto Cobranza creado. Así que su tarea no es montar nada, es ponerlo a prueba. Dos lunes, y el tercero es el premio.</p>
+Antes de calcular nada, dime qué porcentaje y qué depósito vas a usar y de dónde los sacaste, y espera mi confirmación.<button class="copy">Copiar</button></div></div></div>
 
-    <div class="tarea"><input type="checkbox" data-t="m1"><div><div class="who">Lunes 1 · la importante</div><div class="tt">El cotejo. Que lo revise, no que lo llene</div><div class="td">Suba el estado de cuenta del mes y su Excel de la chequera, y pida el cotejo contra el CxC. <b>Ojo con esto</b>: no le pida que llene nada, nada más que coteje y le diga qué no amarra. Usted conserva el control, que era justo lo que le preocupaba.</div><div class="prompt">Te subo tres cosas: mi Excel de cuentas por cobrar, mi Excel de la chequera y el estado de cuenta del banco de este mes. Cotéjalos entre sí. No me llenes ni me modifiques nada. Solo dime: qué pagos aparecen en el banco y no están marcados en el Excel, qué está marcado como pagado y no aparece en el banco, y qué depósitos no logras asignarle a nadie. En los que no estés seguro, no adivines: ponlos en una lista aparte de pendientes por revisar a mano.<button class="copy">Copiar</button></div><div class="td" style="margin-top:10px"><b>Cómo saber si sirvió:</b> en la clase ya vimos tres cosas que no amarran. Iván Guzmán aparecía como deudor y ya había pagado. El abono de 32 mil de Carmen Xochitl de junio vive en una nota aparte y no en el Excel. Y Hospitales H aparece debiendo algo que todavía no se ha facturado. Si Claude caza esas tres, ya ganamos. Si caza una cuarta que usted no tenía, mejor.</div></div></div>
+      <div class="semana">Semana 3 · la divertida</div>
+      <div class="tarea"><input type="checkbox" data-t="moi3"><div><div class="tt">El viaje a Israel, en su propio proyecto</div><div class="td">Esta es en serio la mejor manera de perderle el miedo, porque si se equivoca no pasa nada. Y de paso practicas lo de los proyectos: crea un proyecto nuevo que se llame <b>Viajes</b>, y adentro un chat que sea el de Israel. Así el día que planees otro viaje, ya sabe cómo viajas.</div><div class="prompt">Vamos a planear un viaje a Israel del [fecha] al [fecha].
 
-    <div class="tarea"><input type="checkbox" data-t="m2"><div><div class="who">Lunes 2</div><div class="tt">El convenio del mes, pero en un chat nuevo</div><div class="td">El convenio modificatorio de renta lo hace cada mes, y lo está haciendo en el mismo chat de siempre, que ya está larguísimo. Hágalo este mes en un <b>chat nuevo</b>, dándole el contrato y nada más. Si sale igual de bien, ya sabemos que ahí hay un skill y lo armamos juntos. Si sale peor, me trae la diferencia: eso también nos dice qué hay que escribirle.</div><div class="prompt">Te subo el contrato vigente de {{inquilino}}. Hazme el convenio modificatorio de renta a partir del mes que entra, por un año, respetando las condiciones ya pactadas, aplicando el incremento acordado y ajustando el depósito en garantía en la misma proporción. Antes de calcular, dime qué porcentaje y qué depósito vas a usar y de dónde los sacaste, y espera mi confirmación.<button class="copy">Copiar</button></div></div></div>
+Antes de proponerme nada, pregúntame: con quiénes voy, cómo es cada uno de ellos y qué le gusta o no le gusta hacer, y sobre todo qué partes de Israel ya conocemos. Vamos seguido, así que lo que ya hicimos mil veces no me sirve: quiero cosas que no hayamos hecho.
 
-    <div class="tarea"><input type="checkbox" data-t="m3"><div><div class="who">Lunes 3 · opcional y divertida</div><div class="tt">El viaje</div><div class="td">Va a Israel a fin de año. Úselo para eso, en serio: es la mejor manera de perderle el miedo, porque si se equivoca no pasa nada. Jacobo ya hizo su check in y le subió un boleto de avión para que le armara el vuelo en el calendario.</div><div class="prompt">Voy a Israel del [fecha] al [fecha]. Somos [cuántos] y nos interesa [comida, historia, caminar, museos]. Ármame el itinerario día por día con los restaurantes que valen la pena cerca de donde voy a estar, cuáles hay que reservar con anticipación y cuánto cuesta cada uno más o menos. Pregúntame lo que te falte antes de armarlo.<button class="copy">Copiar</button></div></div></div>
-  </div>
-</section>
+Cuando ya me hayas preguntado todo eso, ármame el itinerario día por día, con los restaurantes que valen la pena cerca de donde vamos a estar, cuáles hay que reservar con anticipación y cuánto cuesta cada uno más o menos.<button class="copy">Copiar</button></div></div></div>
+    </div>
 
-<section class="module" id="tjacobo">
-  <div class="wrap">
-    <div class="head"><div class="mico">🅿️</div><div><div class="badge">LOS QUE YA LE TRAEN RITMO</div><h3>Jacobo y Jacobo</h3></div></div>
-    <p class="lead">Ustedes ya vienen adelantados, uno con Claude pagado y skills hechos a mano desde hace años, el otro con ChatGPT. Su tarea es la que nos deja material para armar los skills de verdad.</p>
+    <!-- SALOMÓN -->
+    <div class="persona" data-p="salomon">
+      <div class="note"><b>El lunes trabajamos sobre la computadora de Moisés</b>, así que a ti te toca llegar al mismo punto en la tuya. Son cuatro semanas y cada una es cortita. Si te atoras en cualquier paso, mándame la captura por WhatsApp y lo resolvemos ahí mismo, no esperes a la clase.</div>
 
-    <div class="tarea"><input type="checkbox" data-t="j1"><div><div class="who">Lunes 1 · la que sirve para la siguiente clase</div><div class="tt">Cazar el corte de estacionamiento</div><div class="td">Escríbalo paso por paso, como si le estuviera enseñando a alguien que entró ayer. Qué datos se piden, en qué orden, qué se calcula, cómo se ve el resultado y cuál es el error típico que hay que cuidar. No lo arme en Claude todavía: escríbalo. Con eso en la mano, en la siguiente sesión el skill se arma en veinte minutos en vez de hora y media.</div><div class="prompt">Te voy a describir un proceso que hago igual cada semana. Antes de hacer nada, hazme preguntas hasta que lo entiendas completo: qué datos cambian cada vez, qué se calcula, cómo debe verse el resultado y qué errores hay que cuidar. Cuando ya lo tengas claro, escríbemelo como un procedimiento paso por paso, numerado, listo para que yo lo revise. Todavía no lo ejecutes.<button class="copy">Copiar</button></div></div></div>
+      <div class="semana">Semana 1 · quince minutos</div>
+      <div class="tarea"><input type="checkbox" data-t="sal1"><div><div class="tt">Dejar Claude puesto</div><div class="td">Los bloques <b>3, 4 y 5</b> de esta guía, en ese orden y con los pasos ya escritos: el perfil y las instrucciones, la privacidad y la memoria, conectar Dropbox, y dejar los permisos como deben quedar. Es todo lo que vimos el lunes en la pantalla, ahora en tu máquina.</div></div></div>
 
-    <div class="tarea"><input type="checkbox" data-t="j2"><div><div class="who">Lunes 2</div><div class="tt">El cotéjame, con sus números</div><div class="td">Usted lo pidió en clase con esas palabras: empieza por el cotéjame. Pues ahí está. Suba un estado de cuenta a Dropbox y pida el cotejo contra el Excel que ya conocemos. Anote qué encontró que no sabía.</div></div></div>
+      <div class="semana">Semana 2 · hablando, sin escribir</div>
+      <div class="tarea"><input type="checkbox" data-t="sal2"><div><div class="tt">Contarle quién eres</div><div class="td">Abre un chat, pícale al micrófono y cuéntaselo de viva voz, igual que un audio de WhatsApp: qué haces en el despacho, qué propiedades llevas, qué te quita tiempo. Sin teclado. Luego le pides que te lo resuma, para ver si entendió.</div><div class="prompt">Te acabo de contar a qué me dedico. Resúmeme en diez renglones qué entendiste de mi trabajo y qué te falta saber de mí para poder ayudarme bien. Guárdalo en tu memoria.<button class="copy">Copiar</button></div></div></div>
 
-    <div class="tarea"><input type="checkbox" data-t="j3"><div><div class="who">Lunes 1 · para el que tiene ChatGPT</div><div class="tt">Abrir Claude y traer la lista de documentos</div><div class="td">Dos cosas. Una: abrir la cuenta de Claude y dejar el perfil puesto con el bloque 3, para que la siguiente sesión no se nos vaya en configurar. Dos: usted propuso en clase automatizar el recolecte de documentos, porque siempre piden los mismos. Tráigalos escritos: qué documento, de quién, para qué sirve y en qué orden conviene pedirlo. Eso es un skill esperando a que lo armemos.</div></div></div>
+      <div class="semana">Semana 3 · la tuya</div>
+      <div class="tarea"><input type="checkbox" data-t="sal3"><div><div class="tt">La obra de Patriotismo, peso por peso</div><div class="td">Esta es la que te va a servir de verdad. Empezó la remodelación y van a entrar el electricista, el plomero, el pintor y el de la alfombra, y lo que nos contaste es que luego no sabes si el gasto fue del departamento 1 o del 2. <b>Empieza preguntándole a él cómo lo armaría</b>, y tú decides si te gusta o no. Después, cada vez que llegue un recibo, le tomas foto y lo subes.</div><div class="prompt">Estoy remodelando un departamento y voy a tener varios contratistas al mismo tiempo: electricista, plomero, pintor y alfombra. Mi problema es que luego no sé cuánto le metí a cada departamento porque se me revuelven los gastos.
 
-    <div class="tarea"><input type="checkbox" data-t="j4"><div><div class="who">Los cuatro · antes de la siguiente sesión</div><div class="tt">Cómo quieren sus proyectos</div><div class="td">El bloque 7 trae mi propuesta: Cobranza, Contratos, Prospectos y Obra. Cada quien la acomoda a su cabeza y la trae escrita. No hay respuesta correcta, hay la que a cada uno le funcione.</div></div></div>
+Antes de proponerme nada, pregúntame cómo trabajo hoy y qué me gustaría poder contestar al final del mes. Cuando lo entiendas, propónme dos o tres formas distintas de llevar el control y explícame las ventajas de cada una, para que yo escoja. No escojas tú.<button class="copy">Copiar</button></div></div></div>
+
+      <div class="semana">Semana 4 · lo que me pediste</div>
+      <div class="tarea"><input type="checkbox" data-t="sal4"><div><div class="tt">Trabajar desde el coche</div><div class="td">Me dijiste que tu trabajo son diez Excels y Word, y que eso te amarra al escritorio. Prueba esto en el celular, parado en el tráfico: le dictas y Claude lo deja armado para cuando llegues. Sin tocar el teclado.</div><div class="prompt">Estoy en el coche y te voy a dictar. No me pidas que escriba nada.
+
+Apúntame esto que te voy a decir y cuando termine, déjame una lista ordenada de lo que hay que hacer, para que cuando llegue a la oficina nada más la revise.<button class="copy">Copiar</button></div></div></div>
+    </div>
+
+    <!-- JACOBO SB (de Moisés) -->
+    <div class="persona" data-p="jacobosb">
+      <div class="note"><b>Tú todavía no tienes Claude</b>, estás en ChatGPT. Así que tu primera tarea es la misma que la de Salomón: abrir la cuenta y dejarla puesta. La buena noticia es que a ti esto se te va a hacer rapidísimo.</div>
+
+      <div class="semana">Semana 1 · quince minutos</div>
+      <div class="tarea"><input type="checkbox" data-t="sb1"><div><div class="tt">Abrir Claude y dejarlo puesto</div><div class="td">Crea tu cuenta y haz los bloques <b>3, 4 y 5</b>: perfil e instrucciones, privacidad y memoria, conectar lo que uses, y los permisos. No tires ChatGPT, los dos pueden convivir. Pero lo que vamos a construir en la siguiente clase vive aquí.</div></div></div>
+
+      <div class="semana">Semana 2</div>
+      <div class="tarea"><input type="checkbox" data-t="sb2"><div><div class="tt">Contarle quién eres y soltarlo sobre un archivo</div><div class="td">Cuéntale a qué te dedicas y qué llevas tú del despacho. Luego conéctale el Dropbox y pregúntale tres cosas sobre un archivo que ya conozcas, de esas cuyas respuestas ya te sabes. La gracia no es que te enseñe algo: es que tú lo califiques.</div><div class="prompt">Te subí un archivo que yo conozco bien. Antes de contestarme nada, dime qué entendiste: qué hay en cada hoja, qué significa cada columna y qué te falta para poder ayudarme bien. Si algo no te queda claro, pregúntame en vez de suponerlo.<button class="copy">Copiar</button></div></div></div>
+
+      <div class="semana">Semana 3 · tu idea</div>
+      <div class="tarea"><input type="checkbox" data-t="sb3"><div><div class="tt">La lista de documentos que siempre piden</div><div class="td">En clase propusiste automatizar la recolección de documentos, porque siempre piden los mismos. Tráela escrita: qué documento, a quién se le pide, para qué sirve, cuánta vigencia tiene que tener y en qué orden conviene pedirlo. Eso es un skill esperando a que lo armemos, y lo armamos juntos.</div></div></div>
+    </div>
+
+    <!-- JACOBO SM (de Salomón) -->
+    <div class="persona" data-p="jacobosm">
+      <div class="note"><b>Tú vienes adelantado:</b> ya pagas Claude, ya conectaste cosas y ya hiciste skills a mano con Python hace años. Tus tareas son las que nos dejan material para armar los skills de verdad en la siguiente clase.</div>
+
+      <div class="semana">Semana 1 · la que más sirve para la siguiente clase</div>
+      <div class="tarea"><input type="checkbox" data-t="sm1"><div><div class="tt">Cazar el corte de estacionamiento</div><div class="td">Escríbelo paso por paso, como si le estuvieras enseñando a alguien que entró ayer: qué datos se piden, en qué orden, qué se calcula, cómo se ve el resultado y cuál es el error típico que hay que cuidar. <b>No lo armes todavía</b>, nada más escríbelo. Con eso en la mano, en clase el skill sale en veinte minutos en vez de hora y media.</div><div class="prompt">Te voy a describir un proceso que hago igual cada semana.
+
+Antes de hacer nada, hazme preguntas hasta que lo entiendas completo: qué datos cambian cada vez, qué se calcula, cómo debe verse el resultado y qué errores hay que cuidar. Cuando ya lo tengas claro, escríbemelo como un procedimiento paso por paso, numerado, listo para que yo lo revise. Todavía no lo ejecutes.<button class="copy">Copiar</button></div></div></div>
+
+      <div class="semana">Semana 2</div>
+      <div class="tarea"><input type="checkbox" data-t="sm2"><div><div class="tt">El cotéjame, con tus números</div><div class="td">Lo pediste en clase con esas palabras: empieza por el cotéjame. Pues ahí está. Sube un estado de cuenta a Dropbox y pide el cotejo contra el Excel. Anota qué encontró que tú no sabías, porque eso es lo que vamos a automatizar.</div><div class="prompt">Te subo un estado de cuenta del banco y el Excel donde llevo el control. Cotéjalos y no me modifiques nada.
+
+Dime qué aparece en el banco y no está en el Excel, qué está en el Excel y no aparece en el banco, y qué movimientos no logras identificar. Los que no puedas asignar con seguridad, déjalos en una lista aparte para que yo los revise.<button class="copy">Copiar</button></div></div></div>
+
+      <div class="semana">Semana 3</div>
+      <div class="tarea"><input type="checkbox" data-t="sm3"><div><div class="tt">Qué quieres ver en el dashboard</div><div class="td">Propusiste el dashboard de disponibilidad de locales, el que mandas cada tres o cuatro meses. Tráelo pensado: qué quieres ver de un golpe, quién debería poder entrar y quién no, y cada cuánto tendría que actualizarse. Con eso lo montamos en la siguiente sesión.</div></div></div>
+    </div>
+
+    <div class="carril">Para los cuatro, antes de la siguiente sesión</div>
+    <div class="tarea"><input type="checkbox" data-t="todos1"><div><div class="tt">Cómo quieres tus proyectos</div><div class="td">El bloque 7 trae cómo los dividiría yo, pero esa es mi cabeza. Trae escrita la tuya, la que te haga sentido a ti. No hay respuesta correcta y no hay que entregar nada bonito: unos renglones en una hoja alcanzan.</div></div></div>
   </div>
 </section>
 
@@ -574,13 +620,13 @@
 <section class="module" id="sigue">
   <div class="wrap">
     <div class="head"><div class="mico">🗺️</div><div><div class="badge">PENDIENTES</div><h3>Lo que sigue</h3></div></div>
-    <p class="lead">Lo que quedó en el tintero, sin fecha todavía. Cuando sepamos cuándo están los cuatro en la ciudad, armamos la Sesión 2 con lo que salga de su bitácora y de esta lista.</p>
+    <p class="lead">Lo que todavía no vemos, sin fecha por ahora. Cuando sepamos cuándo están los cuatro en la ciudad, armamos la Sesión 2 con lo que salga de su bitácora y de esta lista.</p>
     <div class="casos">
       <div class="caso">
         <div class="caso-h"><span class="tag">Sesión 2</span></div>
         <ul>
           <li><b>Excel y dashboards.</b> Lo que más pidieron. Con las laptops de todos y cada quien sobre su propio archivo.</li>
-          <li><b>El dashboard de disponibilidad</b> que propuso Jacobo, compartido entre ustedes y con permisos de quién ve qué.</li>
+          <li><b>El dashboard de disponibilidad</b> que propuso Jacobo SM, compartido entre ustedes y con permisos de quién ve qué.</li>
           <li><b>Armar los skills</b> con lo que hayan escrito: el corte de estacionamiento y el machote de arrendamiento.</li>
           <li><b>El cotejo automático de los lunes</b>, para los que hayan hecho la tarea del cotejo.</li>
         </ul>
@@ -590,7 +636,6 @@
         <ul>
           <li><b>Claude en Chrome.</b> Es lo mejor que hay y se come los tokens igual de rápido. Se los enseño, pero con el plan pagado puesto.</li>
           <li><b>Microsoft 365</b>, con los accesos a la mano.</li>
-          <li><b>La mudanza del correo</b> de Telmex a Google Workspace. Son ocho cuentas y quince años de correo: es un proyecto, no un módulo. Se los coticé por separado.</li>
           <li><b>Tapar los datos sensibles</b> de los estados de cuenta antes de subirlos, si lo quieren.</li>
         </ul>
       </div>
@@ -620,7 +665,7 @@
         <li><b>Nadie trajo laptop</b> y la tele no tiene internet. Se fue el arranque en AirPlay y Apple TV. Para la próxima: confirmar laptops por WhatsApp dos días antes, y llevar mi HDMI.</li>
         <li><b>Moisés está en el plan gratis.</b> Por eso no se vio el medidor de uso ni se pudo hablar de carpetas locales. Las tareas de estas semanas están diseñadas para correr en gratis a propósito.</li>
         <li><b>El 365 no conectó</b> por los accesos. No insistir en vivo nunca más: se resuelve antes o se saca del temario.</li>
-        <li><b>Cuatro niveles muy distintos.</b> Por eso las tareas van por nombre y no parejas.</li>
+        <li><b>Cuatro niveles muy distintos.</b> Moisés con todo montado, Salomón empezando de cero, Jacobo SM adelantadísimo y Jacobo SB todavía en ChatGPT sin cuenta de Claude. Por eso las tareas van en pestañas por persona y no parejas.</li>
         <li><b>Fugas de tiempo:</b> la migración del correo, la genealogía, el parquímetro. Para la próxima, la agenda a la vista y el correo fuera de la clase.</li>
       </ul>
     </div>
@@ -642,11 +687,13 @@
     <div class="sub">
       <div class="sh"><span class="sn">4</span><h4>Pendientes míos</h4></div>
       <ul class="steps">
-        <li>Mandar esta guía al grupo de WhatsApp que armó Jacobo.</li>
+        <li>Mandar esta guía al grupo de WhatsApp que armó Jacobo SM.</li>
         <li>Decirles las dos condiciones de la siguiente sesión: laptops y HDMI.</li>
         <li>Empujar a Moisés al plan pagado antes de la Sesión 2, o la mitad del taller no le va a correr.</li>
         <li>Preguntar si quieren el script para enmascarar estados de cuenta.</li>
-        <li>Termómetro: quién manda captura al grupo las primeras dos semanas. Si Salomón no manda nada en la semana 1, hablarle.</li>
+        <li>Termómetro: quién manda captura al grupo las primeras dos semanas. Si Salomón o Jacobo SB no mandan nada en la semana 1, hablarles. Son los dos que arrancan de cero.</li>
+        <li>Checar cómo se llama exactamente el archivo de cuentas por cobrar en el Dropbox de Moisés, para dejar el prompt del bloque 9 exacto.</li>
+        <li>El correo de Telmex lo saqué de la guía: queda pendiente mío revisarlo y platicarlo aparte.</li>
       </ul>
     </div>
   </div>
@@ -657,7 +704,7 @@
   btn.addEventListener('click',function(){var dark=root.getAttribute('data-theme')==='dark';root.setAttribute('data-theme',dark?'light':'dark');btn.textContent=dark?'🌙 Oscuro':'☀️ Claro';});
 
   /* campos que se guardan solos */
-  var FIELDS=['inquilino','depto','archivo'];
+  var FIELDS=[];
   var store={};
   FIELDS.forEach(function(k){
     try{store[k]=localStorage.getItem('sev_'+k)||'';}catch(e){store[k]='';}
@@ -721,6 +768,23 @@
       try{localStorage.setItem(k,t.value);}catch(e){}
     });
   });
+
+  /* pestanas por persona */
+  var tabBtns=[].slice.call(document.querySelectorAll('.tabs button'));
+  var panels=[].slice.call(document.querySelectorAll('.persona'));
+  function verPersona(k){
+    tabBtns.forEach(function(b){b.classList.toggle('on',b.getAttribute('data-p')===k);});
+    panels.forEach(function(p){p.classList.toggle('on',p.getAttribute('data-p')===k);});
+    try{localStorage.setItem('sev_persona',k);}catch(e){}
+  }
+  tabBtns.forEach(function(b){
+    b.addEventListener('click',function(){verPersona(b.getAttribute('data-p'));});
+  });
+  (function(){
+    var k=null; try{k=localStorage.getItem('sev_persona');}catch(e){}
+    var existe=tabBtns.some(function(b){return b.getAttribute('data-p')===k;});
+    verPersona(existe?k:(tabBtns[0]?tabBtns[0].getAttribute('data-p'):null));
+  })();
 
   /* nav activo */
   var links=Array.prototype.slice.call(document.querySelectorAll('#navlinks a')),map={};
